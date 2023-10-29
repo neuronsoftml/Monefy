@@ -49,6 +49,7 @@
     <string name="text_modal_view_select_type_billings">Виберіть тип рахунка</string>
     <string name="text_modal_view_select_type_currencies">Виберіть тип валюти</string>
     <string name="text_modal_view_select_billings_balance">Баланс рахунку</string>
+    <string name="text_modal_view_select_billings_credit_limit">Кредитний ліміт</string>
 
     <string name="link_singIn">Увійти</string>
     <string name="link_forgot_password">Забули пароль?</string>

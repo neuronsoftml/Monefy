@@ -247,7 +247,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/button_type_balance"
+                android:id="@+id/liner_layout_credit_limit"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:gravity="center_vertical"

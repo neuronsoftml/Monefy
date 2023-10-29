@@ -11,4 +11,8 @@ public  class ToastManager {
     public static void showToastOnFailureChanges(Context context){
         Toast.makeText(context, "Під час операції виникла помилка", Toast.LENGTH_SHORT).show();
     }
+
+    public static void showToastOnSuccessfulCalculations(Context context){
+        Toast.makeText(context, "Успішно обчислили", Toast.LENGTH_SHORT).show();
+    }
 }
