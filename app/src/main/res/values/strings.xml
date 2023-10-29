@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">Monefy</string>
+    <string name="text_button_nav_menu_billings">Рахунки</string>
+    <string name="text_button_nav_menu_categories">Категорії</string>
+    <string name="text_button_nav_menu_operations">Операції</string>
+    <string name="text_button_nav_menu_review">Огляд</string>
+    <string name="text_button_nav_menu_profile">Профіль</string>
+
+    <string name="title_sign_up">Реєстрація</string>
+    <string name="title_sign_in">Авторизація користувачів</string>
+    <string name="title_create_user">Створити нового користувача</string>
+    <string name="title_page_profile">Мій профіль</string>
+
+    <string name="text_view_billings">Рахунки</string>
+    <string name="text_view_billing">Рахунок</string>
+    <string name="text_view_balance">Баланс</string>
+    <string name="text_view_savings">Заощадження</string>
+    <string name="text_view_new_billings">Новий рахунок</string>
+    <string name="text_view_type_billings">Тип</string>
+    <string name="text_view_type_currency">Валюта рахунку</string>
+    <string name="text_view_balance_billing">Баланс рахунку</string>
+    <string name="text_view_credit_limit">Кредитний ліміт</string>
+
+    <string name="button_signUp_facebook">Увійти за допомогою Facebook</string>
+    <string name="button_signUp_emailOrPhone">email або номер телефона</string>
+    <string name="button_signIn">Увійти</string>
+    <string name="button_next">продовжити</string>
+    <string name="button_reset_password">відновити пароль</string>
+    <string name="button_text_next_send_message">відправити листа</string>
+    <string name="button_text_add_billings">Добавити рахунок</string>
+    <string name="button_text_add_target">Додати ціль</string>
+    <string name="button_text_type_billings_ordinary">Звичайний</string>
+    <string name="button_text_type_billings_debt">Борговий</string>
+    <string name="button_text_type_billings_cumulative">Накопичувальний</string>
+
+    <string name="description_signUp">виберіть один із варіантів створення користувача</string>
+    <string name="description_have_account">У вас вже є профіль?</string>
+    <string name="description_singUp_input_date">Вкажіть свою email адресу та пароль</string>
+    <string name="description_singUp_input_verification_email">На вашу електрону скриньку  ми відправили листа з підтвердженням реєстрації, вам необхідно зайти у вашу електрону скриньку та підтвердити реєстрацію.</string>
+    <string name="description_reset_password">Для того щоб відновити ваш пароль, ведіть адресу електронної скриньки та ми надішлемо вам на email листа з інструкцією по відновленню пароля.</string>
+
+    <string name="text_switch_remember_me">Запам\'ятати мене</string>
+    <string name="text_load_date">завантаження даних..</string>
+
+    <string name="text_edit_hint_email">Email</string>
+    <string name="text_edit_hint_password">password</string>
+    <string name="text_edit_hint_name_billings">Ім\'я рахунку</string>
+
+    <string name="text_modal_view_select_type_billings">Виберіть тип рахунка</string>
+    <string name="text_modal_view_select_type_currencies">Виберіть тип валюти</string>
+    <string name="text_modal_view_select_billings_balance">Баланс рахунку</string>
+
+    <string name="link_singIn">Увійти</string>
+    <string name="link_forgot_password">Забули пароль?</string>
+
+    <string name="error_message_text_email">Невідомий тип електронної адреси, рекомендуємо використовувати @gmail.com</string>
+    <string name="error_message_text_verification_email">Ви не підтвердили свою електронну скриньку.</string>
+    <string name="error_message_text_create_new_user">Схоже що такий користувач вже їснує</string>
+    <string name="error_message_text_password">Пароль має містити більше 12 символів</string>
+    <string name="error_message_text_password_or_email">Неправильний пароль або email перевірте свої дані ще раз.</string>
+    <string name="error_message_text_not_found_email">схоже такого користувача з таким email адресою не їснує.</string>
+
+    <string name="successfully_message_text_send_email">Лист успішно був відправлений на email</string>
+
+
+    <string name="button_number_zero">0</string>
+    <string name="button_number_one">1</string>
+    <string name="button_number_two">2</string>
+    <string name="button_number_three">3</string>
+    <string name="button_number_four">4</string>
+    <string name="button_number_five">5</string>
+    <string name="button_number_six">6</string>
+    <string name="button_number_seven">7</string>
+    <string name="button_number_eight">8</string>
+    <string name="button_number_nine">9</string>
+</resources>

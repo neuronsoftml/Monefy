@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/modal_dialog_bg_lite_v2"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_modal_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="@string/text_modal_view_select_billings_balance"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/balance_billings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_number_zero"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icon_type_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/icon_money_ukraine_hryvnia"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/balance_billings"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:id="@+id/elementKeyboard"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonZero"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:textSize="20sp"
+                android:text="@string/button_number_zero" />
+
+            <Button
+                android:id="@+id/buttonOne"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:textSize="20sp"
+                android:text="@string/button_number_one"/>
+            <Button
+                android:id="@+id/buttonTwo"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:textSize="20sp"
+                android:text="@string/button_number_two" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/buttonThree"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:textSize="20sp"
+                android:text="@string/button_number_three"/>
+
+            <Button
+                android:id="@+id/buttonFour"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:textSize="20sp"
+                android:text="@string/button_number_four"/>
+
+            <Button
+                android:id="@+id/buttonFive"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:textSize="20sp"
+                android:text="@string/button_number_five"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/buttonSix"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:textSize="20sp"
+                android:text="@string/button_number_six"/>
+
+            <Button
+                android:id="@+id/buttonSeven"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:textSize="20sp"
+                android:text="@string/button_number_seven" />
+
+            <Button
+                android:id="@+id/buttonEight"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:textSize="20sp"
+                android:text="@string/button_number_eight"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonNine"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:textSize="20sp"
+                android:text="@string/button_number_nine" />
+
+
+            <ImageButton
+                android:id="@+id/buttonDivision"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:src="@drawable/icon_division_symbol_svgrepo_com"/>
+
+            <ImageButton
+                android:id="@+id/buttonMultiplication"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:src="@drawable/icon_multiplication_svgrepo" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/buttonSubtraction"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:src="@drawable/icon_subtraction_svgrepo" />
+
+            <ImageButton
+                android:id="@+id/buttonAddition"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_gray_square"
+                android:src="@drawable/icon_addition_svgrepo"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/buttonDelete"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_gray_square"
+            android:src="@drawable/icon_baseline_backspace_34"
+            android:backgroundTint="@color/red"
+            />
+
+        <ImageButton
+            android:id="@+id/buttonSetUp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button_gray_square"
+            android:backgroundTint="@color/green"
+            android:src="@drawable/icon_baseline_check_34"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>
