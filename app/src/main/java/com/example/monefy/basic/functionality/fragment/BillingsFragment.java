@@ -19,6 +19,9 @@ import android.widget.ListView;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.BillingsListAdapter;
+import com.example.monefy.basic.functionality.adapter.OnItemClickListener;
+import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalAccount;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
 import com.example.monefy.basic.functionality.model.Billings;
 import com.example.monefy.basic.functionality.model.TypeBillings;
@@ -57,8 +60,10 @@ public class BillingsFragment extends Fragment {
 
     private List<Billings> billings = new ArrayList<>();
 
+    private BillingsListAdapter billingsListAdapter;
+
     private void showBillingsList(){
-        BillingsListAdapter billingsListAdapter = new BillingsListAdapter(getContext(),billings);
+        billingsListAdapter = new BillingsListAdapter(getContext(),billings);
         listView.setAdapter(billingsListAdapter);
     }
 
@@ -73,6 +78,7 @@ public class BillingsFragment extends Fragment {
                         billings.clear();
                         billings.addAll(billingsList);
                         showBillingsList();
+                        handlerClickItemListBillings();
                         Log.v("list", String.valueOf(billings.size()));
                     }
 
@@ -94,12 +100,32 @@ public class BillingsFragment extends Fragment {
         clickButtonAddBillings();
     }
 
+    private void handlerClickItemListBillings() {
+        billingsListAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(Billings billings) {
+                ModalAccount modalAccount = new ModalAccount(getContext(),billings);
+                modalAccount.modalStart(new DialogCallback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onFailure(Exception exception) {
+
+                    }
+                });
+            }
+        });
+    }
+
     private void clickButtonAddBillings(){
         buttonAddBillings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ModalTypeBillings modalTypeBillings = new ModalTypeBillings(getContext());
-                modalTypeBillings.modalStart(new ModalTypeBillings.InConclusionCompleteListener() {
+                modalTypeBillings.modalStart(new DialogCallback() {
                     @Override
                     public void onSuccess() {
                         replaceFragmentToDate(modalTypeBillings.getUpdateData());

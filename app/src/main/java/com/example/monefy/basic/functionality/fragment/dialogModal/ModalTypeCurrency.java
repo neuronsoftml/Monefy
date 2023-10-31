@@ -18,7 +18,7 @@ import com.example.monefy.tools.message.ToastManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModalTypeCurrency {
+public class ModalTypeCurrency implements DialogModal{
 
     private String updateData;
     private LinearLayout elementTypeCurrencies;
@@ -30,17 +30,19 @@ public class ModalTypeCurrency {
         this.context = context;
     }
 
-    public void modalStart( ModalTypeCurrency.InConclusionCompleteListener listener){
+    @Override
+    public void modalStart(DialogCallback dialogCallback){
         showDialogModal();
         createButtonDialogModal();
         setupUIDialogModal();
-        handlerButtonDialogModal(listener);
+        handlerButtonDialogModal(dialogCallback);
     }
 
-    private void showDialogModal() {
+    @Override
+    public void showDialogModal() {
         dialogModal = new Dialog(context);
         dialogModal.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogModal.setContentView(R.layout.model_bootom_type_currencies);
+        dialogModal.setContentView(R.layout.model_bottom_type_currencies);
         dialogModal.show();
         dialogModal.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -69,7 +71,8 @@ public class ModalTypeCurrency {
         return button;
     }
 
-    private void setupUIDialogModal(){
+    @Override
+    public void setupUIDialogModal(){
         for (int i = 0; i < elementTypeCurrencies.getChildCount(); i++) {
             View childView = elementTypeCurrencies.getChildAt(i);
 
@@ -79,15 +82,16 @@ public class ModalTypeCurrency {
         }
     }
 
-    private void handlerButtonDialogModal(InConclusionCompleteListener listener) {
+    @Override
+    public void handlerButtonDialogModal(DialogCallback dialogCallback) {
         for (Button button : buttonListModalTypeCurrency) {
             button.setOnClickListener(v -> {
                 for (TypeCurrency typeCurrency : TypeCurrency.values()) {
                     if (button.getText().toString().equals(typeCurrency.getTypeCurrencyTitle())) {
 
-                        if(listener != null){
+                        if(dialogCallback != null){
                             updateData = typeCurrency.getTypeCurrencyTitle();
-                            listener.onSuccess();
+                            dialogCallback.onSuccess();
                         }
                         dialogModal.cancel();
                         ToastManager.showToastOnSuccessfulChanges(context);
@@ -100,9 +104,5 @@ public class ModalTypeCurrency {
     public String getUpdateData(){
         return updateData;
     }
-
-    public interface InConclusionCompleteListener {
-        void onSuccess();
-        void onFailure(Exception exception);
-    }
 }
+

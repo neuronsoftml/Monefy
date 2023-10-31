@@ -32,6 +32,12 @@
     <string name="button_text_type_billings_ordinary">Звичайний</string>
     <string name="button_text_type_billings_debt">Борговий</string>
     <string name="button_text_type_billings_cumulative">Накопичувальний</string>
+    <string name="button_text_modal_edit_account">Редагувати</string>
+    <string name="button_text_modal_replenish_account">Поповнити</string>
+    <string name="button_text_modal_write_off_account">Списати</string>
+    <string name="button_text_modal_share_account">Переказати</string>
+    <string name="button_text_modal_operations_account">Операції</string>
+    <string name="button_text_modal_delete_account">Видалити</string>
 
     <string name="description_signUp">виберіть один із варіантів створення користувача</string>
     <string name="description_have_account">У вас вже є профіль?</string>

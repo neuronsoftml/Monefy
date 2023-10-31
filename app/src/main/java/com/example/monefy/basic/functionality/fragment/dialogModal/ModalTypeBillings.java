@@ -13,7 +13,7 @@ import android.widget.Button;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.TypeBillings;
 
-public class ModalTypeBillings {
+public class ModalTypeBillings implements DialogModal {
     private Dialog dialogModal;
     private Button buttonOrdinary, buttonDebt, buttonCumulative;
     private Context context;
@@ -23,16 +23,18 @@ public class ModalTypeBillings {
         this.context = context;
     }
 
-    public void modalStart(InConclusionCompleteListener listener){
+    @Override
+    public void modalStart(DialogCallback dialogCallback){
         showDialogModal();
-        setupUIDialogModalTypeBillings();
-        handlerButtonDialogModal(listener);
+        setupUIDialogModal();
+        handlerButtonDialogModal(dialogCallback);
     }
 
-    private void showDialogModal() {
+    @Override
+    public void showDialogModal() {
         dialogModal = new Dialog(context);
         dialogModal.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogModal.setContentView(R.layout.model_bootom_type_billings);
+        dialogModal.setContentView(R.layout.model_bottom_type_billings);
         dialogModal.show();
         dialogModal.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -40,7 +42,8 @@ public class ModalTypeBillings {
         dialogModal.getWindow().setGravity(Gravity.BOTTOM);
     }
 
-    private void setupUIDialogModalTypeBillings() {
+    @Override
+    public void setupUIDialogModal() {
         buttonOrdinary = dialogModal.findViewById(R.id.button_ordinary);
         buttonDebt = dialogModal.findViewById(R.id.button_debt);
         buttonCumulative = dialogModal.findViewById(R.id.button_cumulative);
@@ -50,54 +53,50 @@ public class ModalTypeBillings {
         return updateData;
     }
 
-    private void handlerButtonDialogModal(InConclusionCompleteListener listener){
-        clickButtonOrdinary(listener);
-        clickButtonDebt(listener);
-        clickButtonCumulative(listener);
+    @Override
+    public void handlerButtonDialogModal(DialogCallback dialogCallback){
+        clickButtonOrdinary(dialogCallback);
+        clickButtonDebt(dialogCallback);
+        clickButtonCumulative(dialogCallback);
     }
 
-    private void clickButtonOrdinary(InConclusionCompleteListener listener){
+    private void clickButtonOrdinary(DialogCallback dialogCallback){
         buttonOrdinary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listener != null){
+                if(dialogCallback != null){
                     updateData = TypeBillings.ORDINARY.getTypeBillingsTitle();
-                    listener.onSuccess();
+                    dialogCallback.onSuccess();
                     dialogModal.cancel();
                 }
             }
         });
     };
 
-    private void clickButtonDebt(InConclusionCompleteListener listener){
+    private void clickButtonDebt(DialogCallback dialogCallback){
         buttonDebt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listener != null){
+                if(dialogCallback != null){
                     updateData = TypeBillings.DEBT.getTypeBillingsTitle();
-                    listener.onSuccess();
+                    dialogCallback.onSuccess();
                     dialogModal.cancel();
                 }
             }
         });
     };
 
-    private void clickButtonCumulative(InConclusionCompleteListener listener){
+    private void clickButtonCumulative(DialogCallback dialogCallback){
         buttonCumulative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listener != null){
+                if(dialogCallback != null){
                     updateData = TypeBillings.CUMULATIVE.getTypeBillingsTitle();
-                    listener.onSuccess();
+                    dialogCallback.onSuccess();
                     dialogModal.cancel();
                 }
             }
         });
     };
 
-
-    public interface InConclusionCompleteListener {
-        void onSuccess();
-        void onFailure(Exception exception);
-    }
 }

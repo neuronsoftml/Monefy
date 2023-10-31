@@ -38,12 +38,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <TextView
             android:id="@+id/icon_type_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:text="UAH"
             android:layout_marginStart="5dp"
-            android:src="@drawable/icon_money_ukraine_hryvnia"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/balance_billings"
             app:layout_constraintTop_toTopOf="parent" />

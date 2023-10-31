@@ -3,11 +3,11 @@ package com.example.monefy.basic.functionality.model;
 import com.example.monefy.R;
 
 public enum TypeCurrency {
-    EUR("ЄВРО"),
-    USD("ДОЛАР"),
-    UAH("ГРИВНЯ")
+    EUR("EUR"),
+    USD("USD"),
+    UAH("UAH")
     ;
-    private String title;
+    private final String title;
 
     TypeCurrency(String title) {
         this.title = title;
@@ -22,13 +22,13 @@ public enum TypeCurrency {
     }
 
     public int getIdIconTypeCurrency(){
-        if(title.equals("ЄВРО")){
+        if(title.equals(TypeCurrency.EUR.getTypeCurrencyTitle())){
             return R.drawable.icon_money_euro;
         }
-        else if(title.equals("ДОЛАР")){
+        else if(title.equals(TypeCurrency.USD.getTypeCurrencyTitle())){
             return R.drawable.icon_money_usd;
         }
-        else if(title.equals("ГРИВНЯ")){
+        else if(title.equals(TypeCurrency.UAH.getTypeCurrencyTitle())){
             return R.drawable.icon_money_ukraine_hryvnia;
         }
         return R.drawable.icon_money_usd;

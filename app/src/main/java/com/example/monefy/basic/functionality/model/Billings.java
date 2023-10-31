@@ -35,11 +35,11 @@ public class Billings {
 
     public int getIdImageTypeBillings(String typeBillings){
         if(typeBillings.equals("Звичайний")){
-            return R.drawable.icon_money_svgrepo_com;
+            return R.drawable.icon_credit_card_blue;
         } else if (typeBillings.equals("Борговий")) {
-            return R.drawable.icon_benefit_svgrepo_com;
+            return R.drawable.icon_credit_card_red;
         } else if (typeBillings.equals("Накопичувальний")){
-            return R.drawable.icon_savings_svgrepo_com;
+            return R.drawable.icon_credit_card_gold;
         }
         return 0;
     }

@@ -1,6 +1,7 @@
 package com.example.monefy.tools.firebase;
 
 import android.app.Activity;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -8,13 +9,16 @@ import com.example.monefy.basic.functionality.model.Billings;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FirebaseManager {
 
@@ -129,6 +133,7 @@ public class FirebaseManager {
                 });
     }
 
+
     public interface OnUserDataCallback {
         void onUserDataReceived(DocumentSnapshot documentSnapshot);
 
@@ -137,11 +142,41 @@ public class FirebaseManager {
         void onUserDataError(Exception e);
 
     }
+
     public interface OnBillingsCallback{
         void onBillingsDataReceived(List<Billings> billingsList);
 
         void onBillingsDataNotFound();
 
         void onBillingsDataError(Exception e);
+    }
+
+    public static void addBilling(FirebaseFirestore db,String userId, long balance, long creditLimit, String name, String typeBillings, String typeCurrency ,final  FirebaseManager.InConclusionCompleteListener listener) {
+        CollectionReference billingsCollection = db
+                .collection("Users")
+                .document(userId)
+                .collection("billings");
+
+        Map<String, Object> billingData = new HashMap<>();
+        billingData.put("balance", balance);
+        billingData.put("creditLimit", creditLimit);
+        billingData.put("name", name);
+        billingData.put("typeBillings", typeBillings);
+        billingData.put("typeCurrency", typeCurrency);
+
+        billingsCollection.add(billingData)
+                .addOnSuccessListener(documentReference -> {
+                    // Успішно додано новий рахунок
+                    if(listener != null){
+                        listener.onSuccess();
+                    }
+                    String billingId = documentReference.getId();
+                })
+                .addOnFailureListener(e -> {
+                    // Помилка додавання рахунку
+                    if(listener != null){
+                        listener.onFailure(e);
+                    }
+                });
     }
 }

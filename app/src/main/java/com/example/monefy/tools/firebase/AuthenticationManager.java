@@ -19,10 +19,9 @@ public class AuthenticationManager {
         return currentUser;
     }
 
-    public  String getUserId(){
+    public String getUserId(){
         return currentUser.getUid();
     }
-
 
     public String getEmail(){
         return currentUser.getEmail();
