@@ -91,4 +91,8 @@ public class BillingsListAdapter extends BaseAdapter {
     public Billings getBillings(int position) {
         return arrayList.get(position);
     }
+
+    public void removeBillings(Billings billing){
+        arrayList.remove(billing);
+    }
 }

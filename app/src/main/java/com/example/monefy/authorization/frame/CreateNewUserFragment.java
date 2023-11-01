@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.monefy.R;
+import com.example.monefy.tools.firebase.InConclusionCompleteListener;
 import com.example.monefy.tools.firebase.FirebaseManager;
 import com.example.monefy.tools.input.EmailValidator;
 import com.example.monefy.tools.input.PasswordValidator;
@@ -97,7 +98,7 @@ public class CreateNewUserFragment extends Fragment{
                 getActivity(),
                 email,
                 password,
-                new FirebaseManager.InConclusionCompleteListener() {
+                new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {
                         navigationFragmentToVerification(email,password);

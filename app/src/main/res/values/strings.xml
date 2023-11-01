@@ -69,6 +69,10 @@
 
     <string name="successfully_message_text_send_email">Лист успішно був відправлений на email</string>
 
+    <string name="toast_text_message_successful_entered_the_data">Успішно внесли данні</string>
+    <string name="toast_text_message_failure_entered_the_data">Підчас запису даних виникла помилка</string>
+    <string name="toast_text_message_successful_delete_billings">Успішно видалили рахунок</string>
+    <string name="toast_text_message_failure_delete_billings">Виникла помилка, рахунок не був видалений</string>
 
     <string name="button_number_zero">0</string>
     <string name="button_number_one">1</string>

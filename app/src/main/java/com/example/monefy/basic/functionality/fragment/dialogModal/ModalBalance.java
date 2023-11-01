@@ -192,14 +192,14 @@ public class ModalBalance implements  DialogModal{
             if (!data.isEmpty() && checkMathSymbols(data)) {
                 buttonSetUp.setImageDrawable(DRAWABLE_CHECK);
                 textViewModalBalance.setText(mathCalculation(data));
-                ToastManager.showToastOnSuccessfulCalculations(context);
+                ToastManager.showToastOnFailure(context,R.string.toast_text_message_successful_entered_the_data);
             } else if (!data.isEmpty() && !checkMathSymbols(data)) {
                 if(dialogCallback != null){
                     updateData = data;
                     dialogCallback.onSuccess();
                 }
                 dialogModal.cancel();
-                ToastManager.showToastOnSuccessfulChanges(context);
+                ToastManager.showToastOnFailure(context,R.string.toast_text_message_successful_entered_the_data);
             }
         });
     }
@@ -225,7 +225,7 @@ public class ModalBalance implements  DialogModal{
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ToastManager.showToastOnFailureChanges(context);
+            ToastManager.showToastOnFailure(context, R.string.toast_text_message_failure_entered_the_data);
             return "0";
         } finally {
             org.mozilla.javascript.Context.exit();

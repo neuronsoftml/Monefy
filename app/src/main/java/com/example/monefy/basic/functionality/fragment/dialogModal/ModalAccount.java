@@ -4,15 +4,19 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.Billings;
+import com.example.monefy.tools.firebase.AuthenticationManager;
+import com.example.monefy.tools.firebase.FirebaseManager;
+import com.example.monefy.tools.firebase.InConclusionCompleteListener;
+import com.example.monefy.tools.message.ToastManager;
 
 public class ModalAccount implements DialogModal {
     private Dialog dialogModal;
@@ -20,6 +24,8 @@ public class ModalAccount implements DialogModal {
     private Billings billing;
     private ImageView imageViewAccountCard;
     private TextView textViewNameAccount, textViewAccountBalance, textViewTypeCurrency, textViewTypeAccount;
+    private ImageButton imageButtonModalDelete;
+
     public ModalAccount(Context context, Billings billing){
         this.context = context;
         this.billing = billing;
@@ -52,11 +58,13 @@ public class ModalAccount implements DialogModal {
         textViewAccountBalance = dialogModal.findViewById(R.id.textView_modal_balance_account);
         textViewTypeCurrency = dialogModal.findViewById(R.id.textView_modal_type_currency);
         textViewTypeAccount = dialogModal.findViewById(R.id.textView_type_account);
+
+        imageButtonModalDelete = dialogModal.findViewById(R.id.imageButton_modal_delete_account);
     }
 
     @Override
     public void handlerButtonDialogModal(DialogCallback dialogCallback) {
-
+        handlerButtonDelete(dialogCallback);
     }
 
     private void setValueObjectModal() {
@@ -65,5 +73,30 @@ public class ModalAccount implements DialogModal {
         textViewAccountBalance.setText(String.valueOf(billing.getBalance()));
         textViewTypeCurrency.setText(billing.getTypeCurrency());
         textViewTypeAccount.setText(billing.getTypeBillings());
+    }
+
+    private void handlerButtonDelete(DialogCallback dialogCallback){
+            imageButtonModalDelete.setOnClickListener(v->{
+            FirebaseManager.deleteBillings(
+                    AuthenticationManager.getAuthenticationManager().getUserId(),
+                    billing.getId(),
+                    new InConclusionCompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            if(dialogCallback != null){
+                                dialogModal.cancel();
+                                dialogCallback.onSuccess();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Exception exception) {
+                            if(dialogCallback != null){
+                                dialogCallback.onFailure(exception);
+                            }
+                        }
+                    }
+            );
+        });
     }
 }

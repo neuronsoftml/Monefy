@@ -3,16 +3,16 @@ package com.example.monefy.tools.message;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.monefy.R;
+
 public  class ToastManager {
-    public static void showToastOnSuccessfulChanges(Context context) {
-        Toast.makeText(context, "Успішно внесли зміни", Toast.LENGTH_SHORT).show();
+
+    public static void showToastOnSuccessful(Context context, int idString) {
+        Toast.makeText(context, context.getString(idString), Toast.LENGTH_SHORT).show();
     }
 
-    public static void showToastOnFailureChanges(Context context){
-        Toast.makeText(context, "Під час операції виникла помилка", Toast.LENGTH_SHORT).show();
+    public static void showToastOnFailure(Context context, int idString){
+        Toast.makeText(context, context.getString(idString), Toast.LENGTH_SHORT).show();
     }
 
-    public static void showToastOnSuccessfulCalculations(Context context){
-        Toast.makeText(context, "Успішно обчислили", Toast.LENGTH_SHORT).show();
-    }
 }

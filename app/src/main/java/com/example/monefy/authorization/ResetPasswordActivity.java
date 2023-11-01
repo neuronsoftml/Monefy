@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.monefy.R;
+import com.example.monefy.tools.firebase.InConclusionCompleteListener;
 import com.example.monefy.tools.firebase.FirebaseManager;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -60,7 +61,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         FirebaseManager.resetPasswordWithEmail(
                 FirebaseAuth.getInstance(),
                 email,
-                new FirebaseManager.InConclusionCompleteListener() {
+                new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {
                         handlerSuccessfullySendMessageEmail();

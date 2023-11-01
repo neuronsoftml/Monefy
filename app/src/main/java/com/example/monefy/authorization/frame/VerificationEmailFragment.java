@@ -16,6 +16,7 @@ import com.example.monefy.basic.functionality.HomeActivity;
 import com.example.monefy.R;
 import com.example.monefy.tools.firebase.AuthenticationManager;
 
+import com.example.monefy.tools.firebase.InConclusionCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -65,7 +66,7 @@ public class VerificationEmailFragment extends Fragment{
         AuthenticationManager.signInWithEmailAndPasswordCallback(
                 FirebaseAuth.getInstance(),
                 email, password,
-                new AuthenticationManager.InConclusionCompleteListener() {
+                new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

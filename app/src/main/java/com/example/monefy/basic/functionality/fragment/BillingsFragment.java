@@ -13,7 +13,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -24,9 +23,10 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallbac
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalAccount;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
 import com.example.monefy.basic.functionality.model.Billings;
-import com.example.monefy.basic.functionality.model.TypeBillings;
 import com.example.monefy.tools.firebase.AuthenticationManager;
 import com.example.monefy.tools.firebase.FirebaseManager;
+import com.example.monefy.tools.firebase.OnBillingsCallback;
+import com.example.monefy.tools.message.ToastManager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -72,14 +72,13 @@ public class BillingsFragment extends Fragment {
         FirebaseManager.getBillingsData(
                 FirebaseFirestore.getInstance(),
                 userId,
-                new FirebaseManager.OnBillingsCallback() {
+                new OnBillingsCallback() {
                     @Override
                     public void onBillingsDataReceived(List<Billings> billingsList) {
                         billings.clear();
                         billings.addAll(billingsList);
                         showBillingsList();
                         handlerClickItemListBillings();
-                        Log.v("list", String.valueOf(billings.size()));
                     }
 
                     @Override
@@ -108,12 +107,14 @@ public class BillingsFragment extends Fragment {
                 modalAccount.modalStart(new DialogCallback() {
                     @Override
                     public void onSuccess() {
-
+                        billingsListAdapter.removeBillings(billings);
+                        billingsListAdapter.notifyDataSetChanged();
+                        ToastManager.showToastOnSuccessful(getContext(),R.string.toast_text_message_successful_delete_billings);
                     }
 
                     @Override
                     public void onFailure(Exception exception) {
-
+                        ToastManager.showToastOnSuccessful(getContext(),R.string.toast_text_message_failure_delete_billings);
                     }
                 });
             }

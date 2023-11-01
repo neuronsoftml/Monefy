@@ -16,6 +16,7 @@ import com.example.monefy.R;
 import com.example.monefy.local.database.AppDatabase;
 import com.example.monefy.local.database.model.User;
 import com.example.monefy.tools.firebase.AuthenticationManager;
+import com.example.monefy.tools.firebase.InConclusionCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignInActivity extends AppCompatActivity {
@@ -77,7 +78,7 @@ public class SignInActivity extends AppCompatActivity {
         AuthenticationManager.signInWithEmailAndPasswordCallback(
                 FirebaseAuth.getInstance(),
                 email,
-                password, new AuthenticationManager.InConclusionCompleteListener() {
+                password, new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {
                         if (aSwitch.isChecked()) {
@@ -152,4 +153,5 @@ public class SignInActivity extends AppCompatActivity {
             databaseManager.userDao().insert(new User(email,password,true));
         }
     }
+
 }

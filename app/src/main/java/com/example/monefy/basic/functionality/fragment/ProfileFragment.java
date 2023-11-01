@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.monefy.R;
 import com.example.monefy.tools.firebase.AuthenticationManager;
 import com.example.monefy.tools.firebase.FirebaseManager;
+import com.example.monefy.tools.firebase.OnUserDataCallback;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -50,7 +51,7 @@ public class ProfileFragment extends Fragment {
 
     private void loadGetUserData(){
         String userId = AuthenticationManager.getAuthenticationManager().getUserId();
-        FirebaseManager.getUserPersonalData(FirebaseFirestore.getInstance(), userId, new FirebaseManager.OnUserDataCallback() {
+        FirebaseManager.getUserPersonalData(FirebaseFirestore.getInstance(), userId, new OnUserDataCallback() {
             @Override
             public void onUserDataReceived(DocumentSnapshot documentSnapshot) {
                 displaysUserData(

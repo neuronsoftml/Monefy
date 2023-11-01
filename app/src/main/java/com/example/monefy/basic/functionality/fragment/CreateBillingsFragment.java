@@ -19,6 +19,7 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBill
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeCurrency;
 import com.example.monefy.tools.firebase.AuthenticationManager;
 import com.example.monefy.tools.firebase.FirebaseManager;
+import com.example.monefy.tools.firebase.InConclusionCompleteListener;
 import com.example.monefy.tools.message.ToastManager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -97,15 +98,16 @@ public class CreateBillingsFragment extends Fragment {
                         nameBillings,
                         typeBillings,
                         typeCurrency,
-                        new FirebaseManager.InConclusionCompleteListener() {
+                        new InConclusionCompleteListener() {
                             @Override
                             public void onSuccess() {
+                                ToastManager.showToastOnSuccessful(getContext(),R.string.toast_text_message_successful_entered_the_data);
                                 replaceFragmentBack();
                             }
 
                             @Override
                             public void onFailure(Exception exception) {
-                                ToastManager.showToastOnFailureChanges(getContext());
+                                ToastManager.showToastOnFailure(getContext(),R.string.toast_text_message_failure_entered_the_data);
                             }
                         }
                 );

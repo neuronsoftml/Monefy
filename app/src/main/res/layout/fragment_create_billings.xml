@@ -7,18 +7,31 @@
     tools:context=".basic.functionality.fragment.CreateBillingsFragment"
     >
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/imageViewCreditCartTypeBillings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/icon_credit_card_blue"
+            android:translationZ="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/blue">
 
             <ImageButton
                 android:id="@+id/imageButton_close"
@@ -63,6 +76,7 @@
                 android:ems="10"
                 android:hint="@string/text_edit_hint_name_billings"
                 android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title_frame" />
@@ -73,31 +87,24 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/imageViewCreditCartTypeBillings">
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:text="@string/text_view_billing"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/linerLayout_type_billings"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="3dp"
-                android:gravity="center_vertical"
+                android:layout_width="170dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/select_input_new_billings"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/select_input_new_billings"
-                android:orientation="horizontal">
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView5"
@@ -105,7 +112,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/text_view_type_billings"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="14sp"
+                    app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
 
                 <TextView
                     android:id="@+id/type_billings"
@@ -113,37 +121,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imageView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/icon_baseline_edit_24"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linerLayout_type_currency"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center_vertical"
+                android:layout_width="170dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/select_input_new_billings"
                 android:clickable="true"
                 android:focusable="true"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/select_input_new_billings"
-                android:orientation="horizontal">
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/type_currency"
@@ -151,7 +145,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/text_view_type_currency"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="14sp"
+                    app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
+
 
                 <TextView
                     android:id="@+id/text_type_currency"
@@ -159,24 +155,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imageView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/icon_baseline_edit_24"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
             </LinearLayout>
 
 
@@ -185,32 +165,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <TextView
-                android:id="@+id/textView_balance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_view_balance"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/linerLayout_balance_billings"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_width="170dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:gravity="center_vertical"
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/select_input_new_billings"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView_balance_billings"
@@ -218,44 +192,33 @@
                     android:layout_height="wrap_content"
                     android:text="@string/text_view_balance_billing"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="14sp"
+                    app:drawableEndCompat="@drawable/icon_baseline_edit_14"/>
+
 
                 <TextView
                     android:id="@+id/balance_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/black"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:textSize="15sp" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imageView11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/icon_baseline_edit_24"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/liner_layout_credit_limit"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_width="170dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:gravity="center_vertical"
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/select_input_new_billings"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/text_view_credit_limit"
@@ -263,7 +226,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/text_view_credit_limit"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="14sp"
+                    app:drawableEndCompat="@drawable/icon_baseline_edit_14"/>
+
 
                 <TextView
                     android:id="@+id/credit_limit"
@@ -271,22 +236,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imageView13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/icon_baseline_edit_24"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 

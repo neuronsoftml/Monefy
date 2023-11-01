@@ -32,7 +32,7 @@ public class AuthenticationManager {
             FirebaseAuth mAuth,
             String email,
             String password,
-            AuthenticationManager.InConclusionCompleteListener listener)
+            InConclusionCompleteListener listener)
     {
 
         mAuth.signInWithEmailAndPassword(email, password)
@@ -48,10 +48,5 @@ public class AuthenticationManager {
                         }
                     }
                 });
-    }
-
-    public interface InConclusionCompleteListener {
-        void onSuccess();
-        void onFailure(Exception exception);
     }
 }

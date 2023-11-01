@@ -8,6 +8,7 @@ public class Billings {
     private String name;
     private String typeBillings;
     private String typeCurrency;
+    private String id;
 
     public Billings(){
 
@@ -48,10 +49,16 @@ public class Billings {
     public long getCreditLimit() {
         return creditLimit;
     }
-
-
     public String getName() {
         return name;
     }
 
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

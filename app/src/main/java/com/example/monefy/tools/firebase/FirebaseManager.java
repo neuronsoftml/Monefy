@@ -1,15 +1,16 @@
 package com.example.monefy.tools.firebase;
 
 import android.app.Activity;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.example.monefy.basic.functionality.model.Billings;
+import com.example.monefy.tools.message.ToastManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -27,7 +28,7 @@ public class FirebaseManager {
             FirebaseAuth mAuth,
             Activity activity,
             String email, String password,
-            InConclusionCompleteListener listener
+            final InConclusionCompleteListener listener
     ){
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(activity, task -> {
@@ -47,7 +48,7 @@ public class FirebaseManager {
     public static void resetPasswordWithEmail(
             FirebaseAuth mAuth,
             String email,
-            InConclusionCompleteListener listener)
+            final InConclusionCompleteListener listener)
     {
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
@@ -63,16 +64,11 @@ public class FirebaseManager {
                 });
     }
 
-
-
-    public interface InConclusionCompleteListener {
-        void onSuccess();
-        void onFailure(Exception exception);
-    }
-
-
-
-    public static void getUserPersonalData(FirebaseFirestore db, String userId, final OnUserDataCallback callback) {
+    //Дістає данні користувача.
+    public static void getUserPersonalData(
+            FirebaseFirestore db,
+            String userId,
+            final OnUserDataCallback callback) {
         // Виконуємо запит до Firestore для отримання даних користувача за ідентифікатором userId
         db.collection("Users")
                 .document(userId)
@@ -98,7 +94,11 @@ public class FirebaseManager {
                 });
     }
 
-    public static void getBillingsData(FirebaseFirestore db, String userId, final OnBillingsCallback callback) {
+    //Дістає усі рахунки
+    public static void getBillingsData(
+            FirebaseFirestore db,
+            String userId,
+            final OnBillingsCallback callback) {
         // Виконуємо запит до Firestore для отримання даних користувача за ідентифікатором userId
         db.collection("Users")
                 .document(userId)
@@ -113,6 +113,7 @@ public class FirebaseManager {
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                 // Отримуємо дані з кожного документу і додаємо їх до списку
                                 Billings billings = document.toObject(Billings.class);
+                                billings.setId(document.getId());
                                 billingsList.add(billings);
                             }
 
@@ -133,25 +134,16 @@ public class FirebaseManager {
                 });
     }
 
-
-    public interface OnUserDataCallback {
-        void onUserDataReceived(DocumentSnapshot documentSnapshot);
-
-        void onUserDataNotFound();
-
-        void onUserDataError(Exception e);
-
-    }
-
-    public interface OnBillingsCallback{
-        void onBillingsDataReceived(List<Billings> billingsList);
-
-        void onBillingsDataNotFound();
-
-        void onBillingsDataError(Exception e);
-    }
-
-    public static void addBilling(FirebaseFirestore db,String userId, long balance, long creditLimit, String name, String typeBillings, String typeCurrency ,final  FirebaseManager.InConclusionCompleteListener listener) {
+    //Добавляє рахунок
+    public static void addBilling(
+            FirebaseFirestore db,
+            String userId,
+            long balance,
+            long creditLimit,
+            String name,
+            String typeBillings,
+            String typeCurrency ,
+            final  InConclusionCompleteListener listener) {
         CollectionReference billingsCollection = db
                 .collection("Users")
                 .document(userId)
@@ -176,6 +168,35 @@ public class FirebaseManager {
                     // Помилка додавання рахунку
                     if(listener != null){
                         listener.onFailure(e);
+                    }
+                });
+    }
+
+    //Видаляє разунок по ID.
+    public static void deleteBillings(String userId, String billingsId, final InConclusionCompleteListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        DocumentReference billingsRef = db.collection("Users")
+                .document(userId)
+                .collection("billings")
+                .document(billingsId);
+
+        billingsRef.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Успішно видалено
+                        if (listener != null) {
+                            listener.onSuccess();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        if (listener != null) {
+                            listener.onFailure(e);
+                        }
                     }
                 });
     }
