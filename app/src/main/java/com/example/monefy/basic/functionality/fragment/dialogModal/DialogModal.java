@@ -1,6 +1,6 @@
 package com.example.monefy.basic.functionality.fragment.dialogModal;
 
-public interface DialogModal {
+public interface DialogModal{
 
     void modalStart(DialogCallback dialogCallback);
 

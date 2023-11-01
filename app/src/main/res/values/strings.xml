@@ -57,6 +57,11 @@
     <string name="text_modal_view_select_billings_balance">Баланс рахунку</string>
     <string name="text_modal_view_select_billings_credit_limit">Кредитний ліміт</string>
 
+    <string name="text_view_select_billings_debt_i_am_owed">Мені винні</string>
+    <string name="text_view_select_billings_debt_i_must">Я повинен</string>
+    <string name="text_view_select_billings_total_amount_of_debt">Загальна сума боргу</string>
+    <string name="text_view_select_billings_objective">Мета</string>
+
     <string name="link_singIn">Увійти</string>
     <string name="link_forgot_password">Забули пароль?</string>
 
@@ -84,4 +89,6 @@
     <string name="button_number_seven">7</string>
     <string name="button_number_eight">8</string>
     <string name="button_number_nine">9</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

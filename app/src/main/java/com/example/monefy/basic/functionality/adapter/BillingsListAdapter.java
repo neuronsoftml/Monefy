@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.Billings;
+import com.example.monefy.basic.functionality.model.TypeBillings;
 
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class BillingsListAdapter extends BaseAdapter {
             typeBillings.setText(billings.getTypeBillings());
         }
 
-        imageView.setImageResource(billings.getIdImageTypeBillings(billings.getTypeBillings()));
+        imageView.setImageResource(TypeBillings.getIdImageTypeBillings((billings.getTypeBillings())));
         accountBalance.setText(String.valueOf(billings.getBalance()));
 
         typeCurrency.setText(billings.getTypeCurrency());

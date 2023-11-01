@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".basic.functionality.fragment.CreateBillingsFragment"
-    >
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".basic.functionality.fragment.EditBillingsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageViewCreditCartTypeBillings"
+            android:id="@+id/imageViewCreditCartTypeBillings_fragment_edit_billings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -24,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout_create_billings"
+            android:id="@+id/constraintLayout_create_billings_fragment_edit_billings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
@@ -34,7 +33,7 @@
             android:background="@color/blue">
 
             <ImageButton
-                android:id="@+id/imageButton_close"
+                android:id="@+id/imageButton_close_fragment_edit_billings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -45,7 +44,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/title_frame"
+                android:id="@+id/title_frame_fragment_edit_billings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -53,12 +52,12 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/imageButtonSetUp"
-                app:layout_constraintStart_toEndOf="@+id/imageButton_close"
+                app:layout_constraintEnd_toStartOf="@+id/imageButtonSetUp_fragment_edit_billings"
+                app:layout_constraintStart_toEndOf="@+id/imageButton_close_fragment_edit_billings"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/imageButtonSetUp"
+                android:id="@+id/imageButtonSetUp_fragment_edit_billings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -69,7 +68,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText_name_billings"
+                android:id="@+id/editText_name_billings_fragment_edit_billings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -79,7 +78,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_frame" />
+                app:layout_constraintTop_toBottomOf="@+id/title_frame_fragment_edit_billings" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -91,11 +90,11 @@
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewCreditCartTypeBillings">
+            app:layout_constraintTop_toBottomOf="@+id/imageViewCreditCartTypeBillings_fragment_edit_billings">
 
 
             <LinearLayout
-                android:id="@+id/linerLayout_type_billings"
+                android:id="@+id/linerLayout_type_billings_fragment_edit_billings"
                 android:layout_width="170dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
@@ -116,7 +115,7 @@
                     app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
 
                 <TextView
-                    android:id="@+id/type_billings"
+                    android:id="@+id/type_billings_fragment_edit_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -128,7 +127,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linerLayout_type_currency"
+                android:id="@+id/linerLayout_type_currency_fragment_edit_billings"
                 android:layout_width="170dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
@@ -140,7 +139,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/type_currency"
+                    android:id="@+id/type_currency_fragment_edit_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_view_type_currency"
@@ -150,7 +149,7 @@
 
 
                 <TextView
-                    android:id="@+id/text_type_currency"
+                    android:id="@+id/text_type_currency_fragment_edit_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -174,7 +173,7 @@
 
 
             <LinearLayout
-                android:id="@+id/linerLayout_balance_billings"
+                android:id="@+id/linerLayout_balance_billings_fragment_edit_billings"
                 android:layout_width="170dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
@@ -187,7 +186,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView_balance_create_billings"
+                    android:id="@+id/textView_balance_create_billings_fragment_edit_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_view_balance_billing"
@@ -197,7 +196,7 @@
 
 
                 <TextView
-                    android:id="@+id/balance_billings"
+                    android:id="@+id/balance_billings_fragment_edit_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -208,7 +207,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/liner_layout_credit_limit"
+                android:id="@+id/liner_layout_credit_limit_fragment_edit_billings"
                 android:layout_width="170dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
@@ -221,7 +220,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/text_view_credit_limit_new_billings"
+                    android:id="@+id/text_view_credit_limit_fragment_edit_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_view_credit_limit"
@@ -231,7 +230,7 @@
 
 
                 <TextView
-                    android:id="@+id/credit_limit"
+                    android:id="@+id/credit_limit_fragment_edit_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -245,4 +244,5 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+
+</LinearLayout>

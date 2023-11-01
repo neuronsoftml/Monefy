@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.model.TypeCurrency;
+import com.example.monefy.basic.functionality.model.TypeBillings;
 import com.example.monefy.tools.message.ToastManager;
 
 import org.mozilla.javascript.Scriptable;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModalBalance implements  DialogModal{
-    private LinearLayout elementKeyboard;
+    private LinearLayout elementKeyboard, linearLayoutToggleButtonDebt;
     private Dialog dialogModal;
     private TextView textViewModalBalance, textViewTitleModal;
     private List<Button> buttonListModalNumber =  new ArrayList<>();
@@ -34,9 +34,8 @@ public class ModalBalance implements  DialogModal{
             buttonNumberSeven, buttonNumberEight, buttonNumberNine;
     private ImageButton buttonDivision, buttonMultiplication, buttonSubtraction,
             buttonAddition, buttonSetUp, buttonDelete;
-
     private TextView textViewTypeMoney;
-
+    private ToggleButton toggleButtonDebtIMust, toggleButtonDebtIAmOwed;
     private final char SHARE = '\u00F7';
     private final char MULTIPLY = '\u00D7';
     private final char SUBTRACT = '-';
@@ -44,31 +43,35 @@ public class ModalBalance implements  DialogModal{
     private Drawable DRAWABLE_CHECK;
     private Drawable DRAWABLE_HANDLE;
     private Context context;
-    private String updateData;
-    private int idTitleModal;
+    private String updateBalance;
+    private String updateToWhomHeOwes;
+    private String titleModal;
     private String balance;
     private String typeCurrencies;
+    private String typeBillings;
 
-    public ModalBalance(Context context, View view, int idTitle, String balance, String typeCurrencies){
+    public ModalBalance(Context context, View view, String title, String balance, String typeCurrencies, String typeBillings){
         this.context = context;
         this.DRAWABLE_CHECK = view.getResources().getDrawable(R.drawable.icon_baseline_check_34);
         this.DRAWABLE_HANDLE = view.getResources().getDrawable(R.drawable.icon_baseline_drag_handle_34);
-        this.idTitleModal = idTitle;
+        this.titleModal = title;
         this.balance = balance;
         this.typeCurrencies = typeCurrencies;
+        this.typeBillings = typeBillings;
     }
     @Override
     public void modalStart(DialogCallback dialogCallback){
         showDialogModal();
         setupUIDialogModal();
-        textViewTitleModal.setText(idTitleModal);
-        textViewTypeMoney.setText(typeCurrencies);
+        switcherStyleInterface(typeBillings);
+        setValueObjectModal();
         if(!balance.isEmpty()){
             textViewModalBalance.setText(balance);
         }
         sheetFillerButtonListModalNumber();
         handlerButtonDialogModal(dialogCallback);
     }
+
 
     @Override
     public void showDialogModal() {
@@ -94,19 +97,18 @@ public class ModalBalance implements  DialogModal{
         buttonNumberSeven = dialogModal.findViewById(R.id.buttonSeven);
         buttonNumberEight = dialogModal.findViewById(R.id.buttonEight);
         buttonNumberNine = dialogModal.findViewById(R.id.buttonNine);
-
         buttonDivision = dialogModal.findViewById(R.id.buttonDivision);
         buttonMultiplication = dialogModal.findViewById(R.id.buttonMultiplication);
         buttonSubtraction = dialogModal.findViewById(R.id.buttonSubtraction);
         buttonAddition = dialogModal.findViewById(R.id.buttonAddition);
-
         buttonDelete = dialogModal.findViewById(R.id.buttonDelete);
         buttonSetUp = dialogModal.findViewById(R.id.buttonSetUp);
-
         textViewModalBalance = dialogModal.findViewById(R.id.balance_billings);
         textViewTitleModal = dialogModal.findViewById(R.id.title_modal_view);
-
         textViewTypeMoney = dialogModal.findViewById(R.id.icon_type_money);
+        linearLayoutToggleButtonDebt = dialogModal.findViewById(R.id.linearLayoutToggleButton_debt);
+        toggleButtonDebtIMust = dialogModal.findViewById(R.id.toggleButton_debt_i_must);
+        toggleButtonDebtIAmOwed = dialogModal.findViewById(R.id.toggleButton_debt_i_am_owed);
     }
 
     private void sheetFillerButtonListModalNumber(){
@@ -130,6 +132,13 @@ public class ModalBalance implements  DialogModal{
             }
         }
 
+    }
+
+    private void setValueObjectModal(){
+        toggleButtonDebtIMust.setChecked(true);
+        toggleButtonDebtIAmOwed.setChecked(false);
+        textViewTitleModal.setText(titleModal);
+        textViewTypeMoney.setText(typeCurrencies);
     }
 
     @Override
@@ -187,15 +196,15 @@ public class ModalBalance implements  DialogModal{
         });
 
         buttonSetUp.setOnClickListener(v ->{
-            String data = (String) textViewModalBalance.getText().toString();
+            String balance = (String) textViewModalBalance.getText().toString();
 
-            if (!data.isEmpty() && checkMathSymbols(data)) {
+            if (!balance.isEmpty() && checkMathSymbols(balance)) {
                 buttonSetUp.setImageDrawable(DRAWABLE_CHECK);
-                textViewModalBalance.setText(mathCalculation(data));
+                textViewModalBalance.setText(mathCalculation(balance));
                 ToastManager.showToastOnFailure(context,R.string.toast_text_message_successful_entered_the_data);
-            } else if (!data.isEmpty() && !checkMathSymbols(data)) {
+            } else if (!balance.isEmpty() && !checkMathSymbols(balance)) {
                 if(dialogCallback != null){
-                    updateData = data;
+                    updateData(balance);
                     dialogCallback.onSuccess();
                 }
                 dialogModal.cancel();
@@ -249,9 +258,47 @@ public class ModalBalance implements  DialogModal{
         return false;
     }
 
-    public String getUpdateData() {
-        return updateData;
+    public String getUpdateBalance() {
+        return updateBalance;
     }
 
+    private void switcherStyleInterface(String argumentTypeBillings){
+        if(argumentTypeBillings.equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+            linearLayoutToggleButtonDebt.setVisibility(View.VISIBLE);
+            handlerToggleButton();
+        }
+    }
 
+    private void handlerToggleButton() {
+        toggleButtonDebtIAmOwed.setOnClickListener(v->{
+            switcherToggleButton(toggleButtonDebtIAmOwed);
+        });
+        toggleButtonDebtIMust.setOnClickListener(v->{
+            switcherToggleButton(toggleButtonDebtIMust);
+        });
+    }
+
+    private void switcherToggleButton(ToggleButton toggleButton) {
+        if(toggleButtonDebtIAmOwed == toggleButton){
+            toggleButtonDebtIMust.setChecked(false);
+            toggleButtonDebtIAmOwed.setChecked(true);
+            textViewTitleModal.setText(R.string.text_view_select_billings_debt_i_am_owed);
+        }
+        if(toggleButtonDebtIMust == toggleButton){
+            toggleButtonDebtIAmOwed.setChecked(false);
+            toggleButtonDebtIMust.setChecked(true);
+            textViewTitleModal.setText(R.string.text_view_select_billings_debt_i_must);
+        }
+    }
+
+    private void updateData(String updateBalance){
+        this.updateBalance = updateBalance;
+        if(typeBillings.equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+            this.updateToWhomHeOwes = textViewTitleModal.getText().toString();
+        }
+    }
+
+    public String getUpdateToWhomHeOwes() {
+        return updateToWhomHeOwes;
+    }
 }

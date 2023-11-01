@@ -9,16 +9,20 @@ import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalance;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeCurrency;
+import com.example.monefy.basic.functionality.model.Billings;
 import com.example.monefy.basic.functionality.model.TypeBillings;
 import com.example.monefy.tools.firebase.AuthenticationManager;
 import com.example.monefy.tools.firebase.FirebaseManager;
@@ -26,9 +30,9 @@ import com.example.monefy.tools.firebase.InConclusionCompleteListener;
 import com.example.monefy.tools.message.ToastManager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+public class EditBillingsFragment extends Fragment {
 
-public class CreateBillingsFragment extends Fragment {
-    private String argumentTypeBillings;
+    private Billings billing;
     private TextView textViewTypeBillings, textViewTypeCurrency, textViewBalanceBillings, textViewCreditLimit;
     private  TextView textViewTitleBalanceBillings, textViewTitleCreditLimit;
     private LinearLayout linerLayoutTypeBillings, linerLayoutTypeCurrency, linerLayoutBalanceBillings, linerLayoutCreditLimit;
@@ -37,38 +41,60 @@ public class CreateBillingsFragment extends Fragment {
     private ImageView imageViewCreditCartTypeBillings;
     private ConstraintLayout constraintLayoutPanelTop;
 
+    public EditBillingsFragment() {
+        // Required empty public constructor
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            argumentTypeBillings = getArguments().getString("TypeBillings");
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            Billings billing = (Billings) bundle.getSerializable("billing");
+            if (billing != null) {
+                this.billing = billing;
+            }
         }
+
+
     }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_billings, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_edit_billings, container, false);
         setupUIElements(view);
-        switcherStyleInterface(argumentTypeBillings);
+        setValueObject();
+        switcherStyleInterface(billing.getTypeBillings());
         setupClickListeners();
         return view;
     }
 
-    private void setupUIElements(View view) {
-        textViewTypeBillings = view.findViewById(R.id.type_billings);
-        textViewTypeCurrency = view.findViewById(R.id.text_type_currency);
-        textViewBalanceBillings = view.findViewById(R.id.balance_billings);
-        textViewCreditLimit = view.findViewById(R.id.credit_limit);
-        linerLayoutTypeBillings = view.findViewById(R.id.linerLayout_type_billings);
-        linerLayoutTypeCurrency = view.findViewById(R.id.linerLayout_type_currency);
-        linerLayoutBalanceBillings = view.findViewById(R.id.linerLayout_balance_billings);
-        linerLayoutCreditLimit = view.findViewById(R.id.liner_layout_credit_limit);
-        editTextNameBillings = view.findViewById(R.id.editText_name_billings);
-        imageButtonClose = view.findViewById(R.id.imageButton_close);
-        imageButtonSetUp = view.findViewById(R.id.imageButtonSetUp);
-        imageViewCreditCartTypeBillings = view.findViewById(R.id.imageViewCreditCartTypeBillings);
-        constraintLayoutPanelTop = view.findViewById(R.id.constraintLayout_create_billings);
-        textViewTitleBalanceBillings = view.findViewById(R.id.textView_balance_create_billings);
-        textViewTitleCreditLimit = view.findViewById(R.id.text_view_credit_limit_new_billings);
+    private void setupUIElements(View view){
+        textViewTypeBillings = view.findViewById(R.id.type_billings_fragment_edit_billings);
+        textViewTypeCurrency = view.findViewById(R.id.text_type_currency_fragment_edit_billings);
+        textViewBalanceBillings = view.findViewById(R.id.balance_billings_fragment_edit_billings);
+        textViewCreditLimit = view.findViewById(R.id.credit_limit_fragment_edit_billings);
+        linerLayoutTypeBillings = view.findViewById(R.id.linerLayout_type_billings_fragment_edit_billings);
+        linerLayoutTypeCurrency = view.findViewById(R.id.linerLayout_type_currency_fragment_edit_billings);
+        linerLayoutBalanceBillings = view.findViewById(R.id.linerLayout_balance_billings_fragment_edit_billings);
+        linerLayoutCreditLimit = view.findViewById(R.id.liner_layout_credit_limit_fragment_edit_billings);
+        editTextNameBillings = view.findViewById(R.id.editText_name_billings_fragment_edit_billings);
+        imageButtonClose = view.findViewById(R.id.imageButton_close_fragment_edit_billings);
+        imageButtonSetUp = view.findViewById(R.id.imageButtonSetUp_fragment_edit_billings);
+        imageViewCreditCartTypeBillings = view.findViewById(R.id.imageViewCreditCartTypeBillings_fragment_edit_billings);
+        constraintLayoutPanelTop = view.findViewById(R.id.constraintLayout_create_billings_fragment_edit_billings);
+        textViewTitleBalanceBillings = view.findViewById(R.id.textView_balance_create_billings_fragment_edit_billings);
+        textViewTitleCreditLimit = view.findViewById(R.id.text_view_credit_limit_fragment_edit_billings);
+    }
+
+    private void setValueObject(){
+        textViewTypeBillings.setText(billing.getTypeBillings());
+        textViewTypeCurrency.setText(billing.getTypeCurrency());
+        textViewBalanceBillings.setText(String.valueOf(billing.getBalance()));
+        textViewCreditLimit.setText(String.valueOf(billing.getCreditLimit()));
+        editTextNameBillings.setText(billing.getName());
+        imageViewCreditCartTypeBillings.setImageResource(TypeBillings.getIdImageTypeBillings(billing.getTypeBillings()));
     }
 
     private void setupClickListeners() {
@@ -95,29 +121,6 @@ public class CreateBillingsFragment extends Fragment {
             String balance = textViewBalanceBillings.getText().toString().isEmpty() ? "0" : textViewBalanceBillings.getText().toString();
             String creditLimit = textViewCreditLimit.getText().toString().isEmpty() ? "0" : textViewCreditLimit.getText().toString();
 
-            if(checkInputTypeCurrency(typeCurrency)){
-                FirebaseManager.addBilling(
-                        FirebaseFirestore.getInstance(),
-                        AuthenticationManager.getAuthenticationManager().getUserId(),
-                        Long.parseLong(balance),
-                        Long.parseLong(creditLimit),
-                        nameBillings,
-                        typeBillings,
-                        typeCurrency,
-                        new InConclusionCompleteListener() {
-                            @Override
-                            public void onSuccess() {
-                                ToastManager.showToastOnSuccessful(getContext(),R.string.toast_text_message_successful_entered_the_data);
-                                replaceFragmentBack();
-                            }
-
-                            @Override
-                            public void onFailure(Exception exception) {
-                                ToastManager.showToastOnFailure(getContext(),R.string.toast_text_message_failure_entered_the_data);
-                            }
-                        }
-                );
-            }
         });
     }
 
@@ -202,19 +205,6 @@ public class CreateBillingsFragment extends Fragment {
         });
     }
 
-    private boolean checkInputTypeCurrency(String type){
-        return type != null && !type.isEmpty();
-    }
-
-    private void replaceFragmentBack(){
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            fragmentManager.popBackStack();
-        } else {
-            getActivity().finish();
-        }
-    }
-
     private void switcherStyleInterface(String argumentTypeBillings){
         if(argumentTypeBillings.equals(TypeBillings.ORDINARY.getTypeBillingsTitle())){
             typeOrdinaryBillingsStyle();
@@ -248,4 +238,14 @@ public class CreateBillingsFragment extends Fragment {
         textViewTitleBalanceBillings.setText(R.string.text_view_balance_billing);
         textViewTitleCreditLimit.setText(R.string.text_view_select_billings_objective);
     }
+
+    private void replaceFragmentBack() {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+        } else {
+            getActivity().finish();
+        }
+    }
+
 }

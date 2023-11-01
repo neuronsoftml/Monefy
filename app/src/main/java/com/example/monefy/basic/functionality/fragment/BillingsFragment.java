@@ -1,15 +1,11 @@
 package com.example.monefy.basic.functionality.fragment;
 
-import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +15,7 @@ import android.widget.ListView;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.BillingsListAdapter;
 import com.example.monefy.basic.functionality.adapter.OnItemClickListener;
+import com.example.monefy.basic.functionality.fragment.dialogModal.AccountDialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalAccount;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
@@ -29,6 +26,7 @@ import com.example.monefy.tools.firebase.OnBillingsCallback;
 import com.example.monefy.tools.message.ToastManager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,19 +102,51 @@ public class BillingsFragment extends Fragment {
             @Override
             public void onItemClick(Billings billings) {
                 ModalAccount modalAccount = new ModalAccount(getContext(),billings);
-                modalAccount.modalStart(new DialogCallback() {
+
+                AccountDialogCallback accountDialogCallback = new AccountDialogCallback() {
                     @Override
-                    public void onSuccess() {
+                    public void onSuccessDelete() {
                         billingsListAdapter.removeBillings(billings);
                         billingsListAdapter.notifyDataSetChanged();
                         ToastManager.showToastOnSuccessful(getContext(),R.string.toast_text_message_successful_delete_billings);
                     }
 
                     @Override
-                    public void onFailure(Exception exception) {
-                        ToastManager.showToastOnSuccessful(getContext(),R.string.toast_text_message_failure_delete_billings);
+                    public void onClickEdit() {
+                        replaceFragmentToDate(new EditBillingsFragment(),billings,null);
                     }
-                });
+
+                    @Override
+                    public void onClickOperations() {
+
+                    }
+
+                    @Override
+                    public void onClickDeposit() {
+
+                    }
+
+                    @Override
+                    public void onClickWriteOff() {
+
+                    }
+
+                    @Override
+                    public void onClickTransfer() {
+
+                    }
+
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onFailure(Exception exception) {
+
+                    }
+                };
+                modalAccount.modalStart(accountDialogCallback);
             }
         });
     }
@@ -129,7 +159,7 @@ public class BillingsFragment extends Fragment {
                 modalTypeBillings.modalStart(new DialogCallback() {
                     @Override
                     public void onSuccess() {
-                        replaceFragmentToDate(modalTypeBillings.getUpdateData());
+                        replaceFragmentToDate(new CreateBillingsFragment(),null, modalTypeBillings.getUpdateData());
                     }
 
                     @Override
@@ -141,13 +171,18 @@ public class BillingsFragment extends Fragment {
         });
     }
 
-    private void replaceFragmentToDate(String value){
+    private void replaceFragmentToDate(Fragment showFragment,Billings billing,String typeBillings){
         Bundle bundle = new Bundle();
-        bundle.putString("TypeBillings", value);
-        CreateBillingsFragment fragment = new CreateBillingsFragment();
-        fragment.setArguments(bundle);
+        if (billing != null) {
+            bundle.putSerializable("billing", billing);
+        }
+        if (typeBillings != null) {
+            bundle.putString("TypeBillings", typeBillings);
+        }
+        showFragment.setArguments(bundle);
+
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainerHome, fragment);
+        fragmentTransaction.replace(R.id.fragmentContainerHome, showFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

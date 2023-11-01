@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -11,20 +12,24 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.fragment.CreateBillingsFragment;
 import com.example.monefy.basic.functionality.model.Billings;
+import com.example.monefy.basic.functionality.model.TypeBillings;
 import com.example.monefy.tools.firebase.AuthenticationManager;
 import com.example.monefy.tools.firebase.FirebaseManager;
 import com.example.monefy.tools.firebase.InConclusionCompleteListener;
 import com.example.monefy.tools.message.ToastManager;
 
-public class ModalAccount implements DialogModal {
+public class ModalAccount implements DialogModal{
     private Dialog dialogModal;
     private Context context;
     private Billings billing;
     private ImageView imageViewAccountCard;
     private TextView textViewNameAccount, textViewAccountBalance, textViewTypeCurrency, textViewTypeAccount;
-    private ImageButton imageButtonModalDelete;
+    private ImageButton imageButtonModalDelete, imageButtonModalEdit;
 
     public ModalAccount(Context context, Billings billing){
         this.context = context;
@@ -60,15 +65,17 @@ public class ModalAccount implements DialogModal {
         textViewTypeAccount = dialogModal.findViewById(R.id.textView_type_account);
 
         imageButtonModalDelete = dialogModal.findViewById(R.id.imageButton_modal_delete_account);
+        imageButtonModalEdit = dialogModal.findViewById(R.id.imageButton_modal_edit_account);
     }
 
     @Override
     public void handlerButtonDialogModal(DialogCallback dialogCallback) {
         handlerButtonDelete(dialogCallback);
+        handlerButtonEdit(dialogCallback);
     }
 
     private void setValueObjectModal() {
-        imageViewAccountCard.setImageResource(billing.getIdImageTypeBillings(billing.getTypeBillings()));
+        imageViewAccountCard.setImageResource(TypeBillings.getIdImageTypeBillings(billing.getTypeBillings()));
         textViewNameAccount.setText(billing.getName());
         textViewAccountBalance.setText(String.valueOf(billing.getBalance()));
         textViewTypeCurrency.setText(billing.getTypeCurrency());
@@ -85,7 +92,10 @@ public class ModalAccount implements DialogModal {
                         public void onSuccess() {
                             if(dialogCallback != null){
                                 dialogModal.cancel();
-                                dialogCallback.onSuccess();
+                                if(dialogCallback instanceof AccountDialogCallback){
+                                    AccountDialogCallback accountDialogCallback = (AccountDialogCallback) dialogCallback;
+                                    accountDialogCallback.onSuccessDelete();
+                                }
                             }
                         }
 
@@ -99,4 +109,15 @@ public class ModalAccount implements DialogModal {
             );
         });
     }
+
+    private void handlerButtonEdit(DialogCallback dialogCallback){
+        imageButtonModalEdit.setOnClickListener(v->{
+            dialogModal.cancel();
+            if(dialogCallback instanceof AccountDialogCallback){
+                AccountDialogCallback accountDialogCallback = (AccountDialogCallback) dialogCallback;
+                accountDialogCallback.onClickEdit();
+            }
+        });
+    }
+
 }
