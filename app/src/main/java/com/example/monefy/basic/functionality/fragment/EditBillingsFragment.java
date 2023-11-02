@@ -9,12 +9,10 @@ import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.monefy.R;
@@ -24,11 +22,6 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBill
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeCurrency;
 import com.example.monefy.basic.functionality.model.Billings;
 import com.example.monefy.basic.functionality.model.TypeBillings;
-import com.example.monefy.tools.firebase.AuthenticationManager;
-import com.example.monefy.tools.firebase.FirebaseManager;
-import com.example.monefy.tools.firebase.InConclusionCompleteListener;
-import com.example.monefy.tools.message.ToastManager;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class EditBillingsFragment extends Fragment {
 
@@ -109,7 +102,7 @@ public class EditBillingsFragment extends Fragment {
 
     private void handlerClickImageButtonClose() {
         imageButtonClose.setOnClickListener(v ->{
-            replaceFragmentBack();
+           FragmentSwitcher.replaceFragmentBack(getContext());
         });
     }
 
@@ -219,33 +212,25 @@ public class EditBillingsFragment extends Fragment {
         textViewTypeBillings.setText(TypeBillings.ORDINARY.getTypeBillingsTitle());
         imageViewCreditCartTypeBillings.setImageResource(R.drawable.icon_credit_card_blue);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.blue));
-        textViewTitleBalanceBillings.setText(R.string.text_view_balance_billing);
-        textViewTitleCreditLimit.setText(R.string.text_view_credit_limit);
+        textViewTitleBalanceBillings.setText(R.string.tV_balance_billing);
+        textViewTitleCreditLimit.setText(R.string.tV_credit_limit);
     }
 
     private void typeDebtBillingsStyle(){
         textViewTypeBillings.setText(TypeBillings.DEBT.getTypeBillingsTitle());
         imageViewCreditCartTypeBillings.setImageResource(R.drawable.icon_credit_card_red);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.red));
-        textViewTitleBalanceBillings.setText(R.string.text_view_select_billings_debt_i_must);
-        textViewTitleCreditLimit.setText(R.string.text_view_select_billings_total_amount_of_debt);
+        textViewTitleBalanceBillings.setText(R.string.tV_select_billings_debt_i_must);
+        textViewTitleCreditLimit.setText(R.string.tV_select_billings_total_amount_of_debt);
     }
 
     private void typeAccumulativeBillingsStyle(){
         textViewTypeBillings.setText(TypeBillings.CUMULATIVE.getTypeBillingsTitle());
         imageViewCreditCartTypeBillings.setImageResource(R.drawable.icon_credit_card_gold);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.gold));
-        textViewTitleBalanceBillings.setText(R.string.text_view_balance_billing);
-        textViewTitleCreditLimit.setText(R.string.text_view_select_billings_objective);
+        textViewTitleBalanceBillings.setText(R.string.tV_balance_billing);
+        textViewTitleCreditLimit.setText(R.string.tV_select_billings_objective);
     }
 
-    private void replaceFragmentBack() {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            fragmentManager.popBackStack();
-        } else {
-            getActivity().finish();
-        }
-    }
 
 }

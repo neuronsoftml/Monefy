@@ -12,11 +12,12 @@ import android.widget.Toast;
 import com.example.monefy.R;
 import com.example.monefy.tools.firebase.InConclusionCompleteListener;
 import com.example.monefy.tools.firebase.FirebaseManager;
+import com.example.monefy.tools.message.ToastManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 
-    private Button resetPasswordButton;
+    private Button btnResetPass;
     private EditText inputEmail;
     private TextView errorTextMessage;
 
@@ -27,26 +28,21 @@ public class ResetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reset_password);
 
         setupUIElements();
-
         clickResetPassword();
-
     }
 
     private void setupUIElements(){
-        this.resetPasswordButton = (Button) findViewById(R.id.buttonNext);
-        this.inputEmail = (EditText) findViewById(R.id.inputEmail);
+        this.btnResetPass = (Button) findViewById(R.id.btnNext);
+        this.inputEmail = (EditText) findViewById(R.id.inputEmailNewUser);
         this.errorTextMessage = (TextView) findViewById(R.id.errorMessageText);
     }
 
     //Обробник кліка по кнопці скинути пароль.
     private void clickResetPassword(){
-        resetPasswordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = inputEmail.getText().toString();
-                if(checkInputIsEmpty(email)){
-                    resetPassword(email);
-                }
+        btnResetPass.setOnClickListener(v -> {
+            String email = inputEmail.getText().toString();
+            if(checkInputIsEmpty(email)){
+                resetPassword(email);
             }
         });
     }
@@ -80,13 +76,13 @@ public class ResetPasswordActivity extends AppCompatActivity {
         errorTextMessage.setText(R.string.successfully_message_text_send_email);
         errorTextMessage.setTextColor(getResources().getColor(R.color.blue));
         errorTextMessage.setVisibility(View.VISIBLE);
-        Toast.makeText(ResetPasswordActivity.this, "Лист для скидання пароля надіслано на вашу адресу електронної пошти.", Toast.LENGTH_SHORT).show();
+        ToastManager.showToastOnSuccessful(getApplicationContext(), R.string.toast_successful_message_reset_pass);
     }
 
     //Обробник не успішного відпраленого повідомлення.
     private void handlerErrorSendMessageEmail(){
         errorTextMessage.setText(R.string.error_message_text_not_found_email);
         errorTextMessage.setVisibility(View.VISIBLE);
-        Toast.makeText(ResetPasswordActivity.this, "Помилка: невідомий email", Toast.LENGTH_SHORT).show();
+        ToastManager.showToastOnFailure(getApplicationContext(),R.string.toast_failure_error_type_email);
     }
 }

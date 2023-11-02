@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/selector_toggle_button_red"
-            android:textOn="@string/text_view_select_billings_debt_i_must"
-            android:textOff="@string/text_view_select_billings_debt_i_must"/>
+            android:textOn="@string/tV_select_billings_debt_i_must"
+            android:textOff="@string/tV_select_billings_debt_i_must"/>
 
         <ToggleButton
             android:id="@+id/toggleButton_debt_i_am_owed"
@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/selector_toggle_button_green"
-            android:textOn="@string/text_view_select_billings_debt_i_am_owed"
-            android:textOff="@string/text_view_select_billings_debt_i_am_owed" />
+            android:textOn="@string/tV_select_billings_debt_i_am_owed"
+            android:textOff="@string/tV_select_billings_debt_i_am_owed" />
     </LinearLayout>
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="@string/text_modal_view_select_billings_balance"
+        android:text="@string/tV_modal_select_billings_balance"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -55,7 +55,7 @@
             android:id="@+id/balance_billings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_number_zero"
+            android:text="@string/btn_number_zero"
             android:textColor="@color/black"
             android:textSize="26sp"
             android:textStyle="bold"
@@ -98,7 +98,7 @@
                 android:layout_height="80dp"
                 android:background="@drawable/button_gray_square"
                 android:textSize="20sp"
-                android:text="@string/button_number_zero" />
+                android:text="@string/btn_number_zero" />
 
             <Button
                 android:id="@+id/buttonOne"
@@ -106,14 +106,14 @@
                 android:layout_height="80dp"
                 android:background="@drawable/button_gray_square"
                 android:textSize="20sp"
-                android:text="@string/button_number_one"/>
+                android:text="@string/btn_number_one"/>
             <Button
                 android:id="@+id/buttonTwo"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button_gray_square"
                 android:textSize="20sp"
-                android:text="@string/button_number_two" />
+                android:text="@string/btn_number_two" />
         </LinearLayout>
 
         <LinearLayout
@@ -128,7 +128,7 @@
                 android:layout_height="80dp"
                 android:background="@drawable/button_gray_square"
                 android:textSize="20sp"
-                android:text="@string/button_number_three"/>
+                android:text="@string/btn_number_three"/>
 
             <Button
                 android:id="@+id/buttonFour"
@@ -136,7 +136,7 @@
                 android:layout_height="80dp"
                 android:background="@drawable/button_gray_square"
                 android:textSize="20sp"
-                android:text="@string/button_number_four"/>
+                android:text="@string/btn_number_four"/>
 
             <Button
                 android:id="@+id/buttonFive"
@@ -144,7 +144,7 @@
                 android:layout_height="80dp"
                 android:background="@drawable/button_gray_square"
                 android:textSize="20sp"
-                android:text="@string/button_number_five"/>
+                android:text="@string/btn_number_five"/>
         </LinearLayout>
 
         <LinearLayout
@@ -157,7 +157,7 @@
                 android:layout_height="80dp"
                 android:background="@drawable/button_gray_square"
                 android:textSize="20sp"
-                android:text="@string/button_number_six"/>
+                android:text="@string/btn_number_six"/>
 
             <Button
                 android:id="@+id/buttonSeven"
@@ -165,7 +165,7 @@
                 android:layout_height="80dp"
                 android:background="@drawable/button_gray_square"
                 android:textSize="20sp"
-                android:text="@string/button_number_seven" />
+                android:text="@string/btn_number_seven" />
 
             <Button
                 android:id="@+id/buttonEight"
@@ -173,7 +173,7 @@
                 android:layout_height="80dp"
                 android:background="@drawable/button_gray_square"
                 android:textSize="20sp"
-                android:text="@string/button_number_eight"/>
+                android:text="@string/btn_number_eight"/>
 
         </LinearLayout>
 
@@ -188,7 +188,7 @@
                 android:layout_height="80dp"
                 android:background="@drawable/button_gray_square"
                 android:textSize="20sp"
-                android:text="@string/button_number_nine" />
+                android:text="@string/btn_number_nine" />
 
 
             <ImageButton

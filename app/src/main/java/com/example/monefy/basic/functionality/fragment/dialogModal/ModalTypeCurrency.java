@@ -94,7 +94,7 @@ public class ModalTypeCurrency implements DialogModal{
                             dialogCallback.onSuccess();
                         }
                         dialogModal.cancel();
-                        ToastManager.showToastOnSuccessful(context, R.string.toast_text_message_successful_entered_the_data);
+                        ToastManager.showToastOnSuccessful(context, R.string.toast_successful_entered_the_data);
                     }
                 }
             });

@@ -201,14 +201,14 @@ public class ModalBalance implements  DialogModal{
             if (!balance.isEmpty() && checkMathSymbols(balance)) {
                 buttonSetUp.setImageDrawable(DRAWABLE_CHECK);
                 textViewModalBalance.setText(mathCalculation(balance));
-                ToastManager.showToastOnFailure(context,R.string.toast_text_message_successful_entered_the_data);
+                ToastManager.showToastOnFailure(context,R.string.toast_successful_entered_the_data);
             } else if (!balance.isEmpty() && !checkMathSymbols(balance)) {
                 if(dialogCallback != null){
                     updateData(balance);
                     dialogCallback.onSuccess();
                 }
                 dialogModal.cancel();
-                ToastManager.showToastOnFailure(context,R.string.toast_text_message_successful_entered_the_data);
+                ToastManager.showToastOnFailure(context,R.string.toast_successful_entered_the_data);
             }
         });
     }
@@ -234,7 +234,7 @@ public class ModalBalance implements  DialogModal{
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ToastManager.showToastOnFailure(context, R.string.toast_text_message_failure_entered_the_data);
+            ToastManager.showToastOnFailure(context, R.string.toast_failure_entered_the_data);
             return "0";
         } finally {
             org.mozilla.javascript.Context.exit();
@@ -282,12 +282,12 @@ public class ModalBalance implements  DialogModal{
         if(toggleButtonDebtIAmOwed == toggleButton){
             toggleButtonDebtIMust.setChecked(false);
             toggleButtonDebtIAmOwed.setChecked(true);
-            textViewTitleModal.setText(R.string.text_view_select_billings_debt_i_am_owed);
+            textViewTitleModal.setText(R.string.tV_select_billings_debt_i_am_owed);
         }
         if(toggleButtonDebtIMust == toggleButton){
             toggleButtonDebtIAmOwed.setChecked(false);
             toggleButtonDebtIMust.setChecked(true);
-            textViewTitleModal.setText(R.string.text_view_select_billings_debt_i_must);
+            textViewTitleModal.setText(R.string.tV_select_billings_debt_i_must);
         }
     }
 

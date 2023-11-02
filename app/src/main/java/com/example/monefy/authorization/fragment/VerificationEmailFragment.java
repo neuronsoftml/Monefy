@@ -1,4 +1,4 @@
-package com.example.monefy.authorization.frame;
+package com.example.monefy.authorization.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,21 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.monefy.basic.functionality.HomeActivity;
 import com.example.monefy.R;
 import com.example.monefy.tools.firebase.AuthenticationManager;
 
 import com.example.monefy.tools.firebase.InConclusionCompleteListener;
+import com.example.monefy.tools.message.ToastManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class VerificationEmailFragment extends Fragment{
 
     private TextView errorTextMessage;
-    private String email,password;
-    private Button nextButton;
+    private String email, pass;
+    private Button btnNext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class VerificationEmailFragment extends Fragment{
         Bundle args = getArguments();
         if (args != null) {
             this.email = args.getString("email");
-            this.password = args.getString("password");
+            this.pass = args.getString("password");
         }
     }
 
@@ -48,24 +48,19 @@ public class VerificationEmailFragment extends Fragment{
 
     public void setupUIElements(View view) {
         this.errorTextMessage = (TextView) view.findViewById(R.id.errorMessageText);
-        this.nextButton = (Button) view.findViewById(R.id.buttonNext);
+        this.btnNext = (Button) view.findViewById(R.id.btnNext);
     }
 
     //обробник кнопки.
     public void eventHandler() {
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkVerification();
-            }
-        });
+        btnNext.setOnClickListener(v -> checkVerification());
     }
 
     //Переверяє чи пройшов користувач перевірку електроної скриньки.
     private void checkVerification(){
         AuthenticationManager.signInWithEmailAndPasswordCallback(
                 FirebaseAuth.getInstance(),
-                email, password,
+                email, pass,
                 new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {
@@ -106,7 +101,7 @@ public class VerificationEmailFragment extends Fragment{
         if (user != null) {
             user.sendEmailVerification().addOnSuccessListener(unused -> {
                 isSendMessage = true;
-                Toast.makeText(getContext(), "повідомлення успішно було відправлено", Toast.LENGTH_SHORT).show();
+                ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_send_message_email);
             });
         }
     }
@@ -119,7 +114,7 @@ public class VerificationEmailFragment extends Fragment{
     //Обновляє інтерфейс користувача.
     private void sendVerificationEmailAndSetUI(FirebaseUser user) {
         sendMessageVerificationEmail(user);
-        nextButton.setText(R.string.button_next);
+        btnNext.setText(R.string.btn_next);
     }
 
 }

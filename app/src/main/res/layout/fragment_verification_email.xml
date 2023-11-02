@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".authorization.frame.VerificationEmailFragment">
+    tools:context=".authorization.fragment.VerificationEmailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,21 +25,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/description_singUp_input_verification_email"
+            android:text="@string/dep_singUp_verification_email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
 
         <Button
-            android:id="@+id/buttonNext"
+            android:id="@+id/btnNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:background="@drawable/button_blue"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@string/button_text_next_send_message"
+            android:text="@string/btn_next_send_message"
             android:textAllCaps="true"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"

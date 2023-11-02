@@ -1,66 +1,65 @@
 <resources>
     <string name="app_name">Monefy</string>
-    <string name="text_button_nav_menu_billings">Рахунки</string>
-    <string name="text_button_nav_menu_categories">Категорії</string>
-    <string name="text_button_nav_menu_operations">Операції</string>
-    <string name="text_button_nav_menu_review">Огляд</string>
-    <string name="text_button_nav_menu_profile">Профіль</string>
+    <string name="btn_nav_menu_billings">Рахунки</string>
+    <string name="btn_nav_menu_categories">Категорії</string>
+    <string name="btn_nav_menu_operations">Операції</string>
+    <string name="btn_nav_menu_review">Огляд</string>
+    <string name="btn_nav_menu_profile">Профіль</string>
 
     <string name="title_sign_up">Реєстрація</string>
     <string name="title_sign_in">Авторизація користувачів</string>
     <string name="title_create_user">Створити нового користувача</string>
     <string name="title_page_profile">Мій профіль</string>
 
-    <string name="text_view_billings">Рахунки</string>
-    <string name="text_view_billing">Рахунок</string>
-    <string name="text_view_balance">Баланс</string>
-    <string name="text_view_savings">Заощадження</string>
-    <string name="text_view_new_billings">Новий рахунок</string>
-    <string name="text_view_type_billings">Тип</string>
-    <string name="text_view_type_currency">Валюта рахунку</string>
-    <string name="text_view_balance_billing">Баланс рахунку</string>
-    <string name="text_view_credit_limit">Кредитний ліміт</string>
+    <string name="tV_billings">Рахунки</string>
+    <string name="tV_billing">Рахунок</string>
+    <string name="tV_balance">Баланс</string>
+    <string name="tV_savings">Заощадження</string>
+    <string name="tV_new_billings">Новий рахунок</string>
+    <string name="tV_type_billings">Тип</string>
+    <string name="tV_type_currency">Валюта рахунку</string>
+    <string name="tV_balance_billing">Баланс рахунку</string>
+    <string name="tV_credit_limit">Кредитний ліміт</string>
+    <string name="tV_load_date">завантаження даних..</string>
 
-    <string name="button_signUp_facebook">Увійти за допомогою Facebook</string>
-    <string name="button_signUp_emailOrPhone">email або номер телефона</string>
-    <string name="button_signIn">Увійти</string>
-    <string name="button_next">продовжити</string>
-    <string name="button_reset_password">відновити пароль</string>
-    <string name="button_text_next_send_message">відправити листа</string>
-    <string name="button_text_add_billings">Добавити рахунок</string>
-    <string name="button_text_add_target">Додати ціль</string>
-    <string name="button_text_type_billings_ordinary">Звичайний</string>
-    <string name="button_text_type_billings_debt">Борговий</string>
-    <string name="button_text_type_billings_cumulative">Накопичувальний</string>
-    <string name="button_text_modal_edit_account">Редагувати</string>
-    <string name="button_text_modal_replenish_account">Поповнити</string>
-    <string name="button_text_modal_write_off_account">Списати</string>
-    <string name="button_text_modal_share_account">Переказати</string>
-    <string name="button_text_modal_operations_account">Операції</string>
-    <string name="button_text_modal_delete_account">Видалити</string>
+    <string name="btn_signUp_facebook">Увійти за допомогою Facebook</string>
+    <string name="btn_signUp_emailOrPhone">email або номер телефона</string>
+    <string name="btn_signIn">Увійти</string>
+    <string name="btn_next">продовжити</string>
+    <string name="btn_reset_password">відновити пароль</string>
+    <string name="btn_next_send_message">відправити листа</string>
+    <string name="btn_add_billings">Добавити рахунок</string>
+    <string name="btn_add_target">Додати ціль</string>
+    <string name="btn_type_billings_ordinary">Звичайний</string>
+    <string name="btn_type_billings_debt">Борговий</string>
+    <string name="btn_type_billings_cumulative">Накопичувальний</string>
+    <string name="btn_modal_edit_account">Редагувати</string>
+    <string name="btn_modal_replenish_account">Поповнити</string>
+    <string name="btn_modal_write_off_account">Списати</string>
+    <string name="btn_modal_share_account">Переказати</string>
+    <string name="btn_modal_operations_account">Операції</string>
+    <string name="btn_modal_delete_account">Видалити</string>
 
-    <string name="description_signUp">виберіть один із варіантів створення користувача</string>
-    <string name="description_have_account">У вас вже є профіль?</string>
-    <string name="description_singUp_input_date">Вкажіть свою email адресу та пароль</string>
-    <string name="description_singUp_input_verification_email">На вашу електрону скриньку  ми відправили листа з підтвердженням реєстрації, вам необхідно зайти у вашу електрону скриньку та підтвердити реєстрацію.</string>
-    <string name="description_reset_password">Для того щоб відновити ваш пароль, ведіть адресу електронної скриньки та ми надішлемо вам на email листа з інструкцією по відновленню пароля.</string>
+    <string name="dep_signUp">виберіть один із варіантів створення користувача</string>
+    <string name="dep_have_account">У вас вже є профіль?</string>
+    <string name="dep_singUp_input_date">Вкажіть свою email адресу та пароль</string>
+    <string name="dep_singUp_verification_email">На вашу електрону скриньку  ми відправили листа з підтвердженням реєстрації, вам необхідно зайти у вашу електрону скриньку та підтвердити реєстрацію.</string>
+    <string name="dep_reset_pass">Для того щоб відновити ваш пароль, ведіть адресу електронної скриньки та ми надішлемо вам на email листа з інструкцією по відновленню пароля.</string>
 
-    <string name="text_switch_remember_me">Запам\'ятати мене</string>
-    <string name="text_load_date">завантаження даних..</string>
+    <string name="t_switch_remember_me">Запам\'ятати мене</string>
+    <string name="t_edit_hint_email">Email</string>
+    <string name="t_edit_hint_password">password</string>
+    <string name="t_edit_hint_name_billings">Ім\'я рахунку</string>
 
-    <string name="text_edit_hint_email">Email</string>
-    <string name="text_edit_hint_password">password</string>
-    <string name="text_edit_hint_name_billings">Ім\'я рахунку</string>
+    <string name="tV_modal_select_type_billings">Виберіть тип рахунка</string>
+    <string name="tV_modal_select_type_currencies">Виберіть тип валюти</string>
+    <string name="tV_modal_select_billings_balance">Баланс рахунку</string>
+    <string name="tV_modal_select_billings_credit_limit">Кредитний ліміт</string>
 
-    <string name="text_modal_view_select_type_billings">Виберіть тип рахунка</string>
-    <string name="text_modal_view_select_type_currencies">Виберіть тип валюти</string>
-    <string name="text_modal_view_select_billings_balance">Баланс рахунку</string>
-    <string name="text_modal_view_select_billings_credit_limit">Кредитний ліміт</string>
-
-    <string name="text_view_select_billings_debt_i_am_owed">Мені винні</string>
-    <string name="text_view_select_billings_debt_i_must">Я повинен</string>
-    <string name="text_view_select_billings_total_amount_of_debt">Загальна сума боргу</string>
-    <string name="text_view_select_billings_objective">Мета</string>
+    <string name="tV_select_billings_debt_i_am_owed">Мені винні</string>
+    <string name="tV_select_billings_debt_i_must">Я повинен</string>
+    <string name="tV_select_billings_total_amount_of_debt">Загальна сума боргу</string>
+    <string name="tV_select_billings_objective">Мета</string>
 
     <string name="link_singIn">Увійти</string>
     <string name="link_forgot_password">Забули пароль?</string>
@@ -74,21 +73,25 @@
 
     <string name="successfully_message_text_send_email">Лист успішно був відправлений на email</string>
 
-    <string name="toast_text_message_successful_entered_the_data">Успішно внесли данні</string>
-    <string name="toast_text_message_failure_entered_the_data">Підчас запису даних виникла помилка</string>
-    <string name="toast_text_message_successful_delete_billings">Успішно видалили рахунок</string>
-    <string name="toast_text_message_failure_delete_billings">Виникла помилка, рахунок не був видалений</string>
+    <string name="toast_successful_entered_the_data">Успішно внесли данні</string>
+    <string name="toast_failure_entered_the_data">Підчас запису даних виникла помилка</string>
+    <string name="toast_successful_delete_billings">Успішно видалили рахунок</string>
+    <string name="toast_failure_delete_billings">Виникла помилка, рахунок не був видалений</string>
+    <string name="toast_success_signIn">Авторизація успішна</string>
+    <string name="toast_failure_signIn">Помилка авторизації</string>
+    <string name="toast_failure_error_type_email">Помилка: невідомий email</string>
+    <string name="toast_successful_send_message_email">Повідомлення успішно було відправлено</string>
+    <string name="toast_successful_message_reset_pass">Лист для скидання пароля надіслано на вашу адресу електронної пошти.</string>
 
-    <string name="button_number_zero">0</string>
-    <string name="button_number_one">1</string>
-    <string name="button_number_two">2</string>
-    <string name="button_number_three">3</string>
-    <string name="button_number_four">4</string>
-    <string name="button_number_five">5</string>
-    <string name="button_number_six">6</string>
-    <string name="button_number_seven">7</string>
-    <string name="button_number_eight">8</string>
-    <string name="button_number_nine">9</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_number_zero">0</string>
+    <string name="btn_number_one">1</string>
+    <string name="btn_number_two">2</string>
+    <string name="btn_number_three">3</string>
+    <string name="btn_number_four">4</string>
+    <string name="btn_number_five">5</string>
+    <string name="btn_number_six">6</string>
+    <string name="btn_number_seven">7</string>
+    <string name="btn_number_eight">8</string>
+    <string name="btn_number_nine">9</string>
+
 </resources>

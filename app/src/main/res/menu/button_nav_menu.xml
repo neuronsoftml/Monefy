@@ -2,24 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/button_navigation_billings"
-        android:title="@string/text_button_nav_menu_billings"
+        android:id="@+id/btnNavBillings"
+        android:title="@string/btn_nav_menu_billings"
         android:icon="@drawable/selector_icon_billings"/>
     <item
-        android:id="@+id/button_navigation_categories"
-        android:title="@string/text_button_nav_menu_categories"
+        android:id="@+id/btnNavCategories"
+        android:title="@string/btn_nav_menu_categories"
         android:icon="@drawable/selector_icon_categories"/>
     <item
-        android:id="@+id/button_navigation_operations"
-        android:title="@string/text_button_nav_menu_operations"
+        android:id="@+id/btnNavOperations"
+        android:title="@string/btn_nav_menu_operations"
         android:icon="@drawable/selector_icon_operations"/>
     <item
-        android:id="@+id/button_navigation_review"
-        android:title="@string/text_button_nav_menu_review"
+        android:id="@+id/btnNavReview"
+        android:title="@string/btn_nav_menu_review"
         android:icon="@drawable/selector_icon_review"/>
     <item
-        android:id="@+id/button_navigation_profile"
-        android:title="@string/text_button_nav_menu_profile"
+        android:id="@+id/btnNavProfile"
+        android:title="@string/btn_nav_menu_profile"
         android:icon="@drawable/icon_baseline_person_24"/>
 
 </menu>

@@ -26,14 +26,13 @@ import com.example.monefy.tools.firebase.OnBillingsCallback;
 import com.example.monefy.tools.message.ToastManager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BillingsFragment extends Fragment {
 
     private ListView listView;
-    private Button buttonAddBillings;
+    private Button btnAddBillings;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +52,7 @@ public class BillingsFragment extends Fragment {
 
     private void setupUIElements(View view){
         this.listView = (ListView) view.findViewById(R.id.list_item_billings);
-        this.buttonAddBillings = (Button) view.findViewById(R.id.button_add_billings);
+        this.btnAddBillings = (Button) view.findViewById(R.id.button_add_billings);
     }
 
     private List<Billings> billings = new ArrayList<>();
@@ -98,94 +97,85 @@ public class BillingsFragment extends Fragment {
     }
 
     private void handlerClickItemListBillings() {
-        billingsListAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(Billings billings) {
-                ModalAccount modalAccount = new ModalAccount(getContext(),billings);
+        billingsListAdapter.setOnItemClickListener(billings -> {
+            ModalAccount modalAccount = new ModalAccount(getContext(),billings);
 
-                AccountDialogCallback accountDialogCallback = new AccountDialogCallback() {
-                    @Override
-                    public void onSuccessDelete() {
-                        billingsListAdapter.removeBillings(billings);
-                        billingsListAdapter.notifyDataSetChanged();
-                        ToastManager.showToastOnSuccessful(getContext(),R.string.toast_text_message_successful_delete_billings);
-                    }
+            AccountDialogCallback accountDialogCallback = new AccountDialogCallback() {
+                @Override
+                public void onSuccessDelete() {
+                    billingsListAdapter.removeBillings(billings);
+                    billingsListAdapter.notifyDataSetChanged();
+                    ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_delete_billings);
+                }
 
-                    @Override
-                    public void onClickEdit() {
-                        replaceFragmentToDate(new EditBillingsFragment(),billings,null);
-                    }
+                @Override
+                public void onClickEdit() {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("billing", billings);
+                    FragmentSwitcher.replaceFragmentToDate(
+                            new EditBillingsFragment(),
+                            bundle,
+                            getContext(),
+                            FragmentSwitcher.getContainerHome()
+                    );
+                }
 
-                    @Override
-                    public void onClickOperations() {
+                @Override
+                public void onClickOperations() {
 
-                    }
+                }
 
-                    @Override
-                    public void onClickDeposit() {
+                @Override
+                public void onClickDeposit() {
 
-                    }
+                }
 
-                    @Override
-                    public void onClickWriteOff() {
+                @Override
+                public void onClickWriteOff() {
 
-                    }
+                }
 
-                    @Override
-                    public void onClickTransfer() {
+                @Override
+                public void onClickTransfer() {
 
-                    }
+                }
 
-                    @Override
-                    public void onSuccess() {
+                @Override
+                public void onSuccess() {
 
-                    }
+                }
 
-                    @Override
-                    public void onFailure(Exception exception) {
+                @Override
+                public void onFailure(Exception exception) {
 
-                    }
-                };
-                modalAccount.modalStart(accountDialogCallback);
-            }
+                }
+            };
+            modalAccount.modalStart(accountDialogCallback);
         });
     }
 
     private void clickButtonAddBillings(){
-        buttonAddBillings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ModalTypeBillings modalTypeBillings = new ModalTypeBillings(getContext());
-                modalTypeBillings.modalStart(new DialogCallback() {
-                    @Override
-                    public void onSuccess() {
-                        replaceFragmentToDate(new CreateBillingsFragment(),null, modalTypeBillings.getUpdateData());
-                    }
+        btnAddBillings.setOnClickListener(v -> {
+            ModalTypeBillings modalTypeBillings = new ModalTypeBillings(getContext());
+            modalTypeBillings.modalStart(new DialogCallback() {
+                @Override
+                public void onSuccess() {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TypeBillings", modalTypeBillings.getUpdateData());
 
-                    @Override
-                    public void onFailure(Exception exception) {
+                    FragmentSwitcher.replaceFragmentToDate(
+                            new CreateBillingsFragment(),
+                            bundle,
+                            getContext(),
+                            FragmentSwitcher.getContainerHome()
+                    );
+                }
 
-                    }
-                });
-            }
+                @Override
+                public void onFailure(Exception exception) {
+
+                }
+            });
         });
     }
-
-    private void replaceFragmentToDate(Fragment showFragment,Billings billing,String typeBillings){
-        Bundle bundle = new Bundle();
-        if (billing != null) {
-            bundle.putSerializable("billing", billing);
-        }
-        if (typeBillings != null) {
-            bundle.putString("TypeBillings", typeBillings);
-        }
-        showFragment.setArguments(bundle);
-
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainerHome, showFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-
 }

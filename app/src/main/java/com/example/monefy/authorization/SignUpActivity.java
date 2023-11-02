@@ -1,22 +1,20 @@
 package com.example.monefy.authorization;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
 import com.example.monefy.R;
-import com.example.monefy.authorization.frame.CreateNewUserFragment;
+import com.example.monefy.authorization.fragment.CreateNewUserFragment;
+import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 
 public class SignUpActivity extends AppCompatActivity{
 
     private FragmentContainerView fragmentContainer;
 
     public void setupUIElements(){
-        this.fragmentContainer = (FragmentContainerView) findViewById(R.id.fragmentContainer);
+        this.fragmentContainer = (FragmentContainerView) findViewById(R.id.containerVerification);
     }
 
     @Override
@@ -26,16 +24,11 @@ public class SignUpActivity extends AppCompatActivity{
 
         setupUIElements();
 
-        loadFrame(new CreateNewUserFragment());
+        FragmentSwitcher.replaceFragment(
+                new CreateNewUserFragment(),
+                getSupportFragmentManager(),
+                FragmentSwitcher.getContainerVerification());
     }
 
-    private void loadFrame(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        fragmentTransaction.add(R.id.fragmentContainer,fragment);
-
-        fragmentTransaction.commit();
-
-    }
 }

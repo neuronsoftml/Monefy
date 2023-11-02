@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/text_view_new_billings"
+                android:text="@string/tV_new_billings"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:ems="10"
-                android:hint="@string/text_edit_hint_name_billings"
+                android:hint="@string/t_edit_hint_name_billings"
                 android:inputType="text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +109,7 @@
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_view_type_billings"
+                    android:text="@string/tV_type_billings"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
@@ -142,7 +142,7 @@
                     android:id="@+id/type_currency_fragment_edit_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_view_type_currency"
+                    android:text="@string/tV_type_currency"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
@@ -189,7 +189,7 @@
                     android:id="@+id/textView_balance_create_billings_fragment_edit_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_view_balance_billing"
+                    android:text="@string/tV_balance_billing"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/icon_baseline_edit_14"/>
@@ -223,7 +223,7 @@
                     android:id="@+id/text_view_credit_limit_fragment_edit_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_view_credit_limit"
+                    android:text="@string/tV_credit_limit"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/icon_baseline_edit_14"/>

@@ -14,18 +14,32 @@ import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.Billings;
 import com.example.monefy.basic.functionality.model.TypeBillings;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class BillingsListAdapter extends BaseAdapter {
 
     private Context context;
     private List<Billings> arrayList;
-
     private OnItemClickListener onItemClickListener;
+
+    private ImageView imageView;
+    private TextView typeBillings, accountBalance, typeCurrency, creditLimit, typeCurrencyCreditLimit;
 
     public BillingsListAdapter(Context context, List<Billings> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
+    }
+
+    private void setupUIElements(View convertView){
+        imageView = convertView.findViewById(R.id.imageBillings_list_item);
+        typeBillings = convertView.findViewById(R.id.title_name_billings_list_item);
+        accountBalance = convertView.findViewById(R.id.balance_billings_list_item);
+
+        typeCurrency = convertView.findViewById(R.id.type_currency_list_item_1);
+        creditLimit = convertView.findViewById(R.id.credit_limit_list_item);
+        typeCurrencyCreditLimit = convertView.findViewById(R.id.type_currency_list_item_2);
     }
 
     @Override
@@ -49,17 +63,24 @@ public class BillingsListAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.billings_list_aitem, null);
         }
-
-        ImageView imageView = convertView.findViewById(R.id.imageBillings_list_item);
-        TextView typeBillings = convertView.findViewById(R.id.title_name_billings_list_item);
-        TextView accountBalance = convertView.findViewById(R.id.balance_billings_list_item);
-
-        TextView typeCurrency = convertView.findViewById(R.id.type_currency_list_item_1);
-        TextView creditLimit = convertView.findViewById(R.id.credit_limit_list_item);
-        TextView typeCurrencyCreditLimit = convertView.findViewById(R.id.type_currency_list_item_2);
-
         Billings billings = arrayList.get(position);
 
+        setupUIElements(convertView);
+        setValue(billings);
+        handlerClickItem(convertView, position);
+
+        return convertView;
+    }
+
+    private void handlerClickItem(View convertView, int position){
+        convertView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(getBillings(position));
+            }
+        });
+    }
+
+    private void setValue(Billings billings){
         if (!billings.getName().isEmpty()) {
             typeBillings.setText(billings.getName());
         } else {
@@ -72,24 +93,13 @@ public class BillingsListAdapter extends BaseAdapter {
         typeCurrency.setText(billings.getTypeCurrency());
         creditLimit.setText(String.valueOf(billings.getCreditLimit()));
         typeCurrencyCreditLimit.setText(billings.getTypeCurrency());
-
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(getBillings(position));
-                }
-            }
-        });
-
-        return convertView;
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
 
-    public Billings getBillings(int position) {
+    private Billings getBillings(int position) {
         return arrayList.get(position);
     }
 

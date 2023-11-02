@@ -17,23 +17,24 @@ import com.example.monefy.local.database.AppDatabase;
 import com.example.monefy.local.database.model.User;
 import com.example.monefy.tools.firebase.AuthenticationManager;
 import com.example.monefy.tools.firebase.InConclusionCompleteListener;
+import com.example.monefy.tools.message.ToastManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private EditText inputEmail, inputPassword;
-    private Button buttonSignIn;
+    private EditText inputEmail, inputPass;
+    private Button btnSignIn;
     private Switch aSwitch;
-    private TextView recoverPassword, errorTextMessage;
+    private TextView recoverPass, errorTextMessage;
 
     //Визначення обєктів активності.
     private void setupUIElements() {
-        this.buttonSignIn = (Button) findViewById(R.id.buttonSingIn);
+        this.btnSignIn = (Button) findViewById(R.id.buttonSingIn);
 
-        this.inputEmail = (EditText) findViewById(R.id.inputEmail);
-        this.inputPassword = (EditText) findViewById(R.id.inputPassword);
+        this.inputEmail = (EditText) findViewById(R.id.inputEmailNewUser);
+        this.inputPass = (EditText) findViewById(R.id.inputPassNewUser);
 
-        this.recoverPassword = (TextView) findViewById(R.id.recoverPassword);
+        this.recoverPass = (TextView) findViewById(R.id.recoverPassword);
         this.errorTextMessage = (TextView) findViewById(R.id.errorMessageText);
 
         this.aSwitch = (Switch) findViewById(R.id.switchSaveData);
@@ -58,17 +59,14 @@ public class SignInActivity extends AppCompatActivity {
 
     //Обронник кліка по реєстрації.
     private void clickButtonSignIn(){
-        buttonSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = inputEmail.getText().toString();
-                String password = inputPassword.getText().toString();
+        btnSignIn.setOnClickListener(v -> {
+            String email = inputEmail.getText().toString();
+            String password = inputPass.getText().toString();
 
-                if(checkInputIsEmpty(email,password)){
-                    handlerSignIn(email,password);
-                }else{
-                    errorSignInHandler();
-                }
+            if(checkInputIsEmpty(email,password)){
+                handlerSignIn(email,password);
+            }else{
+                errorSignInHandler();
             }
         });
     }
@@ -85,13 +83,13 @@ public class SignInActivity extends AppCompatActivity {
                             autoSaveLocalDate(email, password);
                         }
                         navigationToHome();
-                        Toast.makeText(SignInActivity.this, "Авторизація успішна", Toast.LENGTH_SHORT).show();
+                        ToastManager.showToastOnSuccessful(getApplicationContext(),R.string.toast_success_signIn);
                     }
 
                     @Override
                     public void onFailure(Exception exception) {
                         errorSignInHandler();
-                        Toast.makeText(SignInActivity.this, "Помилка авторизації: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                        ToastManager.showToastOnFailure(getApplicationContext(),R.string.toast_failure_signIn);
                     }
                 });
     }
@@ -110,12 +108,7 @@ public class SignInActivity extends AppCompatActivity {
 
     //Оброник кліка по тексту відновлення пароля.
     private void clickTextRecoverPassword(){
-        recoverPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigationToResetPassword();
-            }
-        });
+        recoverPass.setOnClickListener(v -> navigationToResetPassword());
     }
 
     //Виводить повідомлення помилки
@@ -128,7 +121,7 @@ public class SignInActivity extends AppCompatActivity {
     private void errorSignInHandler(){
         showErrorMessage(R.string.error_message_text_password_or_email);
         inputEmail.setBackgroundResource(R.drawable.selector_error_input);
-        inputPassword.setBackgroundResource(R.drawable.selector_error_input);
+        inputPass.setBackgroundResource(R.drawable.selector_error_input);
     }
 
     //Перевірка чи поле не пусте.

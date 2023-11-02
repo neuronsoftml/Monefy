@@ -4,10 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.monefy.authorization.SignInActivity;
 import com.example.monefy.authorization.SignUpActivity;
@@ -16,16 +14,17 @@ import com.example.monefy.local.database.AppDatabase;
 import com.example.monefy.local.database.model.User;
 import com.example.monefy.tools.firebase.AuthenticationManager;
 import com.example.monefy.tools.firebase.InConclusionCompleteListener;
+import com.example.monefy.tools.message.ToastManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity{
 
-    private TextView signIn;
-    private Button singUpEmailPassword;
+    private TextView tVSignIn;
+    private Button btnSingUp;
 
     public void setupUIElements(){
-        this.signIn = (TextView) findViewById(R.id.SignIn);
-        this.singUpEmailPassword = (Button) findViewById(R.id.signUpEmailPassword);
+        this.tVSignIn = (TextView) findViewById(R.id.btnSignInMain);
+        this.btnSingUp = (Button) findViewById(R.id.btnSignUpMain);
     }
 
     @Override
@@ -47,23 +46,17 @@ public class MainActivity extends AppCompatActivity{
 
     //Обробник кліка по кнопці реєстрації
     private void clickButtonSingUp(){
-        singUpEmailPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(intent);
-            }
+        btnSingUp.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+            startActivity(intent);
         });
     }
 
     //Обробник кліка по тексту увійти.
     private void clickTextSignIn(){
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-                startActivity(intent);
-            }
+        tVSignIn.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -91,12 +84,12 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onSuccess() {
                         navigationToHome();
-                        Toast.makeText(MainActivity.this, "Авторизація успішна", Toast.LENGTH_SHORT).show();
+                        ToastManager.showToastOnSuccessful(getApplicationContext(),R.string.toast_success_signIn);
                     }
 
                     @Override
                     public void onFailure(Exception exception) {
-                        Toast.makeText(MainActivity.this, "Помилка авторизації: " + exception.getMessage().toString(),Toast.LENGTH_SHORT).show();
+                       ToastManager.showToastOnFailure(getApplicationContext(),R.string.toast_failure_signIn);
                     }
                 }
         );

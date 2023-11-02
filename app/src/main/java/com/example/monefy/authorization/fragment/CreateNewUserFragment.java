@@ -1,9 +1,8 @@
-package com.example.monefy.authorization.frame;
+package com.example.monefy.authorization.fragment;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.tools.firebase.InConclusionCompleteListener;
 import com.example.monefy.tools.firebase.FirebaseManager;
 import com.example.monefy.tools.input.EmailValidator;
@@ -22,15 +22,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class CreateNewUserFragment extends Fragment{
 
-    private Button nextButton;
-    private EditText inputEmail, inputPassword;
+    private Button btnNext;
+    private EditText inputEmail, inputPass;
     private TextView errorTextMessage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_create_new_user, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_user, container, false);
 
         setupUIElements(view);
 
@@ -40,18 +40,18 @@ public class CreateNewUserFragment extends Fragment{
     }
 
     private void setupUIElements(View view){
-        this.nextButton = (Button) view.findViewById(R.id.buttonNext);
-        this.inputEmail = (EditText) view.findViewById(R.id.inputEmail);
-        this.inputPassword = (EditText) view.findViewById(R.id.inputPassword);
+        this.btnNext = (Button) view.findViewById(R.id.btnNext);
+        this.inputEmail = (EditText) view.findViewById(R.id.inputEmailNewUser);
+        this.inputPass = (EditText) view.findViewById(R.id.inputPassNewUser);
         this.errorTextMessage = (TextView) view.findViewById(R.id.errorMessageText);
     }
 
     //Обробник кліка по кнопці продовжити.
     private void clickButtonNext(){
-        nextButton.setOnClickListener(view -> {
+        btnNext.setOnClickListener(view -> {
 
             String email = inputEmail.getText().toString();
-            String password = inputPassword.getText().toString();
+            String password = inputPass.getText().toString();
 
             if(validateInputDate(email,password)){
                 createNewUser(email,password);
@@ -81,7 +81,7 @@ public class CreateNewUserFragment extends Fragment{
 
     //Обробник помилки в input password.
     private void passwordErrorHandler(){
-        inputPassword.setBackgroundResource(R.drawable.selector_error_input);
+        inputPass.setBackgroundResource(R.drawable.selector_error_input);
         showErrorMessage(R.string.error_message_text_password);
     }
 
@@ -101,7 +101,16 @@ public class CreateNewUserFragment extends Fragment{
                 new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {
-                        navigationFragmentToVerification(email,password);
+                        Bundle data = new Bundle();
+                        data.putString("email", email);
+                        data.putString("password", password);
+
+                        FragmentSwitcher.replaceFragmentToDate(
+                                new VerificationEmailFragment(),
+                                data,
+                                getContext(),
+                                FragmentSwitcher.getContainerVerification()
+                        );
                     }
 
                     @Override
@@ -111,18 +120,4 @@ public class CreateNewUserFragment extends Fragment{
                 }
         );
     }
-
-    //Навігація переходу Fragment на Verification Email.
-    private void navigationFragmentToVerification(String email, String password){
-        Fragment fragment = new VerificationEmailFragment();
-
-        Bundle data = new Bundle();
-        data.putString("email", email);
-        data.putString("password", password);
-
-        fragment.setArguments(data);
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment).commit();
-    }
-
 }
