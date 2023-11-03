@@ -82,6 +82,9 @@
     <string name="toast_failure_error_type_email">Помилка: невідомий email</string>
     <string name="toast_successful_send_message_email">Повідомлення успішно було відправлено</string>
     <string name="toast_successful_message_reset_pass">Лист для скидання пароля надіслано на вашу адресу електронної пошти.</string>
+    <string name="toast_successful_edit_billings">Успішно внесено зміни у рахунок</string>
+    <string name="toast_failure_edit_billings">Помилка зміни в рахунок не було внесено</string>
+
 
     <string name="btn_number_zero">0</string>
     <string name="btn_number_one">1</string>

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.model.Obligation;
 import com.example.monefy.basic.functionality.model.TypeBillings;
 import com.example.monefy.tools.message.ToastManager;
 
@@ -137,6 +138,7 @@ public class ModalBalance implements  DialogModal{
     private void setValueObjectModal(){
         toggleButtonDebtIMust.setChecked(true);
         toggleButtonDebtIAmOwed.setChecked(false);
+
         textViewTitleModal.setText(titleModal);
         textViewTypeMoney.setText(typeCurrencies);
     }
@@ -282,12 +284,12 @@ public class ModalBalance implements  DialogModal{
         if(toggleButtonDebtIAmOwed == toggleButton){
             toggleButtonDebtIMust.setChecked(false);
             toggleButtonDebtIAmOwed.setChecked(true);
-            textViewTitleModal.setText(R.string.tV_select_billings_debt_i_am_owed);
+            textViewTitleModal.setText(Obligation.DEBT_TO_ME.getTitle());
         }
         if(toggleButtonDebtIMust == toggleButton){
             toggleButtonDebtIAmOwed.setChecked(false);
             toggleButtonDebtIMust.setChecked(true);
-            textViewTitleModal.setText(R.string.tV_select_billings_debt_i_must);
+            textViewTitleModal.setText(Obligation.DEBT_TO_ANOTHER.getTitle());
         }
     }
 

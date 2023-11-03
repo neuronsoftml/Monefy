@@ -68,10 +68,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/tV_item_title_obligation"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tV_credit_limit" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/credit_limit_list_item"

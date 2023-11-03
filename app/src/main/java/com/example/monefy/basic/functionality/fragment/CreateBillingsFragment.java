@@ -19,6 +19,7 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallbac
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalance;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeCurrency;
+import com.example.monefy.basic.functionality.model.Obligation;
 import com.example.monefy.basic.functionality.model.TypeBillings;
 import com.example.monefy.tools.firebase.AuthenticationManager;
 import com.example.monefy.tools.firebase.FirebaseManager;
@@ -104,6 +105,7 @@ public class CreateBillingsFragment extends Fragment {
                         nameBillings,
                         typeBillings,
                         typeCurrency,
+                        setObligation(typeBillings),
                         new InConclusionCompleteListener() {
                             @Override
                             public void onSuccess() {
@@ -119,6 +121,20 @@ public class CreateBillingsFragment extends Fragment {
                 );
             }
         });
+    }
+
+    private String setObligation(String typeBillings) {
+        if(typeBillings.equals(TypeBillings.ORDINARY.getTypeBillingsTitle())){
+            return Obligation.CREDIT_LIMIT.getTitle();
+        }
+
+        else if(typeBillings.equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+            return tVTitleBalanceBillings.getText().toString();
+        }
+        else if (typeBillings.equals(TypeBillings.CUMULATIVE.getTypeBillingsTitle())) {
+            return Obligation.GOAL.getTitle();
+        }
+        return "";
     }
 
     private void handlerClickLinerLayoutTypeBillings(){

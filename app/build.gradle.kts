@@ -47,6 +47,9 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore:24.9.1")
 
     implementation ("org.mozilla:rhino:1.7.13")
+    implementation ("com.google.code.gson:gson:2.9.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
     annotationProcessor( "androidx.room:room-compiler:2.6.0")
 

@@ -1,11 +1,13 @@
 package com.example.monefy.basic.functionality.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentActivity;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,22 +23,24 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalance;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeCurrency;
 import com.example.monefy.basic.functionality.model.Billings;
+import com.example.monefy.basic.functionality.model.Obligation;
 import com.example.monefy.basic.functionality.model.TypeBillings;
+import com.example.monefy.tools.firebase.AuthenticationManager;
+import com.example.monefy.tools.firebase.FirebaseManager;
+import com.example.monefy.tools.firebase.InConclusionCompleteListener;
+import com.example.monefy.tools.message.ToastManager;
 
 public class EditBillingsFragment extends Fragment {
 
     private Billings billing;
     private TextView textViewTypeBillings, textViewTypeCurrency, textViewBalanceBillings, textViewCreditLimit;
-    private  TextView textViewTitleBalanceBillings, textViewTitleCreditLimit;
+    private TextView tVTitleBalanceBillings, textViewTitleCreditLimit;
     private LinearLayout linerLayoutTypeBillings, linerLayoutTypeCurrency, linerLayoutBalanceBillings, linerLayoutCreditLimit;
     private EditText editTextNameBillings;
     private ImageButton imageButtonClose, imageButtonSetUp;
     private ImageView imageViewCreditCartTypeBillings;
     private ConstraintLayout constraintLayoutPanelTop;
-
-    public EditBillingsFragment() {
-        // Required empty public constructor
-    }
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,11 +81,15 @@ public class EditBillingsFragment extends Fragment {
         imageButtonSetUp = view.findViewById(R.id.imageButtonSetUp_fragment_edit_billings);
         imageViewCreditCartTypeBillings = view.findViewById(R.id.imageViewCreditCartTypeBillings_fragment_edit_billings);
         constraintLayoutPanelTop = view.findViewById(R.id.constraintLayout_create_billings_fragment_edit_billings);
-        textViewTitleBalanceBillings = view.findViewById(R.id.textView_balance_create_billings_fragment_edit_billings);
+        tVTitleBalanceBillings = view.findViewById(R.id.tV_balance_fragment_edit_billings);
         textViewTitleCreditLimit = view.findViewById(R.id.text_view_credit_limit_fragment_edit_billings);
+
     }
 
     private void setValueObject(){
+        if(billing.getTypeBillings().equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+            tVTitleBalanceBillings.setText(billing.getObligation());
+        }
         textViewTypeBillings.setText(billing.getTypeBillings());
         textViewTypeCurrency.setText(billing.getTypeCurrency());
         textViewBalanceBillings.setText(String.valueOf(billing.getBalance()));
@@ -107,6 +115,7 @@ public class EditBillingsFragment extends Fragment {
     }
 
     private void handlerClickImageButtonSetUp() {
+        context = getContext();
         imageButtonSetUp.setOnClickListener(v->{
             String nameBillings = editTextNameBillings.getText().toString();
             String typeBillings = textViewTypeBillings.getText().toString();
@@ -114,7 +123,59 @@ public class EditBillingsFragment extends Fragment {
             String balance = textViewBalanceBillings.getText().toString().isEmpty() ? "0" : textViewBalanceBillings.getText().toString();
             String creditLimit = textViewCreditLimit.getText().toString().isEmpty() ? "0" : textViewCreditLimit.getText().toString();
 
+            Log.d("obligation", getObligation(typeBillings));
+            Billings updatesBillings = new Billings(
+                    Long.parseLong(balance),
+                    Long.parseLong(creditLimit),
+                    nameBillings,
+                    typeBillings,
+                    typeCurrency,
+                    getObligation(typeBillings)
+            );
+
+            updatesBillings.setId(billing.getId());
+
+            if(!updatesBillings.equals(billing)){
+                FirebaseManager.updatedBillings(
+                        AuthenticationManager.getAuthenticationManager().getUserId(),
+                        updatesBillings,
+                        new InConclusionCompleteListener() {
+                            @Override
+                            public void onSuccess() {
+                                ToastManager.showToastOnSuccessful(context,R.string.toast_successful_edit_billings);
+                                FragmentSwitcher.replaceFragment(
+                                        new BillingsFragment(),
+                                        ((FragmentActivity) context).getSupportFragmentManager(),
+                                        FragmentSwitcher.getContainerHome()
+                                );
+                            }
+
+                            @Override
+                            public void onFailure(Exception exception) {
+                                ToastManager.showToastOnFailure(context,R.string.toast_failure_edit_billings);
+                                FragmentSwitcher.replaceFragmentBack(context);
+                            }
+                        }
+
+                );
+            }
+            FragmentSwitcher.replaceFragmentBack(context);
+
         });
+    }
+
+    private String getObligation(String typeBillings) {
+        if(typeBillings.equals(TypeBillings.ORDINARY.getTypeBillingsTitle())){
+            return Obligation.CREDIT_LIMIT.getTitle();
+        }
+
+        else if(typeBillings.equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+            return tVTitleBalanceBillings.getText().toString();
+        }
+        else if (typeBillings.equals(TypeBillings.CUMULATIVE.getTypeBillingsTitle())) {
+            return Obligation.GOAL.getTitle();
+        }
+        return "";
     }
 
     private void handlerClickLinerLayoutTypeBillings(){
@@ -155,7 +216,7 @@ public class EditBillingsFragment extends Fragment {
         linerLayoutBalanceBillings.setOnClickListener(v -> {
             ModalBalance modalBalance = new ModalBalance(
                     getContext(), getView(),
-                    textViewTitleBalanceBillings.getText().toString(),
+                    tVTitleBalanceBillings.getText().toString(),
                     textViewBalanceBillings.getText().toString(),
                     textViewTypeCurrency.getText().toString(),
                     textViewTypeBillings.getText().toString());
@@ -164,7 +225,7 @@ public class EditBillingsFragment extends Fragment {
                 public void onSuccess() {
                     textViewBalanceBillings.setText(modalBalance.getUpdateBalance());
                     if(modalBalance.getUpdateToWhomHeOwes() != null){
-                        textViewTitleBalanceBillings.setText(modalBalance.getUpdateToWhomHeOwes());
+                        tVTitleBalanceBillings.setText(modalBalance.getUpdateToWhomHeOwes());
                     }
                 }
 
@@ -212,7 +273,7 @@ public class EditBillingsFragment extends Fragment {
         textViewTypeBillings.setText(TypeBillings.ORDINARY.getTypeBillingsTitle());
         imageViewCreditCartTypeBillings.setImageResource(R.drawable.icon_credit_card_blue);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.blue));
-        textViewTitleBalanceBillings.setText(R.string.tV_balance_billing);
+        tVTitleBalanceBillings.setText(R.string.tV_balance_billing);
         textViewTitleCreditLimit.setText(R.string.tV_credit_limit);
     }
 
@@ -220,7 +281,6 @@ public class EditBillingsFragment extends Fragment {
         textViewTypeBillings.setText(TypeBillings.DEBT.getTypeBillingsTitle());
         imageViewCreditCartTypeBillings.setImageResource(R.drawable.icon_credit_card_red);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.red));
-        textViewTitleBalanceBillings.setText(R.string.tV_select_billings_debt_i_must);
         textViewTitleCreditLimit.setText(R.string.tV_select_billings_total_amount_of_debt);
     }
 
@@ -228,9 +288,8 @@ public class EditBillingsFragment extends Fragment {
         textViewTypeBillings.setText(TypeBillings.CUMULATIVE.getTypeBillingsTitle());
         imageViewCreditCartTypeBillings.setImageResource(R.drawable.icon_credit_card_gold);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.gold));
-        textViewTitleBalanceBillings.setText(R.string.tV_balance_billing);
+        tVTitleBalanceBillings.setText(R.string.tV_balance_billing);
         textViewTitleCreditLimit.setText(R.string.tV_select_billings_objective);
     }
-
 
 }

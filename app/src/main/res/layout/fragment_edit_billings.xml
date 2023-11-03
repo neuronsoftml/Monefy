@@ -186,7 +186,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView_balance_create_billings_fragment_edit_billings"
+                    android:id="@+id/tV_balance_fragment_edit_billings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tV_balance_billing"

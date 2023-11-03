@@ -5,7 +5,6 @@ import android.app.Activity;
 import androidx.annotation.NonNull;
 
 import com.example.monefy.basic.functionality.model.Billings;
-import com.example.monefy.tools.message.ToastManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -143,6 +142,7 @@ public class FirebaseManager {
             String name,
             String typeBillings,
             String typeCurrency ,
+            String obligation,
             final  InConclusionCompleteListener listener) {
         CollectionReference billingsCollection = db
                 .collection("Users")
@@ -155,6 +155,7 @@ public class FirebaseManager {
         billingData.put("name", name);
         billingData.put("typeBillings", typeBillings);
         billingData.put("typeCurrency", typeCurrency);
+        billingData.put("obligation", obligation);
 
         billingsCollection.add(billingData)
                 .addOnSuccessListener(documentReference -> {
@@ -182,21 +183,43 @@ public class FirebaseManager {
                 .document(billingsId);
 
         billingsRef.delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // Успішно видалено
-                        if (listener != null) {
-                            listener.onSuccess();
-                        }
+                .addOnSuccessListener(aVoid -> {
+                    // Успішно видалено
+                    if (listener != null) {
+                        listener.onSuccess();
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        if (listener != null) {
-                            listener.onFailure(e);
-                        }
+                .addOnFailureListener(e -> {
+                    if (listener != null) {
+                        listener.onFailure(e);
+                    }
+                });
+    }
+
+    public static void updatedBillings(String userId, Billings billings, final InConclusionCompleteListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> updatedData = new HashMap<>();
+        updatedData.put("balance", billings.getBalance());
+        updatedData.put("creditLimit", billings.getCreditLimit());
+        updatedData.put("name", billings.getName());
+        updatedData.put("typeBillings", billings.getTypeBillings());
+        updatedData.put("typeCurrency", billings.getTypeCurrency());
+        updatedData.put("obligation", billings.getObligation());
+
+        db.collection("Users")
+                .document(userId)
+                .collection("billings")
+                .document(billings.getId())
+                .update(updatedData)
+                .addOnSuccessListener(aVoid -> {
+                    if (listener != null) {
+                        listener.onSuccess();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    if (listener != null) {
+                        listener.onFailure(e);
                     }
                 });
     }

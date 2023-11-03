@@ -1,7 +1,6 @@
 package com.example.monefy.basic.functionality.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.Billings;
 import com.example.monefy.basic.functionality.model.TypeBillings;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class BillingsListAdapter extends BaseAdapter {
@@ -23,9 +20,9 @@ public class BillingsListAdapter extends BaseAdapter {
     private Context context;
     private List<Billings> arrayList;
     private OnItemClickListener onItemClickListener;
-
     private ImageView imageView;
     private TextView typeBillings, accountBalance, typeCurrency, creditLimit, typeCurrencyCreditLimit;
+    private TextView titleObligation;
 
     public BillingsListAdapter(Context context, List<Billings> arrayList) {
         this.context = context;
@@ -40,6 +37,8 @@ public class BillingsListAdapter extends BaseAdapter {
         typeCurrency = convertView.findViewById(R.id.type_currency_list_item_1);
         creditLimit = convertView.findViewById(R.id.credit_limit_list_item);
         typeCurrencyCreditLimit = convertView.findViewById(R.id.type_currency_list_item_2);
+
+        titleObligation = convertView.findViewById(R.id.tV_item_title_obligation);
     }
 
     @Override
@@ -92,7 +91,8 @@ public class BillingsListAdapter extends BaseAdapter {
 
         typeCurrency.setText(billings.getTypeCurrency());
         creditLimit.setText(String.valueOf(billings.getCreditLimit()));
-        typeCurrencyCreditLimit.setText(billings.getTypeCurrency());
+
+        titleObligation.setText(billings.getObligation());
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
