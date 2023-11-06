@@ -265,7 +265,7 @@ public class ModalBalance implements  DialogModal{
     }
 
     private void switcherStyleInterface(String argumentTypeBillings){
-        if(argumentTypeBillings.equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+        if(argumentTypeBillings.equals(TypeBillings.DEBT.getTitle())){
             linearLayoutToggleButtonDebt.setVisibility(View.VISIBLE);
             handlerToggleButton();
         }
@@ -295,7 +295,7 @@ public class ModalBalance implements  DialogModal{
 
     private void updateData(String updateBalance){
         this.updateBalance = updateBalance;
-        if(typeBillings.equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+        if(typeBillings.equals(TypeBillings.DEBT.getTitle())){
             this.updateToWhomHeOwes = textViewTitleModal.getText().toString();
         }
     }

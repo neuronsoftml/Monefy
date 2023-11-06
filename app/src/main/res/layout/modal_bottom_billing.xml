@@ -123,7 +123,7 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/imageButton_modal_edit_account"
+                        android:id="@+id/imageBtn_modal_edit_billing"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="@drawable/button_lite_round"
@@ -148,7 +148,7 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/imageButton_modal_delete_account"
+                        android:id="@+id/imageBtn_modal_delete_billing"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="@drawable/button_lite_round"
@@ -208,7 +208,7 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/imageButton_modal_replenish_account"
+                        android:id="@+id/imageBtn_modal_replenish_billing"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="@drawable/button_lite_round"

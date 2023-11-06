@@ -39,6 +39,8 @@
     <string name="btn_modal_share_account">Переказати</string>
     <string name="btn_modal_operations_account">Операції</string>
     <string name="btn_modal_delete_account">Видалити</string>
+    <string name="btn_modal_toggle_income">дохід</string>
+    <string name="btn_modal_toggle_from_the_bill">з рахунка</string>
 
     <string name="dep_signUp">виберіть один із варіантів створення користувача</string>
     <string name="dep_have_account">У вас вже є профіль?</string>
@@ -96,5 +98,7 @@
     <string name="btn_number_seven">7</string>
     <string name="btn_number_eight">8</string>
     <string name="btn_number_nine">9</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

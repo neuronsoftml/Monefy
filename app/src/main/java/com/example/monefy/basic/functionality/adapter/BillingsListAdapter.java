@@ -21,7 +21,7 @@ public class BillingsListAdapter extends BaseAdapter {
     private List<Billings> arrayList;
     private OnItemClickListener onItemClickListener;
     private ImageView imageView;
-    private TextView typeBillings, accountBalance, typeCurrency, creditLimit, typeCurrencyCreditLimit;
+    private TextView typeBillings, accountBalance, typeCurrency, creditLimit, typeCurrencyObl;
     private TextView titleObligation;
 
     public BillingsListAdapter(Context context, List<Billings> arrayList) {
@@ -36,7 +36,7 @@ public class BillingsListAdapter extends BaseAdapter {
 
         typeCurrency = convertView.findViewById(R.id.type_currency_list_item_1);
         creditLimit = convertView.findViewById(R.id.credit_limit_list_item);
-        typeCurrencyCreditLimit = convertView.findViewById(R.id.type_currency_list_item_2);
+        typeCurrencyObl = convertView.findViewById(R.id.type_currency_list_item_2);
 
         titleObligation = convertView.findViewById(R.id.tV_item_title_obligation);
     }
@@ -66,6 +66,7 @@ public class BillingsListAdapter extends BaseAdapter {
 
         setupUIElements(convertView);
         setValue(billings);
+
         handlerClickItem(convertView, position);
 
         return convertView;
@@ -90,6 +91,7 @@ public class BillingsListAdapter extends BaseAdapter {
         accountBalance.setText(String.valueOf(billings.getBalance()));
 
         typeCurrency.setText(billings.getTypeCurrency());
+        typeCurrencyObl.setText(billings.getTypeCurrency());
         creditLimit.setText(String.valueOf(billings.getCreditLimit()));
 
         titleObligation.setText(billings.getObligation());

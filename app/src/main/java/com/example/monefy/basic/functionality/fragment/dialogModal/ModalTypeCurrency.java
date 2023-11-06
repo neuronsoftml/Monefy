@@ -61,7 +61,7 @@ public class ModalTypeCurrency implements DialogModal{
 
     private Button createCurrencyButton(TypeCurrency typeCurrency) {
         Button button = new Button(context);
-        button.setText(typeCurrency.getTypeCurrencyTitle());
+        button.setText(typeCurrency.getTitle());
         button.setCompoundDrawablesRelativeWithIntrinsicBounds(typeCurrency.getIdIconTypeCurrency(), 0, 0, 0);
         button.setCompoundDrawablePadding(10);
         button.setTag(typeCurrency.toString());
@@ -87,10 +87,10 @@ public class ModalTypeCurrency implements DialogModal{
         for (Button button : buttonListModalTypeCurrency) {
             button.setOnClickListener(v -> {
                 for (TypeCurrency typeCurrency : TypeCurrency.values()) {
-                    if (button.getText().toString().equals(typeCurrency.getTypeCurrencyTitle())) {
+                    if (button.getText().toString().equals(typeCurrency.getTitle())) {
 
                         if(dialogCallback != null){
-                            updateData = typeCurrency.getTypeCurrencyTitle();
+                            updateData = typeCurrency.getTitle();
                             dialogCallback.onSuccess();
                         }
                         dialogModal.cancel();

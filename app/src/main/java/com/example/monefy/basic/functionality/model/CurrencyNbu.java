@@ -1,6 +1,8 @@
 package com.example.monefy.basic.functionality.model;
 
-public class CurrencyNbu {
+import java.io.Serializable;
+
+public class CurrencyNbu implements Serializable{
     private int r030;
     private String txt;
     private double rate;

@@ -13,7 +13,7 @@ public enum TypeBillings {
         this.title = title;
     }
 
-    public String getTypeBillingsTitle() {
+    public String getTitle() {
         return title;
     }
 

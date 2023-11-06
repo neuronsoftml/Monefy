@@ -1,12 +1,11 @@
 package com.example.monefy.basic.functionality.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TotalAmount {
     private long amount;
-    private List<Billings> billings = new ArrayList<>();
-    private List<CurrencyNbu> currencyNbuS = new ArrayList<>();
+    private List<Billings> billings;
+    private List<CurrencyNbu> currencyNbuS;
 
     public TotalAmount(long amount, List<Billings> billings, List<CurrencyNbu> currencyNbuS) {
         this.amount = amount;
@@ -16,17 +15,20 @@ public class TotalAmount {
 
     private void calculatingTotalAmount(){
         for(Billings billing : billings){
-            if(!billing.getTypeBillings().equals(TypeBillings.DEBT.getTypeBillingsTitle())){
-                if(billing.getTypeCurrency().equals("UAH")){
-                    amount = amount + billing.getBalance();
-                }
-                else if(billing.getTypeCurrency().equals("USD")){
-                    amount = amount + (billing.getBalance() * getCourseByCurrency("USD"));
-                }
-                else if(billing.getTypeCurrency().equals("EUR")){
-                    amount = amount + (billing.getBalance() * getCourseByCurrency("EUR"));
-                }
-            }
+           if(billing.getTypeBillings().equals(TypeBillings.ORDINARY.getTitle())
+                || billing.getTypeBillings().equals(TypeBillings.DEBT.getTitle())
+                   && billing.getObligation().equals(Obligation.DEBT_TO_ME.getTitle())){
+
+               if(billing.getTypeCurrency().equals("UAH")){
+                   amount = amount + billing.getBalance();
+               }
+               else if(billing.getTypeCurrency().equals("USD")){
+                   amount = amount + (billing.getBalance() * getCourseByCurrency("USD"));
+               }
+               else if(billing.getTypeCurrency().equals("EUR")){
+                   amount = amount + (billing.getBalance() * getCourseByCurrency("EUR"));
+               }
+           }
         }
     }
 

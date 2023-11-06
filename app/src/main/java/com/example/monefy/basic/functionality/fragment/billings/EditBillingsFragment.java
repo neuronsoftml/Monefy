@@ -1,4 +1,4 @@
-package com.example.monefy.basic.functionality.fragment;
+package com.example.monefy.basic.functionality.fragment.billings;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalance;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
@@ -87,7 +88,7 @@ public class EditBillingsFragment extends Fragment {
     }
 
     private void setValueObject(){
-        if(billing.getTypeBillings().equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+        if(billing.getTypeBillings().equals(TypeBillings.DEBT.getTitle())){
             tVTitleBalanceBillings.setText(billing.getObligation());
         }
         textViewTypeBillings.setText(billing.getTypeBillings());
@@ -165,14 +166,14 @@ public class EditBillingsFragment extends Fragment {
     }
 
     private String getObligation(String typeBillings) {
-        if(typeBillings.equals(TypeBillings.ORDINARY.getTypeBillingsTitle())){
+        if(typeBillings.equals(TypeBillings.ORDINARY.getTitle())){
             return Obligation.CREDIT_LIMIT.getTitle();
         }
 
-        else if(typeBillings.equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+        else if(typeBillings.equals(TypeBillings.DEBT.getTitle())){
             return tVTitleBalanceBillings.getText().toString();
         }
-        else if (typeBillings.equals(TypeBillings.CUMULATIVE.getTypeBillingsTitle())) {
+        else if (typeBillings.equals(TypeBillings.CUMULATIVE.getTitle())) {
             return Obligation.GOAL.getTitle();
         }
         return "";
@@ -260,17 +261,17 @@ public class EditBillingsFragment extends Fragment {
     }
 
     private void switcherStyleInterface(String argumentTypeBillings){
-        if(argumentTypeBillings.equals(TypeBillings.ORDINARY.getTypeBillingsTitle())){
+        if(argumentTypeBillings.equals(TypeBillings.ORDINARY.getTitle())){
             typeOrdinaryBillingsStyle();
-        }else if(argumentTypeBillings.equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+        }else if(argumentTypeBillings.equals(TypeBillings.DEBT.getTitle())){
             typeDebtBillingsStyle();
-        } else if (argumentTypeBillings.equals(TypeBillings.CUMULATIVE.getTypeBillingsTitle())) {
+        } else if (argumentTypeBillings.equals(TypeBillings.CUMULATIVE.getTitle())) {
             typeAccumulativeBillingsStyle();
         }
     }
 
     private void typeOrdinaryBillingsStyle(){
-        textViewTypeBillings.setText(TypeBillings.ORDINARY.getTypeBillingsTitle());
+        textViewTypeBillings.setText(TypeBillings.ORDINARY.getTitle());
         imageViewCreditCartTypeBillings.setImageResource(R.drawable.icon_credit_card_blue);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.blue));
         tVTitleBalanceBillings.setText(R.string.tV_balance_billing);
@@ -278,14 +279,14 @@ public class EditBillingsFragment extends Fragment {
     }
 
     private void typeDebtBillingsStyle(){
-        textViewTypeBillings.setText(TypeBillings.DEBT.getTypeBillingsTitle());
+        textViewTypeBillings.setText(TypeBillings.DEBT.getTitle());
         imageViewCreditCartTypeBillings.setImageResource(R.drawable.icon_credit_card_red);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.red));
         textViewTitleCreditLimit.setText(R.string.tV_select_billings_total_amount_of_debt);
     }
 
     private void typeAccumulativeBillingsStyle(){
-        textViewTypeBillings.setText(TypeBillings.CUMULATIVE.getTypeBillingsTitle());
+        textViewTypeBillings.setText(TypeBillings.CUMULATIVE.getTitle());
         imageViewCreditCartTypeBillings.setImageResource(R.drawable.icon_credit_card_gold);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.gold));
         tVTitleBalanceBillings.setText(R.string.tV_balance_billing);

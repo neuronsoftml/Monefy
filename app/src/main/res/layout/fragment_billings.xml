@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".basic.functionality.fragment.BillingsFragment">
+    tools:context=".basic.functionality.fragment.billings.BillingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -25,124 +24,37 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
-            android:id="@+id/tVtotalBill"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragContainerTotalAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
-            android:text="0"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="грн"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/LinearLayoutExchangeRate"
+        </androidx.fragment.app.FragmentContainerView>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragContainerCurrencyNbu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_view"
-            android:gravity="center">
+            app:layout_constraintTop_toBottomOf="@+id/title_view">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:orientation="horizontal">
+        </androidx.fragment.app.FragmentContainerView>
 
-                <TextView
-                    android:id="@+id/tVTitleUSD"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/tVRateUSD"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tVTitleEUR"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/tvRateEUR"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tVTitleRON"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/tVRateRON"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragContainerBillingsOne"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutExchangeRate">
+            android:layout_height="300dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragContainerCurrencyNbu">
 
-            <ListView
-                android:id="@+id/list_item_billings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.fragment.app.FragmentContainerView>
 
         <Button
             android:id="@+id/button_add_billings"
@@ -155,7 +67,7 @@
             android:text="@string/btn_add_billings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/fragContainerBillingsOne" />
 
 
         <TextView
@@ -163,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
             android:text="@string/tV_savings"
             android:textAllCaps="true"
             android:textColor="@color/black"
@@ -170,43 +83,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_add_billings" />
 
-        <TextView
-            android:id="@+id/total_savings"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragContainerTotalSavings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:text="0 грн"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_add_billings" />
+            app:layout_constraintTop_toBottomOf="@+id/button_add_billings">
 
-        <Button
-            android:id="@+id/button_add_target"
-            android:layout_width="0dp"
+        </androidx.fragment.app.FragmentContainerView>
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragContainerBillingsTwo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="@string/btn_add_target"
-            android:background="@drawable/button_lite_white_add"
-            android:gravity="center_vertical"
-            android:drawableStart="@drawable/icon_outline_add_box_16"
-            android:drawablePadding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_savings" />
+            app:layout_constraintTop_toBottomOf="@+id/title_savings">
 
-        <ListView
-            android:id="@+id/list_item_savings"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_add_target" />
-
+        </androidx.fragment.app.FragmentContainerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

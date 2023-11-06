@@ -1,4 +1,4 @@
-package com.example.monefy.basic.functionality.fragment;
+package com.example.monefy.basic.functionality.fragment.profile;
 
 import android.os.Bundle;
 

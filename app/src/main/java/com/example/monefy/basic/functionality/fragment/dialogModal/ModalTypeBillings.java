@@ -65,7 +65,7 @@ public class ModalTypeBillings implements DialogModal {
             @Override
             public void onClick(View v) {
                 if(dialogCallback != null){
-                    updateData = TypeBillings.ORDINARY.getTypeBillingsTitle();
+                    updateData = TypeBillings.ORDINARY.getTitle();
                     dialogCallback.onSuccess();
                     dialogModal.cancel();
                 }
@@ -78,7 +78,7 @@ public class ModalTypeBillings implements DialogModal {
             @Override
             public void onClick(View v) {
                 if(dialogCallback != null){
-                    updateData = TypeBillings.DEBT.getTypeBillingsTitle();
+                    updateData = TypeBillings.DEBT.getTitle();
                     dialogCallback.onSuccess();
                     dialogModal.cancel();
                 }
@@ -91,7 +91,7 @@ public class ModalTypeBillings implements DialogModal {
             @Override
             public void onClick(View v) {
                 if(dialogCallback != null){
-                    updateData = TypeBillings.CUMULATIVE.getTypeBillingsTitle();
+                    updateData = TypeBillings.CUMULATIVE.getTitle();
                     dialogCallback.onSuccess();
                     dialogModal.cancel();
                 }

@@ -13,7 +13,7 @@ public enum TypeCurrency {
         this.title = title;
     }
 
-    public String getTypeCurrencyTitle() {
+    public String getTitle() {
         return title;
     }
 
@@ -22,13 +22,13 @@ public enum TypeCurrency {
     }
 
     public int getIdIconTypeCurrency(){
-        if(title.equals(TypeCurrency.EUR.getTypeCurrencyTitle())){
+        if(title.equals(TypeCurrency.EUR.getTitle())){
             return R.drawable.icon_money_euro;
         }
-        else if(title.equals(TypeCurrency.USD.getTypeCurrencyTitle())){
+        else if(title.equals(TypeCurrency.USD.getTitle())){
             return R.drawable.icon_money_usd;
         }
-        else if(title.equals(TypeCurrency.UAH.getTypeCurrencyTitle())){
+        else if(title.equals(TypeCurrency.UAH.getTitle())){
             return R.drawable.icon_money_ukraine_hryvnia;
         }
         return R.drawable.icon_money_usd;

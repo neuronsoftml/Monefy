@@ -1,18 +1,16 @@
 package com.example.monefy.basic.functionality;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.BillingsFragment;
+import com.example.monefy.basic.functionality.fragment.billings.BillingsFragment;
 import com.example.monefy.basic.functionality.fragment.CategoriesFragment;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.OperationsFragment;
-import com.example.monefy.basic.functionality.fragment.ProfileFragment;
+import com.example.monefy.basic.functionality.fragment.profile.ProfileFragment;
 import com.example.monefy.basic.functionality.fragment.ReviewFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

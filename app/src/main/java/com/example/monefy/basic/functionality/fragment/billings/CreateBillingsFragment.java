@@ -1,10 +1,9 @@
-package com.example.monefy.basic.functionality.fragment;
+package com.example.monefy.basic.functionality.fragment.billings;
 
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalance;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
@@ -110,7 +110,11 @@ public class CreateBillingsFragment extends Fragment {
                             @Override
                             public void onSuccess() {
                                 ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_entered_the_data);
-                                FragmentSwitcher.replaceFragmentBack(getContext());
+                                FragmentSwitcher.replaceFragment(
+                                        new BillingsFragment(),
+                                        getActivity().getSupportFragmentManager(),
+                                        R.id.containerHome
+                                );
                             }
 
                             @Override
@@ -124,14 +128,14 @@ public class CreateBillingsFragment extends Fragment {
     }
 
     private String setObligation(String typeBillings) {
-        if(typeBillings.equals(TypeBillings.ORDINARY.getTypeBillingsTitle())){
+        if(typeBillings.equals(TypeBillings.ORDINARY.getTitle())){
             return Obligation.CREDIT_LIMIT.getTitle();
         }
 
-        else if(typeBillings.equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+        else if(typeBillings.equals(TypeBillings.DEBT.getTitle())){
             return tVTitleBalanceBillings.getText().toString();
         }
-        else if (typeBillings.equals(TypeBillings.CUMULATIVE.getTypeBillingsTitle())) {
+        else if (typeBillings.equals(TypeBillings.CUMULATIVE.getTitle())) {
             return Obligation.GOAL.getTitle();
         }
         return "";
@@ -223,17 +227,17 @@ public class CreateBillingsFragment extends Fragment {
     }
 
     private void switcherStyleInterface(String argumentTypeBillings){
-        if(argumentTypeBillings.equals(TypeBillings.ORDINARY.getTypeBillingsTitle())){
+        if(argumentTypeBillings.equals(TypeBillings.ORDINARY.getTitle())){
             typeOrdinaryBillingsStyle();
-        }else if(argumentTypeBillings.equals(TypeBillings.DEBT.getTypeBillingsTitle())){
+        }else if(argumentTypeBillings.equals(TypeBillings.DEBT.getTitle())){
             typeDebtBillingsStyle();
-        } else if (argumentTypeBillings.equals(TypeBillings.CUMULATIVE.getTypeBillingsTitle())) {
+        } else if (argumentTypeBillings.equals(TypeBillings.CUMULATIVE.getTitle())) {
             typeAccumulativeBillingsStyle();
         }
     }
 
     private void typeOrdinaryBillingsStyle(){
-        tVTypeBillings.setText(TypeBillings.ORDINARY.getTypeBillingsTitle());
+        tVTypeBillings.setText(TypeBillings.ORDINARY.getTitle());
         imgViewCreditCart.setImageResource(R.drawable.icon_credit_card_blue);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.blue));
         tVTitleBalanceBillings.setText(R.string.tV_balance_billing);
@@ -241,7 +245,7 @@ public class CreateBillingsFragment extends Fragment {
     }
 
     private void typeDebtBillingsStyle(){
-        tVTypeBillings.setText(TypeBillings.DEBT.getTypeBillingsTitle());
+        tVTypeBillings.setText(TypeBillings.DEBT.getTitle());
         imgViewCreditCart.setImageResource(R.drawable.icon_credit_card_red);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.red));
         tVTitleBalanceBillings.setText(R.string.tV_select_billings_debt_i_must);
@@ -249,7 +253,7 @@ public class CreateBillingsFragment extends Fragment {
     }
 
     private void typeAccumulativeBillingsStyle(){
-        tVTypeBillings.setText(TypeBillings.CUMULATIVE.getTypeBillingsTitle());
+        tVTypeBillings.setText(TypeBillings.CUMULATIVE.getTitle());
         imgViewCreditCart.setImageResource(R.drawable.icon_credit_card_gold);
         constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.gold));
         tVTitleBalanceBillings.setText(R.string.tV_balance_billing);
