@@ -56,6 +56,7 @@ public class BillingsListOneFragment extends Fragment {
            showBillingsList();
            handlerClickItemListBillings();
            totalAmountFragment.setBillings(billings);
+           totalAmountFragment.onDataLoaded();
        });
 
        this.context = getContext();

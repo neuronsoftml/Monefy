@@ -17,6 +17,7 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallbac
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBilling;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalReplenishment;
 import com.example.monefy.basic.functionality.model.Billings;
+import com.example.monefy.basic.functionality.model.DataLoadListener;
 import com.example.monefy.basic.functionality.model.TypeBillings;
 import com.example.monefy.Manager.BillingsManager;
 import com.example.monefy.Manager.message.ToastManager;
@@ -48,11 +49,13 @@ public class BillingsListTwoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_billings_list_two, container, false);
         setupUIElements(view);
 
-        billingsManager.loadBillings(()->{
+        billingsManager.loadBillings(() -> {
             billings.clear();
             billings = billingsManager.getBillingsList();
             showBillingsList();
             handlerClickItemListBillings();
+            totalSavingsFragment.setBillingsList(billings);
+            totalSavingsFragment.onDataLoaded();
         });
 
         return view;
