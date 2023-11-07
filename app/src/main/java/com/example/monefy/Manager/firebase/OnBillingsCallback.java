@@ -1,4 +1,4 @@
-package com.example.monefy.tools.firebase;
+package com.example.monefy.Manager.firebase;
 
 import com.example.monefy.basic.functionality.model.Billings;
 

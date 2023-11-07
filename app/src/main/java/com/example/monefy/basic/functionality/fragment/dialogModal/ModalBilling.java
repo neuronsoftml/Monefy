@@ -11,14 +11,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.fragment.app.FragmentManager;
-
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.Billings;
 import com.example.monefy.basic.functionality.model.TypeBillings;
-import com.example.monefy.tools.firebase.AuthenticationManager;
-import com.example.monefy.tools.firebase.FirebaseManager;
-import com.example.monefy.tools.firebase.InConclusionCompleteListener;
+import com.example.monefy.Manager.firebase.AuthenticationManager;
+import com.example.monefy.Manager.firebase.FirebaseManager;
+import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 
 public class ModalBilling implements DialogModal{
     private Dialog dialogModal;
@@ -27,12 +25,10 @@ public class ModalBilling implements DialogModal{
     private ImageView imageViewBillingCard;
     private TextView tVNameBilling, tVABillingBalance, tVTypeCurrency, tVTypeBilling;
     private ImageButton imageBtnDelete, imageBtnEdit, imageBtnReplenishment;
-    private FragmentManager fragmentManager;
 
     public ModalBilling(Context context, Billings billing){
         this.context = context;
         this.billing = billing;
-        this.fragmentManager = fragmentManager;
     }
 
     @Override

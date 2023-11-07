@@ -21,6 +21,7 @@
     <string name="tV_balance_billing">Баланс рахунку</string>
     <string name="tV_credit_limit">Кредитний ліміт</string>
     <string name="tV_load_date">завантаження даних..</string>
+    <string name="tV_modal_wages">зарплата</string>
 
     <string name="btn_signUp_facebook">Увійти за допомогою Facebook</string>
     <string name="btn_signUp_emailOrPhone">email або номер телефона</string>

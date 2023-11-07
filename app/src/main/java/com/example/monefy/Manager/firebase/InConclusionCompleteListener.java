@@ -1,4 +1,4 @@
-package com.example.monefy.tools.firebase;
+package com.example.monefy.Manager.firebase;
 
 public interface InConclusionCompleteListener {
     void onSuccess();

@@ -1,4 +1,4 @@
-package com.example.monefy.tools.firebase;
+package com.example.monefy.Manager.firebase;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

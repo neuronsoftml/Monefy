@@ -1,4 +1,4 @@
-package com.example.monefy.tools.input;
+package com.example.monefy.Manager.input;
 
 public class PasswordValidator {
     public static boolean detectVerificationPassword(String password){

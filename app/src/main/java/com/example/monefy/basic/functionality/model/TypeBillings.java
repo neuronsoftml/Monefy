@@ -2,6 +2,9 @@ package com.example.monefy.basic.functionality.model;
 
 import com.example.monefy.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum TypeBillings {
     ORDINARY("Звичайний"),
     DEBT("Борговий"),
@@ -31,4 +34,27 @@ public enum TypeBillings {
         }
         return 0;
     }
+
+    private static List<TypeBillings> list = new ArrayList<>();
+
+    /**
+     * Повертає список типів рахунків категорії CUMULATIVE та ORDINARY.
+     * @returnд list.
+     */
+    public static List<TypeBillings> getListTypeBillingsCO(){
+        list.add(TypeBillings.CUMULATIVE);
+        list.add(TypeBillings.ORDINARY);
+        return list;
+    }
+
+    /**
+     * Повертає список типів рахунків категорії CUMULATIVE та DEBT
+     * @return
+     */
+    public static List<TypeBillings> getListTypeBillingsOD(){
+        list.add(TypeBillings.ORDINARY);
+        list.add(TypeBillings.DEBT);
+        return list;
+    }
+
 }

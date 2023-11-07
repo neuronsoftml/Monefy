@@ -1,4 +1,4 @@
-package com.example.monefy.tools.input;
+package com.example.monefy.Manager.input;
 
 public enum HowlEmail {
     GMAIL("@gmail.com"),

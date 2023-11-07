@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.monefy.R;
-import com.example.monefy.tools.firebase.AuthenticationManager;
-import com.example.monefy.tools.firebase.FirebaseManager;
-import com.example.monefy.tools.firebase.OnUserDataCallback;
+import com.example.monefy.Manager.firebase.AuthenticationManager;
+import com.example.monefy.Manager.firebase.FirebaseManager;
+import com.example.monefy.Manager.firebase.OnUserDataCallback;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 

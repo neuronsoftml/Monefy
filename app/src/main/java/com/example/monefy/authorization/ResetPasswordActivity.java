@@ -7,12 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.monefy.R;
-import com.example.monefy.tools.firebase.InConclusionCompleteListener;
-import com.example.monefy.tools.firebase.FirebaseManager;
-import com.example.monefy.tools.message.ToastManager;
+import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
+import com.example.monefy.Manager.firebase.FirebaseManager;
+import com.example.monefy.Manager.message.ToastManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ResetPasswordActivity extends AppCompatActivity {

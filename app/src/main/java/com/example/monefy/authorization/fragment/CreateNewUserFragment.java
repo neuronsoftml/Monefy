@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
-import com.example.monefy.tools.firebase.InConclusionCompleteListener;
-import com.example.monefy.tools.firebase.FirebaseManager;
-import com.example.monefy.tools.input.EmailValidator;
-import com.example.monefy.tools.input.PasswordValidator;
+import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
+import com.example.monefy.Manager.firebase.FirebaseManager;
+import com.example.monefy.Manager.input.EmailValidator;
+import com.example.monefy.Manager.input.PasswordValidator;
 import com.google.firebase.auth.FirebaseAuth;
 
 

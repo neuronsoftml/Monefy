@@ -26,10 +26,10 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeCurr
 import com.example.monefy.basic.functionality.model.Billings;
 import com.example.monefy.basic.functionality.model.Obligation;
 import com.example.monefy.basic.functionality.model.TypeBillings;
-import com.example.monefy.tools.firebase.AuthenticationManager;
-import com.example.monefy.tools.firebase.FirebaseManager;
-import com.example.monefy.tools.firebase.InConclusionCompleteListener;
-import com.example.monefy.tools.message.ToastManager;
+import com.example.monefy.Manager.firebase.AuthenticationManager;
+import com.example.monefy.Manager.firebase.FirebaseManager;
+import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
+import com.example.monefy.Manager.message.ToastManager;
 
 public class EditBillingsFragment extends Fragment {
 

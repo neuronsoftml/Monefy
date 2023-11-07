@@ -1,9 +1,7 @@
-package com.example.monefy.tools.message;
+package com.example.monefy.Manager.message;
 
 import android.content.Context;
 import android.widget.Toast;
-
-import com.example.monefy.R;
 
 public  class ToastManager {
 

@@ -18,7 +18,7 @@ import android.widget.ToggleButton;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.Obligation;
 import com.example.monefy.basic.functionality.model.TypeBillings;
-import com.example.monefy.tools.message.ToastManager;
+import com.example.monefy.Manager.message.ToastManager;
 
 import org.mozilla.javascript.Scriptable;
 

@@ -2,27 +2,22 @@ package com.example.monefy.basic.functionality.fragment.billings;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.BillingsListAdapter;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.dialogModal.BillingDialogCallback;
+import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalReplenishment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBilling;
 import com.example.monefy.basic.functionality.model.Billings;
 import com.example.monefy.basic.functionality.model.TypeBillings;
-import com.example.monefy.tools.firebase.AuthenticationManager;
-import com.example.monefy.tools.firebase.FirebaseManager;
-import com.example.monefy.tools.firebase.OnBillingsCallback;
-import com.example.monefy.tools.message.ToastManager;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.monefy.Manager.BillingsManager;
+import com.example.monefy.Manager.message.ToastManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +31,7 @@ public class BillingsListOneFragment extends Fragment {
 
     private ListView listItemBillings;
     private Context context;
+    private BillingsManager billingsManager = BillingsManager.getBillingsManager();
 
     private void setupUIElements(View view){
        this.listItemBillings = view.findViewById(R.id.list_item_billings);
@@ -51,8 +47,17 @@ public class BillingsListOneFragment extends Fragment {
                              Bundle savedInstanceState) {
 
        View view = inflater.inflate(R.layout.fragment_billings_list_one, container, false);
+
        setupUIElements(view);
-       loadBillings();
+
+       billingsManager.loadBillings(() -> {
+           billings.clear();
+           billings = billingsManager.getBillingsList();
+           showBillingsList();
+           handlerClickItemListBillings();
+           totalAmountFragment.setBillings(billings);
+       });
+
        this.context = getContext();
        return view;
     }
@@ -63,55 +68,12 @@ public class BillingsListOneFragment extends Fragment {
     private void showBillingsList(){
         billingsListAdapter = new BillingsListAdapter(
                 getContext(),
-                sortingBillings(billings));
-        listItemBillings.setAdapter(billingsListAdapter);
-    }
-
-    private void loadBillings(){
-        String userId = AuthenticationManager.getAuthenticationManager().getUserId();
-        FirebaseManager.getBillingsData(
-                FirebaseFirestore.getInstance(),
-                userId,
-                new OnBillingsCallback() {
-                    @Override
-                    public void onBillingsDataReceived(List<Billings> billingsList) {
-                        billings.clear();
-                        billings.addAll(billingsList);
-                        showBillingsList();
-                        handlerClickItemListBillings();
-
-                        totalAmountFragment.setBillings(billings);
-                        totalAmountFragment.onDataLoaded();
-                    }
-
-                    @Override
-                    public void onBillingsDataNotFound() {
-                        Log.d("error","Відсутні дані");;
-                    }
-
-                    @Override
-                    public void onBillingsDataError(Exception e) {
-                        Log.e("ERROR", "Помилка при отриманні даних: " + e.getMessage());
-                    }
-                }
+                BillingsManager.sortingBillings(
+                        billings,
+                        TypeBillings.getListTypeBillingsOD())
         );
 
-    }
-
-    private List<Billings> sortingBillings(List<Billings> billingList){
-        String[] typeBillings = new String[]{
-                TypeBillings.ORDINARY.getTitle(),
-                TypeBillings.DEBT.getTitle()
-        };
-        List<Billings> billings = new ArrayList<>();
-        for(Billings bill : billingList){
-            for(int i = 0; i < typeBillings.length; i++){
-                if(bill.getTypeBillings().equals(typeBillings[i])){
-                    billings.add(bill);
-                }
-            }
-        }
-        return billings;
+        listItemBillings.setAdapter(billingsListAdapter);
     }
 
     private void handlerClickItemListBillings() {
@@ -121,25 +83,12 @@ public class BillingsListOneFragment extends Fragment {
             BillingDialogCallback billingDialogCallback = new BillingDialogCallback() {
                 @Override
                 public void onSuccessDelete() {
-                    ToastManager.showToastOnSuccessful(context,R.string.toast_successful_entered_the_data);
-                    FragmentSwitcher.replaceFragment(
-                            new BillingsFragment(),
-                            getActivity().getSupportFragmentManager(),
-                            R.id.containerHome
-                    );
-                    ToastManager.showToastOnSuccessful(context,R.string.toast_successful_delete_billings);
+                   handlerDelete(billings);
                 }
 
                 @Override
                 public void onClickEdit() {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("billing", billings);
-                    FragmentSwitcher.replaceFragmentToDate(
-                            new EditBillingsFragment(),
-                            bundle,
-                            getContext(),
-                            FragmentSwitcher.getContainerHome()
-                    );
+                  handlerEdit(billings);
                 }
 
                 @Override
@@ -149,7 +98,7 @@ public class BillingsListOneFragment extends Fragment {
 
                 @Override
                 public void onClickReplenishment() {
-                    handlerBtnReplenishment(billings);
+                    handlerReplenishment(billings);
                 }
 
                 @Override
@@ -186,7 +135,38 @@ public class BillingsListOneFragment extends Fragment {
         this.totalAmountFragment = totalAmountFragment;
     }
 
-    private void handlerBtnReplenishment(Billings bill){
+    private void handlerDelete(Billings billings){
+        billingsListAdapter.removeBillings(billings);
+        billingsListAdapter.notifyDataSetChanged();
+        ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_delete_billings);
+    }
 
+    private void handlerEdit(Billings billings){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("billing", billings);
+        FragmentSwitcher.replaceFragmentToDate(
+                new EditBillingsFragment(),
+                bundle,
+                getContext(),
+                FragmentSwitcher.getContainerHome()
+        );
+    }
+
+    private void handlerReplenishment(Billings bill){
+        ModalReplenishment modalReplenishment = new ModalReplenishment(
+                getContext(),
+                R.layout.modal_bottom_replenishment,
+                bill);
+        modalReplenishment.modalStart(new DialogCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+
+            }
+        });
     }
 }

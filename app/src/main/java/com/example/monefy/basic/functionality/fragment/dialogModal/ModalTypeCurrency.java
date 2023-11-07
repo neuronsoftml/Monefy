@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.TypeCurrency;
-import com.example.monefy.tools.message.ToastManager;
+import com.example.monefy.Manager.message.ToastManager;
 
 import java.util.ArrayList;
 import java.util.List;
