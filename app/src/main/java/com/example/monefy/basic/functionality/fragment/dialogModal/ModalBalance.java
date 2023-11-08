@@ -16,8 +16,8 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.model.Obligation;
-import com.example.monefy.basic.functionality.model.TypeBillings;
+import com.example.monefy.basic.functionality.model.billings.Obligation;
+import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.Manager.message.ToastManager;
 
 import org.mozilla.javascript.Scriptable;
@@ -60,11 +60,14 @@ public class ModalBalance implements  DialogModal{
         this.typeCurrencies = typeCurrencies;
         this.typeBillings = typeBillings;
     }
+
     @Override
     public void modalStart(DialogCallback dialogCallback){
         showDialogModal();
         setupUIDialogModal();
-        switcherStyleInterface(typeBillings);
+        if(typeBillings != null){
+            switcherStyleInterface(typeBillings);
+        }
         setValueObjectModal();
         if(!balance.isEmpty()){
             textViewModalBalance.setText(balance);
@@ -295,8 +298,10 @@ public class ModalBalance implements  DialogModal{
 
     private void updateData(String updateBalance){
         this.updateBalance = updateBalance;
-        if(typeBillings.equals(TypeBillings.DEBT.getTitle())){
-            this.updateToWhomHeOwes = textViewTitleModal.getText().toString();
+        if(typeBillings != null){
+            if(typeBillings.equals(TypeBillings.DEBT.getTitle())){
+                this.updateToWhomHeOwes = textViewTitleModal.getText().toString();
+            }
         }
     }
 

@@ -26,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity{
 
         FragmentSwitcher.replaceFragment(
                 new CreateNewUserFragment(),
-                getSupportFragmentManager(),
+                this,
                 FragmentSwitcher.getContainerVerification());
     }
 

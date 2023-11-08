@@ -16,9 +16,8 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.BillingDialog
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBilling;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalReplenishment;
-import com.example.monefy.basic.functionality.model.Billings;
-import com.example.monefy.basic.functionality.model.DataLoadListener;
-import com.example.monefy.basic.functionality.model.TypeBillings;
+import com.example.monefy.basic.functionality.model.billings.Billings;
+import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.Manager.BillingsManager;
 import com.example.monefy.Manager.message.ToastManager;
 

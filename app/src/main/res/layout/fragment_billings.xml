@@ -56,41 +56,28 @@
 
         </androidx.fragment.app.FragmentContainerView>
 
-        <Button
-            android:id="@+id/button_add_billings"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_lite_white_add"
-            android:drawableStart="@drawable/icon_outline_add_box_16"
-            android:drawablePadding="10dp"
-            android:gravity="center_vertical"
-            android:text="@string/btn_add_billings"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragContainerBillingsOne" />
-
 
         <TextView
             android:id="@+id/title_savings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="@string/tV_savings"
             android:textAllCaps="true"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_add_billings" />
+            app:layout_constraintTop_toBottomOf="@+id/fragContainerBillingsOne" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragContainerTotalSavings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_add_billings">
+            app:layout_constraintTop_toBottomOf="@+id/fragContainerBillingsOne">
 
         </androidx.fragment.app.FragmentContainerView>
         <androidx.fragment.app.FragmentContainerView

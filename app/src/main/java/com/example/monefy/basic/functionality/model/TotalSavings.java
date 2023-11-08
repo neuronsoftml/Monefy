@@ -1,5 +1,8 @@
 package com.example.monefy.basic.functionality.model;
 
+import com.example.monefy.basic.functionality.model.billings.Billings;
+import com.example.monefy.basic.functionality.model.billings.TypeBillings;
+
 import java.util.List;
 
 public class TotalSavings {

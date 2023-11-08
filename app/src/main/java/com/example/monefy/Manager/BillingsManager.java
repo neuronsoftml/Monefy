@@ -2,9 +2,9 @@ package com.example.monefy.Manager;
 
 import android.util.Log;
 
-import com.example.monefy.basic.functionality.model.Billings;
+import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.DataLoadListener;
-import com.example.monefy.basic.functionality.model.TypeBillings;
+import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.Manager.firebase.AuthenticationManager;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.firebase.OnBillingsCallback;

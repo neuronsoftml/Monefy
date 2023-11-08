@@ -1,4 +1,4 @@
-package com.example.monefy.basic.functionality.model;
+package com.example.monefy.basic.functionality.model.billings;
 
 public enum Obligation {
     CREDIT_LIMIT("кредитний ліміт"),

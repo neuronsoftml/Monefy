@@ -1,6 +1,6 @@
 package com.example.monefy.Manager.firebase;
 
-import com.example.monefy.basic.functionality.model.Billings;
+import com.example.monefy.basic.functionality.model.billings.Billings;
 
 import java.util.List;
 

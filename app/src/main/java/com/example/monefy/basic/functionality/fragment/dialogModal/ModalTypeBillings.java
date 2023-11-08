@@ -11,7 +11,7 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.model.TypeBillings;
+import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
 public class ModalTypeBillings implements DialogModal {
     private Dialog dialogModal;

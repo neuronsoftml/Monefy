@@ -6,15 +6,11 @@ import androidx.fragment.app.FragmentContainerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
-import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
 
 public class BillingsFragment extends Fragment {
 
-    private Button btnAddBillings;
     private FragmentContainerView fragContainerBillingsOne;
     private FragmentContainerView fragContainerBillingsTwo;
     private FragmentContainerView fragContainerCurrencyNbu;
@@ -37,22 +33,16 @@ public class BillingsFragment extends Fragment {
         showBillingsListOne();
         showBillingsListTwo();
         showCurrencyNbu();
-        handlerButtonClick();
+
         return view;
     }
 
     private void setupUIElements(View view){
-        this.btnAddBillings = (Button) view.findViewById(R.id.button_add_billings);
-
         this.fragContainerBillingsOne = view.findViewById(R.id.fragContainerBillingsOne);
         this.fragContainerBillingsTwo = view.findViewById(R.id.fragContainerBillingsTwo);
         this.fragContainerCurrencyNbu = view.findViewById(R.id.fragContainerCurrencyNbu);
         this.fragContainerTotalAmount = view.findViewById(R.id.fragContainerTotalAmount);
         this.fragContainerTotalSavings = view.findViewById(R.id.fragContainerTotalSavings);
-    }
-
-    private void handlerButtonClick(){
-        clickButtonAddBillings();
     }
 
     private TotalAmountFragment totalAmountFragment;
@@ -66,7 +56,7 @@ public class BillingsFragment extends Fragment {
         billingsListOneFragment.setTotalAmountFragment(totalAmountFragment);
         FragmentSwitcher.replaceFragment(
                 billingsListOneFragment,
-                getActivity().getSupportFragmentManager(),
+                getContext(),
                 R.id.fragContainerBillingsOne);
 
     }
@@ -76,7 +66,7 @@ public class BillingsFragment extends Fragment {
         billingsListTwoFragment.setTotalSavingsFragment(totalSavingsFragment);
         FragmentSwitcher.replaceFragment(
                 billingsListTwoFragment,
-                getActivity().getSupportFragmentManager(),
+                getContext(),
                 R.id.fragContainerBillingsTwo);
     }
 
@@ -86,7 +76,7 @@ public class BillingsFragment extends Fragment {
         currencyNbuFragment.setTotalSavingsFragment(totalSavingsFragment);
         FragmentSwitcher.replaceFragment(
                 currencyNbuFragment,
-                getActivity().getSupportFragmentManager(),
+                getContext(),
                 R.id.fragContainerCurrencyNbu
         );
     }
@@ -95,7 +85,7 @@ public class BillingsFragment extends Fragment {
         totalAmountFragment = new TotalAmountFragment();
        FragmentSwitcher.replaceFragment(
                totalAmountFragment,
-               getActivity().getSupportFragmentManager(),
+               getContext(),
                R.id.fragContainerTotalAmount
        );
     }
@@ -104,35 +94,11 @@ public class BillingsFragment extends Fragment {
         totalSavingsFragment = new TotalSavingsFragment();
         FragmentSwitcher.replaceFragment(
                 totalSavingsFragment,
-                getActivity().getSupportFragmentManager(),
+                getContext(),
                 R.id.fragContainerTotalSavings
         );
     }
 
-    private void clickButtonAddBillings(){
-        btnAddBillings.setOnClickListener(v -> {
-            ModalTypeBillings modalTypeBillings = new ModalTypeBillings(getContext());
-            modalTypeBillings.modalStart(new DialogCallback() {
-                @Override
-                public void onSuccess() {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("TypeBillings", modalTypeBillings.getUpdateData());
-
-                    FragmentSwitcher.replaceFragmentToDate(
-                            new CreateBillingsFragment(),
-                            bundle,
-                            getContext(),
-                            FragmentSwitcher.getContainerHome()
-                    );
-                }
-
-                @Override
-                public void onFailure(Exception exception) {
-
-                }
-            });
-        });
-    }
 }
 
 

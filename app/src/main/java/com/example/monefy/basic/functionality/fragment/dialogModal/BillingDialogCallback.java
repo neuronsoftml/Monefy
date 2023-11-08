@@ -1,6 +1,5 @@
 package com.example.monefy.basic.functionality.fragment.dialogModal;
 
-import androidx.fragment.app.FragmentManager;
 
 public interface BillingDialogCallback extends DialogCallback{
     void onSuccessDelete();

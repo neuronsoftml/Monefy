@@ -18,14 +18,17 @@ import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalance;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeCurrency;
-import com.example.monefy.basic.functionality.model.Obligation;
-import com.example.monefy.basic.functionality.model.TypeBillings;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelect;
+import com.example.monefy.basic.functionality.model.billings.Obligation;
+import com.example.monefy.basic.functionality.model.TypeCurrency;
+import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.Manager.firebase.AuthenticationManager;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.message.ToastManager;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Arrays;
 
 
 public class CreateBillingsFragment extends Fragment {
@@ -112,8 +115,8 @@ public class CreateBillingsFragment extends Fragment {
                                 ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_entered_the_data);
                                 FragmentSwitcher.replaceFragment(
                                         new BillingsFragment(),
-                                        getActivity().getSupportFragmentManager(),
-                                        R.id.containerHome
+                                        getContext(),
+                                        FragmentSwitcher.getContainerHome()
                                 );
                             }
 
@@ -160,11 +163,14 @@ public class CreateBillingsFragment extends Fragment {
 
     private void handlerClickLinerLayoutTypeCurrency(){
         linerLayoutTypeCurrency.setOnClickListener(v -> {
-            ModalTypeCurrency modalTypeCurrency = new ModalTypeCurrency(getContext());
-            modalTypeCurrency.modalStart(new DialogCallback() {
+            ModalSelect modalSelect = new ModalSelect(
+                    getContext(),
+                    R.string.tV_modal_select_type_currencies,
+                    Arrays.asList(TypeCurrency.values()));
+            modalSelect.modalStart(new DialogCallback() {
                 @Override
                 public void onSuccess() {
-                    tViewTypeCurrency.setText(modalTypeCurrency.getUpdateData());
+                    tViewTypeCurrency.setText(modalSelect.getUpdateData());
                 }
 
                 @Override

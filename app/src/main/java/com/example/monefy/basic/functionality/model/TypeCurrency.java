@@ -1,8 +1,9 @@
 package com.example.monefy.basic.functionality.model;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeItem;
 
-public enum TypeCurrency {
+public enum TypeCurrency implements ModalTypeItem {
     EUR("EUR"),
     USD("USD"),
     UAH("UAH")
@@ -11,10 +12,6 @@ public enum TypeCurrency {
 
     TypeCurrency(String title) {
         this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public TypeCurrency[] getAllTypeCurrency(){
@@ -33,4 +30,20 @@ public enum TypeCurrency {
         }
         return R.drawable.icon_money_usd;
     }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String getIdentifier(String title) {
+        for(TypeCurrency element: TypeCurrency.values()){
+            if(element.getTitle().equals(title)){
+                return element.toString();
+            }
+        }
+        return null;
+    }
+
 }

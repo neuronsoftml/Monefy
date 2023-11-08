@@ -16,10 +16,16 @@
     <string name="tV_balance">Баланс</string>
     <string name="tV_savings">Заощадження</string>
     <string name="tV_new_billings">Новий рахунок</string>
+    <string name="tV_new_income">Новий дохід</string>
     <string name="tV_type_billings">Тип</string>
-    <string name="tV_type_currency">Валюта рахунку</string>
+    <string name="tV_type_currency">Тип валюти рахунка</string>
+    <string name="tV_type_income">Тип валюти актива</string>
     <string name="tV_balance_billing">Баланс рахунку</string>
+    <string name="tV_amount_income">Сума доходу</string>
     <string name="tV_credit_limit">Кредитний ліміт</string>
+    <string name="tV_frequency_income">Частота отримання</string>
+    <string name="tV_dateReceived_income">Дата отримання</string>
+    <string name="tV_category_income">Категорія доходу</string>
     <string name="tV_load_date">завантаження даних..</string>
     <string name="tV_modal_wages">зарплата</string>
 
@@ -32,8 +38,11 @@
     <string name="btn_add_billings">Добавити рахунок</string>
     <string name="btn_add_target">Додати ціль</string>
     <string name="btn_type_billings_ordinary">Звичайний</string>
+    <string name="btn_text_billings">Рахунок</string>
+    <string name="btn_modal_text_asset">Дохід</string>
     <string name="btn_type_billings_debt">Борговий</string>
     <string name="btn_type_billings_cumulative">Накопичувальний</string>
+    <string name="btn_modal_text_cumulative">Розхід</string>
     <string name="btn_modal_edit_account">Редагувати</string>
     <string name="btn_modal_replenish_account">Поповнити</string>
     <string name="btn_modal_write_off_account">Списати</string>
@@ -53,9 +62,15 @@
     <string name="t_edit_hint_email">Email</string>
     <string name="t_edit_hint_password">password</string>
     <string name="t_edit_hint_name_billings">Ім\'я рахунку</string>
+    <string name="t_edit_hint_name_income">Назва доходу</string>
+    <string name="t_edit_hint_source_income">Джерело доходу</string>
+    <string name="t_edit_hint_notes_income">Додаткові нотатки</string>
 
+    <string name="tV_modal_select_create">Виберіть</string>
     <string name="tV_modal_select_type_billings">Виберіть тип рахунка</string>
     <string name="tV_modal_select_type_currencies">Виберіть тип валюти</string>
+    <string name="tV_modal_select_frequency">Виберіть тип частоти отримання</string>
+    <string name="tV_modal_select_category">Виберіть категорію доходу</string>
     <string name="tV_modal_select_billings_balance">Баланс рахунку</string>
     <string name="tV_modal_select_billings_credit_limit">Кредитний ліміт</string>
 

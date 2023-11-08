@@ -36,6 +36,10 @@ public abstract class DialogMenu implements DialogModal {
         dialogModal.show();
     }
 
+    protected void exitModal(){
+        dialogModal.dismiss();
+    }
+
     protected Dialog getDialogModal(){
         return dialogModal;
     }

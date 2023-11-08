@@ -15,13 +15,13 @@ public class FragmentSwitcher {
     private static final int containerHome = R.id.containerHome;
     private static final int containerVerification = R.id.containerVerification;
 
-    public static void replaceFragment(Fragment fragment, FragmentManager support, int container){
-        FragmentTransaction fragmentTransaction = support.beginTransaction();
+    public static void replaceFragment(Fragment fragment, Context context, int container){
+        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(container,fragment);
         fragmentTransaction.commit();
     }
 
-    public static void replaceFragmentToDate(Fragment showFragment, Bundle bundle,Context context, int container){
+    public static void replaceFragmentToDate(Fragment showFragment, Bundle bundle, Context context, int container){
         showFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(container, showFragment);
