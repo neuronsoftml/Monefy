@@ -61,8 +61,10 @@ public class ModalBalance implements  DialogModal{
         this.typeBillings = typeBillings;
     }
 
+    private DialogCallback dialogCallback;
     @Override
     public void modalStart(DialogCallback dialogCallback){
+        this.dialogCallback = dialogCallback;
         showDialogModal();
         setupUIDialogModal();
         if(typeBillings != null){
@@ -73,7 +75,7 @@ public class ModalBalance implements  DialogModal{
             textViewModalBalance.setText(balance);
         }
         sheetFillerButtonListModalNumber();
-        handlerButtonDialogModal(dialogCallback);
+        handlerButtonDialogModal();
     }
 
 
@@ -147,10 +149,10 @@ public class ModalBalance implements  DialogModal{
     }
 
     @Override
-    public void handlerButtonDialogModal(DialogCallback dialogCallback){
+    public void handlerButtonDialogModal(){
         handlerButtonNumberModal();
         handlerButtonMathSymbolsModal();
-        handlerButtonSpecialModal(dialogCallback);
+        handlerButtonSpecialModal();
     }
 
     private void handlerButtonNumberModal(){
@@ -190,7 +192,7 @@ public class ModalBalance implements  DialogModal{
         });
     }
 
-    private void handlerButtonSpecialModal(DialogCallback dialogCallback){
+    private void handlerButtonSpecialModal(){
         buttonDelete.setOnClickListener(v-> {
             String data = (String) textViewModalBalance.getText().toString();
 

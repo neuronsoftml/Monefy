@@ -16,6 +16,7 @@
     <string name="tV_balance">Баланс</string>
     <string name="tV_savings">Заощадження</string>
     <string name="tV_new_billings">Новий рахунок</string>
+    <string name="tV_edit_billings">Редагування рахунка</string>
     <string name="tV_new_income">Новий дохід</string>
     <string name="tV_type_billings">Тип</string>
     <string name="tV_type_currency">Тип валюти рахунка</string>
@@ -33,6 +34,7 @@
     <string name="btn_signUp_emailOrPhone">email або номер телефона</string>
     <string name="btn_signIn">Увійти</string>
     <string name="btn_next">продовжити</string>
+    <string name="btn_income">активи</string>
     <string name="btn_reset_password">відновити пароль</string>
     <string name="btn_next_send_message">відправити листа</string>
     <string name="btn_add_billings">Добавити рахунок</string>
@@ -67,6 +69,8 @@
     <string name="t_edit_hint_notes_income">Додаткові нотатки</string>
 
     <string name="tV_modal_select_create">Виберіть</string>
+    <string name="tV_modal_input_data">Напишіть дату отримання</string>
+    <string name="tV_modal_input_data_description">Формат дати 00.00.0000</string>
     <string name="tV_modal_select_type_billings">Виберіть тип рахунка</string>
     <string name="tV_modal_select_type_currencies">Виберіть тип валюти</string>
     <string name="tV_modal_select_frequency">Виберіть тип частоти отримання</string>
@@ -102,6 +106,7 @@
     <string name="toast_successful_message_reset_pass">Лист для скидання пароля надіслано на вашу адресу електронної пошти.</string>
     <string name="toast_successful_edit_billings">Успішно внесено зміни у рахунок</string>
     <string name="toast_failure_edit_billings">Помилка зміни в рахунок не було внесено</string>
+    <string name="toast_successful_add_income">Успішно створили новий актив</string>
 
 
     <string name="btn_number_zero">0</string>

@@ -19,7 +19,7 @@ public class ModalTypeFrequency extends DialogMenu{
     public void modalStart(DialogCallback dialogCallback) {
         openModal();
         setupUIDialogModal();
-        handlerButtonDialogModal(dialogCallback);
+        handlerButtonDialogModal();
     }
 
     private List<Button> buttonList = new ArrayList<>();
@@ -30,7 +30,7 @@ public class ModalTypeFrequency extends DialogMenu{
     }
 
     @Override
-    public void handlerButtonDialogModal(DialogCallback dialogCallback) {
+    public void handlerButtonDialogModal() {
 
     }
 }

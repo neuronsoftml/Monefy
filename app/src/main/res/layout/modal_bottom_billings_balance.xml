@@ -239,16 +239,15 @@
             android:id="@+id/buttonDelete"
             android:layout_width="160dp"
             android:layout_height="50dp"
-            android:background="@drawable/button_gray_square"
+            android:background="@drawable/bg_gradient_red"
             android:src="@drawable/icon_baseline_backspace_34"
-            android:backgroundTint="@color/red"
             />
 
         <ImageButton
             android:id="@+id/buttonSetUp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/button_gray_square"
+            android:background="@drawable/bg_gradient_green"
             android:backgroundTint="@color/green"
             android:src="@drawable/icon_baseline_check_34"
             />

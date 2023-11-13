@@ -31,12 +31,15 @@ public class ModalBilling implements DialogModal{
         this.billing = billing;
     }
 
+    private DialogCallback callback;
+
     @Override
     public void modalStart(DialogCallback dialogCallback) {
+        this.callback = dialogCallback;
         showDialogModal();
         setupUIDialogModal();
         setValueObjectModal();
-        handlerButtonDialogModal(dialogCallback);
+        handlerButtonDialogModal();
     }
 
     @Override
@@ -65,10 +68,10 @@ public class ModalBilling implements DialogModal{
     }
 
     @Override
-    public void handlerButtonDialogModal(DialogCallback dialogCallback) {
-        handlerButtonDelete(dialogCallback);
-        handlerButtonEdit(dialogCallback);
-        handlerButtonReplenishment(dialogCallback);
+    public void handlerButtonDialogModal() {
+        handlerButtonDelete();
+        handlerButtonEdit();
+        handlerButtonReplenishment();
     }
 
     private void setValueObjectModal() {
@@ -79,7 +82,7 @@ public class ModalBilling implements DialogModal{
         tVTypeBilling.setText(billing.getTypeBillings());
     }
 
-    private void handlerButtonDelete(DialogCallback callback){
+    private void handlerButtonDelete(){
             imageBtnDelete.setOnClickListener(v->{
             FirebaseManager.deleteBillings(
                     AuthenticationManager.getAuthenticationManager().getUserId(),
@@ -107,7 +110,7 @@ public class ModalBilling implements DialogModal{
         });
     }
 
-    private void handlerButtonEdit(DialogCallback callback){
+    private void handlerButtonEdit(){
         imageBtnEdit.setOnClickListener(v->{
             dialogModal.cancel();
             if(callback instanceof BillingDialogCallback){
@@ -117,7 +120,7 @@ public class ModalBilling implements DialogModal{
         });
     }
 
-    private void handlerButtonReplenishment(DialogCallback callback){
+    private void handlerButtonReplenishment(){
         imageBtnReplenishment.setOnClickListener(v->{
             dialogModal.cancel();
             if(callback instanceof  BillingDialogCallback){

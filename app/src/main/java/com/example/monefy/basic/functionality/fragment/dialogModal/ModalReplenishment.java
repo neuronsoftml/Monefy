@@ -32,8 +32,11 @@ public class ModalReplenishment extends DialogMenu{
         this.bill = bill;
     }
 
+    private DialogCallback dialogCallback;
     @Override
     public void modalStart(DialogCallback dialogCallback) {
+        this.dialogCallback = dialogCallback;
+
         openModal();
         billingsManager.loadBillings(()->{
             billings.clear();
@@ -42,7 +45,7 @@ public class ModalReplenishment extends DialogMenu{
         });
         setupUIDialogModal();
         setValueObjectModal();
-        handlerButtonDialogModal(dialogCallback);
+        handlerButtonDialogModal();
     }
 
     private Dialog dialog = getDialogModal();
@@ -62,7 +65,7 @@ public class ModalReplenishment extends DialogMenu{
     }
 
     @Override
-    public void handlerButtonDialogModal(DialogCallback dialogCallback) {
+    public void handlerButtonDialogModal() {
         handlerToggleButton();
     }
 

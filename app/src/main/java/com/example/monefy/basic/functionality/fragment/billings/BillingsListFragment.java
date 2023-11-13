@@ -1,39 +1,43 @@
 package com.example.monefy.basic.functionality.fragment.billings;
 
+import android.content.Context;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.BillingsListAdapter;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.dialogModal.BillingDialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBilling;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalReplenishment;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBilling;
+import com.example.monefy.basic.functionality.model.DataLoadListener;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.Manager.BillingsManager;
 import com.example.monefy.Manager.message.ToastManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
      Цей фрагмент відображає список рахунків категорії:
-        CUMULATIVE("Накопичувальний")
+        - ORDINARY("Звичайний")
+        - DEBT("Борговий")
  */
-public class BillingsListTwoFragment extends Fragment {
+public class BillingsListFragment extends Fragment {
+
     private ListView listItemBillings;
+    private Context context;
     private BillingsManager billingsManager = BillingsManager.getBillingsManager();
+    private InfoBoardFragment infoBoardFragment;
 
     private void setupUIElements(View view){
-        this.listItemBillings = view.findViewById(R.id.list_item_billings);
+       this.listItemBillings = view.findViewById(R.id.list_item_billings);
     }
 
     @Override
@@ -45,43 +49,49 @@ public class BillingsListTwoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_billings_list_two, container, false);
-        setupUIElements(view);
+       View view = inflater.inflate(R.layout.fragment_billings_list, container, false);
 
-        billingsManager.loadBillings(() -> {
-            billings.clear();
-            billings = billingsManager.getBillingsList();
-            showBillingsList();
-            handlerClickItemListBillings();
-            totalSavingsFragment.setBillingsList(billings);
-            totalSavingsFragment.onDataLoaded();
-        });
+       setupUIElements(view);
 
-        return view;
+       billingsManager.loadBillings(() -> {
+           billings.clear();
+           billings = billingsManager.getBillingsList();
+           infoBoardFragment.onDataLoaded();
+           showBillingsList();
+           handlerClickItemListBillings();
+       });
+
+       this.context = getContext();
+       return view;
     }
+
     private List<Billings> billings = new ArrayList<>();
     private BillingsListAdapter billingsListAdapter;
 
     private void showBillingsList(){
         billingsListAdapter = new BillingsListAdapter(
                 getContext(),
-                BillingsManager.sortingBillings(billings,TypeBillings.CUMULATIVE));
+                BillingsManager.sortingBillings(
+                        billings,
+                        Arrays.asList(TypeBillings.values()))
+        );
+
         listItemBillings.setAdapter(billingsListAdapter);
     }
 
     private void handlerClickItemListBillings() {
         billingsListAdapter.setOnItemClickListener(billings -> {
-            ModalBilling modalBilling = new ModalBilling(getContext(),billings);
+            ModalBilling modalBilling = new ModalBilling(context,billings);
 
             BillingDialogCallback billingDialogCallback = new BillingDialogCallback() {
                 @Override
                 public void onSuccessDelete() {
-                    handlerDelete(billings);
+                   handlerDelete(billings);
                 }
 
                 @Override
                 public void onClickEdit() {
-                    handlerEdit(billings);
+                  handlerEdit(billings);
                 }
 
                 @Override
@@ -118,15 +128,14 @@ public class BillingsListTwoFragment extends Fragment {
         });
     }
 
-    private TotalSavingsFragment totalSavingsFragment;
-
-    public void setTotalSavingsFragment(TotalSavingsFragment totalSavingsFragment) {
-        this.totalSavingsFragment = totalSavingsFragment;
+    public List<Billings> getBillings() {
+        return  billings;
     }
 
     private void handlerDelete(Billings billings){
         billingsListAdapter.removeBillings(billings);
         billingsListAdapter.notifyDataSetChanged();
+        billingsManager.loadBillings(() -> infoBoardFragment.updateInfoBord(billingsManager.getBillingsList()));
         ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_delete_billings);
     }
 
@@ -157,5 +166,9 @@ public class BillingsListTwoFragment extends Fragment {
 
             }
         });
+    }
+
+    public void setInfoBoardFragment(InfoBoardFragment infoBoardFragment) {
+        this.infoBoardFragment = infoBoardFragment;
     }
 }

@@ -11,85 +11,61 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/title_view"
+            android:id="@+id/titleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
+            android:gravity="start|top"
             android:text="@string/tV_billings"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textAllCaps="true"
+            android:textColor="@color/textPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragContainerTotalAmount"
+        <Button
+            android:id="@+id/btnIncome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="14sp"
+            android:text="@string/btn_income"
+            android:textColor="@color/textPrimary"
+            android:textAllCaps="true"
+            android:background="@drawable/btn_actions_gradient"
+            android:minWidth="100dp"
+            android:minHeight="30dp"
+            android:elevation="10dp"
+            android:translationZ="1dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/informationBoard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
         </androidx.fragment.app.FragmentContainerView>
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragContainerCurrencyNbu"
+            android:id="@+id/fragBillings"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="700dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_view">
+            app:layout_constraintTop_toBottomOf="@+id/informationBoard">
 
         </androidx.fragment.app.FragmentContainerView>
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragContainerBillingsOne"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragContainerCurrencyNbu">
-
-        </androidx.fragment.app.FragmentContainerView>
-
-
-        <TextView
-            android:id="@+id/title_savings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/tV_savings"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragContainerBillingsOne" />
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragContainerTotalSavings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragContainerBillingsOne">
-
-        </androidx.fragment.app.FragmentContainerView>
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragContainerBillingsTwo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_savings">
-
-        </androidx.fragment.app.FragmentContainerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

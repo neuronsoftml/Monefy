@@ -25,12 +25,14 @@ public class ModalCreate extends DialogMenu{
         this.fragmentManager = fragmentManager;
     }
 
+    private DialogCallback dialogCallback;
 
     @Override
     public void modalStart(DialogCallback dialogCallback) {
+        this.dialogCallback = dialogCallback;
         openModal();
         setupUIDialogModal();
-        handlerButtonDialogModal(dialogCallback);
+        handlerButtonDialogModal();
     }
 
     @Override
@@ -41,7 +43,7 @@ public class ModalCreate extends DialogMenu{
     }
 
     @Override
-    public void handlerButtonDialogModal(DialogCallback dialogCallback) {
+    public void handlerButtonDialogModal() {
         handlerBtnBillings();
         handlerBtnIncome();
     }

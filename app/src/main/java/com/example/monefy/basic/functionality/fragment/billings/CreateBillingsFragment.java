@@ -4,265 +4,141 @@ import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
-import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalance;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelect;
-import com.example.monefy.basic.functionality.model.billings.Obligation;
-import com.example.monefy.basic.functionality.model.TypeCurrency;
-import com.example.monefy.basic.functionality.model.billings.TypeBillings;
+import com.example.monefy.basic.functionality.fragment.navigation.ClickListener;
+import com.example.monefy.basic.functionality.fragment.navigation.ConfirmationFragment;
 import com.example.monefy.Manager.firebase.AuthenticationManager;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.message.ToastManager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Arrays;
+import java.util.Map;
 
 
 public class CreateBillingsFragment extends Fragment {
+
+    // Ініціалізація змінних класу
     private String argTypeBillings;
-    private TextView tVTypeBillings, tViewTypeCurrency, tVBalanceBillings, tVCreditLimit;
-    private  TextView tVTitleBalanceBillings, tVTitleCreditLimit;
-    private LinearLayout linerLayoutTypeBillings, linerLayoutTypeCurrency, linerLayoutBalanceBillings, linerLayoutCreditLimit;
-    private EditText editTextNameBillings;
-    private ImageButton imgBtnClose, imgBtnSetUp;
     private ImageView imgViewCreditCart;
     private ConstraintLayout constraintLayoutPanelTop;
+    private FragmentContainerView fragNavigation;
+    private FragmentContainerView fragBillingDetails;
+    private ConfirmationFragment confirmationFragment;
+    private BillingDetailsFragment billingDetailsFragment = new BillingDetailsFragment();
 
+    // Метод onCreate викликається при створенні фрагменту
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Отримання аргументів, переданих фрагменту
         if (getArguments() != null) {
             argTypeBillings = getArguments().getString("TypeBillings");
         }
     }
+
+    // Метод onCreateView викликається для створення вигляду фрагменту
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Завантаження макету для цього фрагменту
         View view = inflater.inflate(R.layout.fragment_create_billings, container, false);
+        // Налаштування елементів інтерфейсу користувача
         setupUIElements(view);
-        switcherStyleInterface(argTypeBillings);
-        setupClickListeners();
+        // Показ фрагментів навігації та деталей рахунку
+        showFragNavigation();
+        showFragBillingDetails();
         return view;
     }
 
+    // Налаштування UI елементів фрагменту
     private void setupUIElements(View view) {
-        tVTypeBillings = view.findViewById(R.id.type_billings);
-        tViewTypeCurrency = view.findViewById(R.id.text_type_currency);
-        tVBalanceBillings = view.findViewById(R.id.balance_billings);
-        tVCreditLimit = view.findViewById(R.id.credit_limit);
-        linerLayoutTypeBillings = view.findViewById(R.id.linerLayout_type_billings);
-        linerLayoutTypeCurrency = view.findViewById(R.id.linerLayout_type_currency);
-        linerLayoutBalanceBillings = view.findViewById(R.id.linerLayout_balance_billings);
-        linerLayoutCreditLimit = view.findViewById(R.id.liner_layout_credit_limit);
-        editTextNameBillings = view.findViewById(R.id.editText_name_billings);
-        imgBtnClose = view.findViewById(R.id.imageButton_close);
-        imgBtnSetUp = view.findViewById(R.id.imageButtonSetUp);
+        // Ініціалізація елементів інтерфейсу та присвоєння їх відповідним змінним
         imgViewCreditCart = view.findViewById(R.id.imageViewCreditCartTypeBillings);
-        constraintLayoutPanelTop = view.findViewById(R.id.constraintLayout_create_billings);
-        tVTitleBalanceBillings = view.findViewById(R.id.textView_balance_create_billings);
-        tVTitleCreditLimit = view.findViewById(R.id.text_view_credit_limit_new_billings);
+        billingDetailsFragment.setImgViewCreditCart(imgViewCreditCart);
+        constraintLayoutPanelTop = view.findViewById(R.id.constraintTop);
+        billingDetailsFragment.setConsLatPanelTop(constraintLayoutPanelTop);
+        fragNavigation = view.findViewById(R.id.fragNavigation);
+        fragBillingDetails = view.findViewById(R.id.fragBillingDetails);
     }
 
-    private void setupClickListeners() {
-        handlerClickLinerLayoutTypeBillings();
-        handlerClickLinerLayoutTypeCurrency();
-        handlerClickLinerLayoutBalance();
-        handlerClickLinerLayoutCreditLimit();
+    // Відображення фрагменту з деталями рахунк
+    private void showFragBillingDetails(){
+        // Створення пакету аргументів для передачі в фрагмент
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("TypeBillings", argTypeBillings);
+        billingDetailsFragment.setArguments(bundle);
 
-        handlerClickImageButtonClose();
-        handlerClickImageButtonSetUp();
+        // Заміна поточного фрагменту на фрагмент деталей рахунку
+        FragmentSwitcher.replaceFragment(
+                billingDetailsFragment,
+                getContext(),
+                fragBillingDetails.getId()
+        );
     }
 
-    private void handlerClickImageButtonClose() {
-        imgBtnClose.setOnClickListener(v ->{
-            FragmentSwitcher.replaceFragmentBack(getContext());
-        });
-    }
+    // Відображення фрагменту навігації
+    private void showFragNavigation(){
+        // Ініціалізація фрагменту підтвердження та встановлення обробників кліків
+        confirmationFragment = new ConfirmationFragment();
+        confirmationFragment.setClickListener(new ClickListener() {
+            @Override
+            public void clickBtnClose() {
+                handlerClickImgBtnClose();
+            }
 
-    private void handlerClickImageButtonSetUp() {
-        imgBtnSetUp.setOnClickListener(v->{
-            String nameBillings = editTextNameBillings.getText().toString();
-            String typeBillings = tVTypeBillings.getText().toString();
-            String typeCurrency = tViewTypeCurrency.getText().toString();
-            String balance = tVBalanceBillings.getText().toString().isEmpty() ? "0" : tVBalanceBillings.getText().toString();
-            String creditLimit = tVCreditLimit.getText().toString().isEmpty() ? "0" : tVCreditLimit.getText().toString();
-
-            if(checkInputTypeCurrency(typeCurrency)){
-                FirebaseManager.addBilling(
-                        FirebaseFirestore.getInstance(),
-                        AuthenticationManager.getAuthenticationManager().getUserId(),
-                        Long.parseLong(balance),
-                        Long.parseLong(creditLimit),
-                        nameBillings,
-                        typeBillings,
-                        typeCurrency,
-                        setObligation(typeBillings),
-                        new InConclusionCompleteListener() {
-                            @Override
-                            public void onSuccess() {
-                                ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_entered_the_data);
-                                FragmentSwitcher.replaceFragment(
-                                        new BillingsFragment(),
-                                        getContext(),
-                                        FragmentSwitcher.getContainerHome()
-                                );
-                            }
-
-                            @Override
-                            public void onFailure(Exception exception) {
-                                ToastManager.showToastOnFailure(getContext(),R.string.toast_failure_entered_the_data);
-                            }
-                        }
-                );
+            @Override
+            public void clickBtnSetUp() {
+                handlerClickImgBtnSetUp();
             }
         });
+        // Заміна поточного фрагменту на фрагмент підтвердження
+        FragmentSwitcher.replaceFragment(
+                confirmationFragment,
+                getContext(),
+                fragNavigation.getId()
+        );
     }
 
-    private String setObligation(String typeBillings) {
-        if(typeBillings.equals(TypeBillings.ORDINARY.getTitle())){
-            return Obligation.CREDIT_LIMIT.getTitle();
-        }
-
-        else if(typeBillings.equals(TypeBillings.DEBT.getTitle())){
-            return tVTitleBalanceBillings.getText().toString();
-        }
-        else if (typeBillings.equals(TypeBillings.CUMULATIVE.getTitle())) {
-            return Obligation.GOAL.getTitle();
-        }
-        return "";
+    // Обробник кліку на кнопку закриття
+    private void handlerClickImgBtnClose() {
+        // Повернення до попереднього фрагменту
+        FragmentSwitcher.replaceFragmentBack(getContext());
     }
 
-    private void handlerClickLinerLayoutTypeBillings(){
-        linerLayoutTypeBillings.setOnClickListener(v -> {
-            ModalTypeBillings modalTypeBillings = new ModalTypeBillings(getContext());
-            modalTypeBillings.modalStart(new DialogCallback() {
-                @Override
-                public void onSuccess() {
-                    switcherStyleInterface(modalTypeBillings.getUpdateData());
-                }
+    //Обробник кліку на кнопку затвердження
+    private void handlerClickImgBtnSetUp() {
+        Map<String, Object> billing = billingDetailsFragment.getBillingData();
 
-                @Override
-                public void onFailure(Exception exception) {
+        if(billing.size() != 0){
+            FirebaseManager.addBilling(
+                    FirebaseFirestore.getInstance(),
+                    AuthenticationManager.getAuthenticationManager().getUserId(),
+                    billing,
+                    new InConclusionCompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_entered_the_data);
+                            FragmentSwitcher.replaceFragment(
+                                    new BillingsFragment(),
+                                    getContext(),
+                                    FragmentSwitcher.getContainerHome()
+                            );
+                        }
 
-                }
-            });
-        });
-    }
-
-    private void handlerClickLinerLayoutTypeCurrency(){
-        linerLayoutTypeCurrency.setOnClickListener(v -> {
-            ModalSelect modalSelect = new ModalSelect(
-                    getContext(),
-                    R.string.tV_modal_select_type_currencies,
-                    Arrays.asList(TypeCurrency.values()));
-            modalSelect.modalStart(new DialogCallback() {
-                @Override
-                public void onSuccess() {
-                    tViewTypeCurrency.setText(modalSelect.getUpdateData());
-                }
-
-                @Override
-                public void onFailure(Exception exception) {
-
-                }
-            });
-        });
-    }
-
-    private void handlerClickLinerLayoutBalance(){
-        linerLayoutBalanceBillings.setOnClickListener(v -> {
-            ModalBalance modalBalance = new ModalBalance(
-                    getContext(), getView(),
-                    tVTitleBalanceBillings.getText().toString(),
-                    tVBalanceBillings.getText().toString(),
-                    tViewTypeCurrency.getText().toString(),
-                    tVTypeBillings.getText().toString());
-            modalBalance.modalStart(new DialogCallback() {
-                @Override
-                public void onSuccess() {
-                    tVBalanceBillings.setText(modalBalance.getUpdateBalance());
-                    if(modalBalance.getUpdateToWhomHeOwes() != null){
-                        tVTitleBalanceBillings.setText(modalBalance.getUpdateToWhomHeOwes());
+                        @Override
+                        public void onFailure(Exception exception) {
+                            ToastManager.showToastOnFailure(getContext(),R.string.toast_failure_entered_the_data);
+                        }
                     }
-                }
-
-                @Override
-                public void onFailure(Exception exception) {
-
-                }
-            });
-        });
-    }
-
-    private void handlerClickLinerLayoutCreditLimit(){
-        linerLayoutCreditLimit.setOnClickListener(v ->{
-            ModalBalance modalBalance = new ModalBalance(
-                    getContext(),getView(),
-                    tVTitleCreditLimit.getText().toString(),
-                    tVCreditLimit.getText().toString(),
-                    tViewTypeCurrency.getText().toString(),
-                    tVTypeBillings.getText().toString());
-            modalBalance.modalStart(new DialogCallback() {
-                @Override
-                public void onSuccess() {
-                    tVCreditLimit.setText(modalBalance.getUpdateBalance());
-                }
-
-                @Override
-                public void onFailure(Exception exception) {
-
-                }
-            });
-        });
-    }
-
-    private boolean checkInputTypeCurrency(String type){
-        return type != null && !type.isEmpty();
-    }
-
-    private void switcherStyleInterface(String argumentTypeBillings){
-        if(argumentTypeBillings.equals(TypeBillings.ORDINARY.getTitle())){
-            typeOrdinaryBillingsStyle();
-        }else if(argumentTypeBillings.equals(TypeBillings.DEBT.getTitle())){
-            typeDebtBillingsStyle();
-        } else if (argumentTypeBillings.equals(TypeBillings.CUMULATIVE.getTitle())) {
-            typeAccumulativeBillingsStyle();
+            );
         }
-    }
-
-    private void typeOrdinaryBillingsStyle(){
-        tVTypeBillings.setText(TypeBillings.ORDINARY.getTitle());
-        imgViewCreditCart.setImageResource(R.drawable.icon_credit_card_blue);
-        constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.blue));
-        tVTitleBalanceBillings.setText(R.string.tV_balance_billing);
-        tVTitleCreditLimit.setText(R.string.tV_credit_limit);
-    }
-
-    private void typeDebtBillingsStyle(){
-        tVTypeBillings.setText(TypeBillings.DEBT.getTitle());
-        imgViewCreditCart.setImageResource(R.drawable.icon_credit_card_red);
-        constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.red));
-        tVTitleBalanceBillings.setText(R.string.tV_select_billings_debt_i_must);
-        tVTitleCreditLimit.setText(R.string.tV_select_billings_total_amount_of_debt);
-    }
-
-    private void typeAccumulativeBillingsStyle(){
-        tVTypeBillings.setText(TypeBillings.CUMULATIVE.getTitle());
-        imgViewCreditCart.setImageResource(R.drawable.icon_credit_card_gold);
-        constraintLayoutPanelTop.setBackgroundColor(getResources().getColor(R.color.gold));
-        tVTitleBalanceBillings.setText(R.string.tV_balance_billing);
-        tVTitleCreditLimit.setText(R.string.tV_select_billings_objective);
     }
 }

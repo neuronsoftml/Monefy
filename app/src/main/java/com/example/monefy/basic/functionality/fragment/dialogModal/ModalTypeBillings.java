@@ -23,11 +23,15 @@ public class ModalTypeBillings implements DialogModal {
         this.context = context;
     }
 
+    private DialogCallback dialogCallback;
+
     @Override
     public void modalStart(DialogCallback dialogCallback){
+        this.dialogCallback = dialogCallback;
+
         showDialogModal();
         setupUIDialogModal();
-        handlerButtonDialogModal(dialogCallback);
+        handlerButtonDialogModal();
     }
 
     @Override
@@ -54,7 +58,7 @@ public class ModalTypeBillings implements DialogModal {
     }
 
     @Override
-    public void handlerButtonDialogModal(DialogCallback dialogCallback){
+    public void handlerButtonDialogModal(){
         clickButtonOrdinary(dialogCallback);
         clickButtonDebt(dialogCallback);
         clickButtonCumulative(dialogCallback);
@@ -74,14 +78,11 @@ public class ModalTypeBillings implements DialogModal {
     };
 
     private void clickButtonDebt(DialogCallback dialogCallback){
-        buttonDebt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(dialogCallback != null){
-                    updateData = TypeBillings.DEBT.getTitle();
-                    dialogCallback.onSuccess();
-                    dialogModal.cancel();
-                }
+        buttonDebt.setOnClickListener(v -> {
+            if(dialogCallback != null){
+                updateData = TypeBillings.DEBT.getTitle();
+                dialogCallback.onSuccess();
+                dialogModal.cancel();
             }
         });
     };

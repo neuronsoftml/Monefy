@@ -16,7 +16,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -137,25 +136,12 @@ public class FirebaseManager {
     public static void addBilling(
             FirebaseFirestore db,
             String userId,
-            long balance,
-            long creditLimit,
-            String name,
-            String typeBillings,
-            String typeCurrency ,
-            String obligation,
+            Map<String,Object> billingData,
             final  InConclusionCompleteListener listener) {
         CollectionReference billingsCollection = db
                 .collection("Users")
                 .document(userId)
                 .collection("billings");
-
-        Map<String, Object> billingData = new HashMap<>();
-        billingData.put("balance", balance);
-        billingData.put("creditLimit", creditLimit);
-        billingData.put("name", name);
-        billingData.put("typeBillings", typeBillings);
-        billingData.put("typeCurrency", typeCurrency);
-        billingData.put("obligation", obligation);
 
         billingsCollection.add(billingData)
                 .addOnSuccessListener(documentReference -> {
@@ -163,7 +149,7 @@ public class FirebaseManager {
                     if(listener != null){
                         listener.onSuccess();
                     }
-                    String billingId = documentReference.getId();
+
                 })
                 .addOnFailureListener(e -> {
                     // Помилка додавання рахунку
@@ -196,22 +182,14 @@ public class FirebaseManager {
                 });
     }
 
-    public static void updatedBillings(String userId, Billings billings, final InConclusionCompleteListener listener) {
+    public static void updatedBillings(String userId, String billId, Map<String, Object> updatedBill, final InConclusionCompleteListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        Map<String, Object> updatedData = new HashMap<>();
-        updatedData.put("balance", billings.getBalance());
-        updatedData.put("creditLimit", billings.getCreditLimit());
-        updatedData.put("name", billings.getName());
-        updatedData.put("typeBillings", billings.getTypeBillings());
-        updatedData.put("typeCurrency", billings.getTypeCurrency());
-        updatedData.put("obligation", billings.getObligation());
 
         db.collection("Users")
                 .document(userId)
                 .collection("billings")
-                .document(billings.getId())
-                .update(updatedData)
+                .document(billId)
+                .update(updatedBill)
                 .addOnSuccessListener(aVoid -> {
                     if (listener != null) {
                         listener.onSuccess();
@@ -219,6 +197,32 @@ public class FirebaseManager {
                 })
                 .addOnFailureListener(e -> {
                     if (listener != null) {
+                        listener.onFailure(e);
+                    }
+                });
+    }
+
+
+    public static void addIncome(
+            FirebaseFirestore db,
+            String userId,
+            Map<String,Object> incomeData,
+            final  InConclusionCompleteListener listener) {
+        CollectionReference incomeCollection = db
+                .collection("Users")
+                .document(userId)
+                .collection("Income");
+
+        incomeCollection.add(incomeData)
+                .addOnSuccessListener(documentReference -> {
+                    // Успішно додано новий рахунок
+                    if(listener != null){
+                        listener.onSuccess();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Помилка додавання рахунку
+                    if(listener != null){
                         listener.onFailure(e);
                     }
                 });

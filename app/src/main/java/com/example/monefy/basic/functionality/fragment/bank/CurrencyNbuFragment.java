@@ -1,4 +1,4 @@
-package com.example.monefy.basic.functionality.fragment.billings;
+package com.example.monefy.basic.functionality.fragment.bank;
 
 import android.os.Bundle;
 
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.NBU.CallbackNbu;
 import com.example.monefy.basic.functionality.NBU.NbuManager;
-import com.example.monefy.basic.functionality.fragment.billings.TotalAmountFragment;
+import com.example.monefy.basic.functionality.fragment.billings.InfoBoardFragment;
 import com.example.monefy.basic.functionality.model.CurrencyNbu;
 
 import java.util.ArrayList;
@@ -24,6 +24,8 @@ public class CurrencyNbuFragment extends Fragment {
     private TextView tVTitleUSD, tVTitleEUR, tVTitleRON;
     private TextView tVRateUSD, tVRateEUR, tVRateRON;
     private List<CurrencyNbu> currencyNbuRates = new ArrayList<>();
+
+    private InfoBoardFragment infoBoardFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,10 +59,7 @@ public class CurrencyNbuFragment extends Fragment {
             public void onResponse() {
                 currencyNbuRates.addAll(NbuManager.getCurrencyRates());
                 setDataUINbu();
-                totalAmountFragment.setCurrencyNbu(currencyNbuRates);
-                totalAmountFragment.onDataLoaded();
-                totalSavingsFragment.setCurrencyNbuList(currencyNbuRates);
-                totalSavingsFragment.onDataLoaded();
+                infoBoardFragment.onDataLoaded();
             }
 
             @Override
@@ -85,14 +84,11 @@ public class CurrencyNbuFragment extends Fragment {
         }
     }
 
-    private TotalAmountFragment totalAmountFragment;
-    private TotalSavingsFragment totalSavingsFragment;
-
-    public void setTotalAmountFragment(TotalAmountFragment totalAmountFragment){
-        this.totalAmountFragment = totalAmountFragment;
+    public List<CurrencyNbu> getCurrencyNbuRates() {
+        return currencyNbuRates;
     }
 
-    public void setTotalSavingsFragment(TotalSavingsFragment totalSavingsFragment) {
-        this.totalSavingsFragment = totalSavingsFragment;
+    public void setInfoBoardFragment(InfoBoardFragment infoBoardFragment) {
+        this.infoBoardFragment = infoBoardFragment;
     }
 }

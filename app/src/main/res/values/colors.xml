@@ -17,4 +17,15 @@
     <color name="gold">#FFC107</color>
 
 
+    <color name="colorPrimary">#4A90E2</color>
+    <color name="colorSecondary">#50E3C2</color>
+    <color name="colorAccent">#F5A623</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorCardBackground">#F0F2F5</color>
+    <color name="textPrimary">#333333</color>
+    <color name="textSecondary">#666666</color>
+    <color name="textDisabled">#CCCCCC</color>
+    <color name="colorError">#D0021B</color>
+    <color name="colorSuccess">#7ED321</color>
+
 </resources>

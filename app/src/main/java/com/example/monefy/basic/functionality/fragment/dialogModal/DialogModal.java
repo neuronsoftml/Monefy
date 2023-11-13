@@ -8,5 +8,5 @@ public interface DialogModal{
 
     void setupUIDialogModal();
 
-    void handlerButtonDialogModal(DialogCallback dialogCallback);
+    void handlerButtonDialogModal();
 }

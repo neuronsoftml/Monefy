@@ -32,13 +32,17 @@ public class ModalSelect extends DialogMenu {
             this.dialogModal = getDialogModal();
         }
 
+        private DialogCallback dialogCallback;
+
         @Override
         public void modalStart(DialogCallback dialogCallback) {
+            this.dialogCallback = dialogCallback;
+
             openModal();
             createButtonDialogModal();
             setupUIDialogModal();
             titleModalView.setText(idTitle);
-            handlerButtonDialogModal(dialogCallback);
+            handlerButtonDialogModal();
         }
 
 
@@ -62,7 +66,7 @@ public class ModalSelect extends DialogMenu {
         }
 
         @Override
-        public void handlerButtonDialogModal(DialogCallback dialogCallback) {
+        public void handlerButtonDialogModal() {
             for (Button button : buttonListModal) {
                 button.setOnClickListener(v -> {
                     updateData = button.getText().toString();
