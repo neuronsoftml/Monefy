@@ -118,11 +118,7 @@ public class CreateBillingsFragment extends Fragment {
         Map<String, Object> billing = billingDetailsFragment.getBillingData();
 
         if(billing.size() != 0){
-            FirebaseManager.addBilling(
-                    FirebaseFirestore.getInstance(),
-                    AuthenticationManager.getAuthenticationManager().getUserId(),
-                    billing,
-                    new InConclusionCompleteListener() {
+            FirebaseManager.addBilling( billing, new InConclusionCompleteListener() {
                         @Override
                         public void onSuccess() {
                             ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_entered_the_data);

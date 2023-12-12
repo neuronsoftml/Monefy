@@ -85,7 +85,6 @@ public class ModalBilling implements DialogModal{
     private void handlerButtonDelete(){
             imageBtnDelete.setOnClickListener(v->{
             FirebaseManager.deleteBillings(
-                    AuthenticationManager.getAuthenticationManager().getUserId(),
                     billing.getId(),
                     new InConclusionCompleteListener() {
                         @Override

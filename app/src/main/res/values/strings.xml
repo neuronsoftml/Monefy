@@ -13,6 +13,7 @@
 
     <string name="tV_billings">Рахунки</string>
     <string name="tV_billing">Рахунок</string>
+    <string name="tV_incomes">Активи</string>
     <string name="tV_balance">Баланс</string>
     <string name="tV_savings">Заощадження</string>
     <string name="tV_new_billings">Новий рахунок</string>
@@ -29,12 +30,15 @@
     <string name="tV_category_income">Категорія доходу</string>
     <string name="tV_load_date">завантаження даних..</string>
     <string name="tV_modal_wages">зарплата</string>
+    <string name="tV_not_billings">У вас відсутньо рахунки, вам необхідно їх добавити.</string>
+    <string name="tV_not_incomes">У вас відсутньо активи, вам необхідно їх добавити.</string>
 
     <string name="btn_signUp_facebook">Увійти за допомогою Facebook</string>
     <string name="btn_signUp_emailOrPhone">email або номер телефона</string>
     <string name="btn_signIn">Увійти</string>
     <string name="btn_next">продовжити</string>
     <string name="btn_income">активи</string>
+    <string name="btn_liabilities">пасиви</string>
     <string name="btn_reset_password">відновити пароль</string>
     <string name="btn_next_send_message">відправити листа</string>
     <string name="btn_add_billings">Добавити рахунок</string>

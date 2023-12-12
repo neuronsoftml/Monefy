@@ -4,7 +4,10 @@ import android.app.Activity;
 
 import androidx.annotation.NonNull;
 
+import com.example.monefy.Manager.billings.OnBillingsCallback;
+import com.example.monefy.Manager.incomes.OnIncomesCallback;
 import com.example.monefy.basic.functionality.model.billings.Billings;
+import com.example.monefy.basic.functionality.model.income.Income;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,13 +24,12 @@ import java.util.Map;
 
 public class FirebaseManager {
 
+    private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static final FirebaseAuth  mAuth = FirebaseAuth.getInstance();
+    private static final String userId = AuthenticationManager.getAuthenticationManager().getUserId();
+
     //Створює нового користувача.
-    public static void createNewUserWithEmailPassword(
-            FirebaseAuth mAuth,
-            Activity activity,
-            String email, String password,
-            final InConclusionCompleteListener listener
-    ){
+    public static void createNewUserWithEmailPassword(Activity activity, String email, String password, final InConclusionCompleteListener listener){
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(activity, task -> {
                     if (task.isSuccessful()) {
@@ -43,11 +45,7 @@ public class FirebaseManager {
     }
 
     //Скидує пароль.
-    public static void resetPasswordWithEmail(
-            FirebaseAuth mAuth,
-            String email,
-            final InConclusionCompleteListener listener)
-    {
+    public static void resetPasswordWithEmail(String email, final InConclusionCompleteListener listener) {
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -63,10 +61,7 @@ public class FirebaseManager {
     }
 
     //Дістає данні користувача.
-    public static void getUserPersonalData(
-            FirebaseFirestore db,
-            String userId,
-            final OnUserDataCallback callback) {
+    public static void getUserPersonalData(final OnUserDataCallback callback) {
         // Виконуємо запит до Firestore для отримання даних користувача за ідентифікатором userId
         db.collection("Users")
                 .document(userId)
@@ -93,10 +88,7 @@ public class FirebaseManager {
     }
 
     //Дістає усі рахунки
-    public static void getBillingsData(
-            FirebaseFirestore db,
-            String userId,
-            final OnBillingsCallback callback) {
+    public static void getBillingsData(final OnBillingsCallback callback) {
         // Виконуємо запит до Firestore для отримання даних користувача за ідентифікатором userId
         db.collection("Users")
                 .document(userId)
@@ -133,11 +125,7 @@ public class FirebaseManager {
     }
 
     //Добавляє рахунок
-    public static void addBilling(
-            FirebaseFirestore db,
-            String userId,
-            Map<String,Object> billingData,
-            final  InConclusionCompleteListener listener) {
+    public static void addBilling(Map<String,Object> billingData, final  InConclusionCompleteListener listener) {
         CollectionReference billingsCollection = db
                 .collection("Users")
                 .document(userId)
@@ -160,8 +148,7 @@ public class FirebaseManager {
     }
 
     //Видаляє разунок по ID.
-    public static void deleteBillings(String userId, String billingsId, final InConclusionCompleteListener listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public static void deleteBillings(String billingsId, final InConclusionCompleteListener listener) {
 
         DocumentReference billingsRef = db.collection("Users")
                 .document(userId)
@@ -182,9 +169,8 @@ public class FirebaseManager {
                 });
     }
 
-    public static void updatedBillings(String userId, String billId, Map<String, Object> updatedBill, final InConclusionCompleteListener listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    //Обновляє дані рахунка, по ID.
+    public static void updatedBillings(String billId, Map<String, Object> updatedBill, final InConclusionCompleteListener listener) {
         db.collection("Users")
                 .document(userId)
                 .collection("billings")
@@ -202,12 +188,8 @@ public class FirebaseManager {
                 });
     }
 
-
-    public static void addIncome(
-            FirebaseFirestore db,
-            String userId,
-            Map<String,Object> incomeData,
-            final  InConclusionCompleteListener listener) {
+    //Добавляє актив.
+    public static void addIncome(Map<String,Object> incomeData, final  InConclusionCompleteListener listener) {
         CollectionReference incomeCollection = db
                 .collection("Users")
                 .document(userId)
@@ -226,5 +208,33 @@ public class FirebaseManager {
                         listener.onFailure(e);
                     }
                 });
+    }
+
+    //Дістає весь список активів
+    public static void getIncomesData(final OnIncomesCallback incomesCallback) {
+        db.collection("Users")
+                .document(userId)
+                .collection("Income")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        // Отримано список документів "income"
+                        List<Income> incomesList = new ArrayList<>();
+
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            // Отримуємо дані з кожного документу і додаємо їх до списку
+                            Income incomes = document.toObject(Income.class);
+                            incomes.setId(document.getId());
+                            incomesList.add(incomes);
+                        }
+
+                        // Обробка списку активів через callback
+                        incomesCallback.onBillingsDataReceived(incomesList);
+                    } else {
+                        // Підколекція "incomes" порожня
+                        incomesCallback.onBillingsDataNotFound();
+                    }
+                })
+                .addOnFailureListener(incomesCallback::onBillingsDataError);
     }
 }

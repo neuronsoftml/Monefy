@@ -53,9 +53,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     //Скидання пароля.
     private void resetPassword(String email){
-        FirebaseManager.resetPasswordWithEmail(
-                FirebaseAuth.getInstance(),
-                email,
+        FirebaseManager.resetPasswordWithEmail( email,
                 new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {

@@ -1,14 +1,12 @@
-package com.example.monefy.Manager;
+package com.example.monefy.Manager.billings;
 
 import android.util.Log;
 
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.DataLoadListener;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
-import com.example.monefy.Manager.firebase.AuthenticationManager;
 import com.example.monefy.Manager.firebase.FirebaseManager;
-import com.example.monefy.Manager.firebase.OnBillingsCallback;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.monefy.Manager.billings.OnBillingsCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +22,7 @@ public class BillingsManager {
         return billingsManager;
     }
 
-    public BillingsManager() {
-    }
+    public BillingsManager() {}
 
     private List<Billings> billingsList = new ArrayList<>();
 
@@ -38,28 +35,24 @@ public class BillingsManager {
      * @return billingsList повертає список рахунків
      */
     public void loadBillings(DataLoadListener dataLoadListener){
-        String userId = AuthenticationManager.getAuthenticationManager().getUserId();
-        FirebaseManager.getBillingsData(
-                FirebaseFirestore.getInstance(),
-                userId,
-                new OnBillingsCallback() {
-                    @Override
-                    public void onBillingsDataReceived(List<Billings> billings) {
-                        updateBillings(billings);
-                        dataLoadListener.onDataLoaded();
-                    }
+        FirebaseManager.getBillingsData(new OnBillingsCallback() {
+            @Override
+            public void onBillingsDataReceived(List<Billings> billings) {
+                updateBillings(billings);
+                dataLoadListener.onDataLoaded();
+            }
 
-                    @Override
-                    public void onBillingsDataNotFound() {
-                        Log.d("error","Відсутні дані");;
-                    }
+            @Override
+            public void onBillingsDataNotFound() {
+                Log.d("error","Відсутні дані");;
+            }
 
-                    @Override
-                    public void onBillingsDataError(Exception e) {
-                        Log.e("ERROR", "Помилка при отриманні даних: " + e.getMessage());
-                    }
-                }
-        );
+            @Override
+            public void onBillingsDataError(Exception e) {
+                Log.e("ERROR", "Помилка при отриманні даних: " + e.getMessage());
+            }
+
+        });
     }
 
     private void updateBillings(List<Billings> billings){

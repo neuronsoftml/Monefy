@@ -110,11 +110,7 @@ public class CreateIncomeFragment extends Fragment {
     private void handlerClickBtnSetUp(){
         Map<String, Object> incomeMap = incomeDetailsFragment.getDataMapIncome();
         if(incomeMap.size() != 0){
-            FirebaseManager.addIncome(
-                    FirebaseFirestore.getInstance(),
-                    AuthenticationManager.getAuthenticationManager().getUserId(),
-                    incomeMap,
-                    new InConclusionCompleteListener() {
+            FirebaseManager.addIncome( incomeMap, new InConclusionCompleteListener() {
                         @Override
                         public void onSuccess() {
                             FragmentSwitcher.replaceFragment(

@@ -93,11 +93,7 @@ public class CreateNewUserFragment extends Fragment{
 
     //Створює нового користувача у FireBase
     private void createNewUser(String email, String password){
-        FirebaseManager.createNewUserWithEmailPassword(
-                FirebaseAuth.getInstance(),
-                getActivity(),
-                email,
-                password,
+        FirebaseManager.createNewUserWithEmailPassword(getActivity(), email, password,
                 new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {

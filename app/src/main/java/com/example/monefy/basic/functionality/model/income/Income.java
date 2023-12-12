@@ -1,5 +1,7 @@
 package com.example.monefy.basic.functionality.model.income;
 
+import com.example.monefy.R;
+
 import java.util.Date;
 
 public class Income {
@@ -13,6 +15,9 @@ public class Income {
     private String category;        // Категорія доходу (наприклад, зарплата, подарунок)
     private String notes;           // Додаткові нотатки
 
+    public Income(){
+
+    }
     public Income(String id, String name, double amount, String typeCurrency ,String source, String frequency, Date dateReceived, String category, String notes) {
         this.id = id;
         this.name = name;
@@ -60,4 +65,27 @@ public class Income {
     public String getTypeCurrency() {
         return typeCurrency;
     }
-}
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getImageIncome(){
+        if(category.equals(TypeCategory.BUSINESS.getTitle())){
+            //Бізнес
+        }else if(category.equals(TypeCategory.FREELANCE.getTitle())){
+            //Фріланс
+        }else if(category.equals(TypeCategory.INVESTMENTS.getTitle())){
+            //Інвестиції
+        }else if (category.equals(TypeCategory.PENSIONS.getTitle())) {
+            //Пенція.
+        }else if (category.equals(TypeCategory.REAL_ESTATE.getTitle())) {
+            //Нерухомість.
+        }else if (category.equals(TypeCategory.SALARY.getTitle())) {
+            //Зарплата.
+        } else if (category.equals(TypeCategory.SUBSIDIES.getTitle())) {
+            //Супсидії.
+        }
+        return 0;
+    }
+ }

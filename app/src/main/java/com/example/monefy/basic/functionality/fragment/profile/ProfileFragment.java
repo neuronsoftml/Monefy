@@ -1,5 +1,6 @@
 package com.example.monefy.basic.functionality.fragment.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,12 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.monefy.MainActivity;
 import com.example.monefy.R;
 import com.example.monefy.Manager.firebase.AuthenticationManager;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.firebase.OnUserDataCallback;
+import com.example.monefy.local.database.ManagerLocalDataBase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -33,15 +37,16 @@ public class ProfileFragment extends Fragment {
 
         setupUIElements(view);
         loadGetUserData();
-
+        handlerBtnClick();
         return view;
     }
 
     private TextView textFullUserName, textEmail;
-
+    private ImageButton imgBtnLogout;
     private void setupUIElements(View view){
         this.textFullUserName = view.findViewById(R.id.textViewFullUserName);
         this.textEmail = view.findViewById(R.id.textViewEmail);
+        this.imgBtnLogout = view.findViewById(R.id.imgBtnLogout);
     }
 
     private void displaysUserData(String Name, String lastName){
@@ -49,9 +54,9 @@ public class ProfileFragment extends Fragment {
         textEmail.setText(AuthenticationManager.getAuthenticationManager().getEmail());
     }
 
+
     private void loadGetUserData(){
-        String userId = AuthenticationManager.getAuthenticationManager().getUserId();
-        FirebaseManager.getUserPersonalData(FirebaseFirestore.getInstance(), userId, new OnUserDataCallback() {
+        FirebaseManager.getUserPersonalData(new OnUserDataCallback() {
             @Override
             public void onUserDataReceived(DocumentSnapshot documentSnapshot) {
                 displaysUserData(
@@ -72,5 +77,18 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    private void handlerBtnClick() {
+        handlerBtnLogout();
+    }
 
+    private void handlerBtnLogout() {
+        imgBtnLogout.setOnClickListener(v->{
+            AuthenticationManager.signOut();
+
+            ManagerLocalDataBase.deleteUserToId(getContext(),0);
+
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+        });
+    }
 }

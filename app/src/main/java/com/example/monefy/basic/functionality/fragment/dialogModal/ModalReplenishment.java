@@ -9,10 +9,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.adapter.BillingsListAdapter;
+import com.example.monefy.basic.functionality.adapter.billings.BillingsListAdapter;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
-import com.example.monefy.Manager.BillingsManager;
+import com.example.monefy.Manager.billings.BillingsManager;
 
 import java.util.ArrayList;
 import java.util.List;

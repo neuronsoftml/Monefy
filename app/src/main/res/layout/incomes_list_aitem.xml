@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageBillings_list_item"
+            android:id="@+id/imageIncomes_list_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
@@ -34,11 +34,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="0dp"
-            android:layout_toEndOf="@+id/imageBillings_list_item"
+            android:layout_toEndOf="@+id/imageIncomes_list_item"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/title_name_billings_list_item"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -51,7 +51,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/balance_billings_list_item"
+                    android:id="@+id/amount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="0"
@@ -60,7 +60,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/type_currency_list_item_1"
+                    android:id="@+id/typeCurrency"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
@@ -76,28 +76,49 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tV_item_title_obligation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/credit_limit_list_item"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:text="0"
-                    android:textColor="@color/textPrimary" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/type_currency_list_item_2"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="категорія"
+                        android:textColor="@color/textPrimary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="UAH"
-                    android:textColor="@color/textPrimary" />
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text="@string/tV_dateReceived_income"
+                        android:textColor="@color/textPrimary" />
+
+                    <TextView
+                        android:id="@+id/dateIncome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text="00.00.0000"
+                        android:textColor="@color/textPrimary" />
+                </LinearLayout>
             </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </RelativeLayout>

@@ -11,6 +11,7 @@ import com.example.monefy.authorization.SignInActivity;
 import com.example.monefy.authorization.SignUpActivity;
 import com.example.monefy.basic.functionality.HomeActivity;
 import com.example.monefy.local.database.AppDatabase;
+import com.example.monefy.local.database.ManagerLocalDataBase;
 import com.example.monefy.local.database.model.User;
 import com.example.monefy.Manager.firebase.AuthenticationManager;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
@@ -62,15 +63,11 @@ public class MainActivity extends AppCompatActivity{
 
     //Автоматична аторизація.
     private void autoLogin(){
-        AppDatabase databaseManager = AppDatabase.getObInstance(getApplicationContext());
-        int userCount = databaseManager.userDao().getUserCountById(0);
+        User user = ManagerLocalDataBase.getUserToId(getApplicationContext(),0);
 
-        if(userCount > 0){
-            User user = databaseManager.userDao().getUserById(0);
-
+        if(user != null){
             String email = user.getEmail();
             String password = user.getPassword();
-
             handlerSignIn(email,password);
         }
     }

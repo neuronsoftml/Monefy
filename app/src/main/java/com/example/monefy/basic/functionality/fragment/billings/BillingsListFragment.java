@@ -7,37 +7,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.adapter.BillingsListAdapter;
+import com.example.monefy.basic.functionality.adapter.billings.BillingsListAdapter;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.dialogModal.BillingDialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalReplenishment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBilling;
-import com.example.monefy.basic.functionality.model.DataLoadListener;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
-import com.example.monefy.Manager.BillingsManager;
+import com.example.monefy.Manager.billings.BillingsManager;
 import com.example.monefy.Manager.message.ToastManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/*
-     Цей фрагмент відображає список рахунків категорії:
-        - ORDINARY("Звичайний")
-        - DEBT("Борговий")
- */
 public class BillingsListFragment extends Fragment {
 
     private ListView listItemBillings;
+    private TextView  tvMessage;
     private Context context;
     private BillingsManager billingsManager = BillingsManager.getBillingsManager();
     private InfoBoardFragment infoBoardFragment;
 
     private void setupUIElements(View view){
-       this.listItemBillings = view.findViewById(R.id.list_item_billings);
+        this.tvMessage = view.findViewById(R.id.tVMessage);
+        this.listItemBillings = view.findViewById(R.id.list_item_billings);
     }
 
     @Override
@@ -59,7 +57,12 @@ public class BillingsListFragment extends Fragment {
            infoBoardFragment.onDataLoaded();
            showBillingsList();
            handlerClickItemListBillings();
+
+           if(billings.size() == 0){
+               tvMessage.setVisibility(View.VISIBLE);
+           }
        });
+
 
        this.context = getContext();
        return view;
@@ -81,17 +84,17 @@ public class BillingsListFragment extends Fragment {
 
     private void handlerClickItemListBillings() {
         billingsListAdapter.setOnItemClickListener(billings -> {
-            ModalBilling modalBilling = new ModalBilling(context,billings);
+            ModalBilling modalBilling = new ModalBilling(context, (Billings) billings);
 
             BillingDialogCallback billingDialogCallback = new BillingDialogCallback() {
                 @Override
                 public void onSuccessDelete() {
-                   handlerDelete(billings);
+                   handlerDelete((Billings) billings);
                 }
 
                 @Override
                 public void onClickEdit() {
-                  handlerEdit(billings);
+                  handlerEdit((Billings) billings);
                 }
 
                 @Override
@@ -101,7 +104,7 @@ public class BillingsListFragment extends Fragment {
 
                 @Override
                 public void onClickReplenishment() {
-                    handlerReplenishment(billings);
+                    handlerReplenishment((Billings) billings);
                 }
 
                 @Override

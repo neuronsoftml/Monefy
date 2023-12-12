@@ -1,4 +1,4 @@
-package com.example.monefy.basic.functionality.adapter;
+package com.example.monefy.basic.functionality.adapter.billings;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.adapter.OnItemClickListener;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 

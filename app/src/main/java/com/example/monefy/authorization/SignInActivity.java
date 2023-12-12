@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.monefy.basic.functionality.HomeActivity;
 import com.example.monefy.R;
-import com.example.monefy.local.database.AppDatabase;
+import com.example.monefy.local.database.ManagerLocalDataBase;
 import com.example.monefy.local.database.model.User;
 import com.example.monefy.Manager.firebase.AuthenticationManager;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
@@ -23,7 +23,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPass;
     private Button btnSignIn;
-    private Switch aSwitch;
+    private Switch switchSaveMy;
     private TextView recoverPass, errorTextMessage;
 
     //Визначення обєктів активності.
@@ -36,7 +36,7 @@ public class SignInActivity extends AppCompatActivity {
         this.recoverPass = (TextView) findViewById(R.id.recoverPassword);
         this.errorTextMessage = (TextView) findViewById(R.id.errorMessageText);
 
-        this.aSwitch = (Switch) findViewById(R.id.switchSaveData);
+        this.switchSaveMy = (Switch) findViewById(R.id.switchSaveData);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class SignInActivity extends AppCompatActivity {
                 password, new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {
-                        if (aSwitch.isChecked()) {
+                        if (switchSaveMy.isChecked()) {
                             autoSaveLocalDate(email, password);
                         }
                         navigationToHome();
@@ -133,17 +133,12 @@ public class SignInActivity extends AppCompatActivity {
 
     //Збереження данних про автоматичний вхід
     private void autoSaveLocalDate(String email, String password){
-        AppDatabase databaseManager = AppDatabase.getObInstance(getApplicationContext());
-
-        int userCount = databaseManager.userDao().getUserCountById(0);
-        if (userCount > 0) {
+        User user = ManagerLocalDataBase.getUserToId(getApplicationContext(),0);
+        if (user != null) {
             // Користувач із заданим email існує
-            databaseManager.userDao().deleteUserById(0);
-            databaseManager.userDao().insert(new User(email,password,true));
-        } else {
-            // Користувач із заданим email відсутній в базі даних
-            databaseManager.userDao().insert(new User(email,password,true));
+            ManagerLocalDataBase.deleteUserToId(getApplicationContext(),0);
         }
+        ManagerLocalDataBase.createUserToId(getApplicationContext(),email,password, switchSaveMy.isChecked());
     }
 
 }

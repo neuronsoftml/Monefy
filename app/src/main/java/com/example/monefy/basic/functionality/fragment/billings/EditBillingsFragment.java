@@ -127,7 +127,6 @@ public class EditBillingsFragment extends Fragment {
 
             if(!createEditableBill(mapBilling).equals(billing)){
                 FirebaseManager.updatedBillings(
-                        AuthenticationManager.getAuthenticationManager().getUserId(),
                         billing.getId(),
                         mapBilling,
                         new InConclusionCompleteListener() {
