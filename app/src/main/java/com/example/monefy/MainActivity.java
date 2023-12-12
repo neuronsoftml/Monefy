@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.monefy.Manager.internet.ManagerNetwork;
 import com.example.monefy.authorization.SignInActivity;
 import com.example.monefy.authorization.SignUpActivity;
 import com.example.monefy.basic.functionality.HomeActivity;
@@ -87,6 +88,9 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onFailure(Exception exception) {
                        ToastManager.showToastOnFailure(getApplicationContext(),R.string.toast_failure_signIn);
+                        if(!ManagerNetwork.isConnectedToInternet(getApplicationContext())){
+                            ToastManager.showToastOnFailure(getApplicationContext(),R.string.toast_no_internet_connection);
+                        }
                     }
                 }
         );
@@ -96,5 +100,6 @@ public class MainActivity extends AppCompatActivity{
     private void navigationToHome(){
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        finish();
     }
 }

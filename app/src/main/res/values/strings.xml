@@ -111,6 +111,7 @@
     <string name="toast_successful_edit_billings">Успішно внесено зміни у рахунок</string>
     <string name="toast_failure_edit_billings">Помилка зміни в рахунок не було внесено</string>
     <string name="toast_successful_add_income">Успішно створили новий актив</string>
+    <string name="toast_no_internet_connection">no internet connection</string>
 
 
     <string name="btn_number_zero">0</string>
