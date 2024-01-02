@@ -34,7 +34,7 @@
             android:text="@string/btn_income"
             android:textColor="@color/textPrimary"
             android:textAllCaps="true"
-            android:background="@drawable/btn_actions_gradient"
+            android:background="@drawable/button_lite_white_v2"
             android:minWidth="100dp"
             android:minHeight="30dp"
             android:elevation="10dp"
@@ -46,10 +46,12 @@
             android:id="@+id/informationBoard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/fragBillings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/btnIncome">
 
         </androidx.fragment.app.FragmentContainerView>
 

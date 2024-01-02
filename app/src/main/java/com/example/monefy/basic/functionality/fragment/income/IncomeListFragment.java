@@ -24,7 +24,7 @@ public class IncomeListFragment extends Fragment {
     private ListView listItemIncome;
     private TextView tvMessage;
     private Context context;
-    private IncomeManager incomeManager = IncomeManager.getIncomeManager();
+    private final IncomeManager incomeManager = IncomeManager.getIncomeManager();
     private List<Income> incomeList = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,9 +58,9 @@ public class IncomeListFragment extends Fragment {
     private void setupUIElement(View view){
         this.listItemIncome = view.findViewById(R.id.list_item_incomes);
     }
-    private IncomesListAdapter incomesListAdapter;
+
     private void showIncomeList() {
-        incomesListAdapter = new IncomesListAdapter(
+        IncomesListAdapter incomesListAdapter = new IncomesListAdapter(
                 getContext(),
                 incomeList
 
@@ -71,5 +71,8 @@ public class IncomeListFragment extends Fragment {
     private void handlerClickItemIncome() {
     }
 
+    public List<Income> getIncomeList(){
+        return incomeList;
+    }
 
 }

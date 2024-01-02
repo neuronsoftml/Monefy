@@ -24,6 +24,7 @@
             android:id="@+id/imageIncomes_list_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:foregroundGravity="center_horizontal"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
@@ -88,37 +89,35 @@
                         android:text="категорія"
                         android:textColor="@color/textPrimary" />
                 </LinearLayout>
+            </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:orientation="horizontal">
+                    android:text="@string/tV_dateReceived_income"
+                    android:textColor="@color/textPrimary" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:text="@string/tV_dateReceived_income"
-                        android:textColor="@color/textPrimary" />
-
-                    <TextView
-                        android:id="@+id/dateIncome"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:text="00.00.0000"
-                        android:textColor="@color/textPrimary" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/dateIncome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text="00.00.0000"
+                    android:textColor="@color/textPrimary" />
             </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"/>
 
         </LinearLayout>
     </RelativeLayout>

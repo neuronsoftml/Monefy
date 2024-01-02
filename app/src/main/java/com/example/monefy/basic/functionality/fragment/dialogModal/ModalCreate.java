@@ -75,11 +75,14 @@ public class ModalCreate extends DialogMenu{
 
     public void handlerBtnIncome(){
         btnIncome.setOnClickListener(v->{
+            /*
             FragmentSwitcher.replaceFragment(
                     new CreateIncomeFragment(),
                     context,
                     FragmentSwitcher.getContainerHome()
             );
+            Необхідно дописати переход
+             */
             exitModal();
         });
     }

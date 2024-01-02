@@ -77,11 +77,11 @@ public class CreateBillingsFragment extends Fragment {
         billingDetailsFragment.setArguments(bundle);
 
         // Заміна поточного фрагменту на фрагмент деталей рахунку
-        FragmentSwitcher.replaceFragment(
+
+        FragmentSwitcher.addTransactionFragment(
+                getChildFragmentManager(),
                 billingDetailsFragment,
-                getContext(),
-                fragBillingDetails.getId()
-        );
+                fragBillingDetails.getId());
     }
 
     // Відображення фрагменту навігації
@@ -100,11 +100,10 @@ public class CreateBillingsFragment extends Fragment {
             }
         });
         // Заміна поточного фрагменту на фрагмент підтвердження
-        FragmentSwitcher.replaceFragment(
+        FragmentSwitcher.addTransactionFragment(
+                getChildFragmentManager(),
                 confirmationFragment,
-                getContext(),
-                fragNavigation.getId()
-        );
+                fragNavigation.getId());
     }
 
     // Обробник кліку на кнопку закриття
@@ -122,11 +121,13 @@ public class CreateBillingsFragment extends Fragment {
                         @Override
                         public void onSuccess() {
                             ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_entered_the_data);
-                            FragmentSwitcher.replaceFragment(
+                           /* FragmentSwitcher.replaceFragment(
                                     new BillingsFragment(),
                                     getContext(),
                                     FragmentSwitcher.getContainerHome()
                             );
+                            */
+                            //Необхідно орпацювати навігацію.
                         }
 
                         @Override

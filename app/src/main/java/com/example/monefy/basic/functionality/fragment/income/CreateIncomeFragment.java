@@ -5,35 +5,19 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.example.monefy.Manager.firebase.AuthenticationManager;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.message.ToastManager;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.billings.BillingsFragment;
-import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalance;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelect;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputData;
 import com.example.monefy.basic.functionality.fragment.navigation.ClickListener;
 import com.example.monefy.basic.functionality.fragment.navigation.ConfirmationFragment;
-import com.example.monefy.basic.functionality.model.TypeCurrency;
-import com.example.monefy.basic.functionality.model.income.TypeCategory;
-import com.example.monefy.basic.functionality.model.income.TypeFrequency;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CreateIncomeFragment extends Fragment {
@@ -67,19 +51,19 @@ public class CreateIncomeFragment extends Fragment {
     private void showIncomeDetails(){
         incomeDetailsFragment = new IncomeDetailsFragment();
         FragmentSwitcher.replaceFragment(
+                getChildFragmentManager(),
                 incomeDetailsFragment,
-                getContext(),
                 fragIncomeDetails.getId()
-        );
+                );
     }
 
     private ConfirmationFragment confirmationFragment;
 
     private void showFragNavigation(){
         confirmationFragment = new ConfirmationFragment();
-        FragmentSwitcher.replaceFragment(
+        FragmentSwitcher.addTransactionFragment(
+                getChildFragmentManager(),
                 confirmationFragment,
-                getContext(),
                 fragNavigation.getId()
         );
         handlerClick();
@@ -100,11 +84,14 @@ public class CreateIncomeFragment extends Fragment {
     }
 
     private void handlerClickBtnClose(){
+        /*
         FragmentSwitcher.replaceFragment(
                 new BillingsFragment(),
                 getContext(),
                 FragmentSwitcher.getContainerHome()
         );
+            Дописати навігацію.
+         */
     }
 
     private void handlerClickBtnSetUp(){
@@ -113,11 +100,14 @@ public class CreateIncomeFragment extends Fragment {
             FirebaseManager.addIncome( incomeMap, new InConclusionCompleteListener() {
                         @Override
                         public void onSuccess() {
+                            /*
                             FragmentSwitcher.replaceFragment(
                                     new IncomeFragment(),
                                     getContext(),
                                     FragmentSwitcher.getContainerHome()
                             );
+                            Дописати навігацію.
+                             */
                             ToastManager.showToastOnFailure(getContext(),R.string.toast_successful_add_income);
                         }
 

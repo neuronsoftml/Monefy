@@ -14,8 +14,9 @@ import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 
 public class IncomeFragment extends Fragment {
     private FragmentContainerView fragIncome;
-
-    private IncomeListFragment incomeListFragment = new IncomeListFragment();
+    private FragmentContainerView fragInformationBoard;
+    private final InfoBoardIncomeFragment infoBoardIncomeFragment = new InfoBoardIncomeFragment();
+    private final IncomeListFragment incomeListFragment = new IncomeListFragment();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,19 +29,30 @@ public class IncomeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_income, container, false);
         setupUIElements(view);
         showFragIncomes();
-
+        showFragInformationBoard();
         return view;
     }
 
     private void setupUIElements(View view){
-        fragIncome = view.findViewById(R.id.fragIncome);
+        this.fragIncome = view.findViewById(R.id.fragIncome);
+        this.fragInformationBoard = view.findViewById(R.id.informationBoard);
     }
 
     private void showFragIncomes(){
-        FragmentSwitcher.replaceFragment(
+        FragmentSwitcher.addTransactionFragment(
+                getChildFragmentManager(),
                 incomeListFragment,
-                getContext(),
                 fragIncome.getId()
+        );
+    }
+
+    private void showFragInformationBoard(){
+        infoBoardIncomeFragment.setIncomeListFragment(incomeListFragment);
+
+        FragmentSwitcher.addTransactionFragment(
+                getChildFragmentManager(),
+                infoBoardIncomeFragment,
+                fragInformationBoard.getId()
         );
     }
 }

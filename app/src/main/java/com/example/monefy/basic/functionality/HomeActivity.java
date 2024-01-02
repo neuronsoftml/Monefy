@@ -21,6 +21,7 @@ import com.example.monefy.basic.functionality.fragment.ReviewFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
+    private final int containerHome = R.id.containerHome;
 
     private BottomNavigationView btmNavView;
 
@@ -30,10 +31,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        FragmentSwitcher.replaceFragment(
-                new BillingsFragment(),
-                this,
-                FragmentSwitcher.getContainerHome());
+        FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new BillingsFragment(),containerHome);
         setupUIElements();
         handlerClickButton();
     }
@@ -51,36 +49,20 @@ public class HomeActivity extends AppCompatActivity {
     private void clickButtonBottomNavigationView(){
         btmNavView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            Context context =  this;
             if (id == R.id.btnNavBillings) {
-                FragmentSwitcher.replaceFragment(
-                        new BillingsFragment(),
-                        context,
-                        FragmentSwitcher.getContainerHome());
+                FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new BillingsFragment(),containerHome);
                 return true;
             } else if (id == R.id.btnNavCategories) {
-                FragmentSwitcher.replaceFragment(
-                        new CategoriesFragment(),
-                        context,
-                        FragmentSwitcher.getContainerHome());
+                FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new CategoriesFragment(),containerHome);
                 return true;
             } else if (id == R.id.btnNavOperations) {
-                FragmentSwitcher.replaceFragment(
-                        new OperationsFragment(),
-                        context,
-                        FragmentSwitcher.getContainerHome());
+                FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new OperationsFragment(),containerHome);
                 return true;
             } else if (id == R.id.btnNavReview) {
-                FragmentSwitcher.replaceFragment(
-                        new ReviewFragment(),
-                        context,
-                        FragmentSwitcher.getContainerHome());
+                FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new ReviewFragment(),containerHome);
                 return true;
             } else if (id == R.id.btnNavProfile) {
-                FragmentSwitcher.replaceFragment(
-                        new ProfileFragment(),
-                        context,
-                        FragmentSwitcher.getContainerHome());
+                FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new ProfileFragment(),containerHome);
             return true;
         }
             return false;

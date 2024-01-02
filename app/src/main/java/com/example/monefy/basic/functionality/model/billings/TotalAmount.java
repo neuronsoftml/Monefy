@@ -1,5 +1,6 @@
-package com.example.monefy.basic.functionality.model;
+package com.example.monefy.basic.functionality.model.billings;
 
+import com.example.monefy.basic.functionality.model.CurrencyNbu;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.Obligation;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
@@ -20,7 +21,6 @@ public class TotalAmount {
     private void calculatingTotalAmount(){
         for(Billings billing : billings){
            if(billing.getTypeBillings().equals(TypeBillings.ORDINARY.getTitle())
-                || billing.getTypeBillings().equals(TypeBillings.DEBT.getTitle())
                    && billing.getObligation().equals(Obligation.DEBT_TO_ME.getTitle())){
 
                if(billing.getTypeCurrency().equals("UAH")){

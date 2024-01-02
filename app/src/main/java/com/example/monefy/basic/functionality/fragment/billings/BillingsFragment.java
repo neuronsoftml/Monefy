@@ -18,7 +18,7 @@ public class BillingsFragment extends Fragment {
     private FragmentContainerView fragInformationBoard;
     private Button btnIncome;
 
-    private InfoBoardFragment infoBoardFragment = new InfoBoardFragment();
+    private InfoBoardBillingsFragment infoBoardBillingsFragment = new InfoBoardBillingsFragment();
     private BillingsListFragment billingsListFragment =  new BillingsListFragment();
 
     @Override
@@ -39,20 +39,22 @@ public class BillingsFragment extends Fragment {
     }
 
     private void showFragInformationBord() {
-        infoBoardFragment.setBillingsListFragment(billingsListFragment);
-        FragmentSwitcher.replaceFragment(
-                infoBoardFragment,
-                getContext(),
-                fragInformationBoard.getId()
-        );
+        infoBoardBillingsFragment.setBillingsListFragment(billingsListFragment);
+
+        FragmentSwitcher.addTransactionFragment(
+                getChildFragmentManager(),
+                infoBoardBillingsFragment,
+                fragInformationBoard.getId());
     }
 
     private void showFragBillings() {
-        billingsListFragment.setInfoBoardFragment(infoBoardFragment);
-        FragmentSwitcher.replaceFragment(
+        billingsListFragment.setInfoBoardFragment(infoBoardBillingsFragment);
+
+        FragmentSwitcher.addTransactionFragment(
+                getChildFragmentManager(),
                 billingsListFragment,
-                getContext(),
-                fragBillings.getId());
+                fragBillings.getId()
+        );
     }
 
     private void setupUIElements(View view){
@@ -63,11 +65,7 @@ public class BillingsFragment extends Fragment {
 
     private void handlerBtnIncome(){
         btnIncome.setOnClickListener(v->{
-            FragmentSwitcher.replaceFragment(
-                    new IncomeFragment(),
-                    getContext(),
-                    FragmentSwitcher.getContainerHome()
-            );
+
         });
     }
 

@@ -40,6 +40,7 @@ public class Billings implements Serializable {
     public long getCreditLimit() {
         return creditLimit;
     }
+
     public String getName() {
         return name;
     }

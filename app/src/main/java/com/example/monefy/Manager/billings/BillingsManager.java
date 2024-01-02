@@ -30,6 +30,11 @@ public class BillingsManager {
         return billingsList;
     }
 
+    public List<Billings> getBillingsAllExceptOne(Billings bill){
+        billingsList.remove(bill);
+        return billingsList;
+    }
+
     /**
      * loadBillings - Здійснює загрузку рахунків.
      * @return billingsList повертає список рахунків

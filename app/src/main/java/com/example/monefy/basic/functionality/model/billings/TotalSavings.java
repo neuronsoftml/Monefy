@@ -1,5 +1,6 @@
-package com.example.monefy.basic.functionality.model;
+package com.example.monefy.basic.functionality.model.billings;
 
+import com.example.monefy.basic.functionality.model.CurrencyNbu;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 

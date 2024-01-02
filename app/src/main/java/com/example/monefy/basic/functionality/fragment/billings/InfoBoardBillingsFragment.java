@@ -12,21 +12,22 @@ import android.widget.TextView;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
-import com.example.monefy.basic.functionality.fragment.billings.BillingsListFragment;
 import com.example.monefy.basic.functionality.fragment.bank.CurrencyNbuFragment;
 import com.example.monefy.basic.functionality.model.DataLoadListener;
-import com.example.monefy.basic.functionality.model.TotalAmount;
-import com.example.monefy.basic.functionality.model.TotalSavings;
+import com.example.monefy.basic.functionality.model.billings.Obligation;
+import com.example.monefy.basic.functionality.model.billings.TotalAmount;
+import com.example.monefy.basic.functionality.model.billings.TotalDebt;
+import com.example.monefy.basic.functionality.model.billings.TotalSavings;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 
 import java.util.List;
 
-public class InfoBoardFragment extends Fragment implements DataLoadListener {
+public class InfoBoardBillingsFragment extends Fragment implements DataLoadListener {
 
     private BillingsListFragment billingsListFragment;
     private FragmentContainerView fragCurrencyNbu;
     private CurrencyNbuFragment currencyNbuFragment;
-    private TextView tvTotalSavings, tvTotalAmount;
+    private TextView tvTotalSavings, tvTotalAmount, tVTotalDebtOweMe,tVTotalDebtImGuilty;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,7 @@ public class InfoBoardFragment extends Fragment implements DataLoadListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_info_board, container, false);
+        View view = inflater.inflate(R.layout.fragment_info_board_billings, container, false);
         setupUIElements(view);
         showFragCurrencyNbu();
         return view;
@@ -45,16 +46,18 @@ public class InfoBoardFragment extends Fragment implements DataLoadListener {
         this.fragCurrencyNbu = view.findViewById(R.id.fragCurrencyNbu);
         this.tvTotalSavings = view.findViewById(R.id.tVTotalSavings);
         this.tvTotalAmount = view.findViewById(R.id.tvTotalAmount);
+        this.tVTotalDebtOweMe = view.findViewById(R.id.tVTotalDebtOweMe);
+        this.tVTotalDebtImGuilty =  view.findViewById(R.id.tVTotalDebtImGuilty);
     }
 
     private void showFragCurrencyNbu() {
         currencyNbuFragment = new CurrencyNbuFragment();
-        currencyNbuFragment.setInfoBoardFragment(this);
-        FragmentSwitcher.replaceFragment(
+        currencyNbuFragment.setInfoBoardBillingFragment(this);
+
+        FragmentSwitcher.addTransactionFragment(
+                getChildFragmentManager(),
                 currencyNbuFragment,
-                getContext(),
-                fragCurrencyNbu.getId()
-        );
+                fragCurrencyNbu.getId());
     }
 
     public void setBillingsListFragment(BillingsListFragment billingsListFragment) {
@@ -64,25 +67,29 @@ public class InfoBoardFragment extends Fragment implements DataLoadListener {
     @Override
     public void onDataLoaded() {
         if((billingsListFragment.getBillings() != null)){
-            setValueTotalSaving(billingsListFragment.getBillings());
-            setValueTotalAmount(billingsListFragment.getBillings());
+            updateInfoBord(billingsListFragment.getBillings());
         }
     }
 
-    private TotalAmount totalAmount;
     private void setValueTotalAmount(List<Billings> billings) {
-        totalAmount = new TotalAmount(0,billings,currencyNbuFragment.getCurrencyNbuRates());
+        TotalAmount totalAmount = new TotalAmount(0, billings, currencyNbuFragment.getCurrencyNbuRates());
         tvTotalAmount.setText(String.valueOf(totalAmount.getAmount()));
     }
 
-    private TotalSavings totalSavings;
     private void setValueTotalSaving(List<Billings> billings) {
-        totalSavings = new TotalSavings(0, billings, currencyNbuFragment.getCurrencyNbuRates());
+        TotalSavings totalSavings = new TotalSavings(0, billings, currencyNbuFragment.getCurrencyNbuRates());
         tvTotalSavings.setText(String.valueOf(totalSavings.getAmount()));
+    }
+
+    private void setValueTotalDEBT(List<Billings> billings){
+        TotalDebt totalDebt = new TotalDebt(billings,currencyNbuFragment.getCurrencyNbuRates());
+        tVTotalDebtOweMe.setText(String.valueOf(totalDebt.calculatingConvert(Obligation.DEBT_TO_ME.getTitle())));
+        tVTotalDebtImGuilty.setText(String.valueOf(totalDebt.calculatingConvert(Obligation.DEBT_TO_ANOTHER.getTitle())));
     }
 
     public void updateInfoBord(List<Billings> billings){
         setValueTotalAmount(billings);
         setValueTotalSaving(billings);
+        setValueTotalDEBT(billings);
     }
 }

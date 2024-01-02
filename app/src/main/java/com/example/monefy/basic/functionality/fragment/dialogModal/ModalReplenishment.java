@@ -2,53 +2,67 @@ package com.example.monefy.basic.functionality.fragment.dialogModal;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import com.example.monefy.Manager.incomes.IncomeManager;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.billings.BillingsListAdapter;
+import com.example.monefy.basic.functionality.adapter.incomes.IncomesListAdapter;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.Manager.billings.BillingsManager;
+import com.example.monefy.basic.functionality.model.income.Income;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModalReplenishment extends DialogMenu{
-    private Billings bill;
+    private final Billings selectedBillings;
     private ImageView imgViewBillingCard;
     private TextView tVNameBilling, tVBillingBalance, tVTypeCurrency, tVTypeBilling;
     private ToggleButton toggleBtnIncome, toggleBtnFromTheBill;
     private LinearLayout linearLayoutIncome, linearLayoutFromTheBill;
-    private ListView listViewBillRep;
-    private Context context;
-    private BillingsManager billingsManager = BillingsManager.getBillingsManager();
-    public ModalReplenishment(Context context, int contentView, Billings bill) {
+    private ListView listViewBillRep, listViewIncome;
+    private final Context context;
+    private final BillingsManager billingsManager = BillingsManager.getBillingsManager();
+    private final IncomeManager incomeManager = IncomeManager.getIncomeManager();
+    public ModalReplenishment(Context context, int contentView, Billings selectedBillings) {
         super(context, contentView);
         this.context = context;
-        this.bill = bill;
+        this.selectedBillings = selectedBillings;
     }
 
-    private DialogCallback dialogCallback;
     @Override
     public void modalStart(DialogCallback dialogCallback) {
-        this.dialogCallback = dialogCallback;
 
         openModal();
+
         billingsManager.loadBillings(()->{
             billings.clear();
-            billings = billingsManager.getBillingsList();
+            billings = billingsManager.getBillingsAllExceptOne(selectedBillings);
             showBillingsList();
+            handlerBillingsListView();
         });
+
+        incomeManager.loadIncomes(()->{
+            incomes.clear();
+            incomes = incomeManager.getIncomeList();
+            showIncomesList();
+            handlerIncomeListView();
+        });
+
         setupUIDialogModal();
         setValueObjectModal();
         handlerButtonDialogModal();
     }
 
-    private Dialog dialog = getDialogModal();
+    private final Dialog dialog = getDialogModal();
 
     @Override
     public void setupUIDialogModal() {
@@ -62,6 +76,7 @@ public class ModalReplenishment extends DialogMenu{
         linearLayoutIncome = dialog.findViewById(R.id.linearLayoutIncome);
         linearLayoutFromTheBill = dialog.findViewById(R.id.linearLayoutFromTheBill);
         listViewBillRep = dialog.findViewById(R.id.listView_bill_rep);
+        listViewIncome = dialog.findViewById(R.id.listView_income);
     }
 
     @Override
@@ -70,11 +85,11 @@ public class ModalReplenishment extends DialogMenu{
     }
 
     private void setValueObjectModal() {
-        imgViewBillingCard.setImageResource(TypeBillings.getIdImageTypeBillings(bill.getTypeBillings()));
-        tVNameBilling.setText(bill.getName());
-        tVBillingBalance.setText(String.valueOf(bill.getBalance()));
-        tVTypeCurrency.setText(bill.getTypeCurrency());
-        tVTypeBilling.setText(bill.getTypeBillings());
+        imgViewBillingCard.setImageResource(TypeBillings.getIdImageTypeBillings(selectedBillings.getTypeBillings()));
+        tVNameBilling.setText(selectedBillings.getName());
+        tVBillingBalance.setText(String.valueOf(selectedBillings.getBalance()));
+        tVTypeCurrency.setText(selectedBillings.getTypeCurrency());
+        tVTypeBilling.setText(selectedBillings.getTypeBillings());
         switcherToggleButton(toggleBtnIncome);
     }
 
@@ -105,11 +120,13 @@ public class ModalReplenishment extends DialogMenu{
             linearLayoutFromTheBill.setVisibility(View.VISIBLE);
         }
     }
+
     private List<Billings> billings = new ArrayList<>();
-    private BillingsListAdapter billingsListAdapter;
+
+    private  BillingsListAdapter billingsListAdapter;
 
     private void showBillingsList(){
-        billingsListAdapter = new BillingsListAdapter(
+      billingsListAdapter = new BillingsListAdapter(
                 context,
                 BillingsManager.sortingBillings(
                         billings,
@@ -118,5 +135,28 @@ public class ModalReplenishment extends DialogMenu{
         listViewBillRep.setAdapter(billingsListAdapter);
     }
 
+    private List<Income> incomes = new ArrayList<>();
 
+    private IncomesListAdapter incomesListAdapter;
+
+    private void showIncomesList(){
+        incomesListAdapter = new IncomesListAdapter(
+                context,
+                incomes );
+        listViewIncome.setAdapter(incomesListAdapter);
+    }
+
+    private void handlerBillingsListView(){
+        billingsListAdapter.setOnItemClickListener(object -> {
+            Billings billing = (Billings) object;
+            Log.e("billing", billing.getName());
+        });
+    }
+
+    private void handlerIncomeListView(){
+        incomesListAdapter.setOnItemClickListener(object -> {
+            Income income = (Income) object;
+            Log.e("Income", income.getName());
+        });
+    }
 }

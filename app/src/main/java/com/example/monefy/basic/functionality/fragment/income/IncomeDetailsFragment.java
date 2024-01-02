@@ -16,11 +16,11 @@ import com.example.monefy.R;
 import com.example.monefy.basic.functionality.UI.UpdateUI;
 import com.example.monefy.basic.functionality.UI.UpdateUIError;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalance;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalanceFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputData;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelect;
 import com.example.monefy.basic.functionality.model.TypeCurrency;
-import com.example.monefy.basic.functionality.model.income.TypeCategory;
+import com.example.monefy.basic.functionality.model.income.TypeIncomes;
 import com.example.monefy.basic.functionality.model.income.TypeFrequency;
 import com.google.firebase.Timestamp;
 
@@ -108,19 +108,19 @@ public class IncomeDetailsFragment extends Fragment {
 
     private void handlerClickLinerLayoutAmount(){
         linerLayoutAmount.setOnClickListener(v->{
-            UpdateUI.resetStyleSelect(linerLayoutAmount,getResources());
-            ModalBalance modalBalance = new ModalBalance(
-                    getContext(),
-                    view,
-                    tvAmount.getText().toString(),
-                    tvValueAmount.getText().toString(),
-                    tvValueTypeCurrency.getText().toString(),
-                    null
-            );
-            modalBalance.modalStart(new DialogCallback() {
+            ModalBalanceFragment modalBalanceFragment = new ModalBalanceFragment();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("titleModal",tvAmount.getText().toString());
+            bundle.putString("balance", tvValueAmount.getText().toString());
+            bundle.putString("typeCurrency", tvValueTypeCurrency.getText().toString());
+            modalBalanceFragment.setArguments(bundle);
+
+            modalBalanceFragment.checkDialogCallback(new DialogCallback() {
                 @Override
                 public void onSuccess() {
-                    tvValueAmount.setText(modalBalance.getUpdateBalance());
+                    tvValueAmount.setText(modalBalanceFragment.getBalance());
+                    UpdateUI.resetStyleSelect(linerLayoutAmount,getResources());
                 }
 
                 @Override
@@ -181,7 +181,7 @@ public class IncomeDetailsFragment extends Fragment {
             ModalSelect modalSelect = new ModalSelect(
                     getContext(),
                     R.string.tV_modal_select_category,
-                    Arrays.asList(TypeCategory.values())
+                    Arrays.asList(TypeIncomes.values())
             );
 
             modalSelect.modalStart(new DialogCallback() {

@@ -152,19 +152,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/imgBtnIncome"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/button_lite_round"
-                android:backgroundTint="@color/green"
-                android:src="@drawable/icon_baseline_monetization_on_24" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tV_modal_wages" />
+            <ListView
+                android:id="@+id/listView_income"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

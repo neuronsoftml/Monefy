@@ -13,7 +13,8 @@ import android.widget.TextView;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.NBU.CallbackNbu;
 import com.example.monefy.basic.functionality.NBU.NbuManager;
-import com.example.monefy.basic.functionality.fragment.billings.InfoBoardFragment;
+import com.example.monefy.basic.functionality.fragment.billings.InfoBoardBillingsFragment;
+import com.example.monefy.basic.functionality.fragment.income.InfoBoardIncomeFragment;
 import com.example.monefy.basic.functionality.model.CurrencyNbu;
 
 import java.util.ArrayList;
@@ -25,7 +26,8 @@ public class CurrencyNbuFragment extends Fragment {
     private TextView tVRateUSD, tVRateEUR, tVRateRON;
     private List<CurrencyNbu> currencyNbuRates = new ArrayList<>();
 
-    private InfoBoardFragment infoBoardFragment;
+    private InfoBoardBillingsFragment infoBoardBillingsFragment;
+    private InfoBoardIncomeFragment infoBoardIncomeFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,13 @@ public class CurrencyNbuFragment extends Fragment {
             public void onResponse() {
                 currencyNbuRates.addAll(NbuManager.getCurrencyRates());
                 setDataUINbu();
-                infoBoardFragment.onDataLoaded();
+
+                if(infoBoardBillingsFragment != null){
+                    infoBoardBillingsFragment.onDataLoaded();
+                }
+                if(infoBoardIncomeFragment != null){
+                    infoBoardIncomeFragment.onDataLoaded();
+                }
             }
 
             @Override
@@ -88,7 +96,13 @@ public class CurrencyNbuFragment extends Fragment {
         return currencyNbuRates;
     }
 
-    public void setInfoBoardFragment(InfoBoardFragment infoBoardFragment) {
-        this.infoBoardFragment = infoBoardFragment;
+    public void setInfoBoardBillingFragment(InfoBoardBillingsFragment infoBoardBillingsFragment) {
+        this.infoBoardBillingsFragment = infoBoardBillingsFragment;
     }
+
+    public void setInfoBoardIncomeFragment(InfoBoardIncomeFragment infoBoardIncomeFragment) {
+        this.infoBoardIncomeFragment = infoBoardIncomeFragment;
+    }
+
+
 }

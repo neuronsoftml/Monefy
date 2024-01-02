@@ -2,7 +2,7 @@ package com.example.monefy.basic.functionality.model.income;
 
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeItem;
 
-public enum TypeCategory implements ModalTypeItem {
+public enum TypeIncomes implements ModalTypeItem {
     SALARY("Зарплата"),
     BUSINESS("Бізнес"),
     FREELANCE("Фріланс"),
@@ -11,7 +11,7 @@ public enum TypeCategory implements ModalTypeItem {
     PENSIONS("Пенсійні"),
     SUBSIDIES("Субсидії"),;
 
-    TypeCategory(String title) {
+    TypeIncomes(String title) {
         this.title = title;
     }
 
@@ -24,7 +24,7 @@ public enum TypeCategory implements ModalTypeItem {
 
     @Override
     public String getIdentifier(String title) {
-        for(TypeCategory element :TypeCategory.values()){
+        for(TypeIncomes element : TypeIncomes.values()){
             if(element.getTitle().equals(title)){
                 return element.toString();
             }

@@ -31,7 +31,7 @@ public class BillingsListFragment extends Fragment {
     private TextView  tvMessage;
     private Context context;
     private BillingsManager billingsManager = BillingsManager.getBillingsManager();
-    private InfoBoardFragment infoBoardFragment;
+    private InfoBoardBillingsFragment infoBoardBillingsFragment;
 
     private void setupUIElements(View view){
         this.tvMessage = view.findViewById(R.id.tVMessage);
@@ -54,7 +54,7 @@ public class BillingsListFragment extends Fragment {
        billingsManager.loadBillings(() -> {
            billings.clear();
            billings = billingsManager.getBillingsList();
-           infoBoardFragment.onDataLoaded();
+           infoBoardBillingsFragment.onDataLoaded();
            showBillingsList();
            handlerClickItemListBillings();
 
@@ -138,17 +138,20 @@ public class BillingsListFragment extends Fragment {
     private void handlerDelete(Billings billings){
         billingsListAdapter.removeBillings(billings);
         billingsListAdapter.notifyDataSetChanged();
-        billingsManager.loadBillings(() -> infoBoardFragment.updateInfoBord(billingsManager.getBillingsList()));
+        billingsManager.loadBillings(() -> infoBoardBillingsFragment.updateInfoBord(billingsManager.getBillingsList()));
         ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_delete_billings);
     }
 
     private void handlerEdit(Billings billings){
         Bundle bundle = new Bundle();
         bundle.putSerializable("billing", billings);
-        FragmentSwitcher.replaceFragmentToDate(
-                new EditBillingsFragment(),
-                bundle,
-                getContext(),
+
+        EditBillingsFragment editBillingsFragment = new EditBillingsFragment();
+        editBillingsFragment.setArguments(bundle);
+
+        FragmentSwitcher.replaceTransactionFragment(
+                getActivity().getSupportFragmentManager(),
+                editBillingsFragment,
                 FragmentSwitcher.getContainerHome()
         );
     }
@@ -171,7 +174,7 @@ public class BillingsListFragment extends Fragment {
         });
     }
 
-    public void setInfoBoardFragment(InfoBoardFragment infoBoardFragment) {
-        this.infoBoardFragment = infoBoardFragment;
+    public void setInfoBoardFragment(InfoBoardBillingsFragment infoBoardBillingsFragment) {
+        this.infoBoardBillingsFragment = infoBoardBillingsFragment;
     }
 }

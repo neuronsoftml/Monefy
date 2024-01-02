@@ -16,6 +16,9 @@
     <string name="tV_incomes">Активи</string>
     <string name="tV_balance">Баланс</string>
     <string name="tV_savings">Заощадження</string>
+    <string name="tV_debt">Борги</string>
+    <string name="tV_turnover">Оборот</string>
+    <string name="tV_receipts">Надходження</string>
     <string name="tV_new_billings">Новий рахунок</string>
     <string name="tV_edit_billings">Редагування рахунка</string>
     <string name="tV_new_income">Новий дохід</string>

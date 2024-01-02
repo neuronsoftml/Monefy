@@ -1,17 +1,17 @@
 package com.example.monefy.basic.functionality.adapter.incomes;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.OnItemClickListener;
-import com.example.monefy.basic.functionality.model.billings.Billings;
-import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.basic.functionality.model.income.Income;
 
 import java.util.List;
@@ -22,6 +22,8 @@ public class IncomesListAdapter extends BaseAdapter {
     private OnItemClickListener onItemClickListener;
     private ImageView icon;
     private TextView name, amount, typeCurrency, category, date;
+
+    private ProgressBar progressBar;
 
     public IncomesListAdapter(Context context, List<Income> arrayList) {
         this.context = context;
@@ -35,6 +37,7 @@ public class IncomesListAdapter extends BaseAdapter {
         typeCurrency = convertView.findViewById(R.id.typeCurrency);
         category = convertView.findViewById(R.id.category);
         date = convertView.findViewById(R.id.dateIncome);
+        progressBar = convertView.findViewById(R.id.progressBar);
     }
 
     @Override
@@ -82,7 +85,10 @@ public class IncomesListAdapter extends BaseAdapter {
         amount.setText(String.valueOf(income.getAmount()));
         typeCurrency.setText(income.getTypeCurrency());
         category.setText(income.getCategory());
-        date.setText(String.valueOf(income.getDateReceived()));
+        date.setText(String.valueOf(income.getConvertData()));
+
+        progressBar.setMax(income.getMaxProgress());
+        progressBar.setProgress(income.getProgress());
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

@@ -17,7 +17,7 @@ import com.example.monefy.R;
 import com.example.monefy.basic.functionality.UI.UpdateUI;
 import com.example.monefy.basic.functionality.UI.UpdateUIError;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalance;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalanceFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelect;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
 import com.example.monefy.basic.functionality.model.TypeCurrency;
@@ -141,20 +141,25 @@ public class BillingDetailsFragment extends Fragment {
 
     private void handlerClickLinerLayoutBalance(){
         lirLatBalance.setOnClickListener(v -> {
-            ModalBalance modalBalance = new ModalBalance(
-                    getContext(), getView(),
-                    tvTitleBalanceBillings.getText().toString(),
-                    tVBalance.getText().toString(),
-                    tvTypeCurrency.getText().toString(),
-                    tvTypeBillings.getText().toString());
-            modalBalance.modalStart(new DialogCallback() {
+            ModalBalanceFragment modalBalanceFragment = new ModalBalanceFragment();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("titleModal",tvTitleBalanceBillings.getText().toString());
+            bundle.putString("balance", tVBalance.getText().toString());
+            bundle.putString("typeCurrency", tvTypeCurrency.getText().toString());
+            bundle.putString("typeBillings", tvTypeBillings.getText().toString());
+
+            modalBalanceFragment.setArguments(bundle);
+            modalBalanceFragment.show(getChildFragmentManager(),"ModalBalanceFragment");
+            modalBalanceFragment.checkDialogCallback(new DialogCallback() {
                 @Override
                 public void onSuccess() {
-                    tVBalance.setText(modalBalance.getUpdateBalance());
-                    if(modalBalance.getUpdateToWhomHeOwes() != null){
-                        tvTitleBalanceBillings.setText(modalBalance.getUpdateToWhomHeOwes());
+                    tVBalance.setText(modalBalanceFragment.getBalance());
+                    if(modalBalanceFragment.getToWhomHeOwes() != null){
+                        tvTitleBalanceBillings.setText(modalBalanceFragment.getToWhomHeOwes());
                     }
                     UpdateUI.resetStyleSelect(lirLatBalance, getResources());
+                    modalBalanceFragment.dismiss();
                 }
 
                 @Override
@@ -166,18 +171,24 @@ public class BillingDetailsFragment extends Fragment {
     }
 
     private void handlerClickLinerLayoutCreditLimit(){
-        lirLatCreditLimit.setOnClickListener(v ->{
-            ModalBalance modalBalance = new ModalBalance(
-                    getContext(),getView(),
-                    tvTitleCreditLimit.getText().toString(),
-                    tvCreditLimit.getText().toString(),
-                    tvTypeCurrency.getText().toString(),
-                    tvTypeBillings.getText().toString());
-            modalBalance.modalStart(new DialogCallback() {
+        lirLatCreditLimit.setOnClickListener(v->{
+            ModalBalanceFragment modalBalanceFragment = new ModalBalanceFragment();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("titleModal",tvTitleCreditLimit.getText().toString());
+            bundle.putString("balance", tvCreditLimit.getText().toString());
+            bundle.putString("typeCurrency", tvTypeCurrency.getText().toString());
+            bundle.putString("typeBillings", tvTypeBillings.getText().toString());
+
+            modalBalanceFragment.setArguments(bundle);
+            modalBalanceFragment.show(getChildFragmentManager(),"ModalBalanceFragment");
+
+            modalBalanceFragment.checkDialogCallback(new DialogCallback() {
                 @Override
                 public void onSuccess() {
-                    tvCreditLimit.setText(modalBalance.getUpdateBalance());
+                    tvCreditLimit.setText(modalBalanceFragment.getBalance());
                     UpdateUI.resetStyleSelect(lirLatCreditLimit, getResources());
+                    modalBalanceFragment.dismiss();
                 }
 
                 @Override
@@ -237,11 +248,11 @@ public class BillingDetailsFragment extends Fragment {
         return billing;
     }
 
-    String nameBillings;
-    String typeBillings;
-    String typeCurrency;
-    String balance;
-    String creditLimit;
+    private String nameBillings;
+    private String typeBillings;
+    private String typeCurrency;
+    private String balance;
+    private String creditLimit;
 
     private void getValueAllInput(){
         nameBillings = editTextName.getText().toString();

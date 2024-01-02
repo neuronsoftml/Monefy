@@ -30,12 +30,9 @@ public class EditBillingsFragment extends Fragment {
     // Ініціалізація змінних класу
     private Billings billing;
     private String argTypeBillings;
-    private ImageView imgViewCreditCart;
-    private ConstraintLayout constraintLayoutPanelTop;
     private FragmentContainerView fragNavigation;
     private FragmentContainerView fragBillingDetails;
-    private ConfirmationFragment confirmationFragment;
-    private BillingDetailsFragment billingDetailsFragment = new BillingDetailsFragment();
+    private final BillingDetailsFragment billingDetailsFragment = new BillingDetailsFragment();
     private Context context;
 
     // Метод onCreate викликається при створенні фрагменту
@@ -66,9 +63,9 @@ public class EditBillingsFragment extends Fragment {
     // Налаштування UI елементів фрагменту
     private void setupUIElements(View view) {
         // Ініціалізація елементів інтерфейсу та присвоєння їх відповідним змінним
-        imgViewCreditCart = view.findViewById(R.id.imageViewCreditCartTypeBillings);
+        ImageView imgViewCreditCart = view.findViewById(R.id.imageViewCreditCartTypeBillings);
         billingDetailsFragment.setImgViewCreditCart(imgViewCreditCart);
-        constraintLayoutPanelTop = view.findViewById(R.id.constraintTop);
+        ConstraintLayout constraintLayoutPanelTop = view.findViewById(R.id.constraintTop);
         billingDetailsFragment.setConsLatPanelTop(constraintLayoutPanelTop);
         fragNavigation = view.findViewById(R.id.fragNavigation);
         fragBillingDetails = view.findViewById(R.id.fragBillingDetails);
@@ -82,10 +79,10 @@ public class EditBillingsFragment extends Fragment {
         bundle.putSerializable("billing",billing);
         billingDetailsFragment.setArguments(bundle);
 
-        // Заміна поточного фрагменту на фрагмент деталей рахунку
-        FragmentSwitcher.replaceFragment(
+        //Відображення фрагменту деталей рахунку
+        FragmentSwitcher.addTransactionFragment(
+                getChildFragmentManager(),
                 billingDetailsFragment,
-                getContext(),
                 fragBillingDetails.getId()
         );
     }
@@ -93,7 +90,7 @@ public class EditBillingsFragment extends Fragment {
     // Відображення фрагменту навігації
     private void showFragNavigation(){
         // Ініціалізація фрагменту підтвердження та встановлення обробників кліків
-        confirmationFragment = new ConfirmationFragment();
+        ConfirmationFragment confirmationFragment = new ConfirmationFragment();
         confirmationFragment.setClickListener(new ClickListener() {
             @Override
             public void clickBtnClose() {
@@ -107,9 +104,9 @@ public class EditBillingsFragment extends Fragment {
         });
 
         // Загрузка фрагмента підтвердження
-        FragmentSwitcher.replaceFragment(
+        FragmentSwitcher.addTransactionFragment(
+                getChildFragmentManager(),
                 confirmationFragment,
-                getContext(),
                 fragNavigation.getId()
         );
     }
@@ -133,11 +130,15 @@ public class EditBillingsFragment extends Fragment {
                             @Override
                             public void onSuccess() {
                                 ToastManager.showToastOnSuccessful(context,R.string.toast_successful_edit_billings);
-                                FragmentSwitcher.replaceFragment(
+                               /* FragmentSwitcher.replaceFragment(
                                         new BillingsFragment(),
                                         context,
                                         FragmentSwitcher.getContainerHome()
                                 );
+
+                                */
+
+                                //Необхідно дописати переход.
                             }
 
                             @Override
