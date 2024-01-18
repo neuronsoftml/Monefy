@@ -2,24 +2,21 @@ package com.example.monefy.basic.functionality.fragment.billings;
 
 import android.os.Bundle;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
+import com.example.monefy.Manager.ManagerActivity;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.navigation.ClickListener;
 import com.example.monefy.basic.functionality.fragment.navigation.ConfirmationFragment;
-import com.example.monefy.Manager.firebase.AuthenticationManager;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.message.ToastManager;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Map;
 
@@ -28,12 +25,9 @@ public class CreateBillingsFragment extends Fragment {
 
     // Ініціалізація змінних класу
     private String argTypeBillings;
-    private ImageView imgViewCreditCart;
-    private ConstraintLayout constraintLayoutPanelTop;
     private FragmentContainerView fragNavigation;
     private FragmentContainerView fragBillingDetails;
-    private ConfirmationFragment confirmationFragment;
-    private BillingDetailsFragment billingDetailsFragment = new BillingDetailsFragment();
+    private final BillingDetailsFragment billingDetailsFragment = new BillingDetailsFragment(false);
 
     // Метод onCreate викликається при створенні фрагменту
     @Override
@@ -61,10 +55,6 @@ public class CreateBillingsFragment extends Fragment {
     // Налаштування UI елементів фрагменту
     private void setupUIElements(View view) {
         // Ініціалізація елементів інтерфейсу та присвоєння їх відповідним змінним
-        imgViewCreditCart = view.findViewById(R.id.imageViewCreditCartTypeBillings);
-        billingDetailsFragment.setImgViewCreditCart(imgViewCreditCart);
-        constraintLayoutPanelTop = view.findViewById(R.id.constraintTop);
-        billingDetailsFragment.setConsLatPanelTop(constraintLayoutPanelTop);
         fragNavigation = view.findViewById(R.id.fragNavigation);
         fragBillingDetails = view.findViewById(R.id.fragBillingDetails);
     }
@@ -77,7 +67,6 @@ public class CreateBillingsFragment extends Fragment {
         billingDetailsFragment.setArguments(bundle);
 
         // Заміна поточного фрагменту на фрагмент деталей рахунку
-
         FragmentSwitcher.addTransactionFragment(
                 getChildFragmentManager(),
                 billingDetailsFragment,
@@ -87,7 +76,7 @@ public class CreateBillingsFragment extends Fragment {
     // Відображення фрагменту навігації
     private void showFragNavigation(){
         // Ініціалізація фрагменту підтвердження та встановлення обробників кліків
-        confirmationFragment = new ConfirmationFragment();
+        ConfirmationFragment confirmationFragment = new ConfirmationFragment();
         confirmationFragment.setClickListener(new ClickListener() {
             @Override
             public void clickBtnClose() {
@@ -114,20 +103,14 @@ public class CreateBillingsFragment extends Fragment {
 
     //Обробник кліку на кнопку затвердження
     private void handlerClickImgBtnSetUp() {
-        Map<String, Object> billing = billingDetailsFragment.getBillingData();
+        Map<String, Object> billing = billingDetailsFragment.getBillingMapData();
 
         if(billing.size() != 0){
-            FirebaseManager.addBilling( billing, new InConclusionCompleteListener() {
+            FirebaseManager.addBilling(billing, new InConclusionCompleteListener() {
                         @Override
                         public void onSuccess() {
                             ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_entered_the_data);
-                           /* FragmentSwitcher.replaceFragment(
-                                    new BillingsFragment(),
-                                    getContext(),
-                                    FragmentSwitcher.getContainerHome()
-                            );
-                            */
-                            //Необхідно орпацювати навігацію.
+                            ManagerActivity.resetActivity(getActivity());
                         }
 
                         @Override

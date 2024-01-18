@@ -17,17 +17,19 @@ import com.example.monefy.basic.functionality.UI.UpdateUI;
 import com.example.monefy.basic.functionality.UI.UpdateUIError;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalanceFragment;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputData;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelect;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputDate;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalFunctionalSelect;
 import com.example.monefy.basic.functionality.model.TypeCurrency;
+import com.example.monefy.basic.functionality.fragment.dialogModal.TypeSelectModal;
 import com.example.monefy.basic.functionality.model.income.TypeIncomes;
 import com.example.monefy.basic.functionality.model.income.TypeFrequency;
 import com.google.firebase.Timestamp;
 
 import java.text.ParseException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class IncomeDetailsFragment extends Fragment {
@@ -86,23 +88,24 @@ public class IncomeDetailsFragment extends Fragment {
     private void handlerClickLinearLayoutData() {
         linerLayoutDateReceived.setOnClickListener(v->{
             UpdateUI.resetStyleSelect(linerLayoutDateReceived,getResources());
-            ModalInputData modalInputData = new ModalInputData(
+            ModalInputDate modalInputDate = new ModalInputDate(
                     getContext(),
-                    R.layout.modal_bottom_input_data,
+                    R.layout.modal_bottom_input_date,
                     tvValueDateReceived.getText().toString(),
-                    getResources()
+                    getResources(),
+                    new DialogCallback() {
+                        @Override
+                        public void onSuccess(String data) {
+                            tvValueDateReceived.setText(data);
+                        }
+
+                        @Override
+                        public void onFailure(Exception exception) {
+
+                        }
+                    }
             );
-            modalInputData.modalStart(new DialogCallback() {
-                @Override
-                public void onSuccess() {
-                    tvValueDateReceived.setText(modalInputData.getUpdateData());
-                }
-
-                @Override
-                public void onFailure(Exception exception) {
-
-                }
-            });
+            modalInputDate.modalStart();
         });
     }
 
@@ -118,8 +121,8 @@ public class IncomeDetailsFragment extends Fragment {
 
             modalBalanceFragment.checkDialogCallback(new DialogCallback() {
                 @Override
-                public void onSuccess() {
-                    tvValueAmount.setText(modalBalanceFragment.getBalance());
+                public void onSuccess(String data) {
+                    tvValueAmount.setText(data);
                     UpdateUI.resetStyleSelect(linerLayoutAmount,getResources());
                 }
 
@@ -133,68 +136,98 @@ public class IncomeDetailsFragment extends Fragment {
 
     private void handlerClickLinearLayoutTypeCurrency() {
         linearLayoutTypeCurrency.setOnClickListener(v->{
-            UpdateUI.resetStyleSelect(linearLayoutTypeCurrency, getResources());
-            ModalSelect modalSelect = new ModalSelect(
-                    getContext(),
-                    R.string.tV_modal_select_type_currencies,
-                    Arrays.asList(TypeCurrency.values())
-            );
-            modalSelect.modalStart(new DialogCallback() {
+            List<TypeSelectModal> modalTypes = new ArrayList<>();
+            modalTypes.add(new TypeSelectModal() {
                 @Override
-                public void onSuccess() {
-                    tvValueTypeCurrency.setText(modalSelect.getUpdateData());
-                }
-
-                @Override
-                public void onFailure(Exception exception) {
-
+                public List<TypeCurrency> getTypeCurrency() {
+                    return TypeSelectModal.super.getTypeCurrency();
                 }
             });
+
+            UpdateUI.resetStyleSelect(linearLayoutTypeCurrency, getResources());
+            ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
+                    getContext(),
+                    R.string.tV_modal_select_type_currencies,
+                    modalTypes,
+                    TypeCurrency.class,
+                    new DialogCallback() {
+                        @Override
+                        public void onSuccess(String data) {
+                            tvValueTypeCurrency.setText(data);
+                        }
+
+                        @Override
+                        public void onFailure(Exception exception) {
+
+                        }
+                    });
+
+            modalSelect.modalStart();
         });
     }
 
     private void handlerClickLinearLayoutFrequency(){
         linerLayoutFrequency.setOnClickListener(v->{
-            UpdateUI.resetStyleSelect(linerLayoutFrequency,getResources());
-            ModalSelect modalSelect = new ModalSelect(
-                    getContext(),
-                    R.string.tV_modal_select_frequency,
-                    Arrays.asList(TypeFrequency.values())
-            );
-            modalSelect.modalStart(new DialogCallback() {
+            List<TypeSelectModal> typeModal = new ArrayList<>();
+            typeModal.add(new TypeSelectModal() {
                 @Override
-                public void onSuccess() {
-                    tvValueFrequency.setText(modalSelect.getUpdateData());
-                }
-
-                @Override
-                public void onFailure(Exception exception) {
-
+                public List<TypeFrequency> getTypeFrequency() {
+                    return TypeSelectModal.super.getTypeFrequency();
                 }
             });
+
+            UpdateUI.resetStyleSelect(linerLayoutFrequency,getResources());
+            ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
+                    getContext(),
+                    R.string.tV_modal_select_frequency,
+                    typeModal,
+                    TypeFrequency.class,
+                    new DialogCallback() {
+                        @Override
+                        public void onSuccess(String data) {
+                            tvValueFrequency.setText(data);
+                        }
+
+                        @Override
+                        public void onFailure(Exception exception) {
+
+                        }
+            });
+
+            modalSelect.modalStart();
         });
     }
 
     private void handlerClickLinearLayoutCategory(){
         linerLayoutCategory.setOnClickListener(v->{
-            UpdateUI.resetStyleSelect(linerLayoutCategory, getResources());
-            ModalSelect modalSelect = new ModalSelect(
-                    getContext(),
-                    R.string.tV_modal_select_category,
-                    Arrays.asList(TypeIncomes.values())
-            );
-
-            modalSelect.modalStart(new DialogCallback() {
+            List<TypeSelectModal> typeModal = new ArrayList<>();
+            typeModal.add(new TypeSelectModal() {
                 @Override
-                public void onSuccess() {
-                    tvValueCategory.setText(modalSelect.getUpdateData());
-                }
-
-                @Override
-                public void onFailure(Exception exception) {
-
+                public List<TypeIncomes> getTypeIncomes() {
+                    return TypeSelectModal.super.getTypeIncomes();
                 }
             });
+
+            UpdateUI.resetStyleSelect(linerLayoutCategory, getResources());
+            ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
+                    getContext(),
+                    R.string.tV_modal_select_category,
+                    typeModal,
+                    TypeIncomes.class,
+                    new DialogCallback() {
+                        @Override
+                        public void onSuccess(String data) {
+                            tvValueCategory.setText(data);
+                        }
+
+                        @Override
+                        public void onFailure(Exception exception) {
+
+                        }
+                    }
+            );
+
+            modalSelect.modalStart();
         });
     }
 

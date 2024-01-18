@@ -1,6 +1,7 @@
 package com.example.monefy.Manager.firebase;
 
 import android.app.Activity;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -46,6 +47,7 @@ public class FirebaseManager {
 
     //Скидує пароль.
     public static void resetPasswordWithEmail(String email, final InConclusionCompleteListener listener) {
+        Log.e("email resset",email);
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -94,25 +96,22 @@ public class FirebaseManager {
                 .document(userId)
                 .collection("billings")
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            // Отримано список документів "billings"
-                            List<Billings> billingsList = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                                // Отримуємо дані з кожного документу і додаємо їх до списку
-                                Billings billings = document.toObject(Billings.class);
-                                billings.setId(document.getId());
-                                billingsList.add(billings);
-                            }
-
-                            // Обробка списку рахунків через callback
-                            callback.onBillingsDataReceived(billingsList);
-                        } else {
-                            // Підколекція "billings" порожня
-                            callback.onBillingsDataNotFound();
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        // Отримано список документів "billings"
+                        List<Billings> billingsList = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            // Отримуємо дані з кожного документу і додаємо їх до списку
+                            Billings billings = Billings.fromDocumentSnapshot(document);
+                            billings.setId(document.getId());
+                            billingsList.add(billings);
                         }
+
+                        // Обробка списку рахунків через callback
+                        callback.onBillingsDataReceived(billingsList);
+                    } else {
+                        // Підколекція "billings" порожня
+                        callback.onBillingsDataNotFound();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

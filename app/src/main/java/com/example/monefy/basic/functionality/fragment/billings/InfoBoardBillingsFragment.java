@@ -83,8 +83,8 @@ public class InfoBoardBillingsFragment extends Fragment implements DataLoadListe
 
     private void setValueTotalDEBT(List<Billings> billings){
         TotalDebt totalDebt = new TotalDebt(billings,currencyNbuFragment.getCurrencyNbuRates());
-        tVTotalDebtOweMe.setText(String.valueOf(totalDebt.calculatingConvert(Obligation.DEBT_TO_ME.getTitle())));
-        tVTotalDebtImGuilty.setText(String.valueOf(totalDebt.calculatingConvert(Obligation.DEBT_TO_ANOTHER.getTitle())));
+        tVTotalDebtOweMe.setText(String.valueOf(totalDebt.calculateTotalDebtAmountInUAHByDebtor(Obligation.DEBT_TO_ME.getTitle())));
+        tVTotalDebtImGuilty.setText(String.valueOf(totalDebt.calculateTotalDebtAmountInUAHByDebtor(Obligation.DEBT_TO_ANOTHER.getTitle())));
     }
 
     public void updateInfoBord(List<Billings> billings){

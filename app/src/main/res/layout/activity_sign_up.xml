@@ -7,43 +7,43 @@
     android:background="@color/white"
     tools:context=".authorization.SignInActivity">
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="392dp"
-        android:layout_height="327dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_login" />
-
     <TextView
         android:id="@+id/titlePage"
         style="@style/Widget.AppCompat.TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
         android:gravity="center"
         android:text="@string/title_create_user"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:layout_width="409dp"
-        android:layout_height="355dp"
         android:id="@+id/containerVerification"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="409dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titlePage"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/titlePage">
 
     </androidx.fragment.app.FragmentContainerView>
+
+    <Button
+        android:id="@+id/BtnClose"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="X"
+        android:textSize="30sp"
+        android:background="@drawable/button_lite_round_v2"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

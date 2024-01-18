@@ -21,10 +21,7 @@ import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
 public class ModalBalanceFragment extends DialogFragment{
     private TextView textViewTitleModal;
-    private ToggleButton toggleButtonDebtIMust, toggleButtonDebtIAmOwed;
-    private String titleModal, balance, typeCurrencies, typeBillings;
-    private LinearLayout linearLayoutToggleButtonDebt;
-    private String updateToWhomHeOwes;
+    private String titleModal, balance, typeCurrencies;
     private DialogCallback dialogCallback;
     public void checkDialogCallback(DialogCallback dialogCallback){
         this.dialogCallback = dialogCallback;
@@ -57,16 +54,9 @@ public class ModalBalanceFragment extends DialogFragment{
         titleModal = arguments.getString("titleModal");
         balance = arguments.getString("balance");
         typeCurrencies = arguments.getString("typeCurrency");
-
-        if(arguments.getString("typeBillings") != null){
-            typeBillings = arguments.getString("typeBillings");
-        }
     }
 
     private void startDialogModal(){
-        if(typeBillings != null){
-            switcherStyleInterface(typeBillings);
-        }
         setValueObjectModal();
     }
 
@@ -75,9 +65,6 @@ public class ModalBalanceFragment extends DialogFragment{
     // Ініціалізація UI
     private void setupUIDialogModal(Dialog dialog){
         textViewTitleModal = dialog.findViewById(R.id.title_modal_view);
-        linearLayoutToggleButtonDebt = dialog.findViewById(R.id.linearLayoutToggleButton_debt);
-        toggleButtonDebtIMust = dialog.findViewById(R.id.toggleButton_debt_i_must);
-        toggleButtonDebtIAmOwed = dialog.findViewById(R.id.toggleButton_debt_i_am_owed);
         fragContainerViewCalculator = dialog.findViewById(R.id.fragContCalculator);
     }
 
@@ -94,9 +81,9 @@ public class ModalBalanceFragment extends DialogFragment{
 
         calculatorFragment.checkDialogCallback(new DialogCallback() {
             @Override
-            public void onSuccess() {
-                balance = calculatorFragment.getTextViewBalance();
-                dialogCallback.onSuccess();
+            public void onSuccess(String data) {
+                balance = data;
+                dialogCallback.onSuccess(balance);
             }
 
             @Override
@@ -107,46 +94,8 @@ public class ModalBalanceFragment extends DialogFragment{
     }
 
     private void setValueObjectModal(){
-        toggleButtonDebtIMust.setChecked(true);
-        toggleButtonDebtIAmOwed.setChecked(false);
         textViewTitleModal.setText(titleModal);
     }
-
-    private void switcherStyleInterface(String argumentTypeBillings){
-        if(argumentTypeBillings.equals(TypeBillings.DEBT.getTitle())){
-            linearLayoutToggleButtonDebt.setVisibility(View.VISIBLE);
-            handlerToggleButton();
-        }
-    }
-
-    private void handlerToggleButton() {
-        toggleButtonDebtIAmOwed.setOnClickListener(v->{
-            switcherToggleButton(toggleButtonDebtIAmOwed);
-        });
-        toggleButtonDebtIMust.setOnClickListener(v->{
-            switcherToggleButton(toggleButtonDebtIMust);
-        });
-    }
-
-    private void switcherToggleButton(ToggleButton toggleButton) {
-        if(toggleButtonDebtIAmOwed == toggleButton){
-            toggleButtonDebtIMust.setChecked(false);
-            toggleButtonDebtIAmOwed.setChecked(true);
-            textViewTitleModal.setText(Obligation.DEBT_TO_ME.getTitle());
-            updateToWhomHeOwes = Obligation.DEBT_TO_ME.getTitle();
-        }
-        if(toggleButtonDebtIMust == toggleButton){
-            toggleButtonDebtIAmOwed.setChecked(false);
-            toggleButtonDebtIMust.setChecked(true);
-            textViewTitleModal.setText(Obligation.DEBT_TO_ANOTHER.getTitle());
-            updateToWhomHeOwes = Obligation.DEBT_TO_ANOTHER.getTitle();
-        }
-    }
-
-    public String getToWhomHeOwes() {
-        return updateToWhomHeOwes;
-    }
-
     public String getBalance(){
         return balance;
     }

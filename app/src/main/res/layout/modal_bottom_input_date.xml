@@ -37,9 +37,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_next"
-        android:textColor="@color/textPrimary"
+        android:textColor="@color/white"
         android:minWidth="200dp"
-        android:background="@drawable/btn_actions_gradient"
+        android:background="@drawable/button_lite_black"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"/>
 

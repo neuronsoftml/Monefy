@@ -101,10 +101,11 @@ public class CreateNewUserFragment extends Fragment{
                         data.putString("email", email);
                         data.putString("password", password);
 
-                        FragmentSwitcher.replaceFragmentToDate(
-                                new VerificationEmailFragment(),
-                                data,
-                                getContext(),
+                        VerificationEmailFragment verificationEmailFragment = new VerificationEmailFragment();
+                        verificationEmailFragment.setArguments(data);
+                        FragmentSwitcher.replaceFragment(
+                                getChildFragmentManager(),
+                                verificationEmailFragment,
                                 FragmentSwitcher.getContainerVerification()
                         );
                     }

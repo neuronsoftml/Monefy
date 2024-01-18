@@ -6,6 +6,7 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeItem
 public enum TypeCurrency implements ModalTypeItem {
     EUR("EUR"),
     USD("USD"),
+
     UAH("UAH")
     ;
     private final String title;
@@ -45,5 +46,6 @@ public enum TypeCurrency implements ModalTypeItem {
         }
         return null;
     }
+
 
 }

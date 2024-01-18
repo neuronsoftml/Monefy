@@ -3,6 +3,7 @@ package com.example.monefy.authorization;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,6 +54,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     //Скидання пароля.
     private void resetPassword(String email){
+        Log.e("email resset",email);
         FirebaseManager.resetPasswordWithEmail( email,
                 new InConclusionCompleteListener() {
                     @Override

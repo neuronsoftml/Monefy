@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Monefy"
         tools:targetApi="31">
         <activity
+            android:name=".LobbyActivity"
+            android:exported="false" />
+        <activity
             android:name=".authorization.ResetPasswordActivity"
             android:exported="false" />
         <activity

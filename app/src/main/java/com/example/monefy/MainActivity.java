@@ -21,45 +21,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity{
 
-    private TextView tVSignIn;
-    private Button btnSingUp;
-
-    public void setupUIElements(){
-        this.tVSignIn = (TextView) findViewById(R.id.btnSignInMain);
-        this.btnSingUp = (Button) findViewById(R.id.btnSignUpMain);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        setupUIElements();
         autoLogin();
-        eventHandler();
-
-    }
-
-    //Обробник подій.
-    public void eventHandler(){
-        clickTextSignIn();
-        clickButtonSingUp();
-    }
-
-    //Обробник кліка по кнопці реєстрації
-    private void clickButtonSingUp(){
-        btnSingUp.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-            startActivity(intent);
-        });
-    }
-
-    //Обробник кліка по тексту увійти.
-    private void clickTextSignIn(){
-        tVSignIn.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-            startActivity(intent);
-        });
     }
 
     //Автоматична аторизація.
@@ -70,10 +36,12 @@ public class MainActivity extends AppCompatActivity{
             String email = user.getEmail();
             String password = user.getPassword();
             handlerSignIn(email,password);
+        }else {
+            navigationLobby();
         }
     }
 
-    //Механіка аторизацї на FireBase.
+    //Механіка аторизації на FireBase.
     private void handlerSignIn(String email, String password) {
         AuthenticationManager.signInWithEmailAndPasswordCallback(
                 FirebaseAuth.getInstance(),
@@ -99,6 +67,13 @@ public class MainActivity extends AppCompatActivity{
     //Навігація переходу на сторінку Home.
     private void navigationToHome(){
         Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    //Навігація переходу на сторінку Loobby.
+    private void navigationLobby(){
+        Intent intent = new Intent(this, LobbyActivity.class);
         startActivity(intent);
         finish();
     }

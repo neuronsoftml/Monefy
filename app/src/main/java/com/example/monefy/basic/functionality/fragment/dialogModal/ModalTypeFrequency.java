@@ -7,7 +7,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModalTypeFrequency extends DialogMenu{
+public class ModalTypeFrequency extends DialogModal {
 
     private final Dialog dialog = getDialogModal();
 
@@ -16,7 +16,7 @@ public class ModalTypeFrequency extends DialogMenu{
     }
 
     @Override
-    public void modalStart(DialogCallback dialogCallback) {
+    public void modalStart() {
         openModal();
         setupUIDialogModal();
         handlerButtonDialogModal();

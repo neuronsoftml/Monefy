@@ -11,29 +11,28 @@ import com.example.monefy.R;
 
 import java.text.ParseException;
 
-public class ModalInputData extends DialogMenu{
+public class ModalInputDate extends DialogModal {
 
     private EditText inputDataIncome;
     private Button btnNext;
-    private Dialog dialog = getDialogModal();
+    private final Dialog dialog = getDialogModal();
     private String updateData;
-    private String argumentData;
-    private Resources resources;
+    private final String argumentData;
+    private final Resources resources;
+    private final DialogCallback dialogCallback;
 
-    public ModalInputData(Context context, int contentView, String argumentData, Resources resources) {
+    public ModalInputDate(Context context, int contentView, String argumentData, Resources resources, DialogCallback dialogCallback) {
         super(context, contentView);
         this.argumentData = argumentData;
         this.resources = resources;
+        this.dialogCallback = dialogCallback;
     }
 
-    private DialogCallback dialogCallback;
-
     @Override
-    public void modalStart(DialogCallback dialogCallback) {
-        this.dialogCallback = dialogCallback;
+    public void modalStart() {
         openModal();
         setupUIDialogModal();
-        if(!argumentData.isEmpty()){
+        if( argumentData != null){
             inputDataIncome.setText(argumentData);
         }
         handlerButtonDialogModal();
@@ -56,7 +55,7 @@ public class ModalInputData extends DialogMenu{
             if(!data.isEmpty()){
                 if(checkDateFormat(data)){
                     updateData = data;
-                    dialogCallback.onSuccess();
+                    dialogCallback.onSuccess(updateData);
                     exitModal();
                 }
             }else{
@@ -78,7 +77,4 @@ public class ModalInputData extends DialogMenu{
         }
     }
 
-    public String getUpdateData() {
-        return updateData;
-    }
 }

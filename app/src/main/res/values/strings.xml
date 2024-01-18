@@ -6,9 +6,10 @@
     <string name="btn_nav_menu_review">Огляд</string>
     <string name="btn_nav_menu_profile">Профіль</string>
 
-    <string name="title_sign_up">Реєстрація</string>
-    <string name="title_sign_in">Авторизація користувачів</string>
-    <string name="title_create_user">Створити нового користувача</string>
+    <string name="title_page_name_app">MoneyMatrix</string>
+    <string name="description_page_app">Ваш особистий фінансовий помічник.</string>
+    <string name="title_sign_in">Увійти</string>
+    <string name="title_create_user">Створити користувача</string>
     <string name="title_page_profile">Мій профіль</string>
 
     <string name="tV_billings">Рахунки</string>
@@ -22,12 +23,16 @@
     <string name="tV_new_billings">Новий рахунок</string>
     <string name="tV_edit_billings">Редагування рахунка</string>
     <string name="tV_new_income">Новий дохід</string>
-    <string name="tV_type_billings">Тип</string>
-    <string name="tV_type_currency">Тип валюти рахунка</string>
-    <string name="tV_type_income">Тип валюти актива</string>
-    <string name="tV_balance_billing">Баланс рахунку</string>
+    <string name="tV_type_billings">Тип рахунка</string>
+    <string name="tV_name_billings">Ім`я</string>
+    <string name="tV_type_currency">Тип валюти</string>
+    <string name="tV_type_income">Тип валюти</string>
+    <string name="tV_balance_billing">Баланс</string>
+    <string name="tV_debtor">Особа що зобов\'язана</string>
+    <string name="tV_returnDate">Дата повернення</string>
     <string name="tV_amount_income">Сума доходу</string>
     <string name="tV_credit_limit">Кредитний ліміт</string>
+    <string name="tV_debt_amount">Сумма боргу</string>
     <string name="tV_frequency_income">Частота отримання</string>
     <string name="tV_dateReceived_income">Дата отримання</string>
     <string name="tV_category_income">Категорія доходу</string>
@@ -35,10 +40,13 @@
     <string name="tV_modal_wages">зарплата</string>
     <string name="tV_not_billings">У вас відсутньо рахунки, вам необхідно їх добавити.</string>
     <string name="tV_not_incomes">У вас відсутньо активи, вам необхідно їх добавити.</string>
+    <string name="tV_TitleFromWhichWeDebit">З рахунку</string>
+    <string name="tV_TitleToWhichWeTransfer">На рахунок</string>
+    <string name="tV_TitleSpearFromWhichWeDebit">списати</string>
+    <string name="tV_TitleEnrollToWhichWeTransfer">Зарахувати</string>
 
-    <string name="btn_signUp_facebook">Увійти за допомогою Facebook</string>
-    <string name="btn_signUp_emailOrPhone">email або номер телефона</string>
     <string name="btn_signIn">Увійти</string>
+    <string name="btn_signUp">Створити</string>
     <string name="btn_next">продовжити</string>
     <string name="btn_income">активи</string>
     <string name="btn_liabilities">пасиви</string>
@@ -48,10 +56,10 @@
     <string name="btn_add_target">Додати ціль</string>
     <string name="btn_type_billings_ordinary">Звичайний</string>
     <string name="btn_text_billings">Рахунок</string>
-    <string name="btn_modal_text_asset">Дохід</string>
+    <string name="btn_modal_text_asset">Актив</string>
     <string name="btn_type_billings_debt">Борговий</string>
     <string name="btn_type_billings_cumulative">Накопичувальний</string>
-    <string name="btn_modal_text_cumulative">Розхід</string>
+    <string name="btn_modal_text_cumulative">Пасив</string>
     <string name="btn_modal_edit_account">Редагувати</string>
     <string name="btn_modal_replenish_account">Поповнити</string>
     <string name="btn_modal_write_off_account">Списати</string>
@@ -84,6 +92,7 @@
     <string name="tV_modal_select_category">Виберіть категорію доходу</string>
     <string name="tV_modal_select_billings_balance">Баланс рахунку</string>
     <string name="tV_modal_select_billings_credit_limit">Кредитний ліміт</string>
+    <string name="tV_modal_select_debtor">Виберіть сторону боржника</string>
 
     <string name="tV_select_billings_debt_i_am_owed">Мені винні</string>
     <string name="tV_select_billings_debt_i_must">Я повинен</string>

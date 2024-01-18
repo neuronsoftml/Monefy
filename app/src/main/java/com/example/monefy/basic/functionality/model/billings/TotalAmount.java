@@ -20,8 +20,8 @@ public class TotalAmount {
 
     private void calculatingTotalAmount(){
         for(Billings billing : billings){
-           if(billing.getTypeBillings().equals(TypeBillings.ORDINARY.getTitle())
-                   && billing.getObligation().equals(Obligation.DEBT_TO_ME.getTitle())){
+
+           if(billing.getTypeBillings().equals(TypeBillings.ORDINARY.getTitle())){
 
                if(billing.getTypeCurrency().equals("UAH")){
                    amount = amount + billing.getBalance();
@@ -33,6 +33,7 @@ public class TotalAmount {
                    amount = amount + (billing.getBalance() * getCourseByCurrency("EUR"));
                }
            }
+
         }
     }
 

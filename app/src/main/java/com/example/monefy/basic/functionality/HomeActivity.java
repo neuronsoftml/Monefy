@@ -1,9 +1,7 @@
 package com.example.monefy.basic.functionality;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
@@ -12,10 +10,8 @@ import com.example.monefy.basic.functionality.fragment.billings.BillingsFragment
 import com.example.monefy.basic.functionality.fragment.CategoriesFragment;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.OperationsFragment;
-import com.example.monefy.basic.functionality.fragment.billings.CreateBillingsFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalCreate;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeBillings;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectCreate;
 import com.example.monefy.basic.functionality.fragment.profile.ProfileFragment;
 import com.example.monefy.basic.functionality.fragment.ReviewFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -70,20 +66,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void clickButtonAddBillings(){
-        Context context = this;
         btnAdd.setOnClickListener(v -> {
-            ModalCreate modalCreate = new ModalCreate(context,R.layout.modal_bottom_create, getSupportFragmentManager());
-            modalCreate.modalStart(new DialogCallback() {
-                @Override
-                public void onSuccess() {
-
-                }
-
-                @Override
-                public void onFailure(Exception exception) {
-
-                }
-            });
+            ModalSelectCreate modalCreate = new ModalSelectCreate(this,R.layout.modal_bottom_create, getSupportFragmentManager(), null);
+            modalCreate.modalStart();
         });
     }
 }

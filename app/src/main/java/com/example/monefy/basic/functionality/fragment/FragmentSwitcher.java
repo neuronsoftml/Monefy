@@ -33,14 +33,6 @@ public class FragmentSwitcher {
         transaction.commit();
     }
 
-    public static void replaceFragmentToDate(Fragment showFragment, Bundle bundle, Context context, int container){
-        showFragment.setArguments(bundle);
-        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(container, showFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
     public static void replaceFragmentBack(Context context){
         FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
         if (fragmentManager.getBackStackEntryCount() > 0) {

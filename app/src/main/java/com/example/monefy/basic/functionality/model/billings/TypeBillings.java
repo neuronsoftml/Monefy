@@ -8,8 +8,7 @@ import java.util.List;
 public enum TypeBillings {
     ORDINARY("Звичайний"),
     DEBT("Борговий"),
-    CUMULATIVE("Накопичувальний")
-    ;
+    CUMULATIVE("Накопичувальний");
     private String title;
 
     TypeBillings(String title) {
@@ -35,7 +34,7 @@ public enum TypeBillings {
         return 0;
     }
 
-    private static List<TypeBillings> list = new ArrayList<>();
+    private static final List<TypeBillings> list = new ArrayList<>();
 
     /**
      * Повертає список типів рахунків категорії CUMULATIVE та ORDINARY.

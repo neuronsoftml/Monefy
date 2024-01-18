@@ -6,32 +6,6 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutToggleButton_debt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <ToggleButton
-            android:id="@+id/toggleButton_debt_i_must"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/selector_toggle_button_red"
-            android:textOn="@string/tV_select_billings_debt_i_must"
-            android:textOff="@string/tV_select_billings_debt_i_must"/>
-
-        <ToggleButton
-            android:id="@+id/toggleButton_debt_i_am_owed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/selector_toggle_button_green"
-            android:textOn="@string/tV_select_billings_debt_i_am_owed"
-            android:textOff="@string/tV_select_billings_debt_i_am_owed" />
-    </LinearLayout>
-
     <TextView
         android:id="@+id/title_modal_view"
         android:layout_width="match_parent"

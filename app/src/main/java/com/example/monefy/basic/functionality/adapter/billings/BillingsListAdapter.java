@@ -1,75 +1,116 @@
 package com.example.monefy.basic.functionality.adapter.billings;
 
-import android.content.Context;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.OnItemClickListener;
 import com.example.monefy.basic.functionality.model.billings.Billings;
+import com.example.monefy.basic.functionality.model.billings.Cumulative;
+import com.example.monefy.basic.functionality.model.billings.Debt;
+import com.example.monefy.basic.functionality.model.billings.Ordinary;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
+import java.text.ParseException;
 import java.util.List;
 
-public class BillingsListAdapter extends BaseAdapter {
+public class BillingsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context;
-    private List<Billings> arrayList;
+    private List<Billings> billingsList;
     private OnItemClickListener onItemClickListener;
-    private ImageView imageView;
-    private TextView typeBillings, accountBalance, typeCurrency, creditLimit, typeCurrencyObl;
-    private TextView titleObligation;
 
-    public BillingsListAdapter(Context context, List<Billings> arrayList) {
-        this.context = context;
-        this.arrayList = arrayList;
+    private final int ORDINARY = 0;
+    private final int DEBT = 1;
+    private final int CUMULATIVE = 2;
+
+    public BillingsListAdapter(List<Billings> billingsList) {
+        this.billingsList = billingsList;
     }
 
-    private void setupUIElements(View convertView){
-        imageView = convertView.findViewById(R.id.imageBillings_list_item);
-        typeBillings = convertView.findViewById(R.id.title_name_billings_list_item);
-        accountBalance = convertView.findViewById(R.id.balance_billings_list_item);
-
-        typeCurrency = convertView.findViewById(R.id.type_currency_list_item_1);
-        creditLimit = convertView.findViewById(R.id.credit_limit_list_item);
-        typeCurrencyObl = convertView.findViewById(R.id.type_currency_list_item_2);
-
-        titleObligation = convertView.findViewById(R.id.tV_item_title_obligation);
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        switch (viewType) {
+            case ORDINARY:
+                Log.e("viewType ","Маємо отримати 0 - " + viewType);
+                return new ViewHolderOrdinary(inflater.inflate(R.layout.billings_list_aitem_ordinary, parent, false));
+            case DEBT:
+                Log.e("viewType ","Маємо отримати 1 - " + viewType);
+                return new ViewHolderDebt(inflater.inflate(R.layout.billings_list_aitem_debt, parent, false));
+            case CUMULATIVE:
+                Log.e("viewType ","Маємо отримати 2 - "+ viewType);
+                return new ViewHolderCumulative(inflater.inflate(R.layout.billings_list_aitem_cumulative, parent, false));
+            default:
+                throw new IllegalArgumentException("Invalid view type: " + viewType);
+        }
     }
 
     @Override
-    public int getCount() {
-        return arrayList.size();
-    }
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        // Отримати дані та встановити значення UI елементів для кожного типу
+        Billings billing = billingsList.get(position);
 
-    @Override
-    public Object getItem(int position) {
-        return arrayList.get(position);
+        if (billing instanceof Ordinary) {
+            ViewHolderOrdinary viewHolderOrdinary = (ViewHolderOrdinary) holder;
+            viewHolderOrdinary.setValueUIElement(billing);
+
+            handlerClickItem(holder.itemView, position);
+        } else if (billing instanceof Debt) {
+            ViewHolderDebt viewHolderDebt = (ViewHolderDebt) holder;
+            try {
+                viewHolderDebt.setValueUIElement(billing);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            handlerClickItem(holder.itemView, position);
+        } else if (billing instanceof Cumulative) {
+            // Тут потрібно зробити кастинг
+            ViewHolderCumulative viewHolderCumulative = (ViewHolderCumulative) holder;
+            viewHolderCumulative.setValueUIElement(billing);
+            handlerClickItem(holder.itemView, position);
+        }
     }
 
     @Override
     public long getItemId(int position) {
+        Billings billing = billingsList.get(position);
+
+        if (billing instanceof Ordinary) {
+            return ORDINARY;
+        } else if (billing instanceof Debt) {
+            return DEBT;
+        } else if (billing instanceof Cumulative) {
+            return CUMULATIVE;
+        }
+
         return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.billings_list_aitem, null);
+    public int getItemCount() {
+        return billingsList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        Billings billing = billingsList.get(position);
+
+        if (billing instanceof Ordinary) {
+            return ORDINARY;
+        } else if (billing instanceof Debt) {
+            return DEBT;
+        } else if (billing instanceof Cumulative) {
+            return CUMULATIVE;
+        }else {
+            return super.getItemViewType(position);
         }
-        Billings billings = arrayList.get(position);
-
-        setupUIElements(convertView);
-        setValue(billings);
-
-        handlerClickItem(convertView, position);
-
-        return convertView;
     }
 
     private void handlerClickItem(View convertView, int position){
@@ -80,32 +121,15 @@ public class BillingsListAdapter extends BaseAdapter {
         });
     }
 
-    private void setValue(Billings billings){
-        if (!billings.getName().isEmpty()) {
-            typeBillings.setText(billings.getName());
-        } else {
-            typeBillings.setText(billings.getTypeBillings());
-        }
-
-        imageView.setImageResource(TypeBillings.getIdImageTypeBillings((billings.getTypeBillings())));
-        accountBalance.setText(String.valueOf(billings.getBalance()));
-
-        typeCurrency.setText(billings.getTypeCurrency());
-        typeCurrencyObl.setText(billings.getTypeCurrency());
-        creditLimit.setText(String.valueOf(billings.getCreditLimit()));
-
-        titleObligation.setText(billings.getObligation());
-    }
-
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
 
     private Billings getBillings(int position) {
-        return arrayList.get(position);
+        return billingsList.get(position);
     }
 
     public void removeBillings(Billings billing){
-        arrayList.remove(billing);
+        billingsList.remove(billing);
     }
 }

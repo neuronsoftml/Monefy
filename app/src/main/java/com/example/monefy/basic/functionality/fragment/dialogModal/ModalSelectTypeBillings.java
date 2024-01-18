@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
@@ -13,29 +12,26 @@ import android.widget.Button;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
-public class ModalTypeBillings implements DialogModal {
+public class ModalSelectTypeBillings implements DialogFunctional {
     private Dialog dialogModal;
     private Button buttonOrdinary, buttonDebt, buttonCumulative;
-    private Context context;
-    private String updateData;
+    private final Context context;
+    private final DialogCallback dialogCallback;
 
-    public ModalTypeBillings(Context context){
+    public ModalSelectTypeBillings(Context context, DialogCallback dialogCallback){
         this.context = context;
+        this.dialogCallback = dialogCallback;
     }
 
-    private DialogCallback dialogCallback;
-
     @Override
-    public void modalStart(DialogCallback dialogCallback){
-        this.dialogCallback = dialogCallback;
-
-        showDialogModal();
+    public void modalStart(){
+        createDialogModal();
         setupUIDialogModal();
         handlerButtonDialogModal();
     }
 
     @Override
-    public void showDialogModal() {
+    public void createDialogModal() {
         dialogModal = new Dialog(context);
         dialogModal.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogModal.setContentView(R.layout.model_bottom_type_billings);
@@ -53,9 +49,6 @@ public class ModalTypeBillings implements DialogModal {
         buttonCumulative = dialogModal.findViewById(R.id.button_cumulative);
     }
 
-    public String getUpdateData() {
-        return updateData;
-    }
 
     @Override
     public void handlerButtonDialogModal(){
@@ -65,14 +58,10 @@ public class ModalTypeBillings implements DialogModal {
     }
 
     private void clickButtonOrdinary(DialogCallback dialogCallback){
-        buttonOrdinary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(dialogCallback != null){
-                    updateData = TypeBillings.ORDINARY.getTitle();
-                    dialogCallback.onSuccess();
-                    dialogModal.cancel();
-                }
+        buttonOrdinary.setOnClickListener(v -> {
+            if(dialogCallback != null){
+                dialogCallback.onSuccess(TypeBillings.ORDINARY.getTitle());
+                dialogModal.cancel();
             }
         });
     };
@@ -80,24 +69,18 @@ public class ModalTypeBillings implements DialogModal {
     private void clickButtonDebt(DialogCallback dialogCallback){
         buttonDebt.setOnClickListener(v -> {
             if(dialogCallback != null){
-                updateData = TypeBillings.DEBT.getTitle();
-                dialogCallback.onSuccess();
+                dialogCallback.onSuccess(TypeBillings.DEBT.getTitle());
                 dialogModal.cancel();
             }
         });
     };
 
     private void clickButtonCumulative(DialogCallback dialogCallback){
-        buttonCumulative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(dialogCallback != null){
-                    updateData = TypeBillings.CUMULATIVE.getTitle();
-                    dialogCallback.onSuccess();
-                    dialogModal.cancel();
-                }
+        buttonCumulative.setOnClickListener(v -> {
+            if(dialogCallback != null){
+                dialogCallback.onSuccess(TypeBillings.CUMULATIVE.getTitle());
+                dialogModal.cancel();
             }
         });
-    };
-
+    }
 }

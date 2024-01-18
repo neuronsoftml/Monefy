@@ -14,36 +14,35 @@ import android.widget.TextView;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
-import com.example.monefy.Manager.firebase.AuthenticationManager;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 
-public class ModalBilling implements DialogModal{
+public class ModalSelectBilling implements DialogFunctional {
     private Dialog dialogModal;
-    private Context context;
-    private Billings billing;
+    private final Context context;
+    private final Billings billing;
     private ImageView imageViewBillingCard;
     private TextView tVNameBilling, tVABillingBalance, tVTypeCurrency, tVTypeBilling;
     private ImageButton imageBtnDelete, imageBtnEdit, imageBtnReplenishment;
 
-    public ModalBilling(Context context, Billings billing){
+    public ModalSelectBilling(Context context, Billings billing, DialogCallback dialogCallback){
         this.context = context;
         this.billing = billing;
+        this.callback = dialogCallback;
     }
 
-    private DialogCallback callback;
+    private final DialogCallback callback;
 
     @Override
-    public void modalStart(DialogCallback dialogCallback) {
-        this.callback = dialogCallback;
-        showDialogModal();
+    public void modalStart() {
+        createDialogModal();
         setupUIDialogModal();
         setValueObjectModal();
         handlerButtonDialogModal();
     }
 
     @Override
-    public void showDialogModal() {
+    public void createDialogModal() {
         dialogModal = new Dialog(context);
         dialogModal.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogModal.setContentView(R.layout.modal_bottom_billing);
@@ -93,7 +92,7 @@ public class ModalBilling implements DialogModal{
                                 dialogModal.cancel();
                                 if(callback instanceof BillingDialogCallback){
                                     BillingDialogCallback billingDialogCallback = (BillingDialogCallback) callback;
-                                    billingDialogCallback.onSuccessDelete();
+                                    billingDialogCallback.onSuccessDelete(billing);
                                 }
                             }
                         }
@@ -111,21 +110,21 @@ public class ModalBilling implements DialogModal{
 
     private void handlerButtonEdit(){
         imageBtnEdit.setOnClickListener(v->{
-            dialogModal.cancel();
             if(callback instanceof BillingDialogCallback){
                 BillingDialogCallback billingDialogCallback = (BillingDialogCallback) callback;
-                billingDialogCallback.onClickEdit();
+                billingDialogCallback.onClickEdit(billing);
             }
+            dialogModal.cancel();
         });
     }
 
     private void handlerButtonReplenishment(){
         imageBtnReplenishment.setOnClickListener(v->{
-            dialogModal.cancel();
             if(callback instanceof  BillingDialogCallback){
                 BillingDialogCallback billingDialogCallback = (BillingDialogCallback) callback;
-                billingDialogCallback.onClickReplenishment();
+                billingDialogCallback.onClickReplenishment(billing);
              }
+            dialogModal.cancel();
         });
     }
     

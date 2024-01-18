@@ -227,7 +227,7 @@ public class CalculatorFragment extends Fragment {
                 Log.e("Calculator","Розразунок");
             } else if (!balance.isEmpty() && !checkMathSymbols(balance)) {
                 if(dialogCallback != null){
-                    dialogCallback.onSuccess();
+                    dialogCallback.onSuccess(getTextViewBalance());
                 }
                 Log.e("Calculator","Вносимо зміни" + balance);
                 ToastManager.showToastOnFailure(getContext(),R.string.toast_successful_entered_the_data);
@@ -235,7 +235,7 @@ public class CalculatorFragment extends Fragment {
         });
     }
 
-    public String getTextViewBalance(){
+    private String getTextViewBalance(){
         return (String) textViewModalBalance.getText().toString();
     }
 

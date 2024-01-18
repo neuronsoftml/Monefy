@@ -10,11 +10,10 @@ import com.example.monefy.authorization.fragment.CreateNewUserFragment;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 
 public class SignUpActivity extends AppCompatActivity{
-    private final int containerVerification = R.id.containerVerification;
-    private FragmentContainerView fragmentContainer;
+    private  FragmentContainerView fragmentContainerView;
 
     public void setupUIElements(){
-        this.fragmentContainer = findViewById(R.id.containerVerification);
+        fragmentContainerView = findViewById(R.id.containerVerification);
     }
 
     @Override
@@ -27,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity{
         FragmentSwitcher.replaceFragment(
                 getSupportFragmentManager(),
                 new CreateNewUserFragment(),
-                containerVerification);
+                fragmentContainerView.getId());
     }
 
 

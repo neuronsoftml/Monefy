@@ -13,9 +13,10 @@
 
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txtDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="@string/dep_singUp_input_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +25,7 @@
         <EditText
             android:id="@+id/inputEmailNewUser"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/selector_input"
             android:drawableEnd="@drawable/selector_icon_email"
@@ -33,12 +34,12 @@
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
 
         <EditText
             android:id="@+id/inputPassNewUser"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/selector_input"
             android:drawableEnd="@drawable/selector_icon_password"
@@ -52,10 +53,10 @@
 
         <Button
             android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/button_blue"
+            android:background="@drawable/button_lite_black"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/btn_next"

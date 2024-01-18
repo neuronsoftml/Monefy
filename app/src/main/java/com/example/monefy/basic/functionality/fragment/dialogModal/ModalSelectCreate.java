@@ -9,27 +9,25 @@ import android.widget.Button;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.billings.CreateBillingsFragment;
-import com.example.monefy.basic.functionality.fragment.income.CreateIncomeFragment;
 
-public class ModalCreate extends DialogMenu{
+public class ModalSelectCreate extends DialogModal {
 
     private Button btnBillings, btnIncome, btnLiability;
-    private Dialog dialog;
-    private Context context;
-    private FragmentManager fragmentManager;
+    private final Context context;
+    private final Dialog dialog;
+    private final FragmentManager fragmentManager;
+    private final DialogCallback dialogCallback;
 
-    public ModalCreate(Context context, int contentView, FragmentManager fragmentManager) {
+    public ModalSelectCreate(Context context, int contentView, FragmentManager fragmentManager, DialogCallback dialogCallback) {
         super(context, contentView);
         this.context = context;
         this.dialog = getDialogModal();
         this.fragmentManager = fragmentManager;
+        this.dialogCallback = dialogCallback;
     }
 
-    private DialogCallback dialogCallback;
-
     @Override
-    public void modalStart(DialogCallback dialogCallback) {
-        this.dialogCallback = dialogCallback;
+    public void modalStart() {
         openModal();
         setupUIDialogModal();
         handlerButtonDialogModal();
@@ -50,18 +48,21 @@ public class ModalCreate extends DialogMenu{
 
     public void handlerBtnBillings(){
         btnBillings.setOnClickListener(v->{
-            ModalTypeBillings modalTypeBillings = new ModalTypeBillings(context);
-            modalTypeBillings.modalStart(new DialogCallback() {
+            ModalSelectTypeBillings modalTypeBillings = new ModalSelectTypeBillings(context, new DialogCallback() {
                 @Override
-                public void onSuccess() {
+                public void onSuccess(String data) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("TypeBillings", modalTypeBillings.getUpdateData());
-                    FragmentSwitcher.replaceFragmentToDate(
-                            new CreateBillingsFragment(),
-                            bundle,
-                            context,
+                    bundle.putString("TypeBillings", data);
+
+                    CreateBillingsFragment createBillingsFragment = new CreateBillingsFragment();
+                    createBillingsFragment.setArguments(bundle);
+
+                    FragmentSwitcher.replaceTransactionFragment(
+                            fragmentManager,
+                            createBillingsFragment,
                             FragmentSwitcher.getContainerHome()
                     );
+                    exitModal();
                 }
 
                 @Override
@@ -69,7 +70,7 @@ public class ModalCreate extends DialogMenu{
 
                 }
             });
-            exitModal();
+            modalTypeBillings.modalStart();
         });
     }
 
