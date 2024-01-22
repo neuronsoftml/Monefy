@@ -35,7 +35,7 @@
                 android:id="@+id/textTitleTypeBillings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/tV_type_billings"
+                android:text="@string/textTypeBillings"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
@@ -71,7 +71,7 @@
                 android:id="@+id/textTitleName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/tV_name_billings"
+                android:text="@string/textName"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
@@ -105,7 +105,7 @@
                 android:id="@+id/type_currency"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/tV_type_currency"
+                android:text="@string/textTypeCurrency"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
@@ -139,7 +139,7 @@
                 android:id="@+id/text_view_credit_limit_new_billings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/tV_credit_limit"
+                android:text="@string/textCreditLimit"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
@@ -173,14 +173,14 @@
                 android:id="@+id/textView_balance_create_billings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/tV_balance_billing"
+                android:text="@string/textBalance"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
 
 
             <TextView
-                android:id="@+id/balance_billings"
+                android:id="@+id/balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"

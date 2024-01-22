@@ -17,7 +17,6 @@ import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.input.EmailValidator;
 import com.example.monefy.Manager.input.PasswordValidator;
-import com.google.firebase.auth.FirebaseAuth;
 
 
 public class CreateNewUserFragment extends Fragment{
@@ -41,8 +40,8 @@ public class CreateNewUserFragment extends Fragment{
 
     private void setupUIElements(View view){
         this.btnNext = (Button) view.findViewById(R.id.btnNext);
-        this.inputEmail = (EditText) view.findViewById(R.id.inputEmailNewUser);
-        this.inputPass = (EditText) view.findViewById(R.id.inputPassNewUser);
+        this.inputEmail = (EditText) view.findViewById(R.id.inputEmail);
+        this.inputPass = (EditText) view.findViewById(R.id.inputPassword);
         this.errorTextMessage = (TextView) view.findViewById(R.id.errorMessageText);
     }
 
@@ -76,13 +75,13 @@ public class CreateNewUserFragment extends Fragment{
     //Обробник помилки в input email.
     private void emailErrorHandler(){
         inputEmail.setBackgroundResource(R.drawable.selector_error_input);
-        showErrorMessage(R.string.error_message_text_email);
+        showErrorMessage(R.string.textErrorMessageEmail);
     }
 
     //Обробник помилки в input password.
     private void passwordErrorHandler(){
         inputPass.setBackgroundResource(R.drawable.selector_error_input);
-        showErrorMessage(R.string.error_message_text_password);
+        showErrorMessage(R.string.textErrorMessagePassword);
     }
 
     //Виводить повідомлення про помилку.
@@ -112,7 +111,7 @@ public class CreateNewUserFragment extends Fragment{
 
                     @Override
                     public void onFailure(Exception exception) {
-                        showErrorMessage(R.string.error_message_text_create_new_user);
+                        showErrorMessage(R.string.textErrorMessageCreateNewUser);
                     }
                 }
         );

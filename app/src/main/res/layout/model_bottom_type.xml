@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="@string/tV_modal_select_type_currencies"
+        android:text="@string/textSelectTypeCurrencies"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"

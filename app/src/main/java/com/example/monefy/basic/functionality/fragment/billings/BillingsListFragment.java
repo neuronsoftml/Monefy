@@ -14,9 +14,8 @@ import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.billings.BillingsListAdapter;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.dialogModal.BillingDialogCallback;
-import com.example.monefy.basic.functionality.fragment.dialogModal.CallbackForReplenishmentOfSelectedBillings;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalReplenishment;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalReplenishmentFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectReplenishment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectBilling;
 import com.example.monefy.basic.functionality.model.billings.Billings;
@@ -37,7 +36,7 @@ public class BillingsListFragment extends Fragment {
 
     private void setupUIElements(View view){
         this.tvMessage = view.findViewById(R.id.tVMessage);
-        this.recyclerView = view.findViewById(R.id.list_item_billings);
+        this.recyclerView = view.findViewById(R.id.listItemBillings);
     }
 
     @Override
@@ -142,7 +141,7 @@ public class BillingsListFragment extends Fragment {
         billingsListAdapter.removeBillings(billings);
         billingsListAdapter.notifyDataSetChanged();
         billingsManager.loadBillings(() -> infoBoardBillingsFragment.updateInfoBord(billingsManager.getBillingsList()));
-        ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_delete_billings);
+        ToastManager.showToastOnSuccessful(getContext(),R.string.textSuccessfulDeleteBillings);
     }
 
     private void handlerEdit(Billings billings){
@@ -165,20 +164,29 @@ public class BillingsListFragment extends Fragment {
                 R.layout.modal_bottom_select_replenishment,
                 bill,
                 (theBillToWhichWeTransfer, theBillFromWhichWeDebit) -> {
-                    ModalReplenishment modalReplenishment  = new ModalReplenishment(
-                            getContext(),
-                            R.layout.modal_bottom_replenishment,
+                    ModalReplenishmentFragment modalReplenishmentFragment = new ModalReplenishmentFragment(
                             theBillToWhichWeTransfer,
-                            theBillToWhichWeTransfer
+                            theBillFromWhichWeDebit
                     );
-                    handlerReplenishment(modalReplenishment);
+                    handlerReplenishment(modalReplenishmentFragment);
                 }
         );
         modalSelectReplenishment.modalStart();
     }
 
-    private void handlerReplenishment(ModalReplenishment modalReplenishment){
-        modalReplenishment.modalStart();
+    private void handlerReplenishment(ModalReplenishmentFragment modalReplenishmentFragment){
+        modalReplenishmentFragment.show(getChildFragmentManager(),"Modal");
+        modalReplenishmentFragment.startDialogModal(new DialogCallback() {
+            @Override
+            public void onSuccess(String data) {
+
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+
+            }
+        });
     }
 
     public void setInfoBoardFragment(InfoBoardBillingsFragment infoBoardBillingsFragment) {

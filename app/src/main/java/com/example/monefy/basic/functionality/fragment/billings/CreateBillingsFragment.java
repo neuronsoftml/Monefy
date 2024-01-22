@@ -109,13 +109,13 @@ public class CreateBillingsFragment extends Fragment {
             FirebaseManager.addBilling(billing, new InConclusionCompleteListener() {
                         @Override
                         public void onSuccess() {
-                            ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_entered_the_data);
+                            ToastManager.showToastOnSuccessful(getContext(),R.string.textSuccessfulEnteredTheData);
                             ManagerActivity.resetActivity(getActivity());
                         }
 
                         @Override
                         public void onFailure(Exception exception) {
-                            ToastManager.showToastOnFailure(getContext(),R.string.toast_failure_entered_the_data);
+                            ToastManager.showToastOnFailure(getContext(),R.string.textFailureEnteredTheData);
                         }
                     }
             );

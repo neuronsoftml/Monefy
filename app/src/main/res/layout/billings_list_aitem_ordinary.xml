@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/image_item_ordinary"
+            android:id="@+id/imageCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="0dp"
-            android:layout_toEndOf="@+id/image_item_ordinary"
+            android:layout_toEndOf="@+id/imageCart"
             android:orientation="vertical">
 
             <TextView

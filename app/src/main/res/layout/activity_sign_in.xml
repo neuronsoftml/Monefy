@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:gravity="center"
-        android:text="@string/title_sign_in"
+        android:text="@string/textSignIn"
         android:textColor="#000000"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -35,32 +35,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/inputEmailNewUser"
+        android:id="@+id/inputEmail"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/selector_input"
         android:drawableEnd="@drawable/selector_icon_email"
         android:ems="13"
-        android:hint="@string/t_edit_hint_email"
+        android:hint="@string/textEmail"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titlePage" />
 
     <EditText
-        android:id="@+id/inputPassNewUser"
+        android:id="@+id/inputPassword"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/selector_input"
         android:drawableEnd="@drawable/selector_icon_password"
         android:ems="13"
-        android:hint="@string/t_edit_hint_password"
+        android:hint="@string/textPassword"
         android:inputType="textVisiblePassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmailNewUser" />
+        app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
 
     <TextView
         android:id="@+id/errorMessageText"
@@ -72,7 +72,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputPassNewUser" />
+        app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 
     <Switch
         android:id="@+id/switchSaveData"
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="15dp"
-        android:text="@string/t_switch_remember_me"
+        android:text="@string/textWitchRememberMe"
         android:textColor="@color/gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/errorMessageText" />
@@ -92,7 +92,7 @@
         android:layout_marginTop="15dp"
         android:clickable="true"
         android:focusable="true"
-        android:text="@string/link_forgot_password"
+        android:text="@string/textForgotPassword"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/switchSaveData"
@@ -106,7 +106,7 @@
         android:background="@drawable/button_lite_black"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="@string/btn_next"
+        android:text="@string/textNext"
         android:textAllCaps="true"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

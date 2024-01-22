@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import com.example.monefy.R;
 
-public class ModalInputName extends DialogModal {
+public class ModalInputText extends DialogModal {
 
     private final Dialog modal = getDialogModal();
     private Button btnNext;
@@ -15,7 +15,7 @@ public class ModalInputName extends DialogModal {
     private String nameBillings;
     private DialogCallback dialogCallback;
 
-    public ModalInputName(Context context, int contentView, DialogCallback dialogCallback) {
+    public ModalInputText(Context context, int contentView, DialogCallback dialogCallback) {
         super(context, contentView);
         this.dialogCallback = dialogCallback;
     }

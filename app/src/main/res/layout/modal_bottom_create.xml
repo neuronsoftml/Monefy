@@ -13,7 +13,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
-        android:text="@string/tV_modal_select_create" />
+        android:text="@string/textSelect" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:drawableStart="@drawable/icon_baseline_credit_card_24"
             android:drawablePadding="10dp"
             android:textAllCaps="false"
-            android:text="@string/btn_text_billings" />
+            android:text="@string/textBilling" />
 
         <Button
             android:id="@+id/btn_modal_asset_create"
@@ -40,7 +40,7 @@
             android:drawableStart="@drawable/icon_baseline_monetization_on_24"
             android:drawablePadding="10dp"
             android:textAllCaps="false"
-            android:text="@string/btn_modal_text_asset" />
+            android:text="@string/textIncome" />
 
         <Button
             android:id="@+id/btn_modal_liability_create"
@@ -51,6 +51,6 @@
             android:drawableStart="@drawable/icon_baseline_trending_down_24"
             android:drawablePadding="10dp"
             android:textAllCaps="false"
-            android:text="@string/btn_modal_text_cumulative" />
+            android:text="@string/textLiability" />
     </LinearLayout>
 </LinearLayout>

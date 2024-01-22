@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="@string/tV_modal_select_billings_balance"
+        android:text="@string/textSelectBillingsBalance"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />

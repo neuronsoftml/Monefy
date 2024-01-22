@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="@string/tV_modal_input_data"
+        android:text="@string/textInputData"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/tV_modal_input_data_description"
+        android:text="@string/textInputDataDescription"
         android:textColor="@color/textSecondary"/>
 
     <EditText
@@ -36,7 +36,7 @@
         android:id="@+id/modalBtnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_next"
+        android:text="@string/textNext"
         android:textColor="@color/white"
         android:minWidth="200dp"
         android:background="@drawable/button_lite_black"

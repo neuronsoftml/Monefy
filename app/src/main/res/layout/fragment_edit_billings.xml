@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/tV_edit_billings"
+            android:text="@string/textEditBillings"
             android:textColor="@color/textPrimary"
             android:textSize="18sp"
             android:textStyle="bold"

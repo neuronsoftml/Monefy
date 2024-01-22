@@ -1,51 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/modal_dialog_bg_lite_v3"
     android:translationZ="1dp">
 
 
+    <TextView
+        android:id="@+id/textTitleToWhichWeTransfer"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:text="@string/textToWhichWeTransfer"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        android:textAlignment="center"
+        android:background="@drawable/shape_top_panel_bg_white_mini"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageCartBillToWhichWeTransfer"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtTitleFromWhichWeDebit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_top_panel_bg_white_mini"
+        android:elevation="5dp"
+        android:text="@string/textFromWhichWeDebit"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/imageCartFromBillWhichWeDebit"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
         android:id="@+id/btnBillSwitcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_box_lite_bg_white"
+        android:elevation="5dp"
+        android:padding="5dp"
         android:src="@drawable/icon_baseline_cached_20"
         android:translationZ="1dp"
-        android:padding="5dp"
-        android:elevation="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="@+id/rightConstraintLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageCartFromWhichWeDebit"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="15dp"
+        android:id="@+id/imageCartFromBillWhichWeDebit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/shape_box_lite_bg_white"
+        android:elevation="5dp"
         android:padding="5dp"
         android:src="@drawable/icon_credit_card_blue"
         android:translationZ="1dp"
-        android:elevation="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="35dp"
+        android:id="@+id/imageCartBillToWhichWeTransfer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/shape_box_lite_bg_white"
+        android:elevation="5dp"
         android:padding="5dp"
         android:src="@drawable/icon_credit_card_blue"
         android:translationZ="1dp"
-        android:elevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,43 +91,101 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.5">
 
-        <TextView
-            android:id="@+id/textTitleToWhichWeTransfer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/tV_TitleToWhichWeTransfer"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="normal"
+        <LinearLayout
+            android:id="@+id/linearLayout14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="start"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtNameBillingToWhichWeTransfer">
+
+            <TextView
+                android:id="@+id/textTypeBillingsToWhichWeTransfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textType"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/textValueTypeBillingsToWhichWeTransfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout15"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout14">
+
+            <TextView
+                android:id="@+id/textAvailableToWhichWeTransfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/textAvailable"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/txtBalanceEnrollToWhichWeTransfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="36dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txtNameBillingToWhichWeTransfer"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="start"
             android:text="Тестовий рахунок № 2"
+            android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:textStyle="normal"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textTitleToWhichWeTransfer" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <TextView
             android:id="@+id/textTitleEnrollToWhichWeTransfer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/tV_TitleEnrollToWhichWeTransfer"
+            android:layout_marginTop="15dp"
+            android:text="@string/textEnrollToWhichWeTransfer"
             android:textAllCaps="true"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNameBillingToWhichWeTransfer" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout15" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -106,15 +196,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textTitleEnrollToWhichWeTransfer">
 
+
             <TextView
-                android:id="@+id/txtBalanceEnrollToWhichWeTransfer"
+                android:id="@+id/textValueEnrollToWhichWeTransfer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="0"
+                android:textSize="20sp"
                 android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/txtTypeCurrencyEnrollToWhichWeTransfer"
@@ -123,6 +214,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:text="UAH"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -140,43 +232,99 @@
         app:layout_constraintWidth_percent="0.5">
 
 
-        <TextView
-            android:id="@+id/txtTitleFromWhichWeDebit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout16"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/tV_TitleFromWhichWeDebit"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="normal"
+            android:layout_marginEnd="5dp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/txtNameBillingFromWhichWeDebit">
+
+            <TextView
+                android:id="@+id/textTypeBillingsFromWhichWeDebit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textType"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/textValueTypeBillingsFromWhichWeDebit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout17"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout16">
+
+            <TextView
+                android:id="@+id/textAvailableSpearFromWhichWeDebit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textAvailable"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/txtBalanceSpearFromWhichWeDebit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txtNameBillingFromWhichWeDebit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="start"
             android:text="Тестовий рахунок № 1"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:textStyle="normal"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtTitleFromWhichWeDebit" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtTitleSpearFromWhichWeDebit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/tV_TitleSpearFromWhichWeDebit"
+            android:layout_marginTop="15dp"
+            android:text="@string/textSpearFromWhichWeDebit"
             android:textAllCaps="true"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNameBillingFromWhichWeDebit" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout17" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -187,15 +335,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtTitleSpearFromWhichWeDebit">
 
+
             <TextView
-                android:id="@+id/txtBalanceSpearFromWhichWeDebit"
+                android:id="@+id/textValueSpearFromWhichWeDebit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="0"
+                android:textSize="20sp"
                 android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/txtTypeCurrencySpearFromWhichWeDebit"
@@ -204,21 +353,36 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:text="UAH"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
+    <Button
+        android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_lite_white"
+        android:text="ЗАТВЕРДИТИ"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rightConstraintLayout" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragContainerViewCalculator"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/leftConstraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/button2">
 
-    </FrameLayout>
+    </androidx.fragment.app.FragmentContainerView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

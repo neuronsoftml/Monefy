@@ -30,8 +30,8 @@ public class SignInActivity extends AppCompatActivity {
     private void setupUIElements() {
         this.btnSignIn = (Button) findViewById(R.id.buttonSingIn);
 
-        this.inputEmail = (EditText) findViewById(R.id.inputEmailNewUser);
-        this.inputPass = (EditText) findViewById(R.id.inputPassNewUser);
+        this.inputEmail = (EditText) findViewById(R.id.inputEmail);
+        this.inputPass = (EditText) findViewById(R.id.inputPassword);
 
         this.recoverPass = (TextView) findViewById(R.id.recoverPassword);
         this.errorTextMessage = (TextView) findViewById(R.id.errorMessageText);
@@ -82,13 +82,13 @@ public class SignInActivity extends AppCompatActivity {
                             autoSaveLocalDate(email, password);
                         }
                         navigationToHome();
-                        ToastManager.showToastOnSuccessful(getApplicationContext(),R.string.toast_success_signIn);
+                        ToastManager.showToastOnSuccessful(getApplicationContext(),R.string.textSuccessSignIn);
                     }
 
                     @Override
                     public void onFailure(Exception exception) {
                         errorSignInHandler();
-                        ToastManager.showToastOnFailure(getApplicationContext(),R.string.toast_failure_signIn);
+                        ToastManager.showToastOnFailure(getApplicationContext(),R.string.textFailureSignIn);
                     }
                 });
     }
@@ -118,7 +118,7 @@ public class SignInActivity extends AppCompatActivity {
 
     //Обробник помилки авторизації.
     private void errorSignInHandler(){
-        showErrorMessage(R.string.error_message_text_password_or_email);
+        showErrorMessage(R.string.textErrorMessageTextPasswordOrEmail);
         inputEmail.setBackgroundResource(R.drawable.selector_error_input);
         inputPass.setBackgroundResource(R.drawable.selector_error_input);
     }

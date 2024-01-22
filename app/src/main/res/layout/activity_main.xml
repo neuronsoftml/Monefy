@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:gravity="center"
-            android:text="@string/title_page_name_app"
+            android:text="@string/appName"
             android:textColor="#000000"
             android:textSize="38sp" />
 
@@ -41,7 +41,7 @@
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:text="@string/description_page_app"
+            android:text="@string/descriptionApp"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </LinearLayout>

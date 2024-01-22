@@ -29,13 +29,8 @@ public class ModalBalanceFragment extends DialogFragment{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         getInputArgument(getArguments());
-
-        // Створення нового діалогу
         Dialog dialog = new Dialog(getContext());
-
-        // Встановлення властивостей діалогу
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.modal_bottom_billings_balance);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -96,6 +91,7 @@ public class ModalBalanceFragment extends DialogFragment{
     private void setValueObjectModal(){
         textViewTitleModal.setText(titleModal);
     }
+
     public String getBalance(){
         return balance;
     }

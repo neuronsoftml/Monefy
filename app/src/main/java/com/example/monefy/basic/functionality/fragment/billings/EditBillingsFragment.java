@@ -1,6 +1,5 @@
 package com.example.monefy.basic.functionality.fragment.billings;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,7 +18,6 @@ import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.message.ToastManager;
-import java.util.Map;
 
 public class EditBillingsFragment extends Fragment {
 
@@ -113,7 +111,7 @@ public class EditBillingsFragment extends Fragment {
                         new InConclusionCompleteListener() {
                             @Override
                             public void onSuccess() {
-                                ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_edit_billings);
+                                ToastManager.showToastOnSuccessful(getContext(),R.string.textSuccessfulEditBillings);
                                /* FragmentSwitcher.replaceFragment(
                                         new BillingsFragment(),
                                         context,
@@ -127,7 +125,7 @@ public class EditBillingsFragment extends Fragment {
 
                             @Override
                             public void onFailure(Exception exception) {
-                                ToastManager.showToastOnFailure(getContext(),R.string.toast_failure_edit_billings);
+                                ToastManager.showToastOnFailure(getContext(),R.string.textFailureEditBillings);
 
                             }
                         }

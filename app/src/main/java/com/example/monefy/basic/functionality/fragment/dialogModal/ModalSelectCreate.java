@@ -6,9 +6,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.example.monefy.Manager.dialogModal.ManagerType;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.billings.CreateBillingsFragment;
+import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
 public class ModalSelectCreate extends DialogModal {
 
@@ -16,14 +18,12 @@ public class ModalSelectCreate extends DialogModal {
     private final Context context;
     private final Dialog dialog;
     private final FragmentManager fragmentManager;
-    private final DialogCallback dialogCallback;
 
     public ModalSelectCreate(Context context, int contentView, FragmentManager fragmentManager, DialogCallback dialogCallback) {
         super(context, contentView);
         this.context = context;
         this.dialog = getDialogModal();
         this.fragmentManager = fragmentManager;
-        this.dialogCallback = dialogCallback;
     }
 
     @Override
@@ -48,29 +48,36 @@ public class ModalSelectCreate extends DialogModal {
 
     public void handlerBtnBillings(){
         btnBillings.setOnClickListener(v->{
-            ModalSelectTypeBillings modalTypeBillings = new ModalSelectTypeBillings(context, new DialogCallback() {
-                @Override
-                public void onSuccess(String data) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("TypeBillings", data);
 
-                    CreateBillingsFragment createBillingsFragment = new CreateBillingsFragment();
-                    createBillingsFragment.setArguments(bundle);
+            ModalFunctionalSelect modalFunctionalSelect = new ModalFunctionalSelect(
+                    context,
+                    R.string.textSelectTypeBillings,
+                    ManagerType.getTypesBillings(),
+                    TypeBillings.class,
+                    new DialogCallback() {
+                        @Override
+                        public void onSuccess(String data) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("TypeBillings", data);
 
-                    FragmentSwitcher.replaceTransactionFragment(
-                            fragmentManager,
-                            createBillingsFragment,
-                            FragmentSwitcher.getContainerHome()
-                    );
-                    exitModal();
-                }
+                            CreateBillingsFragment createBillingsFragment = new CreateBillingsFragment();
+                            createBillingsFragment.setArguments(bundle);
 
-                @Override
-                public void onFailure(Exception exception) {
+                            FragmentSwitcher.replaceTransactionFragment(
+                                    fragmentManager,
+                                    createBillingsFragment,
+                                    FragmentSwitcher.getContainerHome()
+                            );
+                            exitModal();
+                        }
 
-                }
-            });
-            modalTypeBillings.modalStart();
+                        @Override
+                        public void onFailure(Exception exception) {
+
+                        }
+                    }
+            );
+            modalFunctionalSelect.modalStart();
         });
     }
 

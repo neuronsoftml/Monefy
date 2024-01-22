@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.TypeCurrency;
+import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.basic.functionality.model.billings.TypeDebtorSide;
 import com.example.monefy.basic.functionality.model.income.TypeFrequency;
 import com.example.monefy.basic.functionality.model.income.TypeIncomes;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class ModalFunctionalSelect extends DialogModal implements TypeSelectModal {
 
-    private String updateData;
+    private String selectedData;
     private final List<Button> buttonListModal = new ArrayList<>();
     private final List<TypeSelectModal> typeItems;
     private final Dialog dialogModal;
@@ -50,24 +51,26 @@ public class ModalFunctionalSelect extends DialogModal implements TypeSelectModa
         }
 
 
-    @Override
-    public void setupUIDialogModal() {
-        titleModalView = dialogModal.findViewById(R.id.title_modal_view);
-    }
+        @Override
+        public void setupUIDialogModal() {
+            titleModalView = dialogModal.findViewById(R.id.title_modal_view);
+        }
 
-    private void createButtonDialogModal() {
-        LinearLayout elementType = dialogModal.findViewById(R.id.linearLayoutListButton);
-            for (TypeSelectModal item : typeItems) {
-                if (TypeCurrency.class.equals(typeObject)) {
-                    createButtonsForType(elementType, item.getTypeCurrency());
-                } else if (TypeDebtorSide.class.equals(typeObject)) {
-                    createButtonsForType(elementType, item.getTypeDebtorSide());
-                } else if (TypeIncomes.class.equals(typeObject)) {
-                    createButtonsForType(elementType, item.getTypeIncomes());
-                } else if (TypeFrequency.class.equals(typeObject)) {
-                    createButtonsForType(elementType, item.getTypeFrequency());
+        private void createButtonDialogModal() {
+            LinearLayout elementType = dialogModal.findViewById(R.id.linearLayoutListButton);
+                for (TypeSelectModal item : typeItems) {
+                    if (TypeCurrency.class.equals(typeObject)) {
+                        createButtonsForType(elementType, item.getTypeCurrency());
+                    } else if (TypeDebtorSide.class.equals(typeObject)) {
+                        createButtonsForType(elementType, item.getTypeDebtorSide());
+                    } else if (TypeIncomes.class.equals(typeObject)) {
+                        createButtonsForType(elementType, item.getTypeIncomes());
+                    } else if (TypeFrequency.class.equals(typeObject)) {
+                        createButtonsForType(elementType, item.getTypeFrequency());
+                    }else if(TypeBillings.class.equals(typeObject)){
+                        createButtonsForType(elementType, item.getTypeBillings());
+                    }
                 }
-            }
         }
 
 
@@ -75,26 +78,26 @@ public class ModalFunctionalSelect extends DialogModal implements TypeSelectModa
         public void handlerButtonDialogModal() {
             for (Button button : buttonListModal) {
                 button.setOnClickListener(v -> {
-                    updateData = button.getText().toString();
+                    selectedData = button.getText().toString();
                     if (dialogCallback != null) {
-                        dialogCallback.onSuccess(updateData);
+                        dialogCallback.onSuccess(selectedData);
                     }
                     dialogModal.cancel();
                 });
             }
         }
 
-    private void createButtonsForType(LinearLayout elementType, List<? extends ModalTypeItem> types) {
-        for (ModalTypeItem type : types) {
-            Button button = createButton(type);
-            elementType.addView(button);
-            buttonListModal.add(button);
+        private void createButtonsForType(LinearLayout elementType, List<? extends ModalTypeItem> types) {
+            for (ModalTypeItem type : types) {
+                Button button = createButton(type);
+                elementType.addView(button);
+                buttonListModal.add(button);
+            }
         }
-    }
 
         private Button createButton(ModalTypeItem type) {
             Button button = new Button(context);
-            button.setText(type.getTitle());  // Використовуйте type як ModalTypeItem
+            button.setText(type.getTitle());
             button.setTag(type.getIdentifier(type.getTitle()));
             button.setGravity(Gravity.CENTER_VERTICAL);
             button.setAllCaps(false);

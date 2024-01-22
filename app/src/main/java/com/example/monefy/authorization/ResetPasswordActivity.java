@@ -13,7 +13,6 @@ import com.example.monefy.R;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.message.ToastManager;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 
@@ -33,7 +32,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     private void setupUIElements(){
         this.btnResetPass = (Button) findViewById(R.id.btnNext);
-        this.inputEmail = (EditText) findViewById(R.id.inputEmailNewUser);
+        this.inputEmail = (EditText) findViewById(R.id.inputEmail);
         this.errorTextMessage = (TextView) findViewById(R.id.errorMessageText);
     }
 
@@ -72,16 +71,16 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     //Обробник успішного відпраленого повідомлення.
     private void handlerSuccessfullySendMessageEmail(){
-        errorTextMessage.setText(R.string.successfully_message_text_send_email);
+        errorTextMessage.setText(R.string.textSuccessfullyMessageSendEmail);
         errorTextMessage.setTextColor(getResources().getColor(R.color.blue));
         errorTextMessage.setVisibility(View.VISIBLE);
-        ToastManager.showToastOnSuccessful(getApplicationContext(), R.string.toast_successful_message_reset_pass);
+        ToastManager.showToastOnSuccessful(getApplicationContext(), R.string.textSuccessfulMessageResetPass);
     }
 
     //Обробник не успішного відпраленого повідомлення.
     private void handlerErrorSendMessageEmail(){
-        errorTextMessage.setText(R.string.error_message_text_not_found_email);
+        errorTextMessage.setText(R.string.textErrorMessageNotFoundEmail);
         errorTextMessage.setVisibility(View.VISIBLE);
-        ToastManager.showToastOnFailure(getApplicationContext(),R.string.toast_failure_error_type_email);
+        ToastManager.showToastOnFailure(getApplicationContext(),R.string.textFailureErrorTypeEmail);
     }
 }

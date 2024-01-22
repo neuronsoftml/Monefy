@@ -10,7 +10,6 @@ import com.example.monefy.basic.functionality.fragment.billings.BillingsFragment
 import com.example.monefy.basic.functionality.fragment.CategoriesFragment;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.OperationsFragment;
-import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectCreate;
 import com.example.monefy.basic.functionality.fragment.profile.ProfileFragment;
 import com.example.monefy.basic.functionality.fragment.ReviewFragment;
@@ -33,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupUIElements(){
-        this.btmNavView = (BottomNavigationView) findViewById(R.id.btmNavView);
+        this.btmNavView = (BottomNavigationView) findViewById(R.id.btnNavView);
         this.btnAdd = findViewById(R.id.btnAdd);
     }
 

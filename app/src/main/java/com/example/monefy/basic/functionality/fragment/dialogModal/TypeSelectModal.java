@@ -1,6 +1,7 @@
 package com.example.monefy.basic.functionality.fragment.dialogModal;
 
 import com.example.monefy.basic.functionality.model.TypeCurrency;
+import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.basic.functionality.model.billings.TypeDebtorSide;
 import com.example.monefy.basic.functionality.model.income.TypeFrequency;
 import com.example.monefy.basic.functionality.model.income.TypeIncomes;
@@ -25,4 +26,5 @@ public interface TypeSelectModal{
         return Arrays.asList(TypeIncomes.values());
     }
 
+    default List<TypeBillings> getTypeBillings(){return Arrays.asList(TypeBillings.values());}
 }

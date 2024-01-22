@@ -4,14 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.monefy.Manager.internet.ManagerNetwork;
-import com.example.monefy.authorization.SignInActivity;
-import com.example.monefy.authorization.SignUpActivity;
 import com.example.monefy.basic.functionality.HomeActivity;
-import com.example.monefy.local.database.AppDatabase;
 import com.example.monefy.local.database.ManagerLocalDataBase;
 import com.example.monefy.local.database.model.User;
 import com.example.monefy.Manager.firebase.AuthenticationManager;
@@ -50,14 +45,14 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onSuccess() {
                         navigationToHome();
-                        ToastManager.showToastOnSuccessful(getApplicationContext(),R.string.toast_success_signIn);
+                        ToastManager.showToastOnSuccessful(getApplicationContext(),R.string.textSuccessSignIn);
                     }
 
                     @Override
                     public void onFailure(Exception exception) {
-                       ToastManager.showToastOnFailure(getApplicationContext(),R.string.toast_failure_signIn);
+                       ToastManager.showToastOnFailure(getApplicationContext(),R.string.textFailureSignIn);
                         if(!ManagerNetwork.isConnectedToInternet(getApplicationContext())){
-                            ToastManager.showToastOnFailure(getApplicationContext(),R.string.toast_no_internet_connection);
+                            ToastManager.showToastOnFailure(getApplicationContext(),R.string.textNoInternetConnection);
                         }
                     }
                 }

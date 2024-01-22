@@ -14,7 +14,6 @@ import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.message.ToastManager;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
-import com.example.monefy.basic.functionality.fragment.billings.BillingsFragment;
 import com.example.monefy.basic.functionality.fragment.navigation.ClickListener;
 import com.example.monefy.basic.functionality.fragment.navigation.ConfirmationFragment;
 
@@ -108,7 +107,7 @@ public class CreateIncomeFragment extends Fragment {
                             );
                             Дописати навігацію.
                              */
-                            ToastManager.showToastOnFailure(getContext(),R.string.toast_successful_add_income);
+                            ToastManager.showToastOnFailure(getContext(),R.string.textSuccessfulAddIncome);
                         }
 
                         @Override

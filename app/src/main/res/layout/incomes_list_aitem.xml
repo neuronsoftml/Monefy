@@ -99,7 +99,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tV_dateReceived_income"
+                    android:text="@string/textDateReceived"
                     android:textColor="@color/textPrimary" />
 
                 <TextView

@@ -101,7 +101,7 @@ public class VerificationEmailFragment extends Fragment{
         if (user != null) {
             user.sendEmailVerification().addOnSuccessListener(unused -> {
                 isSendMessage = true;
-                ToastManager.showToastOnSuccessful(getContext(),R.string.toast_successful_send_message_email);
+                ToastManager.showToastOnSuccessful(getContext(),R.string.textSuccessfulSendMessageEmail);
             });
         }
     }
@@ -114,7 +114,7 @@ public class VerificationEmailFragment extends Fragment{
     //Обновляє інтерфейс користувача.
     private void sendVerificationEmailAndSetUI(FirebaseUser user) {
         sendMessageVerificationEmail(user);
-        btnNext.setText(R.string.btn_next);
+        btnNext.setText(R.string.textNext);
     }
 
 }

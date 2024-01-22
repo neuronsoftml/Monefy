@@ -17,38 +17,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="@string/dep_singUp_input_date"
+            android:text="@string/descriptionSingUpInputDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/inputEmailNewUser"
+            android:id="@+id/inputEmail"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/selector_input"
             android:drawableEnd="@drawable/selector_icon_email"
             android:ems="13"
-            android:hint="@string/t_edit_hint_email"
+            android:hint="@string/textEmail"
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
 
         <EditText
-            android:id="@+id/inputPassNewUser"
+            android:id="@+id/inputPassword"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/selector_input"
             android:drawableEnd="@drawable/selector_icon_password"
             android:ems="13"
-            android:hint="@string/t_edit_hint_password"
+            android:hint="@string/textPassword"
             android:inputType="textVisiblePassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputEmailNewUser" />
+            app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
 
 
         <Button
@@ -59,7 +59,7 @@
             android:background="@drawable/button_lite_black"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@string/btn_next"
+            android:text="@string/textNext"
             android:textAllCaps="true"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,12 +72,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="@string/error_message_text_email"
+            android:text="@string/textErrorMessageEmail"
             android:textColor="@color/red"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputPassNewUser" />
+            app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

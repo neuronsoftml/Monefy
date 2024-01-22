@@ -18,10 +18,10 @@
            android:layout_marginBottom="10dp">
 
            <TextView
-               android:id="@+id/balance_billings"
+               android:id="@+id/balance"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="@string/btn_number_zero"
+               android:text="@string/textNumberZero"
                android:textColor="@color/black"
                android:textSize="26sp"
                android:textStyle="bold"
@@ -31,7 +31,7 @@
                app:layout_constraintTop_toTopOf="parent" />
 
            <TextView
-               android:id="@+id/icon_type_money"
+               android:id="@+id/typeCurrency"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:textColor="@color/black"
@@ -40,7 +40,7 @@
                android:text="UAH"
                android:layout_marginStart="5dp"
                app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintStart_toEndOf="@+id/balance_billings"
+               app:layout_constraintStart_toEndOf="@+id/balance"
                app:layout_constraintTop_toTopOf="parent" />
 
        </androidx.constraintlayout.widget.ConstraintLayout>
@@ -64,7 +64,7 @@
                    android:layout_height="80dp"
                    android:background="@drawable/button_gray_square"
                    android:textSize="20sp"
-                   android:text="@string/btn_number_zero" />
+                   android:text="@string/textNumberZero" />
 
                <Button
                    android:id="@+id/buttonOne"
@@ -72,14 +72,14 @@
                    android:layout_height="80dp"
                    android:background="@drawable/button_gray_square"
                    android:textSize="20sp"
-                   android:text="@string/btn_number_one"/>
+                   android:text="@string/textNumberOne"/>
                <Button
                    android:id="@+id/buttonTwo"
                    android:layout_width="80dp"
                    android:layout_height="80dp"
                    android:background="@drawable/button_gray_square"
                    android:textSize="20sp"
-                   android:text="@string/btn_number_two" />
+                   android:text="@string/textNumberTwo" />
            </LinearLayout>
 
            <LinearLayout
@@ -94,7 +94,7 @@
                    android:layout_height="80dp"
                    android:background="@drawable/button_gray_square"
                    android:textSize="20sp"
-                   android:text="@string/btn_number_three"/>
+                   android:text="@string/textNumberThree"/>
 
                <Button
                    android:id="@+id/buttonFour"
@@ -102,7 +102,7 @@
                    android:layout_height="80dp"
                    android:background="@drawable/button_gray_square"
                    android:textSize="20sp"
-                   android:text="@string/btn_number_four"/>
+                   android:text="@string/textNumberFour"/>
 
                <Button
                    android:id="@+id/buttonFive"
@@ -110,7 +110,7 @@
                    android:layout_height="80dp"
                    android:background="@drawable/button_gray_square"
                    android:textSize="20sp"
-                   android:text="@string/btn_number_five"/>
+                   android:text="@string/textNumberFive"/>
            </LinearLayout>
 
            <LinearLayout
@@ -123,7 +123,7 @@
                    android:layout_height="80dp"
                    android:background="@drawable/button_gray_square"
                    android:textSize="20sp"
-                   android:text="@string/btn_number_six"/>
+                   android:text="@string/textNumberSix"/>
 
                <Button
                    android:id="@+id/buttonSeven"
@@ -131,7 +131,7 @@
                    android:layout_height="80dp"
                    android:background="@drawable/button_gray_square"
                    android:textSize="20sp"
-                   android:text="@string/btn_number_seven" />
+                   android:text="@string/textNumberSeven" />
 
                <Button
                    android:id="@+id/buttonEight"
@@ -139,7 +139,7 @@
                    android:layout_height="80dp"
                    android:background="@drawable/button_gray_square"
                    android:textSize="20sp"
-                   android:text="@string/btn_number_eight"/>
+                   android:text="@string/textNumberEight"/>
 
            </LinearLayout>
 
@@ -154,7 +154,7 @@
                    android:layout_height="80dp"
                    android:background="@drawable/button_gray_square"
                    android:textSize="20sp"
-                   android:text="@string/btn_number_nine" />
+                   android:text="@string/textNumberNine" />
 
 
                <ImageButton

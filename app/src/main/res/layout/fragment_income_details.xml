@@ -18,7 +18,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/selector_input_black"
             android:ems="10"
-            android:hint="@string/t_edit_hint_name_income"
+            android:hint="@string/textNameIncome"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
                     android:id="@+id/tVAmountIncome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tV_amount_income"
+                    android:text="@string/textAmountIncome"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
@@ -87,7 +87,7 @@
                     android:id="@+id/tvTypeCurrencyIncome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tV_type_income"
+                    android:text="@string/textTypeCurrency"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
@@ -138,7 +138,7 @@
                     android:id="@+id/tvFrequencyIncome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tV_frequency_income"
+                    android:text="@string/textFrequency"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
@@ -172,7 +172,7 @@
                     android:id="@+id/tvCategoryIncome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tV_category_income"
+                    android:text="@string/textCategoryIncome"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
@@ -225,7 +225,7 @@
                     android:id="@+id/tvDateReceivedIncome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tV_dateReceived_income"
+                    android:text="@string/textDateReceived"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/icon_baseline_edit_14" />
@@ -266,7 +266,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:ems="10"
-                android:hint="@string/t_edit_hint_source_income"
+                android:hint="@string/textSourceIncome"
                 android:inputType="text"
                 android:background="@drawable/selector_input"/>
 
@@ -276,7 +276,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/selector_input"
-                android:hint="@string/t_edit_hint_notes_income"
+                android:hint="@string/textNotesIncome"
                 android:inputType="textMultiLine"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -46,6 +46,4 @@ public enum TypeCurrency implements ModalTypeItem {
         }
         return null;
     }
-
-
 }

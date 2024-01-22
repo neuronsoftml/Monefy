@@ -1,11 +1,13 @@
 package com.example.monefy.basic.functionality.model.billings;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeItem;
+import com.example.monefy.basic.functionality.model.TypeCurrency;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public enum TypeBillings {
+public enum TypeBillings implements ModalTypeItem {
     ORDINARY("Звичайний"),
     DEBT("Борговий"),
     CUMULATIVE("Накопичувальний");
@@ -19,16 +21,26 @@ public enum TypeBillings {
         return title;
     }
 
+    @Override
+    public String getIdentifier(String title) {
+        for(TypeBillings element: TypeBillings.values()){
+            if(element.getTitle().equals(title)){
+                return element.toString();
+            }
+        }
+        return null;
+    }
+
     public TypeBillings[] getAllTypeBillings(){
         return TypeBillings.values();
     }
 
     public static int getIdImageTypeBillings(String typeBillings){
-        if(typeBillings.equals("Звичайний")){
+        if(typeBillings.equals(TypeBillings.ORDINARY.getTitle())){
             return R.drawable.icon_credit_card_blue;
-        } else if (typeBillings.equals("Борговий")) {
+        } else if (typeBillings.equals(TypeBillings.DEBT.getTitle())) {
             return R.drawable.icon_credit_card_red;
-        } else if (typeBillings.equals("Накопичувальний")){
+        } else if (typeBillings.equals(TypeBillings.CUMULATIVE.getTitle())){
             return R.drawable.icon_credit_card_gold;
         }
         return 0;

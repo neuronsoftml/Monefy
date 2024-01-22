@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/tV_balance_billing"
+            android:text="@string/textBalance"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,8 +101,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/white"
-            android:textOff="@string/btn_modal_toggle_income"
-            android:textOn="@string/btn_modal_toggle_income" />
+            android:textOff="@string/textRevenue"
+            android:textOn="@string/textRevenue" />
 
         <ToggleButton
             android:id="@+id/toggleBtn_from_the_bill"
@@ -110,8 +110,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/white"
-            android:textOff="@string/btn_modal_toggle_from_the_bill"
-            android:textOn="@string/btn_modal_toggle_from_the_bill" />
+            android:textOff="@string/textFromWhichWeDebit"
+            android:textOn="@string/textFromWhichWeDebit" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

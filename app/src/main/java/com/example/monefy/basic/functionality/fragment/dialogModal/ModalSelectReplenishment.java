@@ -36,8 +36,8 @@ public class ModalSelectReplenishment extends DialogModal {
     private final Context context;
     private final BillingsManager billingsManager = BillingsManager.getBillingsManager();
     private final IncomeManager incomeManager = IncomeManager.getIncomeManager();
-    private final CallbackForReplenishmentOfSelectedBillings callbackSelectedBillings;
-    public ModalSelectReplenishment(Context context, int contentView, Billings selectedBillings, CallbackForReplenishmentOfSelectedBillings callbackSelectedBillings) {
+    private final BillingsSelectionCallback callbackSelectedBillings;
+    public ModalSelectReplenishment(Context context, int contentView, Billings selectedBillings, BillingsSelectionCallback callbackSelectedBillings) {
         super(context, contentView);
         this.context = context;
         this.selectedBillings = selectedBillings;

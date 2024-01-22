@@ -11,19 +11,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.monefy.Manager.date.ManagerDate;
+import com.example.monefy.Manager.dialogModal.ManagerType;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.UI.UpdateUI;
 import com.example.monefy.basic.functionality.UI.UpdateUIError;
 import com.example.monefy.basic.functionality.fragment.billings.BillingDetailsFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalanceFragment;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputName;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputText;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalFunctionalSelect;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectTypeBillings;
 import com.example.monefy.basic.functionality.model.TypeCurrency;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.Ordinary;
 import com.example.monefy.basic.functionality.fragment.dialogModal.TypeSelectModal;
+import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ public class OrdinaryFragment extends Fragment {
     private void setupUIElements(View view) {
         tvTypeBillings = view.findViewById(R.id.type_billings);
         tvTypeCurrency = view.findViewById(R.id.text_type_currency);
-        tVBalance = view.findViewById(R.id.balance_billings);
+        tVBalance = view.findViewById(R.id.balance);
         tvCreditLimit = view.findViewById(R.id.credit_limit);
         tvName = view.findViewById(R.id.name_billings);
         lirLatTypeBillings = view.findViewById(R.id.linerLayout_type_billings);
@@ -106,7 +107,7 @@ public class OrdinaryFragment extends Fragment {
 
     private void handlerClickLinerLayoutName(){
         lirLatName.setOnClickListener(v->{
-            ModalInputName modalInputName = new ModalInputName(getContext(), R.layout.modal_bottom_input_name, new DialogCallback() {
+            ModalInputText modalInputText = new ModalInputText(getContext(), R.layout.modal_bottom_input_name, new DialogCallback() {
                 @Override
                 public void onSuccess(String data) {
                     tvName.setText(data);
@@ -118,29 +119,34 @@ public class OrdinaryFragment extends Fragment {
 
                 }
             });
-            modalInputName.modalStart();
+            modalInputText.modalStart();
         });
     }
 
     private void handlerClickLinerLayoutTypeBillings(){
         if(!isEditMode){
             lirLatTypeBillings.setOnClickListener(v -> {
-                ModalSelectTypeBillings modalTypeBillings = new ModalSelectTypeBillings(getContext(), new DialogCallback() {
-                    @Override
-                    public void onSuccess(String data) {
-                        tvTypeBillings.setText(data);
-                        UpdateUI.resetStyleSelect(lirLatTypeBillings, getResources());
-                        billingDetailsFragment.onBillingTypeChanged(data);
-                        closeFragment();
-                    }
+                ModalFunctionalSelect modalFunctionalSelect = new ModalFunctionalSelect(
+                        getContext(),
+                        R.string.textSelectTypeBillings,
+                        ManagerType.getTypesBillings(),
+                        TypeBillings.class,
+                        new DialogCallback() {
+                            @Override
+                            public void onSuccess(String data) {
+                                tvTypeBillings.setText(data);
+                                UpdateUI.resetStyleSelect(lirLatTypeBillings, getResources());
+                                billingDetailsFragment.onBillingTypeChanged(data);
+                                closeFragment();
+                            }
 
-                    @Override
-                    public void onFailure(Exception exception) {
+                            @Override
+                            public void onFailure(Exception exception) {
 
-                    }
-                });
-                modalTypeBillings.modalStart();
-
+                            }
+                        }
+                );
+                modalFunctionalSelect.modalStart();
             });
         }else{
             UpdateUI.blockElement(lirLatTypeBillings,getResources());
@@ -151,18 +157,10 @@ public class OrdinaryFragment extends Fragment {
     private void handlerClickLinerLayoutTypeCurrency(){
         lirLatTypeCurrency.setOnClickListener(v -> {
 
-            List<TypeSelectModal> modalTypes = new ArrayList<>();
-            modalTypes.add(new TypeSelectModal() {
-                @Override
-                public List<TypeCurrency> getTypeCurrency() {
-                    return TypeSelectModal.super.getTypeCurrency();
-                }
-            });
-
             ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
                     getContext(),
-                    R.string.tV_modal_select_type_currencies,
-                    modalTypes,
+                    R.string.textSelectTypeCurrencies,
+                    ManagerType.getTypeCurrency(),
                     TypeCurrency.class,
                     new DialogCallback() {
                         @Override

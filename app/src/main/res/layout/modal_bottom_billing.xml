@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/tV_balance_billing"
+            android:text="@string/textBalance"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -117,7 +117,7 @@
                 android:id="@+id/button_text_modal_edit_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_modal_edit_account"
+                android:text="@string/textEdit"
                 android:textColor="@color/textPrimary"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -147,7 +147,7 @@
                 android:id="@+id/button_text_modal_delete_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_modal_delete_account"
+                android:text="@string/textDelete"
                 android:textColor="@color/textPrimary"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -175,7 +175,7 @@
                 android:id="@+id/button_text_modal_operations_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_modal_operations_account"
+                android:text="@string/textOperations"
                 android:textColor="@color/textPrimary"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -203,7 +203,7 @@
                 android:id="@+id/button_text_modal_replenish_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_modal_replenish_account"
+                android:text="@string/textReplenish"
                 android:textColor="@color/textPrimary"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -232,7 +232,7 @@
                 android:id="@+id/button_text_modal_write_off_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_modal_write_off_account"
+                android:text="@string/textWriteOff"
                 android:textColor="@color/textPrimary"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -260,7 +260,7 @@
                 android:id="@+id/button_text_modal_share_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_modal_share_account"
+                android:text="@string/textShare"
                 android:textColor="@color/textPrimary"
                 android:textSize="14sp" />
         </LinearLayout>

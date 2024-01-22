@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.monefy.Manager.dialogModal.ManagerType;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.UI.UpdateUI;
 import com.example.monefy.basic.functionality.UI.UpdateUIError;
@@ -147,7 +148,7 @@ public class IncomeDetailsFragment extends Fragment {
             UpdateUI.resetStyleSelect(linearLayoutTypeCurrency, getResources());
             ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
                     getContext(),
-                    R.string.tV_modal_select_type_currencies,
+                    R.string.textSelectTypeCurrencies,
                     modalTypes,
                     TypeCurrency.class,
                     new DialogCallback() {
@@ -168,19 +169,12 @@ public class IncomeDetailsFragment extends Fragment {
 
     private void handlerClickLinearLayoutFrequency(){
         linerLayoutFrequency.setOnClickListener(v->{
-            List<TypeSelectModal> typeModal = new ArrayList<>();
-            typeModal.add(new TypeSelectModal() {
-                @Override
-                public List<TypeFrequency> getTypeFrequency() {
-                    return TypeSelectModal.super.getTypeFrequency();
-                }
-            });
 
             UpdateUI.resetStyleSelect(linerLayoutFrequency,getResources());
             ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
                     getContext(),
-                    R.string.tV_modal_select_frequency,
-                    typeModal,
+                    R.string.textSelectFrequency,
+                    ManagerType.getTypeFrequency(),
                     TypeFrequency.class,
                     new DialogCallback() {
                         @Override
@@ -200,19 +194,12 @@ public class IncomeDetailsFragment extends Fragment {
 
     private void handlerClickLinearLayoutCategory(){
         linerLayoutCategory.setOnClickListener(v->{
-            List<TypeSelectModal> typeModal = new ArrayList<>();
-            typeModal.add(new TypeSelectModal() {
-                @Override
-                public List<TypeIncomes> getTypeIncomes() {
-                    return TypeSelectModal.super.getTypeIncomes();
-                }
-            });
 
             UpdateUI.resetStyleSelect(linerLayoutCategory, getResources());
             ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
                     getContext(),
-                    R.string.tV_modal_select_category,
-                    typeModal,
+                    R.string.textSelectCategory,
+                    ManagerType.getTypeIncomes(),
                     TypeIncomes.class,
                     new DialogCallback() {
                         @Override
