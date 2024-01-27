@@ -39,7 +39,11 @@ public class FirebaseManager {
                         }
                     } else {
                         if (listener != null) {
-                            listener.onFailure(task.getException());
+                            try {
+                                listener.onFailure(task.getException());
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                 });
@@ -56,7 +60,11 @@ public class FirebaseManager {
                         }
                     } else {
                         if (listener != null) {
-                            listener.onFailure(task.getException());
+                            try {
+                                listener.onFailure(task.getException());
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                 });
@@ -141,7 +149,11 @@ public class FirebaseManager {
                 .addOnFailureListener(e -> {
                     // Помилка додавання рахунку
                     if(listener != null){
-                        listener.onFailure(e);
+                        try {
+                            listener.onFailure(e);
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 });
     }
@@ -163,7 +175,11 @@ public class FirebaseManager {
                 })
                 .addOnFailureListener(e -> {
                     if (listener != null) {
-                        listener.onFailure(e);
+                        try {
+                            listener.onFailure(e);
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 });
     }
@@ -182,7 +198,11 @@ public class FirebaseManager {
                 })
                 .addOnFailureListener(e -> {
                     if (listener != null) {
-                        listener.onFailure(e);
+                        try {
+                            listener.onFailure(e);
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 });
     }
@@ -204,7 +224,11 @@ public class FirebaseManager {
                 .addOnFailureListener(e -> {
                     // Помилка додавання рахунку
                     if(listener != null){
-                        listener.onFailure(e);
+                        try {
+                            listener.onFailure(e);
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 });
     }

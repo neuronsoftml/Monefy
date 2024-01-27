@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 
 public class IncomeFragment extends Fragment {
     private FragmentContainerView fragIncome;
@@ -39,20 +38,26 @@ public class IncomeFragment extends Fragment {
     }
 
     private void showFragIncomes(){
+        /*
         FragmentSwitcher.addTransactionFragment(
                 getChildFragmentManager(),
                 incomeListFragment,
                 fragIncome.getId()
         );
+
+         */
     }
 
     private void showFragInformationBoard(){
         infoBoardIncomeFragment.setIncomeListFragment(incomeListFragment);
 
+        /*
         FragmentSwitcher.addTransactionFragment(
                 getChildFragmentManager(),
                 infoBoardIncomeFragment,
                 fragInformationBoard.getId()
         );
+
+         */
     }
 }

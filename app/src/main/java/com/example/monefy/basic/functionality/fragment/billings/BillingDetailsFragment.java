@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
+import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.billings.factory.CumulativeFragment;
 import com.example.monefy.basic.functionality.fragment.billings.factory.DebtFragment;
 import com.example.monefy.basic.functionality.fragment.billings.factory.OrdinaryFragment;
@@ -77,10 +77,11 @@ public class BillingDetailsFragment extends Fragment implements BillingDetailsLi
             ordinaryFragment.setArguments(getArguments());
         }
 
-        FragmentSwitcher.replaceFragment(
+        FragmentNavigation.replaceFragment(
                 getChildFragmentManager(),
                 ordinaryFragment,
-                fragContBillingsDetails.getId()
+                fragContBillingsDetails.getId(),
+                "fragContBillingsDetails"
         );
         ordinaryFragment.setBillingDetailsFragment(this);
     }
@@ -94,10 +95,11 @@ public class BillingDetailsFragment extends Fragment implements BillingDetailsLi
         }else {
             debtFragment.setArguments(getArguments());
         }
-        FragmentSwitcher.replaceFragment(
+        FragmentNavigation.replaceFragment(
                 getChildFragmentManager(),
                 debtFragment,
-                fragContBillingsDetails.getId()
+                fragContBillingsDetails.getId(),
+                "fragContBillingsDetails"
         );
         debtFragment.setBillingDetailsFragment(this);
     }
@@ -111,10 +113,11 @@ public class BillingDetailsFragment extends Fragment implements BillingDetailsLi
         }else {
             cumulativeFragment.setArguments(getArguments());
         }
-        FragmentSwitcher.replaceFragment(
+        FragmentNavigation.replaceFragment(
                 getChildFragmentManager(),
                 cumulativeFragment,
-                fragContBillingsDetails.getId()
+                fragContBillingsDetails.getId(),
+                "cumulativeFragment"
         );
         cumulativeFragment.setBillingDetailsFragment(this);
     }

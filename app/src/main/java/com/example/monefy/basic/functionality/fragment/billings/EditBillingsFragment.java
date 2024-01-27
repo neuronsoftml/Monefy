@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
+import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.navigation.ClickListener;
 import com.example.monefy.basic.functionality.fragment.navigation.ConfirmationFragment;
 import com.example.monefy.basic.functionality.model.billings.Billings;
@@ -64,10 +64,12 @@ public class EditBillingsFragment extends Fragment {
 
         billingDetailsFragment.setArguments(getArguments());
         //Відображення фрагменту деталей рахунку
-        FragmentSwitcher.addTransactionFragment(
+
+        FragmentNavigation.addFragmentInTheMiddleOfAnother(
                 getChildFragmentManager(),
                 billingDetailsFragment,
-                fragBillingDetails.getId()
+                fragBillingDetails.getId(),
+                "BillingDetailsFragment"
         );
     }
 
@@ -87,16 +89,20 @@ public class EditBillingsFragment extends Fragment {
             }
         });
 
-        // Загрузка фрагмента підтвердження
-        FragmentSwitcher.addTransactionFragment(
+        // Загрузка фрагмента  верхньої навігації
+
+        FragmentNavigation.addFragmentInTheMiddleOfAnother(
                 getChildFragmentManager(),
                 confirmationFragment,
-                fragNavigation.getId()
+                fragNavigation.getId(),
+                "ConfirmationFragment"
         );
     }
 
     private void handlerClickImgBtnClose(){
-        FragmentSwitcher.replaceFragmentBack(getContext());
+        if(getActivity() != null){
+            FragmentNavigation.goToReplaceBillingsFragment(getActivity().getSupportFragmentManager());
+        }
     }
 
 
@@ -112,21 +118,15 @@ public class EditBillingsFragment extends Fragment {
                             @Override
                             public void onSuccess() {
                                 ToastManager.showToastOnSuccessful(getContext(),R.string.textSuccessfulEditBillings);
-                               /* FragmentSwitcher.replaceFragment(
-                                        new BillingsFragment(),
-                                        context,
-                                        FragmentSwitcher.getContainerHome()
-                                );
-
-                                */
-
-                                //Необхідно дописати переход.
+                                if(getActivity() != null){
+                                    FragmentNavigation.goToReplaceBillingsFragment(getActivity().getSupportFragmentManager());
+                                }
                             }
 
                             @Override
-                            public void onFailure(Exception exception) {
+                            public void onFailure(Exception exception) throws Exception {
                                 ToastManager.showToastOnFailure(getContext(),R.string.textFailureEditBillings);
-
+                                throw new Exception("Помилка зміни рахунка " + exception);
                             }
                         }
 

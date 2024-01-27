@@ -3,23 +3,22 @@ package com.example.monefy.basic.functionality.fragment.billings;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
-import com.example.monefy.basic.functionality.fragment.income.IncomeFragment;
+import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 
 public class BillingsFragment extends Fragment {
 
     private FragmentContainerView fragBillings;
     private FragmentContainerView fragInformationBoard;
     private Button btnIncome;
-
-    private InfoBoardBillingsFragment infoBoardBillingsFragment = new InfoBoardBillingsFragment();
-    private BillingsListFragment billingsListFragment =  new BillingsListFragment();
+    private final InfoBoardBillingsFragment infoBoardBillingsFragment = new InfoBoardBillingsFragment();
+    private final BillingsListFragment billingsListFragment =  new BillingsListFragment();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,21 +38,24 @@ public class BillingsFragment extends Fragment {
     }
 
     private void showFragInformationBord() {
+
         infoBoardBillingsFragment.setBillingsListFragment(billingsListFragment);
 
-        FragmentSwitcher.addTransactionFragment(
+        FragmentNavigation.addFragmentInTheMiddleOfAnother(
                 getChildFragmentManager(),
                 infoBoardBillingsFragment,
-                fragInformationBoard.getId());
+                fragInformationBoard.getId(),
+                "InfoBoardBillingsFragment"
+        );
     }
 
     private void showFragBillings() {
         billingsListFragment.setInfoBoardFragment(infoBoardBillingsFragment);
-
-        FragmentSwitcher.addTransactionFragment(
+        FragmentNavigation.addFragmentInTheMiddleOfAnother(
                 getChildFragmentManager(),
                 billingsListFragment,
-                fragBillings.getId()
+                fragBillings.getId(),
+                "BillingsListFragment"
         );
     }
 
@@ -68,7 +70,6 @@ public class BillingsFragment extends Fragment {
 
         });
     }
-
 }
 
 

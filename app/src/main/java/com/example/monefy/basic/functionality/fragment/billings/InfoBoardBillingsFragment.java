@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
+import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.bank.CurrencyNbuFragment;
 import com.example.monefy.basic.functionality.model.DataLoadListener;
 import com.example.monefy.basic.functionality.model.billings.Obligation;
@@ -23,7 +23,6 @@ import com.example.monefy.basic.functionality.model.billings.Billings;
 import java.util.List;
 
 public class InfoBoardBillingsFragment extends Fragment implements DataLoadListener {
-
     private BillingsListFragment billingsListFragment;
     private FragmentContainerView fragCurrencyNbu;
     private CurrencyNbuFragment currencyNbuFragment;
@@ -54,10 +53,12 @@ public class InfoBoardBillingsFragment extends Fragment implements DataLoadListe
         currencyNbuFragment = new CurrencyNbuFragment();
         currencyNbuFragment.setInfoBoardBillingFragment(this);
 
-        FragmentSwitcher.addTransactionFragment(
+        FragmentNavigation.addFragmentInTheMiddleOfAnother(
                 getChildFragmentManager(),
                 currencyNbuFragment,
-                fragCurrencyNbu.getId());
+                fragCurrencyNbu.getId(),
+                "CurrencyNbuFragment"
+        );
     }
 
     public void setBillingsListFragment(BillingsListFragment billingsListFragment) {

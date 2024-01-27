@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.monefy.Manager.ManagerActivity;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
+import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.navigation.ClickListener;
 import com.example.monefy.basic.functionality.fragment.navigation.ConfirmationFragment;
 import com.example.monefy.Manager.firebase.FirebaseManager;
@@ -66,11 +66,13 @@ public class CreateBillingsFragment extends Fragment {
         bundle.putSerializable("TypeBillings", argTypeBillings);
         billingDetailsFragment.setArguments(bundle);
 
-        // Заміна поточного фрагменту на фрагмент деталей рахунку
-        FragmentSwitcher.addTransactionFragment(
+
+        // Завантаження фрагмента деталей рахунку
+        FragmentNavigation.addFragmentInTheMiddleOfAnother(
                 getChildFragmentManager(),
                 billingDetailsFragment,
-                fragBillingDetails.getId());
+                fragBillingDetails.getId(),
+                "BillingDetailsFragment");
     }
 
     // Відображення фрагменту навігації
@@ -88,17 +90,22 @@ public class CreateBillingsFragment extends Fragment {
                 handlerClickImgBtnSetUp();
             }
         });
-        // Заміна поточного фрагменту на фрагмент підтвердження
-        FragmentSwitcher.addTransactionFragment(
+
+        // Відображення фрагменту навігаціїї
+        FragmentNavigation.addFragmentInTheMiddleOfAnother(
                 getChildFragmentManager(),
                 confirmationFragment,
-                fragNavigation.getId());
+                fragNavigation.getId(),"ConfirmationFragment");
+
     }
 
     // Обробник кліку на кнопку закриття
     private void handlerClickImgBtnClose() {
-        // Повернення до попереднього фрагменту
-        FragmentSwitcher.replaceFragmentBack(getContext());
+        if(getActivity() != null){
+            FragmentNavigation.goToReplaceBillingsFragment(getActivity().getSupportFragmentManager());
+        }else {
+            throw new NullPointerException("Відсутня активність");
+        }
     }
 
     //Обробник кліку на кнопку затвердження

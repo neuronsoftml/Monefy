@@ -242,5 +242,7 @@ public class CalculatorFragment extends Fragment {
         this.DRAWABLE_HANDLE = view.getResources().getDrawable(R.drawable.icon_baseline_drag_handle_34);
     }
 
-
+    public void setValueTextViewTypeMoney(String text) {
+        this.textViewTypeMoney.setText(text);
+    }
 }

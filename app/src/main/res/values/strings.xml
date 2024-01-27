@@ -84,6 +84,10 @@
     <string name="textSelectObjective">Мета</string>
     <string name="textForgotPassword">Забули пароль?</string>
     <string name="textAvailable">Доступно:</string>
+    <string name="textApprove">схвалити операцію</string>
+    <string name="textTransactionIsSuccessful">транзакція успішна</string>
+    <string name="textExceededCreditLimit">Перевищений кредитний ліміт</string>
+    <string name="textExceededTheAvailableAmount">Перевищена доступна сумма</string>
 
 
     <string name="descriptionSignUp">виберіть один із варіантів створення користувача</string>

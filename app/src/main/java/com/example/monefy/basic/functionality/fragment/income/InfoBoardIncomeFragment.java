@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
 import com.example.monefy.basic.functionality.fragment.bank.CurrencyNbuFragment;
 import com.example.monefy.basic.functionality.model.DataLoadListener;
 import com.example.monefy.basic.functionality.model.income.Income;
@@ -69,11 +68,14 @@ public class InfoBoardIncomeFragment extends Fragment implements DataLoadListene
     private void showFragCurrencyNbu(){
         currencyNbuFragment = new CurrencyNbuFragment();
         currencyNbuFragment.setInfoBoardIncomeFragment(this);
+        /*
         FragmentSwitcher.addTransactionFragment(
                 getChildFragmentManager(),
                 currencyNbuFragment,
                 fragCurrencyNbu.getId()
         );
+
+         */
     }
 
     public void updateInfoBoard(List<Income> incomes){

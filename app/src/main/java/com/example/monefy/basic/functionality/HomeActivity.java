@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.billings.BillingsFragment;
 import com.example.monefy.basic.functionality.fragment.CategoriesFragment;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
+import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.OperationsFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectCreate;
 import com.example.monefy.basic.functionality.fragment.profile.ProfileFragment;
@@ -26,7 +26,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new BillingsFragment(),containerHome);
+        FragmentNavigation.replaceFragment(getSupportFragmentManager(),new BillingsFragment(),containerHome,"BillingsFragment");
         setupUIElements();
         handlerClickButton();
     }
@@ -45,19 +45,19 @@ public class HomeActivity extends AppCompatActivity {
         btmNavView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.btnNavBillings) {
-                FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new BillingsFragment(),containerHome);
+                FragmentNavigation.goToReplaceBillingsFragment(getSupportFragmentManager());
                 return true;
             } else if (id == R.id.btnNavCategories) {
-                FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new CategoriesFragment(),containerHome);
+                FragmentNavigation.replaceFragment(getSupportFragmentManager(),new CategoriesFragment(),containerHome,"CategoriesFragment");
                 return true;
             } else if (id == R.id.btnNavOperations) {
-                FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new OperationsFragment(),containerHome);
+                FragmentNavigation.replaceFragment(getSupportFragmentManager(),new OperationsFragment(),containerHome,"OperationsFragment");
                 return true;
             } else if (id == R.id.btnNavReview) {
-                FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new ReviewFragment(),containerHome);
+                FragmentNavigation.replaceFragment(getSupportFragmentManager(),new ReviewFragment(),containerHome,"ReviewFragment");
                 return true;
             } else if (id == R.id.btnNavProfile) {
-                FragmentSwitcher.replaceFragment(getSupportFragmentManager(),new ProfileFragment(),containerHome);
+                FragmentNavigation.replaceFragment(getSupportFragmentManager(),new ProfileFragment(),containerHome,"ProfileFragment");
             return true;
         }
             return false;

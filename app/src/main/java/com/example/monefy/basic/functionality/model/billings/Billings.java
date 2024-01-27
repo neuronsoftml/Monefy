@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 public abstract class Billings {
     private long balance; //Баланс рахунка
@@ -91,4 +92,11 @@ public abstract class Billings {
                 return null;
         }
     }
+
+    public void setBalance(long balance) {
+        this.balance = balance;
+    }
+
+
+
 }

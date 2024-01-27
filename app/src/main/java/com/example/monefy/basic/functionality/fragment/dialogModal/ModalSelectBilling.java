@@ -98,7 +98,7 @@ public class ModalSelectBilling implements DialogFunctional {
                         }
 
                         @Override
-                        public void onFailure(Exception exception) {
+                        public void onFailure(Exception exception) throws Exception {
                             if(callback != null){
                                 callback.onFailure(exception);
                             }

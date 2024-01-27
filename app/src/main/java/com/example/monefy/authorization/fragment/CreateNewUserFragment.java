@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
+import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.input.EmailValidator;
@@ -102,10 +102,11 @@ public class CreateNewUserFragment extends Fragment{
 
                         VerificationEmailFragment verificationEmailFragment = new VerificationEmailFragment();
                         verificationEmailFragment.setArguments(data);
-                        FragmentSwitcher.replaceFragment(
+                        FragmentNavigation.replaceFragment(
                                 getChildFragmentManager(),
                                 verificationEmailFragment,
-                                FragmentSwitcher.getContainerVerification()
+                                FragmentNavigation.getContainerVerification(),
+                                "verificationEmailFragment"
                         );
                     }
 

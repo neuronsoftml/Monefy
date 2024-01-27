@@ -44,7 +44,11 @@ public class AuthenticationManager {
                         }
                     } else {
                         if (listener != null) {
-                            listener.onFailure(task.getException());
+                            try {
+                                listener.onFailure(task.getException());
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                 });

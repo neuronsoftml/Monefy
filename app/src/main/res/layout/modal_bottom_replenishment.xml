@@ -12,33 +12,31 @@
         android:id="@+id/textTitleToWhichWeTransfer"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
+        android:background="@drawable/shape_top_panel_bg_white_mini"
+        android:elevation="10dp"
         android:text="@string/textToWhichWeTransfer"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="normal"
-        android:textAlignment="center"
-        android:background="@drawable/shape_top_panel_bg_white_mini"
-        android:elevation="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageCartBillToWhichWeTransfer"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/rightConstraintLayout"
+        app:layout_constraintEnd_toStartOf="@+id/imageCartBillToWhichWeTransfer" />
 
     <TextView
         android:id="@+id/txtTitleFromWhichWeDebit"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/shape_top_panel_bg_white_mini"
-        android:elevation="5dp"
+        android:elevation="10dp"
         android:text="@string/textFromWhichWeDebit"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/imageCartFromBillWhichWeDebit"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/leftConstraintLayout"
+        app:layout_constraintStart_toEndOf="@+id/imageCartFromBillWhichWeDebit" />
 
     <ImageButton
         android:id="@+id/btnBillSwitcher"
@@ -49,6 +47,7 @@
         android:padding="5dp"
         android:src="@drawable/icon_baseline_cached_20"
         android:translationZ="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnApprove"
         app:layout_constraintEnd_toEndOf="@+id/rightConstraintLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -86,7 +85,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="@drawable/shape_right_panel_bg_blue"
+        android:background="@drawable/shape_right_panel_bg_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.5">
@@ -226,7 +225,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="@drawable/shape_left_panel_bg_red"
+        android:background="@drawable/shape_left_panel_bg_white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.5">
@@ -362,12 +361,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnApprove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_lite_white"
-        android:text="ЗАТВЕРДИТИ"
+        android:text="@string/textApprove"
         android:textColor="@color/black"
+        android:elevation="10dp"
+        android:drawableEnd="@drawable/icon_baseline_check_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -376,11 +377,11 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragContainerViewCalculator"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2">
+        app:layout_constraintTop_toBottomOf="@+id/btnApprove">
 
     </androidx.fragment.app.FragmentContainerView>
 

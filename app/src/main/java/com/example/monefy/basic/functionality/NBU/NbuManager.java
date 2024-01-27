@@ -1,6 +1,7 @@
 package com.example.monefy.basic.functionality.NBU;
 
 import com.example.monefy.basic.functionality.model.CurrencyNbu;
+import com.example.monefy.basic.functionality.model.TypeCurrency;
 
 import java.util.List;
 
@@ -35,5 +36,17 @@ public class NbuManager {
 
     public static List<CurrencyNbu> getCurrencyRates() {
         return currencyNbuRates;
+    }
+
+    public static double currencyConversionAtTheExchangeRate(double sum, String typeCurrency){
+        for(CurrencyNbu currency : currencyNbuRates){
+            if(typeCurrency.equals(currency.getCc())){
+                return currency.getRate() * sum;
+            }
+            else if (typeCurrency.equals(TypeCurrency.UAH.getTitle())){
+                return sum / currency.getRate();
+            }
+        }
+        return 0;
     }
 }

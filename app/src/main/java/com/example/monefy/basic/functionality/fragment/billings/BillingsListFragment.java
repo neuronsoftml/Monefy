@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.billings.BillingsListAdapter;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
+import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.dialogModal.BillingDialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalReplenishmentFragment;
+import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTransferFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectReplenishment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectBilling;
 import com.example.monefy.basic.functionality.model.billings.Billings;
@@ -80,14 +80,14 @@ public class BillingsListFragment extends Fragment {
 
 
     private void handlerClickItemListBillings() {
+        handlerBillingDialogCallback();
+
         billingsListAdapter.setOnItemClickListener(billings -> {
             ModalSelectBilling modalBilling = new ModalSelectBilling(
                     context,
                     (Billings) billings,
                     billingDialogCallback
             );
-
-            handlerBillingDialogCallback();
             modalBilling.modalStart();
         });
     }
@@ -131,16 +131,15 @@ public class BillingsListFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Exception exception) {
-
+            public void onFailure(Exception exception) throws Exception {
+                throw new Exception("Невідома помилка"+exception);
             }
         };
     }
 
     private void handlerDelete(Billings billings){
         billingsListAdapter.removeBillings(billings);
-        billingsListAdapter.notifyDataSetChanged();
-        billingsManager.loadBillings(() -> infoBoardBillingsFragment.updateInfoBord(billingsManager.getBillingsList()));
+        updateListBillings();
         ToastManager.showToastOnSuccessful(getContext(),R.string.textSuccessfulDeleteBillings);
     }
 
@@ -148,14 +147,9 @@ public class BillingsListFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putSerializable("billing", (Serializable) billings);
 
-        EditBillingsFragment editBillingsFragment = new EditBillingsFragment();
-        editBillingsFragment.setArguments(bundle);
-
-        FragmentSwitcher.replaceTransactionFragment(
-                getActivity().getSupportFragmentManager(),
-                editBillingsFragment,
-                FragmentSwitcher.getContainerHome()
-        );
+        if(getActivity() != null){
+            FragmentNavigation.gotToReplaceEditBillingsFragment(getActivity().getSupportFragmentManager(), bundle);
+        }
     }
 
     private void handlerSelectReplenishment(Billings bill){
@@ -164,27 +158,28 @@ public class BillingsListFragment extends Fragment {
                 R.layout.modal_bottom_select_replenishment,
                 bill,
                 (theBillToWhichWeTransfer, theBillFromWhichWeDebit) -> {
-                    ModalReplenishmentFragment modalReplenishmentFragment = new ModalReplenishmentFragment(
+                    ModalTransferFragment modalTransferFragment = new ModalTransferFragment(
                             theBillToWhichWeTransfer,
                             theBillFromWhichWeDebit
                     );
-                    handlerReplenishment(modalReplenishmentFragment);
+                    handlerReplenishment(modalTransferFragment);
                 }
         );
         modalSelectReplenishment.modalStart();
     }
 
-    private void handlerReplenishment(ModalReplenishmentFragment modalReplenishmentFragment){
-        modalReplenishmentFragment.show(getChildFragmentManager(),"Modal");
-        modalReplenishmentFragment.startDialogModal(new DialogCallback() {
+    private void handlerReplenishment(ModalTransferFragment modalTransferFragment){
+        modalTransferFragment.show(getChildFragmentManager(),"Modal");
+        modalTransferFragment.startDialogModal(new DialogCallback() {
             @Override
             public void onSuccess(String data) {
-
+                updateListBillings();
+                modalTransferFragment.dismiss();
             }
 
             @Override
-            public void onFailure(Exception exception) {
-
+            public void onFailure(Exception exception) throws Exception {
+                throw new Exception("Невідома помилка підчас виконання транзакції" + exception);
             }
         });
     }
@@ -192,7 +187,13 @@ public class BillingsListFragment extends Fragment {
     public void setInfoBoardFragment(InfoBoardBillingsFragment infoBoardBillingsFragment) {
         this.infoBoardBillingsFragment = infoBoardBillingsFragment;
     }
+
     public List<Billings> getBillings() {
         return  billings;
+    }
+
+    private void updateListBillings(){
+        billingsListAdapter.notifyDataSetChanged();
+        billingsManager.loadBillings(() -> infoBoardBillingsFragment.updateInfoBord(billingsManager.getBillingsList()));
     }
 }

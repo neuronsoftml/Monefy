@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentContainerView;
 
@@ -27,9 +28,10 @@ public class ModalBalanceFragment extends DialogFragment{
         this.dialogCallback = dialogCallback;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        getInputArgument(getArguments());
+        getInputArgument();
         Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.modal_bottom_billings_balance);
@@ -45,10 +47,13 @@ public class ModalBalanceFragment extends DialogFragment{
         // Повернення налаштованого діалогу
         return dialog;
     }
-    private void getInputArgument(Bundle arguments){
-        titleModal = arguments.getString("titleModal");
-        balance = arguments.getString("balance");
-        typeCurrencies = arguments.getString("typeCurrency");
+    private void getInputArgument(){
+        Bundle arguments = getArguments();
+        if(arguments != null){
+            titleModal = arguments.getString("titleModal");
+            balance = arguments.getString("balance");
+            typeCurrencies = arguments.getString("typeCurrency");
+        }
     }
 
     private void startDialogModal(){
@@ -82,7 +87,7 @@ public class ModalBalanceFragment extends DialogFragment{
             }
 
             @Override
-            public void onFailure(Exception exception) {
+            public void onFailure(Exception exception) throws Exception {
                 dialogCallback.onFailure(exception);
             }
         });

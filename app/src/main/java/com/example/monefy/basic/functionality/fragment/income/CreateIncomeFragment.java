@@ -13,7 +13,7 @@ import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.message.ToastManager;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
+import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.navigation.ClickListener;
 import com.example.monefy.basic.functionality.fragment.navigation.ConfirmationFragment;
 
@@ -49,22 +49,26 @@ public class CreateIncomeFragment extends Fragment {
 
     private void showIncomeDetails(){
         incomeDetailsFragment = new IncomeDetailsFragment();
-        FragmentSwitcher.replaceFragment(
+        FragmentNavigation.replaceFragment(
                 getChildFragmentManager(),
                 incomeDetailsFragment,
-                fragIncomeDetails.getId()
+                fragIncomeDetails.getId(),
+                "fragIncomeDetails"
                 );
     }
 
     private ConfirmationFragment confirmationFragment;
 
     private void showFragNavigation(){
+        /*
         confirmationFragment = new ConfirmationFragment();
         FragmentSwitcher.addTransactionFragment(
                 getChildFragmentManager(),
                 confirmationFragment,
                 fragNavigation.getId()
         );
+
+         */
         handlerClick();
     }
 

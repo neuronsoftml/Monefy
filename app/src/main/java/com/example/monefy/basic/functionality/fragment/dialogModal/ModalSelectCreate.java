@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import com.example.monefy.Manager.dialogModal.ManagerType;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentSwitcher;
+import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.billings.CreateBillingsFragment;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
@@ -63,10 +63,11 @@ public class ModalSelectCreate extends DialogModal {
                             CreateBillingsFragment createBillingsFragment = new CreateBillingsFragment();
                             createBillingsFragment.setArguments(bundle);
 
-                            FragmentSwitcher.replaceTransactionFragment(
+                            FragmentNavigation.replaceFragment(
                                     fragmentManager,
                                     createBillingsFragment,
-                                    FragmentSwitcher.getContainerHome()
+                                    FragmentNavigation.getContainerHome(),
+                                    "CreateBillingsFragment"
                             );
                             exitModal();
                         }
