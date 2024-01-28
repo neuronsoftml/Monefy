@@ -65,8 +65,7 @@ public class LobbyFragment extends Fragment {
         this.imgBtnAllMessage = view.findViewById(R.id.imgBtnAllMessage);
     }
 
-    /** Цей метод встановлює значення UI елементів.
-     */
+    /** Цей метод встановлює значення UI елементів.*/
     private void setValueUIElement(){
         BillingsManager.getBillingsManager().loadBillings(() -> {
             btnCollBills.setText(String.valueOf(BillingsManager.getBillingsSize()));
@@ -86,8 +85,7 @@ public class LobbyFragment extends Fragment {
         });
     }
 
-    /** Цей метод обробляє усі кліки по елементах.
-     */
+    /** Цей метод обробляє усі кліки по елементах.*/
     private void handlerClickEvent(){
         handlerClickBillingsCard();
         handlerClickIncomesCard();
