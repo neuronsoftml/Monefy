@@ -28,7 +28,6 @@ import java.util.List;
 
 
 public class LobbyFragment extends Fragment {
-
     private TextView textNameUser;
     private TextView textMessage;
     private TextView textCollMessage;
