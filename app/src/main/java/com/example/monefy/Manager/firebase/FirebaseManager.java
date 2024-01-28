@@ -7,17 +7,18 @@ import androidx.annotation.NonNull;
 
 import com.example.monefy.Manager.billings.OnBillingsCallback;
 import com.example.monefy.Manager.incomes.OnIncomesCallback;
+import com.example.monefy.Manager.message.OnMessageCallback;
+import com.example.monefy.Manager.profile.OnUserDataCallback;
+import com.example.monefy.basic.functionality.model.user.User;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.income.Income;
+import com.example.monefy.basic.functionality.model.message.Message;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,23 +77,20 @@ public class FirebaseManager {
         db.collection("Users")
                 .document(userId)
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            // Обробка отриманих даних та передача їх через callback
-                            callback.onUserDataReceived(documentSnapshot);
-                        } else {
-                            // Документ не існує, обробка цього випадку
-                            callback.onUserDataNotFound();
-                        }
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        User user = documentSnapshot.toObject(User.class);
+                        callback.onUserDataReceived(user);
+                    } else {
+                        // Документ не існує, обробка цього випадку
+                        callback.onDataNotFound();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // Обробка помилки
-                        callback.onUserDataError(e);
+                        callback.onDataError(e);
                     }
                 });
     }
@@ -119,14 +117,14 @@ public class FirebaseManager {
                         callback.onBillingsDataReceived(billingsList);
                     } else {
                         // Підколекція "billings" порожня
-                        callback.onBillingsDataNotFound();
+                        callback.onDataNotFound();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // Обробка помилки
-                        callback.onBillingsDataError(e);
+                        callback.onDataError(e);
                     }
                 });
     }
@@ -252,12 +250,33 @@ public class FirebaseManager {
                         }
 
                         // Обробка списку активів через callback
-                        incomesCallback.onBillingsDataReceived(incomesList);
+                        incomesCallback.onIncomesDataReceived(incomesList);
                     } else {
                         // Підколекція "incomes" порожня
-                        incomesCallback.onBillingsDataNotFound();
+                        incomesCallback.onDataNotFound();
                     }
                 })
-                .addOnFailureListener(incomesCallback::onBillingsDataError);
+                .addOnFailureListener(incomesCallback::onDataError);
+    }
+
+
+    public static void getMessageData(final OnMessageCallback onMessageCallback){
+        db.collection("Users")
+                .document(userId)
+                .collection("message")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if(!queryDocumentSnapshots.isEmpty()){
+                        List<Message> messageList = new ArrayList<>();
+                        for(QueryDocumentSnapshot document: queryDocumentSnapshots){
+                            Message message = document.toObject(Message.class);
+                            message.setId(document.getId());
+                            messageList.add(message);
+                        }
+                        onMessageCallback.onMessageDataReceived(messageList);
+                    }else{
+                        onMessageCallback.onDataNotFound();
+                    }
+                });
     }
 }

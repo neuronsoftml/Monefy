@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.fragment.LobbyFragment;
 import com.example.monefy.basic.functionality.fragment.billings.BillingsFragment;
 import com.example.monefy.basic.functionality.fragment.CategoriesFragment;
 import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
@@ -26,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        FragmentNavigation.replaceFragment(getSupportFragmentManager(),new BillingsFragment(),containerHome,"BillingsFragment");
+        FragmentNavigation.replaceFragment(getSupportFragmentManager(),new LobbyFragment(),containerHome,"LobbyFragment");
         setupUIElements();
         handlerClickButton();
     }

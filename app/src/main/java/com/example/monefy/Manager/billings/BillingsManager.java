@@ -31,9 +31,8 @@ public class BillingsManager {
 
     public BillingsManager() {}
 
-    /** Список рахунків.
-     */
-    private List<Billings> billingsList = new ArrayList<>();
+    /** Список рахунків.*/
+    private static List<Billings> billingsList = new ArrayList<>();
 
     /**
      * @return Повертає список рахунків.
@@ -55,26 +54,24 @@ public class BillingsManager {
 
     /**
      * loadBillings - Здійснює загрузку рахунків.
-     * @return billingsList повертає список рахунків
      */
     public void loadBillings(DataLoadListener dataLoadListener){
         FirebaseManager.getBillingsData(new OnBillingsCallback() {
+            @Override
+            public void onDataNotFound() {
+                Log.d("error","Відсутні дані");;
+            }
+
+            @Override
+            public void onDataError(Exception e) {
+                Log.e("ERROR", "Помилка при отриманні даних: " + e.getMessage());
+            }
+
             @Override
             public void onBillingsDataReceived(List<Billings> billings) {
                 updateBillings(billings);
                 dataLoadListener.onDataLoaded();
             }
-
-            @Override
-            public void onBillingsDataNotFound() {
-                Log.d("error","Відсутні дані");;
-            }
-
-            @Override
-            public void onBillingsDataError(Exception e) {
-                Log.e("ERROR", "Помилка при отриманні даних: " + e.getMessage());
-            }
-
         });
     }
 
@@ -144,5 +141,9 @@ public class BillingsManager {
         return (Map<String, Object>) result;
     }
 
+
+    public static int getBillingsSize(){
+        return billingsList.size();
+    }
 
 }

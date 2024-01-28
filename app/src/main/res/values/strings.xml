@@ -88,6 +88,14 @@
     <string name="textTransactionIsSuccessful">транзакція успішна</string>
     <string name="textExceededCreditLimit">Перевищений кредитний ліміт</string>
     <string name="textExceededTheAvailableAmount">Перевищена доступна сумма</string>
+    <string name="textHello">Привіт,</string>
+    <string name="textUser">користувач</string>
+    <string name="textNewMessage">Нові повідомлення</string>
+    <string name="textViewBills">Переглянути свої рахунки</string>
+    <string name="textViewIncomes">Переглянути свої активи</string>
+    <string name="textСonnectCardMonobank">Підключити карту monobank</string>
+    <string name="textWarning">Зверніть увагу</string>
+    <string name="textNoMessagesAtTheMoment">На даний момент повідомлень не існує</string>
 
 
     <string name="descriptionSignUp">виберіть один із варіантів створення користувача</string>
@@ -129,6 +137,8 @@
     <string name="textNumberSeven">7</string>
     <string name="textNumberEight">8</string>
     <string name="textNumberNine">9</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

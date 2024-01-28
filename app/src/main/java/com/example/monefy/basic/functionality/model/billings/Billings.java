@@ -60,23 +60,8 @@ public abstract class Billings {
         this.id = id;
     }
 
-    private final SimpleDateFormat SDF = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
-
     public Date getDateReceived() {
         return dateReceived;
-    }
-
-    public String getConvertData() {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss 'GMT'Z yyyy", Locale.ENGLISH);
-
-        try {
-            Date date = inputFormat.parse(String.valueOf(dateReceived));
-            return SDF.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Log.e("DateConversionError", "Error parsing the date: " + e.getMessage());
-            return null;
-        }
     }
 
     public static Billings fromDocumentSnapshot(DocumentSnapshot document) {
@@ -96,7 +81,5 @@ public abstract class Billings {
     public void setBalance(long balance) {
         this.balance = balance;
     }
-
-
 
 }

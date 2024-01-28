@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,7 @@ import android.widget.TextView;
 import com.example.monefy.MainActivity;
 import com.example.monefy.R;
 import com.example.monefy.Manager.firebase.AuthenticationManager;
-import com.example.monefy.Manager.firebase.FirebaseManager;
-import com.example.monefy.Manager.firebase.OnUserDataCallback;
 import com.example.monefy.local.database.ManagerLocalDataBase;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileFragment extends Fragment {
 
@@ -56,25 +51,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void loadGetUserData(){
-        FirebaseManager.getUserPersonalData(new OnUserDataCallback() {
-            @Override
-            public void onUserDataReceived(DocumentSnapshot documentSnapshot) {
-                displaysUserData(
-                        documentSnapshot.getString("name"),
-                        documentSnapshot.getString("lastName")
-                );
-            }
 
-            @Override
-            public void onUserDataNotFound() {
-                Log.d("error","Відсутні дані");
-            }
-
-            @Override
-            public void onUserDataError(Exception e) {
-                Log.e("ERROR", "Помилка при отриманні даних: " + e.getMessage());
-            }
-        });
     }
 
     private void handlerBtnClick() {

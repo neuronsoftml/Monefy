@@ -22,7 +22,7 @@ public class IncomeManager {
 
     public IncomeManager(){}
 
-    private List<Income> incomeList = new ArrayList<>();
+    private static List<Income> incomeList = new ArrayList<>();
 
     public List<Income> getIncomeList(){
         return incomeList;
@@ -31,18 +31,18 @@ public class IncomeManager {
     public void loadIncomes(DataLoadListener dataLoadListener){
         FirebaseManager.getIncomesData(new OnIncomesCallback() {
             @Override
-            public void onBillingsDataReceived(List<Income> incomesList) {
+            public void onIncomesDataReceived(List<Income> incomesList) {
                 updateIncome(incomesList);
                 dataLoadListener.onDataLoaded();
             }
 
             @Override
-            public void onBillingsDataNotFound() {
+            public void onDataNotFound() {
                 Log.d("error","Відсутні дані");;
             }
 
             @Override
-            public void onBillingsDataError(Exception e) {
+            public void onDataError(Exception e) {
                 Log.e("ERROR", "Помилка при отриманні даних: " + e.getMessage());
             }
         });
@@ -51,5 +51,9 @@ public class IncomeManager {
     private void updateIncome(List<Income> incomes){
         incomeList.clear();
         incomeList.addAll(incomes);
+    }
+
+    public static int getIncomeSize(){
+        return incomeList.size();
     }
 }
