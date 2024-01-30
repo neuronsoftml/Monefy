@@ -16,3 +16,4 @@ Monefy, мобільний додаток для управління фінан
 ![2](https://github.com/neuronsoftml/Monefy/assets/77026653/a219cbbb-299c-477e-9fb3-3495231596ea)
 ![3](https://github.com/neuronsoftml/Monefy/assets/77026653/7093c48c-b5c5-4209-b7d6-a5ca8fc64c62)
 ![4](https://github.com/neuronsoftml/Monefy/assets/77026653/e73353c1-3496-4cbf-b6db-5d77463babb3)
+![5](https://github.com/neuronsoftml/Monefy/assets/77026653/29a6d866-bed5-46b8-9a4e-8c0ffab80978)
