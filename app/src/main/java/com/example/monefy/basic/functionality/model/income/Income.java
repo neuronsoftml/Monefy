@@ -4,14 +4,11 @@ import android.util.Log;
 
 import com.example.monefy.R;
 
-import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 public class Income {
     private String id;
@@ -80,19 +77,19 @@ public class Income {
     }
 
     public int getImageIncome(){
-        if(category.equals(TypeIncomes.BUSINESS.getTitle())){
+        if(category.equals(TypeIncomes.BUSINESS.getCCY())){
             return R.drawable.baseline_business_center_24;
-        }else if(category.equals(TypeIncomes.FREELANCE.getTitle())){
+        }else if(category.equals(TypeIncomes.FREELANCE.getCCY())){
             return R.drawable.baseline_handshake_24;
-        }else if(category.equals(TypeIncomes.INVESTMENTS.getTitle())){
+        }else if(category.equals(TypeIncomes.INVESTMENTS.getCCY())){
             return R.drawable.baseline_equalizer_24;
-        }else if (category.equals(TypeIncomes.PENSIONS.getTitle())) {
+        }else if (category.equals(TypeIncomes.PENSIONS.getCCY())) {
             return R.drawable.baseline_assist_walker_24;
-        }else if (category.equals(TypeIncomes.REAL_ESTATE.getTitle())) {
+        }else if (category.equals(TypeIncomes.REAL_ESTATE.getCCY())) {
             return R.drawable.baseline_home_work_24;
-        }else if (category.equals(TypeIncomes.SALARY.getTitle())) {
+        }else if (category.equals(TypeIncomes.SALARY.getCCY())) {
             return R.drawable.baseline_account_balance_wallet_24;
-        } else if (category.equals(TypeIncomes.SUBSIDIES.getTitle())) {
+        } else if (category.equals(TypeIncomes.SUBSIDIES.getCCY())) {
             return R.drawable.baseline_volunteer_activism_24;
         }
         return 0;
@@ -114,9 +111,9 @@ public class Income {
     }
 
     public int getMaxProgress(){
-        if(frequency.equals(TypeFrequency.DAILY.getTitle())){
+        if(frequency.equals(TypeFrequency.DAILY.getCCY())){
             return 1;
-        } else if (frequency.equals(TypeFrequency.MONTHKY.getTitle())) {
+        } else if (frequency.equals(TypeFrequency.MONTHKY.getCCY())) {
             Calendar calendar = Calendar.getInstance(); // Отримуємо поточну дату
             return calendar.getActualMaximum(Calendar.DAY_OF_MONTH); // Отримуємо кількість днів у місяці
         }

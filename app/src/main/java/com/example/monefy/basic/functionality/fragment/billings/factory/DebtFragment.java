@@ -21,15 +21,11 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalanceF
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputDate;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputText;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalFunctionalSelect;
-import com.example.monefy.basic.functionality.model.TypeCurrency;
+import com.example.monefy.basic.functionality.model.currency.TypeCurrency;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.Debt;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.basic.functionality.model.billings.TypeDebtorSide;
-import com.example.monefy.basic.functionality.fragment.dialogModal.TypeSelectModal;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DebtFragment extends Fragment {
     private final boolean isEditMode;

@@ -20,6 +20,7 @@ import com.example.monefy.Manager.incomes.IncomeManager;
 import com.example.monefy.Manager.message.MessageManager;
 import com.example.monefy.Manager.profile.UserManager;
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.fragment.bank.CurrencyBankFragment;
 import com.example.monefy.basic.functionality.model.DataLoadListener;
 import com.example.monefy.basic.functionality.model.message.Message;
 
@@ -35,6 +36,7 @@ public class LobbyFragment extends Fragment {
     private Button btnCollIncomes;
     private ImageButton imgBtnAllMessage;
     private ConstraintLayout cardBillings, cardIncomes;
+    private FragmentContainerView fragContCurrencyBank;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,13 +48,14 @@ public class LobbyFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_lobby, container, false);
         setupUIElements(view);
+        showFragmentCurrencyBank();
         setValueUIElement();
         handlerClickEvent();
         return view;
     }
 
     /** Цей метод проводить ініціалізацію UI елементів вкладки.
-     * @param view - layout фрагмента.
+     * @param view -  базовий клас для віджетів.
      */
     private void setupUIElements(View view){
         this.textNameUser = view.findViewById(R.id.textNameUser);
@@ -63,6 +66,7 @@ public class LobbyFragment extends Fragment {
         this.cardBillings = view.findViewById(R.id.cardBillings);
         this.cardIncomes = view.findViewById(R.id.cardIncomes);
         this.imgBtnAllMessage = view.findViewById(R.id.imgBtnAllMessage);
+        this.fragContCurrencyBank = view.findViewById(R.id.fragCurrencyBank);
     }
 
     /** Цей метод встановлює значення UI елементів.*/
@@ -113,10 +117,21 @@ public class LobbyFragment extends Fragment {
         });
     }
 
+    /** Цей метод загружає та відображає Fragment курса валют */
+    private void showFragmentCurrencyBank(){
+        FragmentNavigation.addFragmentInTheMiddleOfAnother(
+                getChildFragmentManager(),
+                new CurrencyBankFragment(),
+                fragContCurrencyBank.getId(),
+                "CurrencyBankFragment"
+        );
+    }
+
     private FragmentManager getSupportFragmentManager(){
         if(getActivity() != null){
             return getActivity().getSupportFragmentManager();
         }
         return  getParentFragmentManager();
     }
+
 }

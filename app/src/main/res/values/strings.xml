@@ -25,7 +25,9 @@
     <string name="textEditBillings">Редагування рахунка</string>
     <string name="textNewIncome">Новий дохід</string>
     <string name="textTypeBillings">Тип рахунка</string>
-    <string name="textType">Тип:</string>
+    <string name="textType">тип</string>
+    <string name="textBuy">покупка</string>
+    <string name="textSale">продаж</string>
     <string name="textName">Ім`я</string>
     <string name="textTypeCurrency">Тип валюти</string>
     <string name="textDebtor">Особа що зобов\'язана</string>
@@ -96,6 +98,9 @@
     <string name="textСonnectCardMonobank">Підключити карту monobank</string>
     <string name="textWarning">Зверніть увагу</string>
     <string name="textNoMessagesAtTheMoment">На даний момент повідомлень не існує</string>
+    <string name="textPrivateBank">Приват банк</string>
+    <string name="textMonobank">monobank</string>
+    <string name="textCurrenсy">курс валют</string>
 
 
     <string name="descriptionSignUp">виберіть один із варіантів створення користувача</string>

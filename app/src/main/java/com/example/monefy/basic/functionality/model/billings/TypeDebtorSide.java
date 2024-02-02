@@ -13,7 +13,7 @@ public enum TypeDebtorSide implements ModalTypeItem {
         this.title = title;
     }
 
-    public String getTitle() {
+    public String getCCY() {
         return title;
     }
 

@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.model.TypeCurrency;
+import com.example.monefy.basic.functionality.model.currency.TypeCurrency;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.basic.functionality.model.billings.TypeDebtorSide;
 import com.example.monefy.basic.functionality.model.income.TypeFrequency;
@@ -97,8 +97,8 @@ public class ModalFunctionalSelect extends DialogModal implements TypeSelectModa
 
         private Button createButton(ModalTypeItem type) {
             Button button = new Button(context);
-            button.setText(type.getTitle());
-            button.setTag(type.getIdentifier(type.getTitle()));
+            button.setText(type.getCCY());
+            button.setTag(type.getIdentifier(type.getCCY()));
             button.setGravity(Gravity.CENTER_VERTICAL);
             button.setAllCaps(false);
             button.setBackgroundColor(Color.WHITE);

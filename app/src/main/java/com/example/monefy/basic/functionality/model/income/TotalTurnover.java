@@ -1,23 +1,23 @@
 package com.example.monefy.basic.functionality.model.income;
 
-import com.example.monefy.basic.functionality.model.CurrencyNbu;
+import com.example.monefy.basic.functionality.model.currency.CurrencyPrivateBank;
 
 import java.util.List;
 
 public class TotalTurnover {
     private double amount;
     private List<Income> incomes;
-    private List<CurrencyNbu> currencyNbuS;
+    private List<CurrencyPrivateBank> currencyPrivateBankS;
 
-    public TotalTurnover(long amount, List<Income> incomes, List<CurrencyNbu> currencyNbuS) {
+    public TotalTurnover(long amount, List<Income> incomes, List<CurrencyPrivateBank> currencyPrivateBankS) {
         this.amount = amount;
         this.incomes = incomes;
-        this.currencyNbuS = currencyNbuS;
+        this.currencyPrivateBankS = currencyPrivateBankS;
     }
 
     private void calculatingTotalAmount(){
         for(Income income : incomes){
-            if(income.getCategory().equals(TypeIncomes.INVESTMENTS.getTitle()) || income.getCategory().equals(TypeIncomes.BUSINESS.getTitle())){
+            if(income.getCategory().equals(TypeIncomes.INVESTMENTS.getCCY()) || income.getCategory().equals(TypeIncomes.BUSINESS.getCCY())){
                 switch (income.getTypeCurrency()) {
                     case "UAH":
                         amount = amount + income.getAmount();
@@ -39,10 +39,12 @@ public class TotalTurnover {
     }
 
     private long getCourseByCurrency(String currency){
-        for(CurrencyNbu currencyNbu : currencyNbuS){
-            if(currencyNbu.getCc().equals(currency)){
+        for(CurrencyPrivateBank currencyPrivateBank : currencyPrivateBankS){
+            /*if(currencyNbu.getCc().equals(currency)){
                 return (long) currencyNbu.getRate();
             }
+
+             */
         }
         return 0;
     }

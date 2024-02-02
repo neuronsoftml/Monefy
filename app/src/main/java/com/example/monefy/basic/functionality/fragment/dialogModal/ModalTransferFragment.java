@@ -22,7 +22,6 @@ import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.message.ToastManager;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.NBU.NbuManager;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
@@ -208,12 +207,14 @@ public class ModalTransferFragment extends DialogFragment {
         }
         // Як що типи валют різні робемо конвертацію валюти за курсом.
         else {
-            long sum = (long) NbuManager.currencyConversionAtTheExchangeRate(
+           /* long sum = (long) NbuManager.currencyConversionAtTheExchangeRate(
                     Double.parseDouble(data),
                     theBillFromWhichWeDebit.getTypeCurrency()
             );
             writeOffAmount = Long.parseLong(data);
             setUpAmount = sum;
+
+            */
         }
     }
 

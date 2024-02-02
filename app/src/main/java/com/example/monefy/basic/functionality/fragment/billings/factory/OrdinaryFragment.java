@@ -20,14 +20,10 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallbac
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalanceFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputText;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalFunctionalSelect;
-import com.example.monefy.basic.functionality.model.TypeCurrency;
+import com.example.monefy.basic.functionality.model.currency.TypeCurrency;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.Ordinary;
-import com.example.monefy.basic.functionality.fragment.dialogModal.TypeSelectModal;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class OrdinaryFragment extends Fragment {

@@ -6,17 +6,12 @@ import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.DataLoadListener;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.Manager.firebase.FirebaseManager;
-import com.example.monefy.Manager.billings.OnBillingsCallback;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class BillingsManager {
 
@@ -93,7 +88,7 @@ public class BillingsManager {
         List<Billings> billings = new ArrayList<>();
         for(Billings bill : billingList){
             for(TypeBillings typeBill : typeBillings){
-                if(bill.getTypeBillings().equals(typeBill.getTitle())){
+                if(bill.getTypeBillings().equals(typeBill.getCCY())){
                     billings.add(bill);
                     break;
                 }
@@ -111,7 +106,7 @@ public class BillingsManager {
     public static List<Billings> sortingBillings(List<Billings> billingList, TypeBillings typeBillings){
         List<Billings> billings = new ArrayList<>();
         for(Billings bill : billingList){
-            if(bill.getTypeBillings().equals(typeBillings.getTitle())){
+            if(bill.getTypeBillings().equals(typeBillings.getCCY())){
                 billings.add(bill);
             }
         }

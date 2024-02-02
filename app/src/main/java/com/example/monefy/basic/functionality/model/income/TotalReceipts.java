@@ -1,24 +1,23 @@
 package com.example.monefy.basic.functionality.model.income;
 
-import com.example.monefy.basic.functionality.model.CurrencyNbu;
+import com.example.monefy.basic.functionality.model.currency.CurrencyPrivateBank;
 
-import java.util.Currency;
 import java.util.List;
 
 public class TotalReceipts {
     private double amount;
     private List<Income> incomes;
-    private List<CurrencyNbu> currencyNbuS;
+    private List<CurrencyPrivateBank> currencyPrivateBankS;
 
-    public TotalReceipts(double amount, List<Income> incomes, List<CurrencyNbu> currencyNbuS) {
+    public TotalReceipts(double amount, List<Income> incomes, List<CurrencyPrivateBank> currencyPrivateBankS) {
         this.amount = amount;
         this.incomes = incomes;
-        this.currencyNbuS = currencyNbuS;
+        this.currencyPrivateBankS = currencyPrivateBankS;
     }
 
     private void calculatingTotalAmount(){
         for(Income income : incomes){
-            if(!income.getCategory().equals(TypeIncomes.INVESTMENTS.getTitle())){
+            if(!income.getCategory().equals(TypeIncomes.INVESTMENTS.getCCY())){
                 switch (income.getTypeCurrency()) {
                     case "UAH":
                         amount = amount + income.getAmount();
@@ -40,10 +39,12 @@ public class TotalReceipts {
     }
 
     private long getCourseByCurrency(String currency){
-        for(CurrencyNbu currencyNbu : currencyNbuS){
-            if(currencyNbu.getCc().equals(currency)){
+        for(CurrencyPrivateBank currencyPrivateBank : currencyPrivateBankS){
+           /* if(currencyNbu.getCc().equals(currency)){
                 return (long) currencyNbu.getRate();
             }
+
+            */
         }
         return 0;
     }

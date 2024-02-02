@@ -15,14 +15,14 @@ public enum TypeFrequency implements ModalTypeItem {
     private String title;
 
     @Override
-    public String getTitle() {
+    public String getCCY() {
         return title;
     }
 
     @Override
     public String getIdentifier(String title) {
         for(TypeFrequency element : TypeFrequency.values()){
-            if(element.getTitle().equals(title)){
+            if(element.getCCY().equals(title)){
                 return element.toString();
             }
         }

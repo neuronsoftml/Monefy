@@ -38,13 +38,10 @@ public class BillingsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case ORDINARY:
-                Log.e("viewType ","Маємо отримати 0 - " + viewType);
                 return new ViewHolderOrdinary(inflater.inflate(R.layout.billings_list_aitem_ordinary, parent, false));
             case DEBT:
-                Log.e("viewType ","Маємо отримати 1 - " + viewType);
                 return new ViewHolderDebt(inflater.inflate(R.layout.billings_list_aitem_debt, parent, false));
             case CUMULATIVE:
-                Log.e("viewType ","Маємо отримати 2 - "+ viewType);
                 return new ViewHolderCumulative(inflater.inflate(R.layout.billings_list_aitem_cumulative, parent, false));
             default:
                 throw new IllegalArgumentException("Invalid view type: " + viewType);

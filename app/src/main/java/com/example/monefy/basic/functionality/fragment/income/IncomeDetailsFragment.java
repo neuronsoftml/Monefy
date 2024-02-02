@@ -20,7 +20,7 @@ import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallbac
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalanceFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputDate;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalFunctionalSelect;
-import com.example.monefy.basic.functionality.model.TypeCurrency;
+import com.example.monefy.basic.functionality.model.currency.TypeCurrency;
 import com.example.monefy.basic.functionality.fragment.dialogModal.TypeSelectModal;
 import com.example.monefy.basic.functionality.model.income.TypeIncomes;
 import com.example.monefy.basic.functionality.model.income.TypeFrequency;

@@ -1,25 +1,23 @@
 package com.example.monefy.basic.functionality.model.billings;
 
-import com.example.monefy.basic.functionality.model.CurrencyNbu;
-import com.example.monefy.basic.functionality.model.billings.Billings;
-import com.example.monefy.basic.functionality.model.billings.TypeBillings;
+import com.example.monefy.basic.functionality.model.currency.CurrencyPrivateBank;
 
 import java.util.List;
 
 public class TotalSavings {
     private long amount;
     private List<Billings> billings;
-    private List<CurrencyNbu> currencyNbuS;
+    private List<CurrencyPrivateBank> currencyPrivateBankS;
 
-    public TotalSavings(long amount, List<Billings> billings, List<CurrencyNbu> currencyNbuS) {
+    public TotalSavings(long amount, List<Billings> billings, List<CurrencyPrivateBank> currencyPrivateBankS) {
         this.amount = amount;
         this.billings = billings;
-        this.currencyNbuS = currencyNbuS;
+        this.currencyPrivateBankS = currencyPrivateBankS;
     }
 
     private void calculatingTotalSavings(){
         for(Billings billing : billings){
-            if(billing.getTypeBillings().equals(TypeBillings.CUMULATIVE.getTitle())){
+            if(billing.getTypeBillings().equals(TypeBillings.CUMULATIVE.getCCY())){
 
                 if(billing.getTypeCurrency().equals("UAH")){
                     amount = amount + billing.getBalance();
@@ -40,10 +38,12 @@ public class TotalSavings {
     }
 
     private long getCourseByCurrency(String currency){
-        for(CurrencyNbu currencyNbu : currencyNbuS){
-            if(currencyNbu.getCc().equals(currency)){
+        for(CurrencyPrivateBank currencyPrivateBank : currencyPrivateBankS){
+            /*if(currencyNbu.getCc().equals(currency)){
                 return (long) currencyNbu.getRate();
             }
+
+             */
         }
         return 0;
     }

@@ -59,11 +59,11 @@ public class BillingDetailsFragment extends Fragment implements BillingDetailsLi
     }
 
     private void checkTypeBillings(String argTypeBillings){
-        if (argTypeBillings.equals(TypeBillings.ORDINARY.getTitle())){
+        if (argTypeBillings.equals(TypeBillings.ORDINARY.getCCY())){
             showOrdinaryDetails(argTypeBillings);
-        }else if (argTypeBillings.equals(TypeBillings.DEBT.getTitle())) {
+        }else if (argTypeBillings.equals(TypeBillings.DEBT.getCCY())) {
             showDebtDetails(argTypeBillings);
-        }else if (argTypeBillings.equals(TypeBillings.CUMULATIVE.getTitle())) {
+        }else if (argTypeBillings.equals(TypeBillings.CUMULATIVE.getCCY())) {
             showCumulativeDetails(argTypeBillings);
         }
     }
@@ -123,24 +123,24 @@ public class BillingDetailsFragment extends Fragment implements BillingDetailsLi
     }
 
     public Map<String, Object> getBillingMapData(){
-        if (argTypeBillings.equals(TypeBillings.ORDINARY.getTitle())){
+        if (argTypeBillings.equals(TypeBillings.ORDINARY.getCCY())){
             Ordinary ordinary = (Ordinary) ordinaryFragment.getBilling();
             return ordinary.getCreateMap();
-        }else if (argTypeBillings.equals(TypeBillings.DEBT.getTitle())) {
+        }else if (argTypeBillings.equals(TypeBillings.DEBT.getCCY())) {
             Debt debt = (Debt) debtFragment.getBilling();
             return debt.getCreateMap();
-        }else if (argTypeBillings.equals(TypeBillings.CUMULATIVE.getTitle())) {
+        }else if (argTypeBillings.equals(TypeBillings.CUMULATIVE.getCCY())) {
             Cumulative cumulative = (Cumulative) cumulativeFragment.getBilling();
             return cumulative.getCreateMap();
         }
         return  null;
     }
     public Billings getBillingObject(){
-        if (argTypeBillings.equals(TypeBillings.ORDINARY.getTitle())){
+        if (argTypeBillings.equals(TypeBillings.ORDINARY.getCCY())){
             return  (Ordinary) ordinaryFragment.getBilling();
-        }else if (argTypeBillings.equals(TypeBillings.DEBT.getTitle())) {
+        }else if (argTypeBillings.equals(TypeBillings.DEBT.getCCY())) {
             return  (Debt) debtFragment.getBilling();
-        }else if (argTypeBillings.equals(TypeBillings.CUMULATIVE.getTitle())) {
+        }else if (argTypeBillings.equals(TypeBillings.CUMULATIVE.getCCY())) {
            return (Cumulative) cumulativeFragment.getBilling();
         }
         return  null;

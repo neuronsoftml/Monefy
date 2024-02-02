@@ -1,7 +1,7 @@
 package com.example.monefy.Manager.dialogModal;
 
 import com.example.monefy.basic.functionality.fragment.dialogModal.TypeSelectModal;
-import com.example.monefy.basic.functionality.model.TypeCurrency;
+import com.example.monefy.basic.functionality.model.currency.TypeCurrency;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.basic.functionality.model.billings.TypeDebtorSide;
 import com.example.monefy.basic.functionality.model.income.TypeFrequency;
