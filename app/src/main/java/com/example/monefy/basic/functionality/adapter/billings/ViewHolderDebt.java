@@ -17,7 +17,7 @@ import com.example.monefy.basic.functionality.model.billings.Debt;
 import java.text.ParseException;
 
 public class ViewHolderDebt extends RecyclerView.ViewHolder {
-    private TextView name, debtor, balance, typeCurrency, returnDate;
+    private TextView name, debtor, balance, typeCurrency, returnDate, dateCreate;
     private ProgressBar progressBar;
 
     public ViewHolderDebt(@NonNull View itemView) {
@@ -32,6 +32,7 @@ public class ViewHolderDebt extends RecyclerView.ViewHolder {
         debtor = itemView.findViewById(R.id.txtDebtor);
         returnDate = itemView.findViewById(R.id.returnDate);
         progressBar = itemView.findViewById(R.id.progressBar);
+        dateCreate = itemView.findViewById(R.id.textDateCreate);
     }
 
     public void setValueUIElement(Billings billings) throws ParseException {
@@ -56,5 +57,9 @@ public class ViewHolderDebt extends RecyclerView.ViewHolder {
                         ManagerDate.convertFirebaseDateToString(
                                 debt.getReturnDate()) )
         ));
+
+
+        String date = ManagerDate.convertFirebaseDateToString(debt.getDateReceived());
+        dateCreate.setText(ManagerDate.convertFirebaseDateToLocalDate(date));
     }
 }

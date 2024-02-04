@@ -56,8 +56,8 @@ public class BillingsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (billing instanceof Ordinary) {
             ViewHolderOrdinary viewHolderOrdinary = (ViewHolderOrdinary) holder;
             viewHolderOrdinary.setValueUIElement(billing);
-
             handlerClickItem(holder.itemView, position);
+
         } else if (billing instanceof Debt) {
             ViewHolderDebt viewHolderDebt = (ViewHolderDebt) holder;
             try {
@@ -65,10 +65,9 @@ public class BillingsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-
             handlerClickItem(holder.itemView, position);
+
         } else if (billing instanceof Cumulative) {
-            // Тут потрібно зробити кастинг
             ViewHolderCumulative viewHolderCumulative = (ViewHolderCumulative) holder;
             viewHolderCumulative.setValueUIElement(billing);
             handlerClickItem(holder.itemView, position);

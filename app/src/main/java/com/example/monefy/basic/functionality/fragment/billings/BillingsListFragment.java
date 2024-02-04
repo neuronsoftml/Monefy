@@ -40,6 +40,7 @@ public class BillingsListFragment extends Fragment {
     private final BillingsManager billingsManager = BillingsManager.getBillingsManager();
     private InfoBoardBillingsFragment infoBoardBillingsFragment;
     private HorizontalPageIndicator horizontalBillingsIndicator;
+    private BillingsFragment billingsFragment;
 
     private HistoryBillingsFragment historyBillingsFragment;
 
@@ -66,6 +67,7 @@ public class BillingsListFragment extends Fragment {
            billings.clear();
            billings = billingsManager.getBillingsList();
            infoBoardBillingsFragment.onDataLoaded();
+           billingsFragment.setDataCounterBillings(billings.size());
            showBillingsList();
            handlerClickItemListBillings();
 
@@ -216,21 +218,12 @@ public class BillingsListFragment extends Fragment {
         horizontalBillingsIndicator.setPageCount(billings.size());
     }
 
-    private int calculatePageCount(int itemCount) {
-        // Припустимо, що ви хочете, щоб на кожній сторінці відображалося 5 рахунків
-        final int itemsPerPage = 5;
-        return (int) Math.ceil((double) itemCount / itemsPerPage);
-    }
-
     private void recyclerViewScrollListener(){
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                final int THRESHOLD_SCROLL = 5; // Мінімальна кількість пікселів для прокрутки
-
-                // Отримання LayoutManager
                 // Отримання LayoutManager
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
@@ -248,5 +241,9 @@ public class BillingsListFragment extends Fragment {
 
     public void setHistoryBillingsFragment(HistoryBillingsFragment historyBillingsFragment) {
         this.historyBillingsFragment = historyBillingsFragment;
+    }
+
+    public void setBillingsFragment(BillingsFragment billingsFragment) {
+        this.billingsFragment = billingsFragment;
     }
 }

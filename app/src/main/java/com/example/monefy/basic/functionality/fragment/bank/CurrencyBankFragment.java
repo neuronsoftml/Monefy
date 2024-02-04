@@ -34,13 +34,10 @@ public class CurrencyBankFragment extends Fragment {
 
     private final List<CurrencyPrivateBank> currencyPrivateBankList = new ArrayList<>();
     private final List<CurrencyMonoBank> currencyMonoBanksList = new ArrayList<>();
-    private InfoBoardBillingsFragment infoBoardBillingsFragment;
-    private InfoBoardIncomeFragment infoBoardIncomeFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -72,21 +69,13 @@ public class CurrencyBankFragment extends Fragment {
         this.tVRateEUR_SALE_monoBank = view.findViewById(R.id.tvSaleEUR_MonoBank);
     }
 
-    /** Цей метод здійснює загрузку курса валют з Приват банк*/
+    /** Цей метод здійснює завантаження курса валют з Приват банк*/
     private void loadCurrencyPrivateBank() {
         PrivateBankManager.currencyParse(new CallbackBank() {
             @Override
             public void onResponse() {
                 currencyPrivateBankList.addAll(PrivateBankManager.getCurrencyRates());
-
                 setDataCurrencyPrivateBankUI();
-
-                if(infoBoardBillingsFragment != null){
-                    infoBoardBillingsFragment.onDataLoaded();
-                }
-                if(infoBoardIncomeFragment != null){
-                    infoBoardIncomeFragment.onDataLoaded();
-                }
             }
 
             @Override
@@ -150,17 +139,4 @@ public class CurrencyBankFragment extends Fragment {
             }
         }
     }
-
-    public List<CurrencyPrivateBank> getCurrencyPrivateBankList() {
-        return currencyPrivateBankList;
-    }
-
-    public void setInfoBoardBillingFragment(InfoBoardBillingsFragment infoBoardBillingsFragment) {
-        this.infoBoardBillingsFragment = infoBoardBillingsFragment;
-    }
-
-    public void setInfoBoardIncomeFragment(InfoBoardIncomeFragment infoBoardIncomeFragment) {
-        this.infoBoardIncomeFragment = infoBoardIncomeFragment;
-    }
-
 }

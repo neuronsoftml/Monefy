@@ -57,7 +57,7 @@ public class ManagerDate {
     }
 
     /**
-     * Цей метод приймає дату, конвертує дату у формат локального використання.
+     * Цей метод приймає дату формату Firebase, конвертує дату у формат локального використання.
      * @param firebaseDateString "EEE MMM dd HH:mm:ss 'GMT'Z yyyy", Locale.ENGLISH
      * @return повертає дату формата localDate
      */

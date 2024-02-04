@@ -8,20 +8,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.monefy.Manager.message.MessageManager;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.history.HistoryBillingsFragment;
 
+/** Цей класс містить сукумність інших фрагментів, для відображення:
+ *  1) спиcок рахунків.
+ *  2) список історії рахунку.
+ *  3) інформаційна панель
+ *  4) лічильник кількості рахунків.
+ *  5) лічильник кількості повідомлень.
+ */
 public class BillingsFragment extends Fragment {
 
     private FragmentContainerView fragBillings;
     private FragmentContainerView fragInformationBoard;
     private FragmentContainerView fragHistoryBill;
+    private Button btnBack;
+    private TextView counterBillings, counterMessage;
+
     private final InfoBoardBillingsFragment infoBoardBillingsFragment = new InfoBoardBillingsFragment();
     private final HistoryBillingsFragment historyBillingsFragment = new HistoryBillingsFragment();
     private final BillingsListFragment billingsListFragment =  new BillingsListFragment();
-    private Button btnBack;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,23 +46,32 @@ public class BillingsFragment extends Fragment {
 
         setupUIElements(view);
         showFragInformationBord();
-        showFragBillings();
+        showFragBillingsList();
         showFragHistoryBilling();
         handlerClickBtnBack();
+        setUIDataElement();
         return view;
     }
 
+    /** Цей метод здійснює ініціалізацію UI елементів які знаходять в фрагменті
+     * @param view віджети
+     */
     private void setupUIElements(View view){
         this.fragBillings = view.findViewById(R.id.fragBillings);
         this.fragInformationBoard = view.findViewById(R.id.informationBoard);
         this.fragHistoryBill = view.findViewById(R.id.fragCotHistoryBill);
         this.btnBack = view.findViewById(R.id.btnBack);
+        this.counterBillings = view.findViewById(R.id.textCollBillings);
+        this.counterMessage = view.findViewById(R.id.textCollMessage);
     }
 
+    /**Цей метод відображає фрагмент який містить інформацію загального розрахунку, а саме:
+     * 1) Загальна сума збережених коштів накопичувальних рахунків.
+     * 2) Загальна сума боргів усіх типів.
+     * 3) Загальна сума коштів на рахунках типу "звичайний"
+     * */
     private void showFragInformationBord() {
-
         infoBoardBillingsFragment.setBillingsListFragment(billingsListFragment);
-
         FragmentNavigation.addFragmentInTheMiddleOfAnother(
                 getChildFragmentManager(),
                 infoBoardBillingsFragment,
@@ -60,8 +80,10 @@ public class BillingsFragment extends Fragment {
         );
     }
 
-    private void showFragBillings() {
+    /**Цей метод відображає фрагмент який містить список рахунків*/
+    private void showFragBillingsList() {
         billingsListFragment.setInfoBoardFragment(infoBoardBillingsFragment);
+        billingsListFragment.setBillingsFragment(this);
         FragmentNavigation.addFragmentInTheMiddleOfAnother(
                 getChildFragmentManager(),
                 billingsListFragment,
@@ -70,6 +92,7 @@ public class BillingsFragment extends Fragment {
         );
     }
 
+    /** Цей метод відображає фрагмент який містить список історії рахунку*/
     private void showFragHistoryBilling(){
         billingsListFragment.setHistoryBillingsFragment(historyBillingsFragment);
         FragmentNavigation.addFragmentInTheMiddleOfAnother(
@@ -80,10 +103,27 @@ public class BillingsFragment extends Fragment {
         );
     }
 
+    /** Цей метод обробляє подію кліку по кнопці назад*/
     private void handlerClickBtnBack(){
         btnBack.setOnClickListener(v->{
             getActivity().getSupportFragmentManager().popBackStack();
         });
+    }
+
+    /** Цей метод встановлює значення для UI елементів які знаходяться у фрагменті.*/
+    private void setUIDataElement(){
+        setDataCounterMessage();
+    }
+
+    /** Цей метод встановлює значення UI лічильнику кількості рахунків*/
+    public void setDataCounterBillings(int number){
+        counterBillings.setText(String.valueOf(number));
+    }
+
+    /** Цей метод встановлює значення UI лічильнику кількості повідомлень*/
+    private void setDataCounterMessage(){
+        int number = MessageManager.getMessageManager().getCollMessage();
+        counterMessage.setText(String.valueOf(number));
     }
 }
 

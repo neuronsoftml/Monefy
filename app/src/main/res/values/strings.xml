@@ -104,6 +104,7 @@
     <string name="textBack">назад</string>
     <string name="textHistoryBilling">Історія рахунку</string>
     <string name="textViewAll">Переглянути усі</string>
+    <string name="textDateCreate">Дата створення:</string>
 
 
     <string name="descriptionSignUp">виберіть один із варіантів створення користувача</string>
