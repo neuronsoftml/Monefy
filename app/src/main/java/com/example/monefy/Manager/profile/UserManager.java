@@ -21,7 +21,8 @@ public class UserManager {
 
     private static User user;
     public void loadGetUserData(DataLoadListener dataLoadListener){
-        FirebaseManager.getUserPersonalData(new OnUserDataCallback() {
+        FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
+        firebaseManager.getUserPersonalData(new OnUserDataCallback() {
             @Override
             public void onUserDataReceived(User user) {
                 updateUser(user);

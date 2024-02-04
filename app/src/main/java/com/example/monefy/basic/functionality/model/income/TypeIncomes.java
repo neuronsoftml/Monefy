@@ -18,14 +18,14 @@ public enum TypeIncomes implements ModalTypeItem {
     private String title;
 
     @Override
-    public String getCCY() {
+    public String getTitle() {
         return title;
     }
 
     @Override
     public String getIdentifier(String title) {
         for(TypeIncomes element : TypeIncomes.values()){
-            if(element.getCCY().equals(title)){
+            if(element.getTitle().equals(title)){
                 return element.toString();
             }
         }

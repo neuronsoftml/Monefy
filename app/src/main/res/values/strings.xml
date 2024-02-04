@@ -101,6 +101,9 @@
     <string name="textPrivateBank">Приват банк</string>
     <string name="textMonobank">monobank</string>
     <string name="textCurrenсy">курс валют</string>
+    <string name="textBack">назад</string>
+    <string name="textHistoryBilling">Історія рахунку</string>
+    <string name="textViewAll">Переглянути усі</string>
 
 
     <string name="descriptionSignUp">виберіть один із варіантів створення користувача</string>

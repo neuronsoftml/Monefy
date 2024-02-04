@@ -10,48 +10,102 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/titleView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBack">
+
+            <TextView
+                android:id="@+id/textCollBillings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="-15dp"
+                android:background="@drawable/warning_lite_round_orenge"
+                android:text="0"
+                android:translationZ="1dp"
+                app:layout_constraintBottom_toTopOf="@+id/imgBtnBill"
+                app:layout_constraintEnd_toEndOf="@+id/imgBtnBill"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/imgBtnBill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/shape_box_lite"
+                android:padding="5dp"
+                android:src="@drawable/icon_baseline_credit_card_24"
+                app:layout_constraintBottom_toBottomOf="@+id/titleView"
+                app:layout_constraintStart_toEndOf="@+id/titleView"
+                app:layout_constraintTop_toTopOf="@+id/titleView" />
+
+            <TextView
+                android:id="@+id/textCollMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/warning_lite_round_orenge"
+                android:text="0"
+                android:translationZ="1dp"
+                app:layout_constraintEnd_toEndOf="@+id/imgBtnMessage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/titleView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:gravity="start|top"
+                android:text="@string/textBillings"
+                android:textColor="@color/textPrimary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/imgBtnMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/shape_box_lite"
+                android:padding="5dp"
+                android:src="@drawable/icon_baseline_add_alert_24"
+                app:layout_constraintBottom_toBottomOf="@+id/titleView"
+                app:layout_constraintStart_toEndOf="@+id/imgBtnBill"
+                app:layout_constraintTop_toTopOf="@+id/titleView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="start|top"
-            android:text="@string/textBillings"
-            android:textColor="@color/textPrimary"
-            android:textSize="24sp"
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+            android:background="@drawable/button_lite_round_white"
+            android:drawableStart="@drawable/icon_baseline_arrow_back_24"
+            android:text="@string/textBack"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnIncome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:textSize="14sp"
-            android:text="@string/textIncomes"
-            android:textColor="@color/textPrimary"
-            android:textAllCaps="true"
-            android:background="@drawable/button_lite_white_v2"
-            android:minWidth="100dp"
-            android:minHeight="30dp"
-            android:elevation="10dp"
-            android:translationZ="1dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/informationBoard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/fragBillings"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnIncome">
+            app:layout_constraintTop_toBottomOf="@+id/fragBillings">
 
         </androidx.fragment.app.FragmentContainerView>
 
@@ -62,9 +116,19 @@
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/informationBoard">
+            app:layout_constraintTop_toBottomOf="@+id/topPanel">
 
         </androidx.fragment.app.FragmentContainerView>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragCotHistoryBill"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/informationBoard" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

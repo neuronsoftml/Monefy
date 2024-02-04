@@ -111,7 +111,8 @@ public class EditBillingsFragment extends Fragment {
         if(billingNew != null){
             billingNew.setId(billing.getId());
             if(!billingNew.equals(billing)){
-                FirebaseManager.updatedBillings(
+                FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
+                firebaseManager.updatedBillings(
                         billing.getId(),
                         billingDetailsFragment.getBillingMapData(),
                         new InConclusionCompleteListener() {

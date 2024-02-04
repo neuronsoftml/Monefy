@@ -10,61 +10,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragCurrencyNbu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/HorizontalScrollView">
-
-        </androidx.fragment.app.FragmentContainerView>
-
         <HorizontalScrollView
             android:id="@+id/HorizontalScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
             android:scrollbars="none"
-            app:layout_constraintBottom_toTopOf="@+id/fragCurrencyNbu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:id="@+id/linearLayout8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
-                    android:layout_width="170dp"
+                    android:layout_width="120dp"
                     android:layout_height="80dp"
                     android:background="@drawable/cart_lite"
                     android:elevation="4dp">
 
+
                     <ImageView
-                        android:id="@+id/imageView11"
+                        android:id="@+id/imageBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginEnd="15dp"
-                        android:src="@drawable/bicon_aseline_settings_18"
+                        android:src="@drawable/icon_baseline_account_balance_wallet_34"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tVSavings2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="@string/textBalance"
-                        android:textColor="@color/textPrimary"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.505"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,7 +53,7 @@
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tVSavings2">
+                        app:layout_constraintTop_toBottomOf="@+id/imageBalance">
 
                         <TextView
                             android:id="@+id/tvTotalAmount"
@@ -102,23 +79,22 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout2"
-                    android:layout_width="170dp"
+                    android:layout_width="120dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:background="@drawable/cart_lite"
                     android:elevation="4dp">
 
-                    <TextView
-                        android:id="@+id/tVSavings"
+                    <ImageView
+                        android:id="@+id/imageSavings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="@string/textSavings"
-                        android:textColor="@color/textPrimary"
-                        android:textSize="18sp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/icon_venture_capital"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
 
                     <LinearLayout
                         android:id="@+id/linearLayout6"
@@ -129,7 +105,7 @@
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tVSavings">
+                        app:layout_constraintTop_toBottomOf="@+id/imageSavings">
 
                         <TextView
                             android:id="@+id/tVTotalSavings"
@@ -151,32 +127,21 @@
                             android:textSize="16sp" />
                     </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/imageView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="15dp"
-                        android:src="@drawable/bicon_aseline_settings_18"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="170dp"
+                    android:layout_width="120dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:background="@drawable/cart_lite"
                     android:elevation="4dp">
 
-                    <TextView
-                        android:id="@+id/tVDebt"
+                    <ImageView
+                        android:id="@+id/imageView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/textDebtys"
-                        android:textColor="@color/textPrimary"
-                        android:textSize="18sp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/icon_debt"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -190,7 +155,7 @@
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tVDebt">
+                        app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
                         <TextView
                             android:id="@+id/tVTotalDebtOweMe"
@@ -222,9 +187,11 @@
                     <LinearLayout
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:gravity="center"
                         android:maxWidth="150dp"
                         android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
@@ -256,15 +223,6 @@
                             android:src="@drawable/baseline_vertical_align_bottom_16" />
                     </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/imageView12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="15dp"
-                        android:src="@drawable/bicon_aseline_settings_18"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </HorizontalScrollView>

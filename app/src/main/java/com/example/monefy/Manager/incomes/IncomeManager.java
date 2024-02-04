@@ -29,7 +29,8 @@ public class IncomeManager {
     }
 
     public void loadIncomes(DataLoadListener dataLoadListener){
-        FirebaseManager.getIncomesData(new OnIncomesCallback() {
+        FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
+        firebaseManager.getIncomesData(new OnIncomesCallback() {
             @Override
             public void onIncomesDataReceived(List<Income> incomesList) {
                 updateIncome(incomesList);

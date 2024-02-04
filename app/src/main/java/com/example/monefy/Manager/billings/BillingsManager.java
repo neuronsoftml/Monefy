@@ -51,7 +51,8 @@ public class BillingsManager {
      * loadBillings - Здійснює загрузку рахунків.
      */
     public void loadBillings(DataLoadListener dataLoadListener){
-        FirebaseManager.getBillingsData(new OnBillingsCallback() {
+        FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
+        firebaseManager.getBillingsData(new OnBillingsCallback() {
             @Override
             public void onDataNotFound() {
                 Log.d("error","Відсутні дані");;
@@ -88,7 +89,7 @@ public class BillingsManager {
         List<Billings> billings = new ArrayList<>();
         for(Billings bill : billingList){
             for(TypeBillings typeBill : typeBillings){
-                if(bill.getTypeBillings().equals(typeBill.getCCY())){
+                if(bill.getTypeBillings().equals(typeBill.getTitle())){
                     billings.add(bill);
                     break;
                 }
@@ -106,7 +107,7 @@ public class BillingsManager {
     public static List<Billings> sortingBillings(List<Billings> billingList, TypeBillings typeBillings){
         List<Billings> billings = new ArrayList<>();
         for(Billings bill : billingList){
-            if(bill.getTypeBillings().equals(typeBillings.getCCY())){
+            if(bill.getTypeBillings().equals(typeBillings.getTitle())){
                 billings.add(bill);
             }
         }

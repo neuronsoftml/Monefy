@@ -275,6 +275,8 @@ public class ModalTransferFragment extends DialogFragment {
      *
      */
     private void updateBillings() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
+
         theBillFromWhichWeDebit.setBalance(
                 theBillFromWhichWeDebit.getBalance() - writeOffAmount
         );
@@ -282,8 +284,7 @@ public class ModalTransferFragment extends DialogFragment {
         theBillToWhichWeTransfer.setBalance(
                 theBillToWhichWeTransfer.getBalance() + setUpAmount
         );
-
-        FirebaseManager.updatedBillings(
+        firebaseManager.updatedBillings(
                 theBillFromWhichWeDebit.getId(),
                 BillingsManager.getBillingMapData(theBillFromWhichWeDebit),
                 new InConclusionCompleteListener() {
@@ -300,7 +301,7 @@ public class ModalTransferFragment extends DialogFragment {
                 }
         );
 
-        FirebaseManager.updatedBillings(
+        firebaseManager.updatedBillings(
                 theBillToWhichWeTransfer.getId(),
                 BillingsManager.getBillingMapData(theBillToWhichWeTransfer),
                 new InConclusionCompleteListener() {

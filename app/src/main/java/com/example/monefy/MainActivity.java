@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity{
 
     //Механіка аторизації на FireBase.
     private void handlerSignIn(String email, String password) {
-        AuthenticationManager.signInWithEmailAndPasswordCallback(
+        AuthenticationManager authenticationManager = AuthenticationManager.getAuthenticationManager();
+        authenticationManager.signInWithEmailAndPasswordCallback(
                 FirebaseAuth.getInstance(),
                 email, password,
                 new InConclusionCompleteListener() {

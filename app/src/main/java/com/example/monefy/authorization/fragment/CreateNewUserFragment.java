@@ -1,5 +1,6 @@
 package com.example.monefy.authorization.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -24,15 +25,12 @@ public class CreateNewUserFragment extends Fragment{
     private Button btnNext;
     private EditText inputEmail, inputPass;
     private TextView errorTextMessage;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_user, container, false);
-
         setupUIElements(view);
-
         clickButtonNext();
 
         return view;
@@ -92,7 +90,8 @@ public class CreateNewUserFragment extends Fragment{
 
     //Створює нового користувача у FireBase
     private void createNewUser(String email, String password){
-        FirebaseManager.createNewUserWithEmailPassword(getActivity(), email, password,
+        FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
+        firebaseManager.createNewUserWithEmailPassword(requireActivity(), email, password,
                 new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {
@@ -103,10 +102,10 @@ public class CreateNewUserFragment extends Fragment{
                         VerificationEmailFragment verificationEmailFragment = new VerificationEmailFragment();
                         verificationEmailFragment.setArguments(data);
                         FragmentNavigation.replaceFragment(
-                                getChildFragmentManager(),
+                                getActivity().getSupportFragmentManager(),
                                 verificationEmailFragment,
                                 FragmentNavigation.getContainerVerification(),
-                                "verificationEmailFragment"
+                                "VerificationEmailFragment"
                         );
                     }
 

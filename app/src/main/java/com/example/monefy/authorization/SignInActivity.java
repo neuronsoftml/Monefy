@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.monefy.LobbyActivity;
 import com.example.monefy.basic.functionality.HomeActivity;
 import com.example.monefy.R;
 import com.example.monefy.local.database.ManagerLocalDataBase;
@@ -23,12 +24,14 @@ public class SignInActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPass;
     private Button btnSignIn;
+    private Button btnClose;
     private Switch switchSaveMy;
     private TextView recoverPass, errorTextMessage;
 
     //Визначення обєктів активності.
     private void setupUIElements() {
         this.btnSignIn = (Button) findViewById(R.id.buttonSingIn);
+        this.btnClose = (Button) findViewById(R.id.btnClose);
 
         this.inputEmail = (EditText) findViewById(R.id.inputEmail);
         this.inputPass = (EditText) findViewById(R.id.inputPassword);
@@ -45,15 +48,14 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         setupUIElements();
-
         handlerClickButton();
-
     }
 
     //Обронник кліків по кнопках.
     private void handlerClickButton(){
         clickButtonSignIn();
         clickTextRecoverPassword();
+        clickButtonClose();
     }
 
     //Обронник кліка по реєстрації.
@@ -72,7 +74,8 @@ public class SignInActivity extends AppCompatActivity {
 
     //Механіка аторизацї на FireBase.
     private void handlerSignIn(String email, String password) {
-        AuthenticationManager.signInWithEmailAndPasswordCallback(
+        AuthenticationManager authenticationManager = AuthenticationManager.getAuthenticationManager();
+        authenticationManager.signInWithEmailAndPasswordCallback(
                 FirebaseAuth.getInstance(),
                 email,
                 password, new InConclusionCompleteListener() {
@@ -110,6 +113,13 @@ public class SignInActivity extends AppCompatActivity {
         recoverPass.setOnClickListener(v -> navigationToResetPassword());
     }
 
+    private void clickButtonClose(){
+        btnClose.setOnClickListener(v -> {
+            Intent intent = new Intent(this, LobbyActivity.class);
+            startActivity(intent);
+        });
+    }
+
     //Виводить повідомлення помилки
     private void showErrorMessage(int id){
         errorTextMessage.setVisibility(View.VISIBLE);
@@ -140,5 +150,6 @@ public class SignInActivity extends AppCompatActivity {
         }
         ManagerLocalDataBase.createUserToId(getApplicationContext(),email,password, switchSaveMy.isChecked());
     }
+
 
 }

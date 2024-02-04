@@ -1,6 +1,6 @@
 package com.example.monefy.basic.functionality.fragment.dialogModal;
 
 public interface ModalTypeItem {
-    String getCCY();
+    String getTitle();
     String getIdentifier(String title);
 }

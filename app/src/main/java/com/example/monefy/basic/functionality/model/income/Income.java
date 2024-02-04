@@ -77,19 +77,19 @@ public class Income {
     }
 
     public int getImageIncome(){
-        if(category.equals(TypeIncomes.BUSINESS.getCCY())){
+        if(category.equals(TypeIncomes.BUSINESS.getTitle())){
             return R.drawable.baseline_business_center_24;
-        }else if(category.equals(TypeIncomes.FREELANCE.getCCY())){
+        }else if(category.equals(TypeIncomes.FREELANCE.getTitle())){
             return R.drawable.baseline_handshake_24;
-        }else if(category.equals(TypeIncomes.INVESTMENTS.getCCY())){
+        }else if(category.equals(TypeIncomes.INVESTMENTS.getTitle())){
             return R.drawable.baseline_equalizer_24;
-        }else if (category.equals(TypeIncomes.PENSIONS.getCCY())) {
+        }else if (category.equals(TypeIncomes.PENSIONS.getTitle())) {
             return R.drawable.baseline_assist_walker_24;
-        }else if (category.equals(TypeIncomes.REAL_ESTATE.getCCY())) {
+        }else if (category.equals(TypeIncomes.REAL_ESTATE.getTitle())) {
             return R.drawable.baseline_home_work_24;
-        }else if (category.equals(TypeIncomes.SALARY.getCCY())) {
+        }else if (category.equals(TypeIncomes.SALARY.getTitle())) {
             return R.drawable.baseline_account_balance_wallet_24;
-        } else if (category.equals(TypeIncomes.SUBSIDIES.getCCY())) {
+        } else if (category.equals(TypeIncomes.SUBSIDIES.getTitle())) {
             return R.drawable.baseline_volunteer_activism_24;
         }
         return 0;
@@ -111,9 +111,9 @@ public class Income {
     }
 
     public int getMaxProgress(){
-        if(frequency.equals(TypeFrequency.DAILY.getCCY())){
+        if(frequency.equals(TypeFrequency.DAILY.getTitle())){
             return 1;
-        } else if (frequency.equals(TypeFrequency.MONTHKY.getCCY())) {
+        } else if (frequency.equals(TypeFrequency.MONTHKY.getTitle())) {
             Calendar calendar = Calendar.getInstance(); // Отримуємо поточну дату
             return calendar.getActualMaximum(Calendar.DAY_OF_MONTH); // Отримуємо кількість днів у місяці
         }

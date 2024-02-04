@@ -7,8 +7,33 @@
     tools:context=".basic.functionality.fragment.billings.BillingsListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.example.monefy.basic.functionality.adapter.billings.HorizontalPageIndicator
+            android:id="@+id/horizontalBillingsIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listItemBillings" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listItemBillings"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:reverseLayout="false"
+            app:stackFromEnd="false" />
 
         <TextView
             android:id="@+id/tVMessage"
@@ -22,16 +47,5 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listItemBillings"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_margin="0dp"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        android:scrollbars="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:reverseLayout="false"
-        app:stackFromEnd="false" />
 
 </FrameLayout>

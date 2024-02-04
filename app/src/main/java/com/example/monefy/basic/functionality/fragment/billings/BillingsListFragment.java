@@ -2,9 +2,13 @@ package com.example.monefy.basic.functionality.fragment.billings;
 
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +16,14 @@ import android.widget.TextView;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.billings.BillingsListAdapter;
+import com.example.monefy.basic.functionality.adapter.billings.HorizontalPageIndicator;
 import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.dialogModal.BillingDialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTransferFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectReplenishment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectBilling;
+import com.example.monefy.basic.functionality.fragment.history.HistoryBillingsFragment;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.Manager.billings.BillingsManager;
 import com.example.monefy.Manager.message.ToastManager;
@@ -33,10 +39,14 @@ public class BillingsListFragment extends Fragment {
     private Context context;
     private final BillingsManager billingsManager = BillingsManager.getBillingsManager();
     private InfoBoardBillingsFragment infoBoardBillingsFragment;
+    private HorizontalPageIndicator horizontalBillingsIndicator;
+
+    private HistoryBillingsFragment historyBillingsFragment;
 
     private void setupUIElements(View view){
         this.tvMessage = view.findViewById(R.id.tVMessage);
         this.recyclerView = view.findViewById(R.id.listItemBillings);
+        this.horizontalBillingsIndicator = view.findViewById(R.id.horizontalBillingsIndicator);
     }
 
     @Override
@@ -62,6 +72,9 @@ public class BillingsListFragment extends Fragment {
            if(billings.size() == 0){
                tvMessage.setVisibility(View.VISIBLE);
            }
+
+           showHorizontalBillingsIndicator();
+           recyclerViewScrollListener();
        });
 
 
@@ -195,5 +208,45 @@ public class BillingsListFragment extends Fragment {
     private void updateListBillings(){
         billingsListAdapter.notifyDataSetChanged();
         billingsManager.loadBillings(() -> infoBoardBillingsFragment.updateInfoBord(billingsManager.getBillingsList()));
+
+        showHorizontalBillingsIndicator();
+    }
+
+    private void showHorizontalBillingsIndicator(){
+        horizontalBillingsIndicator.setPageCount(billings.size());
+    }
+
+    private int calculatePageCount(int itemCount) {
+        // Припустимо, що ви хочете, щоб на кожній сторінці відображалося 5 рахунків
+        final int itemsPerPage = 5;
+        return (int) Math.ceil((double) itemCount / itemsPerPage);
+    }
+
+    private void recyclerViewScrollListener(){
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                final int THRESHOLD_SCROLL = 5; // Мінімальна кількість пікселів для прокрутки
+
+                // Отримання LayoutManager
+                // Отримання LayoutManager
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+                // Отримання індексу центрального елемента
+                int centerIndex = layoutManager.findFirstCompletelyVisibleItemPosition() + (layoutManager.findLastCompletelyVisibleItemPosition() - layoutManager.findFirstCompletelyVisibleItemPosition()) / 2;
+
+                // Оновлення індикатора
+                horizontalBillingsIndicator.setCurrentPage(centerIndex);
+                if(centerIndex != -1){
+                    historyBillingsFragment.updateDataHistory(billings.get(centerIndex));
+                }
+            }
+        });
+    }
+
+    public void setHistoryBillingsFragment(HistoryBillingsFragment historyBillingsFragment) {
+        this.historyBillingsFragment = historyBillingsFragment;
     }
 }

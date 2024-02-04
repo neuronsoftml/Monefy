@@ -24,7 +24,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/containerVerification"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
     </androidx.fragment.app.FragmentContainerView>
 
     <Button
-        android:id="@+id/BtnClose"
+        android:id="@+id/btnClose"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="25dp"

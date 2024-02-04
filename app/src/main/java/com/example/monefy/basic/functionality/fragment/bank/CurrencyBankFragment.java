@@ -32,8 +32,8 @@ public class CurrencyBankFragment extends Fragment {
     private TextView tVRateUSD_BAY_monoBank, tVRateEUR_BAY_monoBank;
     private TextView tVRateUSD_SALE_monoBank, tVRateEUR_SALE_monoBank;
 
-    private List<CurrencyPrivateBank> currencyPrivateBankList = new ArrayList<>();
-    private List<CurrencyMonoBank> currencyMonoBanksList = new ArrayList<>();
+    private final List<CurrencyPrivateBank> currencyPrivateBankList = new ArrayList<>();
+    private final List<CurrencyMonoBank> currencyMonoBanksList = new ArrayList<>();
     private InfoBoardBillingsFragment infoBoardBillingsFragment;
     private InfoBoardIncomeFragment infoBoardIncomeFragment;
 
@@ -91,7 +91,7 @@ public class CurrencyBankFragment extends Fragment {
 
             @Override
             public void onFailure() {
-                Log.v("NBU","ПОМИЛКА ЗЄДНАННЯ НБУ");
+                Log.e("PrivatBank","ПОМИЛКА ЗЄДНАННЯ ПриватБанк");
             }
         });
     }
@@ -107,7 +107,7 @@ public class CurrencyBankFragment extends Fragment {
 
             @Override
             public void onFailure() {
-
+                Log.e("MonoBank","ПОМИЛКА ЗЄДНАННЯ МоноБанк");
             }
         });
     }

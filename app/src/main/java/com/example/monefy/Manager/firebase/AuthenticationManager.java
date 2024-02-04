@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class AuthenticationManager {
     private static AuthenticationManager authenticationManager;
-
+    private boolean isUserLogIn = false;
     public static AuthenticationManager getAuthenticationManager(){
         if(authenticationManager == null){
             authenticationManager = new AuthenticationManager();
@@ -13,7 +13,7 @@ public class AuthenticationManager {
         return authenticationManager;
     }
 
-    private static FirebaseUser currentUser;
+    private FirebaseUser currentUser;
 
     public FirebaseUser getCurrentUser() {
         return currentUser;
@@ -28,7 +28,7 @@ public class AuthenticationManager {
     }
 
     //Здійснює авторизацію.
-    public static void signInWithEmailAndPasswordCallback(
+    public void signInWithEmailAndPasswordCallback(
             FirebaseAuth mAuth,
             String email,
             String password,
@@ -38,8 +38,9 @@ public class AuthenticationManager {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        currentUser = mAuth.getCurrentUser(); // Отримання поточного користувача після успішного входу
+                        isUserLogIn = true;
                         if (listener != null) {
-                            currentUser = FirebaseAuth.getInstance().getCurrentUser();
                             listener.onSuccess();
                         }
                     } else {
@@ -54,7 +55,11 @@ public class AuthenticationManager {
                 });
     }
 
-    public static void signOut(){
+    public void signOut(){
         FirebaseAuth.getInstance().signOut();
+    }
+
+    public boolean getIsUserLogIn() {
+        return isUserLogIn;
     }
 }

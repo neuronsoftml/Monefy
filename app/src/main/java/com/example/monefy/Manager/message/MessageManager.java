@@ -29,7 +29,8 @@ public class MessageManager {
      * loadMessage - Здійснює загрузку повідомлень.
      */
     public void loadMessage(DataLoadListener dataLoadListener){
-        FirebaseManager.getMessageData(new OnMessageCallback() {
+        FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
+        firebaseManager.getMessageData(new OnMessageCallback() {
             @Override
             public void onMessageDataReceived(List<Message> messageList) {
                 updateMessageList(messageList);

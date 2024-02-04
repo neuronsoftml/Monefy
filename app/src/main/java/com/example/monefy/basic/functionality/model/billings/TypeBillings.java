@@ -16,14 +16,14 @@ public enum TypeBillings implements ModalTypeItem {
         this.title = title;
     }
 
-    public String getCCY() {
+    public String getTitle() {
         return title;
     }
 
     @Override
     public String getIdentifier(String title) {
         for(TypeBillings element: TypeBillings.values()){
-            if(element.getCCY().equals(title)){
+            if(element.getTitle().equals(title)){
                 return element.toString();
             }
         }
@@ -35,11 +35,11 @@ public enum TypeBillings implements ModalTypeItem {
     }
 
     public static int getIdImageTypeBillings(String typeBillings){
-        if(typeBillings.equals(TypeBillings.ORDINARY.getCCY())){
+        if(typeBillings.equals(TypeBillings.ORDINARY.getTitle())){
             return R.drawable.icon_credit_card_blue;
-        } else if (typeBillings.equals(TypeBillings.DEBT.getCCY())) {
+        } else if (typeBillings.equals(TypeBillings.DEBT.getTitle())) {
             return R.drawable.icon_credit_card_red;
-        } else if (typeBillings.equals(TypeBillings.CUMULATIVE.getCCY())){
+        } else if (typeBillings.equals(TypeBillings.CUMULATIVE.getTitle())){
             return R.drawable.icon_credit_card_gold;
         }
         return 0;

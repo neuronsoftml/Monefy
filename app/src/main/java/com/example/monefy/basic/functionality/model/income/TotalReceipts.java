@@ -17,7 +17,7 @@ public class TotalReceipts {
 
     private void calculatingTotalAmount(){
         for(Income income : incomes){
-            if(!income.getCategory().equals(TypeIncomes.INVESTMENTS.getCCY())){
+            if(!income.getCategory().equals(TypeIncomes.INVESTMENTS.getTitle())){
                 switch (income.getTypeCurrency()) {
                     case "UAH":
                         amount = amount + income.getAmount();

@@ -165,7 +165,6 @@ public class CumulativeFragment extends Fragment {
                             tvTypeCurrency.setText(data);
                             UpdateUI.resetStyleSelect(lirLatTypeCurrency, getResources());
                             billingDetailsFragment.onBillingTypeChanged(data);
-                            closeFragment();
                         }
                         @Override
                         public void onFailure(Exception exception) {

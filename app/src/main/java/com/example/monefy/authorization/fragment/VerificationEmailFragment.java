@@ -58,7 +58,8 @@ public class VerificationEmailFragment extends Fragment{
 
     //Переверяє чи пройшов користувач перевірку електроної скриньки.
     private void checkVerification(){
-        AuthenticationManager.signInWithEmailAndPasswordCallback(
+        AuthenticationManager authenticationManager = AuthenticationManager.getAuthenticationManager();
+        authenticationManager.signInWithEmailAndPasswordCallback(
                 FirebaseAuth.getInstance(),
                 email, pass,
                 new InConclusionCompleteListener() {

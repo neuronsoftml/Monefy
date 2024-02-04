@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import com.example.monefy.basic.functionality.fragment.bank.CallbackBank;
+import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.model.currency.CurrencyMonoBank;
 
 import java.util.ArrayList;
@@ -16,6 +17,15 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class MonoBankManager {
+    private CallbackBank callbackBank;
+    private static MonoBankManager monoBankManager;
+
+    public MonoBankManager getMonoBankManager() {
+        if(monoBankManager == null){
+            monoBankManager = new MonoBankManager();
+        }
+        return monoBankManager;
+    }
 
     private static List<CurrencyMonoBank> currencyMonoBanksRates = new ArrayList<>();
 

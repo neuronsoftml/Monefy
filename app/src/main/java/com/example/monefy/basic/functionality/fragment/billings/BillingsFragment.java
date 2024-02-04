@@ -11,14 +11,17 @@ import android.widget.Button;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
+import com.example.monefy.basic.functionality.fragment.history.HistoryBillingsFragment;
 
 public class BillingsFragment extends Fragment {
 
     private FragmentContainerView fragBillings;
     private FragmentContainerView fragInformationBoard;
-    private Button btnIncome;
+    private FragmentContainerView fragHistoryBill;
     private final InfoBoardBillingsFragment infoBoardBillingsFragment = new InfoBoardBillingsFragment();
+    private final HistoryBillingsFragment historyBillingsFragment = new HistoryBillingsFragment();
     private final BillingsListFragment billingsListFragment =  new BillingsListFragment();
+    private Button btnBack;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,16 @@ public class BillingsFragment extends Fragment {
         setupUIElements(view);
         showFragInformationBord();
         showFragBillings();
-        handlerBtnIncome();
+        showFragHistoryBilling();
+        handlerClickBtnBack();
         return view;
+    }
+
+    private void setupUIElements(View view){
+        this.fragBillings = view.findViewById(R.id.fragBillings);
+        this.fragInformationBoard = view.findViewById(R.id.informationBoard);
+        this.fragHistoryBill = view.findViewById(R.id.fragCotHistoryBill);
+        this.btnBack = view.findViewById(R.id.btnBack);
     }
 
     private void showFragInformationBord() {
@@ -59,15 +70,19 @@ public class BillingsFragment extends Fragment {
         );
     }
 
-    private void setupUIElements(View view){
-        this.fragBillings = view.findViewById(R.id.fragBillings);
-        this.fragInformationBoard = view.findViewById(R.id.informationBoard);
-        this.btnIncome = view.findViewById(R.id.btnIncome);
+    private void showFragHistoryBilling(){
+        billingsListFragment.setHistoryBillingsFragment(historyBillingsFragment);
+        FragmentNavigation.addFragmentInTheMiddleOfAnother(
+                getChildFragmentManager(),
+                historyBillingsFragment,
+                fragHistoryBill.getId(),
+                "HistoryBillingsFragment"
+        );
     }
 
-    private void handlerBtnIncome(){
-        btnIncome.setOnClickListener(v->{
-
+    private void handlerClickBtnBack(){
+        btnBack.setOnClickListener(v->{
+            getActivity().getSupportFragmentManager().popBackStack();
         });
     }
 }

@@ -97,8 +97,8 @@ public class ModalFunctionalSelect extends DialogModal implements TypeSelectModa
 
         private Button createButton(ModalTypeItem type) {
             Button button = new Button(context);
-            button.setText(type.getCCY());
-            button.setTag(type.getIdentifier(type.getCCY()));
+            button.setText(type.getTitle());
+            button.setTag(type.getIdentifier(type.getTitle()));
             button.setGravity(Gravity.CENTER_VERTICAL);
             button.setAllCaps(false);
             button.setBackgroundColor(Color.WHITE);

@@ -1,23 +1,22 @@
 package com.example.monefy.basic.functionality.model.billings;
 
 
-import com.example.monefy.basic.functionality.model.currency.CurrencyPrivateBank;
+import com.example.monefy.basic.functionality.model.currency.CurrencyMonoBank;
 import com.example.monefy.basic.functionality.model.currency.TypeCurrency;
 
 import java.util.List;
 
 public class TotalDebt {
 
-    private static final String UAH = TypeCurrency.UAH.getCCY();
-    private static final String USD = TypeCurrency.USD.getCCY();
-    private static final String EUR = TypeCurrency.EUR.getCCY();
+    private static final String UAH = TypeCurrency.UAH.getTitle();
+    private static final String USD = TypeCurrency.USD.getTitle();
+    private static final String EUR = TypeCurrency.EUR.getTitle();
+    private final List<Billings> billings;
+    private final List<CurrencyMonoBank> currencyMonoBankList;
 
-    private List<Billings> billings;
-    private List<CurrencyPrivateBank> currencyPrivateBankS;
-
-    public TotalDebt(List<Billings> billings, List<CurrencyPrivateBank> currencyPrivateBankS) {
+    public TotalDebt(List<Billings> billings, List<CurrencyMonoBank> currencyPrivateBankS) {
         this.billings = billings;
-        this.currencyPrivateBankS = currencyPrivateBankS;
+        this. currencyMonoBankList = currencyPrivateBankS;
     }
 
     public long calculateTotalDebtAmountInUAHByDebtor(String debtor) {
@@ -55,12 +54,10 @@ public class TotalDebt {
 
 
     private long getCourseByCurrency(String currency){
-        for(CurrencyPrivateBank currencyPrivateBank : currencyPrivateBankS){
-           /* if(currencyNbu.getCc().equals(currency)){
-                return (long) currencyNbu.getRate();
+        for(CurrencyMonoBank element :  currencyMonoBankList){
+            if(TypeCurrency.searchCurrencyCcy(element.getCurrencyCodeA()).equals(currency)){
+                return (long) element.getBuy();
             }
-
-            */
         }
         return 0;
     }

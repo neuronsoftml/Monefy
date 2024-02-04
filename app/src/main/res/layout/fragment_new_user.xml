@@ -45,7 +45,7 @@
             android:drawableEnd="@drawable/selector_icon_password"
             android:ems="13"
             android:hint="@string/textPassword"
-            android:inputType="textVisiblePassword"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputEmail" />

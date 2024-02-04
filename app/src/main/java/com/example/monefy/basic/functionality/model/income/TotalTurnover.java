@@ -17,7 +17,7 @@ public class TotalTurnover {
 
     private void calculatingTotalAmount(){
         for(Income income : incomes){
-            if(income.getCategory().equals(TypeIncomes.INVESTMENTS.getCCY()) || income.getCategory().equals(TypeIncomes.BUSINESS.getCCY())){
+            if(income.getCategory().equals(TypeIncomes.INVESTMENTS.getTitle()) || income.getCategory().equals(TypeIncomes.BUSINESS.getTitle())){
                 switch (income.getTypeCurrency()) {
                     case "UAH":
                         amount = amount + income.getAmount();

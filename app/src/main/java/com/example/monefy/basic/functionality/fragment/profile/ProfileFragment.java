@@ -60,7 +60,8 @@ public class ProfileFragment extends Fragment {
 
     private void handlerBtnLogout() {
         imgBtnLogout.setOnClickListener(v->{
-            AuthenticationManager.signOut();
+            AuthenticationManager authenticationManager = AuthenticationManager.getAuthenticationManager();
+            authenticationManager.signOut();
 
             ManagerLocalDataBase.deleteUserToId(getContext(),0);
 
