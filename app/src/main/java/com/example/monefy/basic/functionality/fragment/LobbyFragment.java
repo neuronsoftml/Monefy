@@ -12,20 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.monefy.Manager.billings.BillingsManager;
-import com.example.monefy.Manager.incomes.IncomeManager;
-import com.example.monefy.Manager.message.MessageManager;
-import com.example.monefy.Manager.profile.UserManager;
+import com.example.monefy.basic.functionality.controller.billings.BillingsController;
+import com.example.monefy.basic.functionality.controller.incomes.IncomeController;
+import com.example.monefy.basic.functionality.controller.message.MessageController;
+import com.example.monefy.basic.functionality.controller.user.UserController;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.bank.CurrencyBankFragment;
-import com.example.monefy.basic.functionality.model.DataLoadListener;
-import com.example.monefy.basic.functionality.model.message.Message;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
 
 
 public class LobbyFragment extends Fragment {
@@ -71,21 +66,19 @@ public class LobbyFragment extends Fragment {
 
     /** Цей метод встановлює значення UI елементів.*/
     private void setValueUIElement(){
-        BillingsManager.getBillingsManager().loadBillings(() -> {
-            btnCollBills.setText(String.valueOf(BillingsManager.getBillingsSize()));
+        BillingsController.getBillingsSize(size -> btnCollBills.setText(String.valueOf(size)));
+
+        IncomeController.getIncomeManager().loadIncomes(()->{
+            btnCollIncomes.setText(String.valueOf(IncomeController.getIncomeSize()));
         });
 
-        IncomeManager.getIncomeManager().loadIncomes(()->{
-            btnCollIncomes.setText(String.valueOf(IncomeManager.getIncomeSize()));
+        UserController.getUserManager().loadGetUserData(()->{
+            textNameUser.setText(UserController.getUser().getName());
         });
 
-        UserManager.getUserManager().loadGetUserData(()->{
-            textNameUser.setText(UserManager.getUser().getName());
-        });
-
-        MessageManager.getMessageManager().loadMessage(()->{
-            textCollMessage.setText(String.valueOf(MessageManager.getMessageManager().getCollMessage()));
-            textMessage.setText(MessageManager.getMessageManager().getLastMessageList().getMessage());
+        MessageController.getMessageManager().loadMessage(()->{
+            textCollMessage.setText(String.valueOf(MessageController.getMessageManager().getCollMessage()));
+            textMessage.setText(MessageController.getMessageManager().getLastMessageList().getMessage());
         });
     }
 

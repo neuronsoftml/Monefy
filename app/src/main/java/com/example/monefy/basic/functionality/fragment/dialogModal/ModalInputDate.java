@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
 
 import java.text.ParseException;
 

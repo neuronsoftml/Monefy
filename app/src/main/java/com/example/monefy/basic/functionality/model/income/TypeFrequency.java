@@ -1,6 +1,6 @@
 package com.example.monefy.basic.functionality.model.income;
 
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeItem;
+import com.example.monefy.basic.functionality.Interface.dialogModal.ModalTypeItem;
 
 public enum TypeFrequency implements ModalTypeItem {
     MONTHKY("щомісячно"),

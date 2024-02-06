@@ -8,25 +8,25 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.monefy.basic.functionality.Interface.billings.OnBillingsCallback;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.billings.BillingsListAdapter;
 import com.example.monefy.basic.functionality.adapter.billings.HorizontalPageIndicator;
-import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
-import com.example.monefy.basic.functionality.fragment.dialogModal.BillingDialogCallback;
-import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
+import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
+import com.example.monefy.basic.functionality.Interface.dialogModal.BillingDialogCallback;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTransferFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectReplenishment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectBilling;
 import com.example.monefy.basic.functionality.fragment.history.HistoryBillingsFragment;
 import com.example.monefy.basic.functionality.model.billings.Billings;
-import com.example.monefy.Manager.billings.BillingsManager;
-import com.example.monefy.Manager.message.ToastManager;
+import com.example.monefy.basic.functionality.controller.billings.BillingsController;
+import com.example.monefy.basic.functionality.controller.message.ToastController;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,7 +37,6 @@ public class BillingsListFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView  tvMessage;
     private Context context;
-    private final BillingsManager billingsManager = BillingsManager.getBillingsManager();
     private InfoBoardBillingsFragment infoBoardBillingsFragment;
     private HorizontalPageIndicator horizontalBillingsIndicator;
     private BillingsFragment billingsFragment;
@@ -62,35 +61,22 @@ public class BillingsListFragment extends Fragment {
        View view = inflater.inflate(R.layout.fragment_billings_list, container, false);
 
        setupUIElements(view);
-
-       billingsManager.loadBillings(() -> {
-           billings.clear();
-           billings = billingsManager.getBillingsList();
-           infoBoardBillingsFragment.onDataLoaded();
-           billingsFragment.setDataCounterBillings(billings.size());
-           showBillingsList();
-           handlerClickItemListBillings();
-
-           if(billings.size() == 0){
-               tvMessage.setVisibility(View.VISIBLE);
-           }
-
-           showHorizontalBillingsIndicator();
-           recyclerViewScrollListener();
-       });
-
+       loadListBillings();
 
        this.context = getContext();
        return view;
     }
 
-    private List<Billings> billings = new ArrayList<>();
+    private List<Billings> billingsList = new ArrayList<>();
     private BillingsListAdapter billingsListAdapter;
 
-    private void showBillingsList(){
-        billingsListAdapter = new BillingsListAdapter(billings);
-
-        recyclerView.setAdapter(billingsListAdapter);
+    private void showBillingsListAdapter(){
+        if(billingsListAdapter == null){
+            billingsListAdapter = new BillingsListAdapter(billingsList);
+            recyclerView.setAdapter(billingsListAdapter);
+        }else{
+            billingsListAdapter.notifyDataSetChanged();
+        }
     }
 
 
@@ -154,8 +140,8 @@ public class BillingsListFragment extends Fragment {
 
     private void handlerDelete(Billings billings){
         billingsListAdapter.removeBillings(billings);
-        updateListBillings();
-        ToastManager.showToastOnSuccessful(getContext(),R.string.textSuccessfulDeleteBillings);
+        loadListBillings();
+        ToastController.showToastOnSuccessful(getContext(),R.string.textSuccessfulDeleteBillings);
     }
 
     private void handlerEdit(Billings billings){
@@ -188,7 +174,7 @@ public class BillingsListFragment extends Fragment {
         modalTransferFragment.startDialogModal(new DialogCallback() {
             @Override
             public void onSuccess(String data) {
-                updateListBillings();
+                loadListBillings();
                 modalTransferFragment.dismiss();
             }
 
@@ -199,23 +185,29 @@ public class BillingsListFragment extends Fragment {
         });
     }
 
-    public void setInfoBoardFragment(InfoBoardBillingsFragment infoBoardBillingsFragment) {
-        this.infoBoardBillingsFragment = infoBoardBillingsFragment;
-    }
+    private void loadListBillings(){
+        BillingsController.getBillingsList(new OnBillingsCallback() {
+            @Override
+            public void onBillingsDataReceived(List<Billings> billingsList) {
+                BillingsListFragment.this.billingsList.clear();
+                BillingsListFragment.this.billingsList.addAll(billingsList);
+                infoBoardBillingsFragment.onDataLoaded();
+                billingsFragment.setDataCounterBillings(BillingsListFragment.this.billingsList.size());
+                showBillingsListAdapter();
+                handlerClickItemListBillings();
+                showHorizontalBillingsIndicator();
+                recyclerViewScrollListener();
+            }
 
-    public List<Billings> getBillings() {
-        return  billings;
-    }
-
-    private void updateListBillings(){
-        billingsListAdapter.notifyDataSetChanged();
-        billingsManager.loadBillings(() -> infoBoardBillingsFragment.updateInfoBord(billingsManager.getBillingsList()));
-
-        showHorizontalBillingsIndicator();
+            @Override
+            public void onDataNotFound() {
+                tvMessage.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void showHorizontalBillingsIndicator(){
-        horizontalBillingsIndicator.setPageCount(billings.size());
+        horizontalBillingsIndicator.setPageCount(billingsList.size());
     }
 
     private void recyclerViewScrollListener(){
@@ -233,7 +225,7 @@ public class BillingsListFragment extends Fragment {
                 // Оновлення індикатора
                 horizontalBillingsIndicator.setCurrentPage(centerIndex);
                 if(centerIndex != -1){
-                    historyBillingsFragment.updateDataHistory(billings.get(centerIndex));
+                    historyBillingsFragment.updateDataHistory(billingsList.get(centerIndex));
                 }
             }
         });
@@ -245,5 +237,13 @@ public class BillingsListFragment extends Fragment {
 
     public void setBillingsFragment(BillingsFragment billingsFragment) {
         this.billingsFragment = billingsFragment;
+    }
+
+    public void setInfoBoardFragment(InfoBoardBillingsFragment infoBoardBillingsFragment) {
+        this.infoBoardBillingsFragment = infoBoardBillingsFragment;
+    }
+
+    public List<Billings> getBillingsList() {
+        return billingsList;
     }
 }

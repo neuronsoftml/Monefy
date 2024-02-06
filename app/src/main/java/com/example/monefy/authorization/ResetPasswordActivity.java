@@ -3,16 +3,15 @@ package com.example.monefy.authorization;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.monefy.R;
-import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
-import com.example.monefy.Manager.firebase.FirebaseManager;
-import com.example.monefy.Manager.message.ToastManager;
+import com.example.monefy.basic.functionality.Interface.firebase.InConclusionCompleteListener;
+import com.example.monefy.basic.functionality.controller.firebase.FirebaseController;
+import com.example.monefy.basic.functionality.controller.message.ToastController;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 
@@ -53,9 +52,9 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     //Скидання пароля.
     private void resetPassword(String email){
-        FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
+        FirebaseController firebaseController = FirebaseController.getFirebaseManager();
 
-        firebaseManager.resetPasswordWithEmail( email,
+        firebaseController.resetPasswordWithEmail( email,
                 new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {
@@ -75,13 +74,13 @@ public class ResetPasswordActivity extends AppCompatActivity {
         errorTextMessage.setText(R.string.textSuccessfullyMessageSendEmail);
         errorTextMessage.setTextColor(getResources().getColor(R.color.blue));
         errorTextMessage.setVisibility(View.VISIBLE);
-        ToastManager.showToastOnSuccessful(getApplicationContext(), R.string.textSuccessfulMessageResetPass);
+        ToastController.showToastOnSuccessful(getApplicationContext(), R.string.textSuccessfulMessageResetPass);
     }
 
     //Обробник не успішного відпраленого повідомлення.
     private void handlerErrorSendMessageEmail(){
         errorTextMessage.setText(R.string.textErrorMessageNotFoundEmail);
         errorTextMessage.setVisibility(View.VISIBLE);
-        ToastManager.showToastOnFailure(getApplicationContext(),R.string.textFailureErrorTypeEmail);
+        ToastController.showToastOnFailure(getApplicationContext(),R.string.textFailureErrorTypeEmail);
     }
 }

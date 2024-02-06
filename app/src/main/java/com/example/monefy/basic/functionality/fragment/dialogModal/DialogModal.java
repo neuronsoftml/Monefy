@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogFunctional;
 
 public abstract class DialogModal implements DialogFunctional {
     private final Context context;

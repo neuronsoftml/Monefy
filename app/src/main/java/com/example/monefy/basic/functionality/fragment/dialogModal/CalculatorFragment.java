@@ -14,7 +14,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.monefy.Manager.message.ToastManager;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
+import com.example.monefy.basic.functionality.controller.message.ToastController;
 import com.example.monefy.R;
 
 import org.mozilla.javascript.Scriptable;
@@ -144,7 +145,7 @@ public class CalculatorFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ToastManager.showToastOnFailure(getContext(), R.string.textFailureEnteredTheData);
+            ToastController.showToastOnFailure(getContext(), R.string.textFailureEnteredTheData);
             return "0";
         } finally {
             org.mozilla.javascript.Context.exit();
@@ -221,14 +222,14 @@ public class CalculatorFragment extends Fragment {
             if (!balance.isEmpty() && checkMathSymbols(balance)) {
                 buttonSetUp.setImageDrawable(DRAWABLE_CHECK);
                 textViewModalBalance.setText(mathCalculation(balance));
-                ToastManager.showToastOnFailure(getContext(),R.string.textSuccessfulEnteredTheData);
+                ToastController.showToastOnFailure(getContext(),R.string.textSuccessfulEnteredTheData);
                 Log.e("Calculator","Розразунок");
             } else if (!balance.isEmpty() && !checkMathSymbols(balance)) {
                 if(dialogCallback != null){
                     dialogCallback.onSuccess(getTextViewBalance());
                 }
                 Log.e("Calculator","Вносимо зміни" + balance);
-                ToastManager.showToastOnFailure(getContext(),R.string.textSuccessfulEnteredTheData);
+                ToastController.showToastOnFailure(getContext(),R.string.textSuccessfulEnteredTheData);
             }
         });
     }

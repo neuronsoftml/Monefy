@@ -7,9 +7,8 @@ import android.widget.ImageButton;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.LobbyFragment;
-import com.example.monefy.basic.functionality.fragment.billings.BillingsFragment;
 import com.example.monefy.basic.functionality.fragment.CategoriesFragment;
-import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
+import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.OperationsFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalSelectCreate;
 import com.example.monefy.basic.functionality.fragment.profile.ProfileFragment;

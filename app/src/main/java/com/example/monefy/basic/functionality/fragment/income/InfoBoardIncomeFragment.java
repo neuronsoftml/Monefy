@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.fragment.bank.CurrencyBankFragment;
-import com.example.monefy.basic.functionality.model.DataLoadListener;
+import com.example.monefy.basic.functionality.Interface.DataLoadListener;
 import com.example.monefy.basic.functionality.model.income.Income;
 
 import java.util.List;

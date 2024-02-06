@@ -6,9 +6,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.example.monefy.Manager.dialogModal.ManagerType;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
+import com.example.monefy.basic.functionality.controller.enumType.EnumTypeController;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
+import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.billings.CreateBillingsFragment;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
@@ -52,7 +53,7 @@ public class ModalSelectCreate extends DialogModal {
             ModalFunctionalSelect modalFunctionalSelect = new ModalFunctionalSelect(
                     context,
                     R.string.textSelectTypeBillings,
-                    ManagerType.getTypesBillings(),
+                    EnumTypeController.getTypesBillings(),
                     TypeBillings.class,
                     new DialogCallback() {
                         @Override

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.monefy.MainActivity;
 import com.example.monefy.R;
-import com.example.monefy.Manager.firebase.AuthenticationManager;
+import com.example.monefy.basic.functionality.controller.firebase.AuthenticationController;
 import com.example.monefy.local.database.ManagerLocalDataBase;
 
 public class ProfileFragment extends Fragment {
@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment {
 
     private void displaysUserData(String Name, String lastName){
         textFullUserName.setText(Name + " " + lastName);
-        textEmail.setText(AuthenticationManager.getAuthenticationManager().getEmail());
+        textEmail.setText(AuthenticationController.getAuthenticationManager().getEmail());
     }
 
 
@@ -60,8 +60,8 @@ public class ProfileFragment extends Fragment {
 
     private void handlerBtnLogout() {
         imgBtnLogout.setOnClickListener(v->{
-            AuthenticationManager authenticationManager = AuthenticationManager.getAuthenticationManager();
-            authenticationManager.signOut();
+            AuthenticationController authenticationController = AuthenticationController.getAuthenticationManager();
+            authenticationController.signOut();
 
             ManagerLocalDataBase.deleteUserToId(getContext(),0);
 

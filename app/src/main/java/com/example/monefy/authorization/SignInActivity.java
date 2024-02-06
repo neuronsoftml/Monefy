@@ -15,9 +15,9 @@ import com.example.monefy.basic.functionality.HomeActivity;
 import com.example.monefy.R;
 import com.example.monefy.local.database.ManagerLocalDataBase;
 import com.example.monefy.local.database.model.User;
-import com.example.monefy.Manager.firebase.AuthenticationManager;
-import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
-import com.example.monefy.Manager.message.ToastManager;
+import com.example.monefy.basic.functionality.controller.firebase.AuthenticationController;
+import com.example.monefy.basic.functionality.Interface.firebase.InConclusionCompleteListener;
+import com.example.monefy.basic.functionality.controller.message.ToastController;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignInActivity extends AppCompatActivity {
@@ -74,8 +74,8 @@ public class SignInActivity extends AppCompatActivity {
 
     //Механіка аторизацї на FireBase.
     private void handlerSignIn(String email, String password) {
-        AuthenticationManager authenticationManager = AuthenticationManager.getAuthenticationManager();
-        authenticationManager.signInWithEmailAndPasswordCallback(
+        AuthenticationController authenticationController = AuthenticationController.getAuthenticationManager();
+        authenticationController.signInWithEmailAndPasswordCallback(
                 FirebaseAuth.getInstance(),
                 email,
                 password, new InConclusionCompleteListener() {
@@ -85,13 +85,13 @@ public class SignInActivity extends AppCompatActivity {
                             autoSaveLocalDate(email, password);
                         }
                         navigationToHome();
-                        ToastManager.showToastOnSuccessful(getApplicationContext(),R.string.textSuccessSignIn);
+                        ToastController.showToastOnSuccessful(getApplicationContext(),R.string.textSuccessSignIn);
                     }
 
                     @Override
                     public void onFailure(Exception exception) {
                         errorSignInHandler();
-                        ToastManager.showToastOnFailure(getApplicationContext(),R.string.textFailureSignIn);
+                        ToastController.showToastOnFailure(getApplicationContext(),R.string.textFailureSignIn);
                     }
                 });
     }

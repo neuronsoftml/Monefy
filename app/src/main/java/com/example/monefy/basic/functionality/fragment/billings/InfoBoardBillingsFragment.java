@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.example.monefy.R;
 
-import com.example.monefy.basic.functionality.fragment.bank.MonoBank.CallbackMonoBank;
-import com.example.monefy.basic.functionality.fragment.bank.MonoBank.MonoBankManager;
-import com.example.monefy.basic.functionality.model.DataLoadListener;
+import com.example.monefy.basic.functionality.Interface.bank.monoBank.CallbackMonoBank;
+import com.example.monefy.basic.functionality.controller.bank.monoBank.MonoBankController;
+import com.example.monefy.basic.functionality.Interface.DataLoadListener;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.Obligation;
 import com.example.monefy.basic.functionality.model.billings.TotalAmount;
@@ -56,8 +56,8 @@ public class InfoBoardBillingsFragment extends Fragment implements DataLoadListe
 
     @Override
     public void onDataLoaded() {
-        if((billingsListFragment.getBillings() != null)){
-            updateInfoBord(billingsListFragment.getBillings());
+        if((billingsListFragment.getBillingsList() != null)){
+            updateInfoBord(billingsListFragment.getBillingsList());
         }
     }
 
@@ -84,12 +84,12 @@ public class InfoBoardBillingsFragment extends Fragment implements DataLoadListe
     }
 
     private void loadCurrencyMonoBank(){
-        MonoBankManager monoBankManager = MonoBankManager.getMonoBankManager();
-        monoBankManager.getCurrencyMonoBanksRates(new CallbackMonoBank() {
+        MonoBankController monoBankController = MonoBankController.getMonoBankManager();
+        monoBankController.getCurrencyMonoBanksRates(new CallbackMonoBank() {
             @Override
             public void onResponse(List<CurrencyMonoBank> currencyMonoBankListCallBack) {
                 currencyMonoBankList.addAll(currencyMonoBankListCallBack);
-                updateInfoBord(billingsListFragment.getBillings());
+                updateInfoBord(billingsListFragment.getBillingsList());
             }
 
             @Override

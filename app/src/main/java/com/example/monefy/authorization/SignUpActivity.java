@@ -10,7 +10,7 @@ import android.widget.Button;
 import com.example.monefy.LobbyActivity;
 import com.example.monefy.R;
 import com.example.monefy.authorization.fragment.CreateNewUserFragment;
-import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
+import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
 
 public class SignUpActivity extends AppCompatActivity{
     private FragmentContainerView fragmentContainerView;

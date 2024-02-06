@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.Interface.navigation.ClickListener;
+
 public class ConfirmationFragment extends Fragment {
     private ImageButton imgBtnClose, imgBtnSetUp;
 

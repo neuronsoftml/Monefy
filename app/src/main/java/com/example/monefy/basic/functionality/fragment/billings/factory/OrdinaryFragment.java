@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.monefy.Manager.date.ManagerDate;
-import com.example.monefy.Manager.dialogModal.ManagerType;
+import com.example.monefy.basic.functionality.controller.date.DateController;
+import com.example.monefy.basic.functionality.controller.enumType.EnumTypeController;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.UI.UpdateUI;
 import com.example.monefy.basic.functionality.UI.UpdateUIError;
 import com.example.monefy.basic.functionality.fragment.billings.BillingDetailsFragment;
-import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalanceFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputText;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalFunctionalSelect;
@@ -125,7 +125,7 @@ public class OrdinaryFragment extends Fragment {
                 ModalFunctionalSelect modalFunctionalSelect = new ModalFunctionalSelect(
                         getContext(),
                         R.string.textSelectTypeBillings,
-                        ManagerType.getTypesBillings(),
+                        EnumTypeController.getTypesBillings(),
                         TypeBillings.class,
                         new DialogCallback() {
                             @Override
@@ -156,7 +156,7 @@ public class OrdinaryFragment extends Fragment {
             ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
                     getContext(),
                     R.string.textSelectTypeCurrencies,
-                    ManagerType.getTypeCurrency(),
+                    EnumTypeController.getTypeCurrency(),
                     TypeCurrency.class,
                     new DialogCallback() {
                         @Override
@@ -241,7 +241,7 @@ public class OrdinaryFragment extends Fragment {
                     nameBillings,
                     typeBillings,
                     typeCurrency,
-                    ManagerDate.getCurrentDateFormatFirebase()
+                    DateController.getCurrentDateFormatFirebase()
             );
         }
         return null;

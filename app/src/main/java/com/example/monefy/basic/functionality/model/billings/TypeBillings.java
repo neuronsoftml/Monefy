@@ -1,7 +1,7 @@
 package com.example.monefy.basic.functionality.model.billings;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTypeItem;
+import com.example.monefy.basic.functionality.Interface.dialogModal.ModalTypeItem;
 
 import java.util.ArrayList;
 import java.util.List;

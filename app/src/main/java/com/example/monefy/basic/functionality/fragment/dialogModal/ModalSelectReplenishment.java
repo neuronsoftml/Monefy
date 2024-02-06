@@ -13,13 +13,15 @@ import android.widget.ToggleButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.monefy.Manager.incomes.IncomeManager;
+import com.example.monefy.basic.functionality.Interface.billings.OnBillingsCallback;
+import com.example.monefy.basic.functionality.Interface.dialogModal.BillingsSelectionCallback;
+import com.example.monefy.basic.functionality.controller.incomes.IncomeController;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.billings.BillingsListAdapter;
 import com.example.monefy.basic.functionality.adapter.incomes.IncomesListAdapter;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
-import com.example.monefy.Manager.billings.BillingsManager;
+import com.example.monefy.basic.functionality.controller.billings.BillingsController;
 import com.example.monefy.basic.functionality.model.income.Income;
 
 import java.util.ArrayList;
@@ -34,8 +36,8 @@ public class ModalSelectReplenishment extends DialogModal {
     private ListView listViewIncome;
     private RecyclerView listViewBillRep;
     private final Context context;
-    private final BillingsManager billingsManager = BillingsManager.getBillingsManager();
-    private final IncomeManager incomeManager = IncomeManager.getIncomeManager();
+    private final BillingsController billingsController = new BillingsController();
+    private final IncomeController incomeController = IncomeController.getIncomeManager();
     private final BillingsSelectionCallback callbackSelectedBillings;
     public ModalSelectReplenishment(Context context, int contentView, Billings selectedBillings, BillingsSelectionCallback callbackSelectedBillings) {
         super(context, contentView);
@@ -48,12 +50,6 @@ public class ModalSelectReplenishment extends DialogModal {
     public void modalStart() {
         openModal();
 
-        billingsManager.loadBillings(()->{
-            billings.clear();
-            billings = billingsManager.getBillingsAllExceptOne(selectedBillings);
-            showBillingsList();
-            handlerBillingsListView();
-        });
 
        /* incomeManager.loadIncomes(()->{
             incomes.clear();
@@ -62,8 +58,8 @@ public class ModalSelectReplenishment extends DialogModal {
             handlerIncomeListView();
         });
         */
-
         setupUIDialogModal();
+        loadBillingsList();
         setValueObjectModal();
         handlerButtonDialogModal();
     }
@@ -132,9 +128,25 @@ public class ModalSelectReplenishment extends DialogModal {
 
     private  BillingsListAdapter billingsListAdapter;
 
+    private void loadBillingsList(){
+        BillingsController.getBillingsAllExceptOne(selectedBillings, new OnBillingsCallback() {
+            @Override
+            public void onBillingsDataReceived(List<Billings> billingsList) {
+                billings.clear();
+                billings.addAll(billingsList);
+                showBillingsList();
+                handlerBillingsListView();
+            }
+
+            @Override
+            public void onDataNotFound() {
+                //На майбутнє
+            }
+        });
+    }
     private void showBillingsList(){
       billingsListAdapter = new BillingsListAdapter(
-                BillingsManager.sortingBillings(
+                BillingsController.sortingBillings(
                         billings,
                         TypeBillings.getListTypeBillingsCO()
                 ));

@@ -5,20 +5,16 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentContainerView;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.model.billings.Obligation;
-import com.example.monefy.basic.functionality.model.billings.TypeBillings;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
 
 public class ModalBalanceFragment extends DialogFragment{
     private TextView textViewTitleModal;

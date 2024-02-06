@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
+import com.example.monefy.basic.functionality.Interface.dialogModal.ModalTypeItem;
+import com.example.monefy.basic.functionality.Interface.dialogModal.TypeSelectModal;
 import com.example.monefy.basic.functionality.model.currency.TypeCurrency;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.basic.functionality.model.billings.TypeDebtorSide;

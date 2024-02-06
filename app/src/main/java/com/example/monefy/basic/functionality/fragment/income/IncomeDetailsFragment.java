@@ -12,16 +12,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.monefy.Manager.dialogModal.ManagerType;
+import com.example.monefy.basic.functionality.controller.enumType.EnumTypeController;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.UI.UpdateUI;
 import com.example.monefy.basic.functionality.UI.UpdateUIError;
-import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalanceFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputDate;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalFunctionalSelect;
 import com.example.monefy.basic.functionality.model.currency.TypeCurrency;
-import com.example.monefy.basic.functionality.fragment.dialogModal.TypeSelectModal;
+import com.example.monefy.basic.functionality.Interface.dialogModal.TypeSelectModal;
 import com.example.monefy.basic.functionality.model.income.TypeIncomes;
 import com.example.monefy.basic.functionality.model.income.TypeFrequency;
 import com.google.firebase.Timestamp;
@@ -174,7 +174,7 @@ public class IncomeDetailsFragment extends Fragment {
             ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
                     getContext(),
                     R.string.textSelectFrequency,
-                    ManagerType.getTypeFrequency(),
+                    EnumTypeController.getTypeFrequency(),
                     TypeFrequency.class,
                     new DialogCallback() {
                         @Override
@@ -199,7 +199,7 @@ public class IncomeDetailsFragment extends Fragment {
             ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
                     getContext(),
                     R.string.textSelectCategory,
-                    ManagerType.getTypeIncomes(),
+                    EnumTypeController.getTypeIncomes(),
                     TypeIncomes.class,
                     new DialogCallback() {
                         @Override

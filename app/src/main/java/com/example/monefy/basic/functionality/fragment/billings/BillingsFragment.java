@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.monefy.Manager.message.MessageManager;
+import com.example.monefy.basic.functionality.controller.message.MessageController;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
+import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.history.HistoryBillingsFragment;
 
 /** Цей класс містить сукумність інших фрагментів, для відображення:
@@ -122,7 +122,7 @@ public class BillingsFragment extends Fragment {
 
     /** Цей метод встановлює значення UI лічильнику кількості повідомлень*/
     private void setDataCounterMessage(){
-        int number = MessageManager.getMessageManager().getCollMessage();
+        int number = MessageController.getMessageManager().getCollMessage();
         counterMessage.setText(String.valueOf(number));
     }
 }

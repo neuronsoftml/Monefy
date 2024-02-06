@@ -7,8 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.monefy.Manager.date.ManagerDate;
-import com.example.monefy.Manager.progress.ManagerProgress;
+import com.example.monefy.basic.functionality.controller.date.DateController;
+import com.example.monefy.basic.functionality.controller.progress.ProgressController;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.Cumulative;
@@ -40,12 +40,12 @@ public class ViewHolderCumulative extends RecyclerView.ViewHolder {
         typeCurrencyV2.setText(cumulative.getTypeCurrency());
         goal.setText(String.valueOf(cumulative.getGoal()));
         progressBar.setMax(100);
-        progressBar.setProgress(ManagerProgress.calculateAccumulativeAmount(
+        progressBar.setProgress(ProgressController.calculateAccumulativeAmount(
                 (int) cumulative.getBalance(),
                 (int) cumulative.getGoal()
         ));
 
-        String date = ManagerDate.convertFirebaseDateToString(cumulative.getDateReceived());
-        dateCreate.setText(ManagerDate.convertFirebaseDateToLocalDate(date));
+        String date = DateController.convertFirebaseDateToString(cumulative.getDateReceived());
+        dateCreate.setText(DateController.convertFirebaseDateToLocalDate(date));
     }
 }

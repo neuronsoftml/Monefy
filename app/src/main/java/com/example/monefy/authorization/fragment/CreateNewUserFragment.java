@@ -1,6 +1,5 @@
 package com.example.monefy.authorization.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,11 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
-import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
-import com.example.monefy.Manager.firebase.FirebaseManager;
-import com.example.monefy.Manager.input.EmailValidator;
-import com.example.monefy.Manager.input.PasswordValidator;
+import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
+import com.example.monefy.basic.functionality.Interface.firebase.InConclusionCompleteListener;
+import com.example.monefy.basic.functionality.controller.firebase.FirebaseController;
+import com.example.monefy.basic.functionality.Interface.input.EmailValidator;
+import com.example.monefy.basic.functionality.Interface.input.PasswordValidator;
 
 
 public class CreateNewUserFragment extends Fragment{
@@ -90,8 +89,8 @@ public class CreateNewUserFragment extends Fragment{
 
     //Створює нового користувача у FireBase
     private void createNewUser(String email, String password){
-        FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
-        firebaseManager.createNewUserWithEmailPassword(requireActivity(), email, password,
+        FirebaseController firebaseController = FirebaseController.getFirebaseManager();
+        firebaseController.createNewUserWithEmailPassword(requireActivity(), email, password,
                 new InConclusionCompleteListener() {
                     @Override
                     public void onSuccess() {

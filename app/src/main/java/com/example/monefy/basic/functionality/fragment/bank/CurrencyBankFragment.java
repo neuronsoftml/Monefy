@@ -3,7 +3,6 @@ package com.example.monefy.basic.functionality.fragment.bank;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.SortedList;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,17 +11,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.bank.MonoBank.CallbackMonoBank;
-import com.example.monefy.basic.functionality.fragment.bank.MonoBank.MonoBankManager;
-import com.example.monefy.basic.functionality.fragment.bank.PrivateBank.CallbackPrivateBank;
-import com.example.monefy.basic.functionality.fragment.bank.PrivateBank.PrivateBankManager;
-import com.example.monefy.basic.functionality.fragment.billings.InfoBoardBillingsFragment;
-import com.example.monefy.basic.functionality.fragment.income.InfoBoardIncomeFragment;
+import com.example.monefy.basic.functionality.Interface.bank.monoBank.CallbackMonoBank;
+import com.example.monefy.basic.functionality.controller.bank.monoBank.MonoBankController;
+import com.example.monefy.basic.functionality.Interface.bank.privateBank.CallbackPrivateBank;
+import com.example.monefy.basic.functionality.controller.bank.privateBank.PrivateBankManager;
 import com.example.monefy.basic.functionality.model.currency.CurrencyMonoBank;
 import com.example.monefy.basic.functionality.model.currency.CurrencyPrivateBank;
 import com.example.monefy.basic.functionality.model.currency.TypeCurrency;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CurrencyBankFragment extends Fragment {
@@ -87,8 +83,8 @@ public class CurrencyBankFragment extends Fragment {
 
     /** Цей метод здійснює загрузку курса валют з Монобанк*/
     private void loadCurrencyMonoBank(){
-        MonoBankManager monoBankManager = MonoBankManager.getMonoBankManager();
-        monoBankManager.getCurrencyMonoBanksRates(new CallbackMonoBank() {
+        MonoBankController monoBankController = MonoBankController.getMonoBankManager();
+        monoBankController.getCurrencyMonoBanksRates(new CallbackMonoBank() {
             @Override
             public void onResponse(List<CurrencyMonoBank> currencyMonoBankListCall) {
                 setDataCurrencyMonoBankUI(currencyMonoBankListCall);

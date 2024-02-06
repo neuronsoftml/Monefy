@@ -9,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.monefy.Manager.firebase.FirebaseManager;
-import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
-import com.example.monefy.Manager.message.ToastManager;
+import com.example.monefy.basic.functionality.controller.firebase.FirebaseController;
+import com.example.monefy.basic.functionality.Interface.firebase.InConclusionCompleteListener;
+import com.example.monefy.basic.functionality.controller.message.ToastController;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
-import com.example.monefy.basic.functionality.fragment.navigation.ClickListener;
+import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
+import com.example.monefy.basic.functionality.Interface.navigation.ClickListener;
 import com.example.monefy.basic.functionality.fragment.navigation.ConfirmationFragment;
 
 import java.util.Map;
@@ -100,8 +100,8 @@ public class CreateIncomeFragment extends Fragment {
     private void handlerClickBtnSetUp(){
         Map<String, Object> incomeMap = incomeDetailsFragment.getDataMapIncome();
         if(incomeMap.size() != 0){
-            FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
-            firebaseManager.addIncome( incomeMap, new InConclusionCompleteListener() {
+            FirebaseController firebaseController = FirebaseController.getFirebaseManager();
+            firebaseController.addIncome( incomeMap, new InConclusionCompleteListener() {
                         @Override
                         public void onSuccess() {
                             /*
@@ -112,7 +112,7 @@ public class CreateIncomeFragment extends Fragment {
                             );
                             Дописати навігацію.
                              */
-                            ToastManager.showToastOnFailure(getContext(),R.string.textSuccessfulAddIncome);
+                            ToastController.showToastOnFailure(getContext(),R.string.textSuccessfulAddIncome);
                         }
 
                         @Override

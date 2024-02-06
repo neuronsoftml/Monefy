@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
-import com.example.monefy.basic.functionality.fragment.navigation.ClickListener;
+import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
+import com.example.monefy.basic.functionality.Interface.navigation.ClickListener;
 import com.example.monefy.basic.functionality.fragment.navigation.ConfirmationFragment;
 import com.example.monefy.basic.functionality.model.billings.Billings;
-import com.example.monefy.Manager.firebase.FirebaseManager;
-import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
-import com.example.monefy.Manager.message.ToastManager;
+import com.example.monefy.basic.functionality.controller.firebase.FirebaseController;
+import com.example.monefy.basic.functionality.Interface.firebase.InConclusionCompleteListener;
+import com.example.monefy.basic.functionality.controller.message.ToastController;
 
 public class EditBillingsFragment extends Fragment {
 
@@ -111,14 +111,14 @@ public class EditBillingsFragment extends Fragment {
         if(billingNew != null){
             billingNew.setId(billing.getId());
             if(!billingNew.equals(billing)){
-                FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
-                firebaseManager.updatedBillings(
+                FirebaseController firebaseController = FirebaseController.getFirebaseManager();
+                firebaseController.updatedBillings(
                         billing.getId(),
                         billingDetailsFragment.getBillingMapData(),
                         new InConclusionCompleteListener() {
                             @Override
                             public void onSuccess() {
-                                ToastManager.showToastOnSuccessful(getContext(),R.string.textSuccessfulEditBillings);
+                                ToastController.showToastOnSuccessful(getContext(),R.string.textSuccessfulEditBillings);
                                 if(getActivity() != null){
                                     FragmentNavigation.goToReplaceBillingsFragment(getActivity().getSupportFragmentManager());
                                 }
@@ -126,7 +126,7 @@ public class EditBillingsFragment extends Fragment {
 
                             @Override
                             public void onFailure(Exception exception) throws Exception {
-                                ToastManager.showToastOnFailure(getContext(),R.string.textFailureEditBillings);
+                                ToastController.showToastOnFailure(getContext(),R.string.textFailureEditBillings);
                                 throw new Exception("Помилка зміни рахунка " + exception);
                             }
                         }

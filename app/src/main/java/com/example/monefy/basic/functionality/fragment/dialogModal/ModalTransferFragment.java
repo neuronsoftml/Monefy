@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentContainerView;
 
-import com.example.monefy.Manager.billings.BillingsManager;
-import com.example.monefy.Manager.date.ManagerDate;
-import com.example.monefy.Manager.firebase.FirebaseManager;
-import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
-import com.example.monefy.Manager.message.ToastManager;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
+import com.example.monefy.basic.functionality.controller.message.ToastController;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.controller.TransactionController;
-import com.example.monefy.basic.functionality.fragment.bank.MonoBank.MonoBankManager;
+import com.example.monefy.basic.functionality.controller.billings.TransactionController;
+import com.example.monefy.basic.functionality.controller.bank.monoBank.MonoBankController;
 import com.example.monefy.basic.functionality.model.billings.Billings;
-import com.example.monefy.basic.functionality.model.billings.HistoryBilling;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
 import java.lang.reflect.InvocationTargetException;
@@ -210,8 +205,8 @@ public class ModalTransferFragment extends DialogFragment {
         }
         // Як що типи валют різні робемо конвертацію валюти за курсом.
         else {
-            MonoBankManager monoBankManager = MonoBankManager.getMonoBankManager();
-            double sum = (double) monoBankManager.currencyConversionAtTheExchangeRate(
+            MonoBankController monoBankController = MonoBankController.getMonoBankManager();
+            double sum = (double) monoBankController.currencyConversionAtTheExchangeRate(
                     Double.parseDouble(data),
                     theBillFromWhichWeDebit.getTypeCurrency()
             );
@@ -272,10 +267,10 @@ public class ModalTransferFragment extends DialogFragment {
         boolean twoCheck = (theBillFromWhichWeDebit.getBalance() - writeOffAmount) < 0;
 
         if(oneCheck){
-            ToastManager.showToastOnFailure(getContext(),R.string.textExceededCreditLimit);
+            ToastController.showToastOnFailure(getContext(),R.string.textExceededCreditLimit);
             return false;
         } else if (twoCheck) {
-            ToastManager.showToastOnFailure(getContext(),R.string.textExceededTheAvailableAmount);
+            ToastController.showToastOnFailure(getContext(),R.string.textExceededTheAvailableAmount);
             return false;
         }
         return true;
@@ -287,7 +282,7 @@ public class ModalTransferFragment extends DialogFragment {
     public boolean isEditBillToWhichWeTransfer;
     public void checkSuccessfulTransaction(){
         if(isEditBillFromWhichWeDebit && isEditBillToWhichWeTransfer){
-            ToastManager.showToastOnSuccessful(getContext(), R.string.textTransactionIsSuccessful);
+            ToastController.showToastOnSuccessful(getContext(), R.string.textTransactionIsSuccessful);
             if(dialogCallback != null){
                 dialogCallback.onSuccess(null);
             }

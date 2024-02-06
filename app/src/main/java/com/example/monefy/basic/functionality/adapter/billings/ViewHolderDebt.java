@@ -1,6 +1,5 @@
 package com.example.monefy.basic.functionality.adapter.billings;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -8,8 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.monefy.Manager.date.ManagerDate;
-import com.example.monefy.Manager.progress.ManagerProgress;
+import com.example.monefy.basic.functionality.controller.date.DateController;
+import com.example.monefy.basic.functionality.controller.progress.ProgressController;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.Debt;
@@ -41,25 +40,25 @@ public class ViewHolderDebt extends RecyclerView.ViewHolder {
         balance.setText(String.valueOf(debt.getBalance()));
         typeCurrency.setText(debt.getTypeCurrency());
         debtor.setText(debt.getDebtor());
-        returnDate.setText(ManagerDate.convertFirebaseDateToLocalDate(
-                ManagerDate.convertFirebaseDateToString(
+        returnDate.setText(DateController.convertFirebaseDateToLocalDate(
+                DateController.convertFirebaseDateToString(
                         debt.getReturnDate()
                 )
         ));
 
         progressBar.setMax(100);
-        progressBar.setProgress(ManagerProgress.calculatePercentage(
-                ManagerDate.convertFirebaseDateToLocalDate(
-                        ManagerDate.convertFirebaseDateToString(
+        progressBar.setProgress(ProgressController.calculatePercentage(
+                DateController.convertFirebaseDateToLocalDate(
+                        DateController.convertFirebaseDateToString(
                                 debt.getDateReceived()
                         )),
-                ManagerDate.convertFirebaseDateToLocalDate(
-                        ManagerDate.convertFirebaseDateToString(
+                DateController.convertFirebaseDateToLocalDate(
+                        DateController.convertFirebaseDateToString(
                                 debt.getReturnDate()) )
         ));
 
 
-        String date = ManagerDate.convertFirebaseDateToString(debt.getDateReceived());
-        dateCreate.setText(ManagerDate.convertFirebaseDateToLocalDate(date));
+        String date = DateController.convertFirebaseDateToString(debt.getDateReceived());
+        dateCreate.setText(DateController.convertFirebaseDateToLocalDate(date));
     }
 }

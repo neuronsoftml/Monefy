@@ -12,10 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.Interface.dialogModal.BillingDialogCallback;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogFunctional;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
-import com.example.monefy.Manager.firebase.FirebaseManager;
-import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
+import com.example.monefy.basic.functionality.controller.firebase.FirebaseController;
+import com.example.monefy.basic.functionality.Interface.firebase.InConclusionCompleteListener;
 
 public class ModalSelectBilling implements DialogFunctional {
     private Dialog dialogModal;
@@ -83,8 +86,8 @@ public class ModalSelectBilling implements DialogFunctional {
 
     private void handlerButtonDelete(){
             imageBtnDelete.setOnClickListener(v->{
-                FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
-                firebaseManager.deleteBillings(
+                FirebaseController firebaseController = FirebaseController.getFirebaseManager();
+                firebaseController.deleteBillings(
                     billing.getId(),
                     new InConclusionCompleteListener() {
                         @Override

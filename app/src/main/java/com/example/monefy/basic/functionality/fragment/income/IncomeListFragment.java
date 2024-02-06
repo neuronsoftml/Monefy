@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.monefy.Manager.incomes.IncomeManager;
+import com.example.monefy.basic.functionality.controller.incomes.IncomeController;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.adapter.incomes.IncomesListAdapter;
 import com.example.monefy.basic.functionality.model.income.Income;
@@ -24,7 +24,7 @@ public class IncomeListFragment extends Fragment {
     private ListView listItemIncome;
     private TextView tvMessage;
     private Context context;
-    private final IncomeManager incomeManager = IncomeManager.getIncomeManager();
+    private final IncomeController incomeController = IncomeController.getIncomeManager();
     private List<Income> incomeList = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,10 +38,10 @@ public class IncomeListFragment extends Fragment {
 
         setupUIElement(view);
 
-        incomeManager.loadIncomes
+        incomeController.loadIncomes
                 (()->{
             incomeList.clear();
-            incomeList = incomeManager.getIncomeList();
+            incomeList = incomeController.getIncomeList();
             showIncomeList();
             handlerClickItemIncome();
 

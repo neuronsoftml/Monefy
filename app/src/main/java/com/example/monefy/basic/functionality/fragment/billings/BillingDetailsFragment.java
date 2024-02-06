@@ -7,8 +7,10 @@ import androidx.fragment.app.FragmentContainerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.monefy.basic.functionality.Interface.billings.BillingDetailsListener;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
+import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
 import com.example.monefy.basic.functionality.fragment.billings.factory.CumulativeFragment;
 import com.example.monefy.basic.functionality.fragment.billings.factory.DebtFragment;
 import com.example.monefy.basic.functionality.fragment.billings.factory.OrdinaryFragment;

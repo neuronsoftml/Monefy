@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
 
 public class ModalInputText extends DialogModal {
 

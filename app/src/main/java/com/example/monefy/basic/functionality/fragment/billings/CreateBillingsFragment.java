@@ -9,14 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.monefy.Manager.ManagerActivity;
+import com.example.monefy.basic.functionality.controller.activity.ActivityController;
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.FragmentNavigation;
-import com.example.monefy.basic.functionality.fragment.navigation.ClickListener;
+import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
+import com.example.monefy.basic.functionality.Interface.navigation.ClickListener;
 import com.example.monefy.basic.functionality.fragment.navigation.ConfirmationFragment;
-import com.example.monefy.Manager.firebase.FirebaseManager;
-import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
-import com.example.monefy.Manager.message.ToastManager;
+import com.example.monefy.basic.functionality.controller.firebase.FirebaseController;
+import com.example.monefy.basic.functionality.Interface.firebase.InConclusionCompleteListener;
+import com.example.monefy.basic.functionality.controller.message.ToastController;
 
 import java.util.Map;
 
@@ -113,17 +113,17 @@ public class CreateBillingsFragment extends Fragment {
         Map<String, Object> billing = billingDetailsFragment.getBillingMapData();
 
         if(billing.size() != 0){
-            FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
-            firebaseManager.addBilling(billing, new InConclusionCompleteListener() {
+            FirebaseController firebaseController = FirebaseController.getFirebaseManager();
+            firebaseController.addBilling(billing, new InConclusionCompleteListener() {
                         @Override
                         public void onSuccess() {
-                            ToastManager.showToastOnSuccessful(getContext(),R.string.textSuccessfulEnteredTheData);
-                            ManagerActivity.resetActivity(getActivity());
+                            ToastController.showToastOnSuccessful(getContext(),R.string.textSuccessfulEnteredTheData);
+                            ActivityController.resetActivity(getActivity());
                         }
 
                         @Override
                         public void onFailure(Exception exception) {
-                            ToastManager.showToastOnFailure(getContext(),R.string.textFailureEnteredTheData);
+                            ToastController.showToastOnFailure(getContext(),R.string.textFailureEnteredTheData);
                         }
                     }
             );

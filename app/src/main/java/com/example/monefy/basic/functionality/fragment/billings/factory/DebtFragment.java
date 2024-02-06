@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.monefy.Manager.date.ManagerDate;
-import com.example.monefy.Manager.dialogModal.ManagerType;
+import com.example.monefy.basic.functionality.controller.date.DateController;
+import com.example.monefy.basic.functionality.controller.enumType.EnumTypeController;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.UI.UpdateUI;
 import com.example.monefy.basic.functionality.UI.UpdateUIError;
 import com.example.monefy.basic.functionality.fragment.billings.BillingDetailsFragment;
-import com.example.monefy.basic.functionality.fragment.dialogModal.DialogCallback;
+import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalBalanceFragment;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputDate;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalInputText;
@@ -94,8 +94,8 @@ public class DebtFragment extends Fragment {
             tvDebtAmount.setText(String.valueOf(debtBilling.getBalance()));
             tvDebtor.setText(debtBilling.getDebtor());
             tvReturnDate.setText(
-                    ManagerDate.convertFirebaseDateToLocalDate(
-                            ManagerDate.convertFirebaseDateToString(
+                    DateController.convertFirebaseDateToLocalDate(
+                            DateController.convertFirebaseDateToString(
                                     debtBilling.getReturnDate()
                             )
                     )
@@ -139,7 +139,7 @@ public class DebtFragment extends Fragment {
                 ModalFunctionalSelect modalFunctionalSelect = new ModalFunctionalSelect(
                         getContext(),
                         R.string.textSelectTypeBillings,
-                        ManagerType.getTypesBillings(),
+                        EnumTypeController.getTypesBillings(),
                         TypeBillings.class,
                         new DialogCallback() {
                             @Override
@@ -169,7 +169,7 @@ public class DebtFragment extends Fragment {
             ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
                     getContext(),
                     R.string.textSelectTypeCurrencies,
-                    ManagerType.getTypeCurrency(),
+                    EnumTypeController.getTypeCurrency(),
                     TypeCurrency.class,
                     new DialogCallback() {
                         @Override
@@ -222,7 +222,7 @@ public class DebtFragment extends Fragment {
             ModalFunctionalSelect modalSelect = new ModalFunctionalSelect(
                     getContext(),
                     R.string.textSelectDebtor,
-                    ManagerType.getTypeDebtor(),
+                    EnumTypeController.getTypeDebtor(),
                     TypeDebtorSide.class,
                     new DialogCallback() {
                         @Override
@@ -244,8 +244,8 @@ public class DebtFragment extends Fragment {
 
     private void handlerClickLinerLayoutReturnDate(){
         lirLatReturnDate.setOnClickListener(v -> {
-            String data = debtBilling == null ? returnDate : ManagerDate.convertFirebaseDateToLocalDate(
-                    ManagerDate.convertFirebaseDateToString(debtBilling.getReturnDate())
+            String data = debtBilling == null ? returnDate : DateController.convertFirebaseDateToLocalDate(
+                    DateController.convertFirebaseDateToString(debtBilling.getReturnDate())
             );
 
             ModalInputDate modalInputDate = new ModalInputDate(
@@ -277,8 +277,8 @@ public class DebtFragment extends Fragment {
                     typeBillings,
                     typeCurrency,
                     debtor,
-                    ManagerDate.convertStringToDate(returnDate,ManagerDate.dateFormatLocalApp),
-                    ManagerDate.getCurrentDateFormatFirebase()
+                    DateController.convertStringToDate(returnDate, DateController.dateFormatLocalApp),
+                    DateController.getCurrentDateFormatFirebase()
             );
         }
         return null;
