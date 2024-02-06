@@ -3,6 +3,7 @@ package com.example.monefy.basic.functionality.fragment.bank;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.SortedList;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.fragment.bank.MonoBank.CallbackMonoBank;
 import com.example.monefy.basic.functionality.fragment.bank.MonoBank.MonoBankManager;
+import com.example.monefy.basic.functionality.fragment.bank.PrivateBank.CallbackPrivateBank;
 import com.example.monefy.basic.functionality.fragment.bank.PrivateBank.PrivateBankManager;
 import com.example.monefy.basic.functionality.fragment.billings.InfoBoardBillingsFragment;
 import com.example.monefy.basic.functionality.fragment.income.InfoBoardIncomeFragment;
@@ -31,9 +34,6 @@ public class CurrencyBankFragment extends Fragment {
     private TextView tVTitleUSD_type_monoBank, tVTitleEUR_type_monoBank;
     private TextView tVRateUSD_BAY_monoBank, tVRateEUR_BAY_monoBank;
     private TextView tVRateUSD_SALE_monoBank, tVRateEUR_SALE_monoBank;
-
-    private final List<CurrencyPrivateBank> currencyPrivateBankList = new ArrayList<>();
-    private final List<CurrencyMonoBank> currencyMonoBanksList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,55 +71,55 @@ public class CurrencyBankFragment extends Fragment {
 
     /** Цей метод здійснює завантаження курса валют з Приват банк*/
     private void loadCurrencyPrivateBank() {
-        PrivateBankManager.currencyParse(new CallbackBank() {
+        PrivateBankManager privateBankManager = PrivateBankManager.getPrivateBankManager();
+        privateBankManager.getCurrencyRates(new CallbackPrivateBank() {
             @Override
-            public void onResponse() {
-                currencyPrivateBankList.addAll(PrivateBankManager.getCurrencyRates());
-                setDataCurrencyPrivateBankUI();
+            public void onResponse(List<CurrencyPrivateBank> currencyPrivateBankListCallback) {
+                setDataCurrencyPrivateBankUI(currencyPrivateBankListCallback);
             }
 
             @Override
             public void onFailure() {
-                Log.e("PrivatBank","ПОМИЛКА ЗЄДНАННЯ ПриватБанк");
+                // На майбутнє
             }
         });
     }
 
     /** Цей метод здійснює загрузку курса валют з Монобанк*/
     private void loadCurrencyMonoBank(){
-        MonoBankManager.currencyParse(new CallbackBank() {
+        MonoBankManager monoBankManager = MonoBankManager.getMonoBankManager();
+        monoBankManager.getCurrencyMonoBanksRates(new CallbackMonoBank() {
             @Override
-            public void onResponse() {
-                currencyMonoBanksList.addAll(MonoBankManager.getCurrencyRates());
-                setDataCurrencyMonoBankUI();
+            public void onResponse(List<CurrencyMonoBank> currencyMonoBankListCall) {
+                setDataCurrencyMonoBankUI(currencyMonoBankListCall);
             }
 
             @Override
             public void onFailure() {
-                Log.e("MonoBank","ПОМИЛКА ЗЄДНАННЯ МоноБанк");
+                // Залишили на майбутнє
             }
         });
     }
 
     /** Цей метод здійснює встановлення значення в UI елементи,
      *  які відповідать за відображення курса валют приват банк */
-    private void setDataCurrencyPrivateBankUI(){
+    private void setDataCurrencyPrivateBankUI(List<CurrencyPrivateBank> currencyPrivateBankList){
         for(CurrencyPrivateBank currency : currencyPrivateBankList){
             if(currency.getCcy().equals("USD")){
                 tVTitleUSD_type_private.setText(currency.getCcy());
                 tVRateUSD_BAY_private.setText(String.valueOf(currency.getBuy()));
                 tVRateUSD_SALE_private.setText(String.valueOf(currency.getSalle()));
             } else if (currency.getCcy().equals("EUR")) {
-                tVTitleEUR_type_private.setText(currency.getCcy());
-                tVRateEUR_BAY_private.setText(String.valueOf((currency.getBuy())));
-                tVRateEUR_SALE_private.setText(String.valueOf((currency.getSalle())));
+               tVTitleEUR_type_private.setText(currency.getCcy());
+               tVRateEUR_BAY_private.setText(String.valueOf((currency.getBuy())));
+               tVRateEUR_SALE_private.setText(String.valueOf((currency.getSalle())));
             }
         }
     }
 
     /** Цей метод здійснює встановлення значення в UI елементи,
      * які відповідать за відображення курса валют моно банк*/
-    private void setDataCurrencyMonoBankUI(){
+    private void setDataCurrencyMonoBankUI(List<CurrencyMonoBank> currencyMonoBanksList){
         for(CurrencyMonoBank currency : currencyMonoBanksList){
            String CCY = TypeCurrency.searchCurrencyCcy(currency.getCurrencyCodeA());
             if(CCY != null){

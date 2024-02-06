@@ -1,7 +1,6 @@
 package com.example.monefy.basic.functionality.model.currency;
 
 public class CurrencyMonoBank {
-
     private int currencyCodeA;
     private int currencyCodeB;
     private int date;

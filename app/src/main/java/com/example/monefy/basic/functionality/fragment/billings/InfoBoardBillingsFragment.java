@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.fragment.bank.CallbackBank;
+
+import com.example.monefy.basic.functionality.fragment.bank.MonoBank.CallbackMonoBank;
 import com.example.monefy.basic.functionality.fragment.bank.MonoBank.MonoBankManager;
 import com.example.monefy.basic.functionality.model.DataLoadListener;
 import com.example.monefy.basic.functionality.model.billings.Billings;
@@ -83,16 +84,17 @@ public class InfoBoardBillingsFragment extends Fragment implements DataLoadListe
     }
 
     private void loadCurrencyMonoBank(){
-        MonoBankManager.currencyParse(new CallbackBank() {
+        MonoBankManager monoBankManager = MonoBankManager.getMonoBankManager();
+        monoBankManager.getCurrencyMonoBanksRates(new CallbackMonoBank() {
             @Override
-            public void onResponse() {
-                currencyMonoBankList.addAll(MonoBankManager.getCurrencyRates());
+            public void onResponse(List<CurrencyMonoBank> currencyMonoBankListCallBack) {
+                currencyMonoBankList.addAll(currencyMonoBankListCallBack);
                 updateInfoBord(billingsListFragment.getBillings());
             }
 
             @Override
             public void onFailure() {
-
+                // залишили на майбутнє
             }
         });
     }

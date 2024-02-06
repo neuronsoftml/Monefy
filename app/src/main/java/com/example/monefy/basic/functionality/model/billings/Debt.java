@@ -13,7 +13,7 @@ public class Debt extends Billings implements Serializable {
     public Debt() {
     }
 
-    public Debt(long balance, String name, String typeBillings, String typeCurrency, String debtor, Date returnDate, Date dateReceived) {
+    public Debt(double balance, String name, String typeBillings, String typeCurrency, String debtor, Date returnDate, Date dateReceived) {
         super(balance, 0, name, typeBillings, typeCurrency, dateReceived);
         this.debtor = debtor;
         this.returnDate = returnDate;

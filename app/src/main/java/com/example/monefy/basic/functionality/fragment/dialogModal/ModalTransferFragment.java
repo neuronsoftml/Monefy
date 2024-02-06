@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,15 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentContainerView;
 
 import com.example.monefy.Manager.billings.BillingsManager;
+import com.example.monefy.Manager.date.ManagerDate;
 import com.example.monefy.Manager.firebase.FirebaseManager;
 import com.example.monefy.Manager.firebase.InConclusionCompleteListener;
 import com.example.monefy.Manager.message.ToastManager;
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.controller.TransactionController;
+import com.example.monefy.basic.functionality.fragment.bank.MonoBank.MonoBankManager;
 import com.example.monefy.basic.functionality.model.billings.Billings;
+import com.example.monefy.basic.functionality.model.billings.HistoryBilling;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
 import java.lang.reflect.InvocationTargetException;
@@ -39,8 +44,8 @@ public class ModalTransferFragment extends DialogFragment {
     private ImageView imageCartBillEnrollToWhichWeTransfer;
     private ImageButton btnBillSwitcher;
     private Button btnApprove;
-    private long writeOffAmount = 0;
-    private long setUpAmount = 0;
+    private double writeOffAmount = 0;
+    private double setUpAmount = 0;
     private final int contentView = R.layout.modal_bottom_replenishment;
 
     /**
@@ -138,9 +143,7 @@ public class ModalTransferFragment extends DialogFragment {
         btnApprove.setVisibility(View.GONE);
     }
 
-    /** Цей метод відображає Fragment калькулятора.
-     *
-     */
+    /** Цей метод відображає Fragment калькулятора.*/
     private CalculatorFragment calculatorFragment;
     private void showCalculator(){
         calculatorFragment = new CalculatorFragment("0", theBillFromWhichWeDebit.getTypeCurrency());
@@ -207,14 +210,14 @@ public class ModalTransferFragment extends DialogFragment {
         }
         // Як що типи валют різні робемо конвертацію валюти за курсом.
         else {
-           /* long sum = (long) NbuManager.currencyConversionAtTheExchangeRate(
+            MonoBankManager monoBankManager = MonoBankManager.getMonoBankManager();
+            double sum = (double) monoBankManager.currencyConversionAtTheExchangeRate(
                     Double.parseDouble(data),
                     theBillFromWhichWeDebit.getTypeCurrency()
             );
             writeOffAmount = Long.parseLong(data);
             setUpAmount = sum;
 
-            */
         }
     }
 
@@ -242,7 +245,14 @@ public class ModalTransferFragment extends DialogFragment {
         btnApprove.setOnClickListener(v->{
             if(checkTransactionValidation()){
                 try {
-                    updateBillings();
+                    TransactionController transactionController = new TransactionController();
+                    transactionController.transferBetweenBillings(
+                            theBillFromWhichWeDebit,
+                            theBillToWhichWeTransfer,
+                            writeOffAmount,
+                            setUpAmount,
+                            this
+                    );
                 } catch (InvocationTargetException | IllegalAccessException |
                          NoSuchMethodException e) {
                     throw new RuntimeException(e);
@@ -271,59 +281,11 @@ public class ModalTransferFragment extends DialogFragment {
         return true;
     }
 
-    /** Метод вносить зміни на обє`кти  а потім на сервер.
-     *
-     */
-    private void updateBillings() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-        FirebaseManager firebaseManager = FirebaseManager.getFirebaseManager();
 
-        theBillFromWhichWeDebit.setBalance(
-                theBillFromWhichWeDebit.getBalance() - writeOffAmount
-        );
-
-        theBillToWhichWeTransfer.setBalance(
-                theBillToWhichWeTransfer.getBalance() + setUpAmount
-        );
-        firebaseManager.updatedBillings(
-                theBillFromWhichWeDebit.getId(),
-                BillingsManager.getBillingMapData(theBillFromWhichWeDebit),
-                new InConclusionCompleteListener() {
-                    @Override
-                    public void onSuccess() {
-                        isEditBillFromWhichWeDebit = true;
-                        checkSuccessfulTransaction();
-                    }
-
-                    @Override
-                    public void onFailure(Exception exception) {
-
-                    }
-                }
-        );
-
-        firebaseManager.updatedBillings(
-                theBillToWhichWeTransfer.getId(),
-                BillingsManager.getBillingMapData(theBillToWhichWeTransfer),
-                new InConclusionCompleteListener() {
-                    @Override
-                    public void onSuccess() {
-                        isEditBillToWhichWeTransfer = true;
-                        checkSuccessfulTransaction();
-                    }
-
-                    @Override
-                    public void onFailure(Exception exception) {
-
-                    }
-                });
-    }
-
-    /** Метод перевіряє як що в усіх двух рахунках спішно внесено зміни.
-     *
-     */
-    private boolean isEditBillFromWhichWeDebit;
-    private boolean isEditBillToWhichWeTransfer;
-    private void checkSuccessfulTransaction(){
+    /** Метод перевіряє як що в усіх двух рахунках спішно внесено зміни.*/
+    public boolean isEditBillFromWhichWeDebit;
+    public boolean isEditBillToWhichWeTransfer;
+    public void checkSuccessfulTransaction(){
         if(isEditBillFromWhichWeDebit && isEditBillToWhichWeTransfer){
             ToastManager.showToastOnSuccessful(getContext(), R.string.textTransactionIsSuccessful);
             if(dialogCallback != null){
@@ -331,5 +293,4 @@ public class ModalTransferFragment extends DialogFragment {
             }
         }
     }
-
 }

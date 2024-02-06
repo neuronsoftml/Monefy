@@ -7,17 +7,17 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Cumulative extends Billings implements Serializable {
-    private long goal; // Мета.
+    private double goal; // Мета.
 
     public Cumulative() {
     }
 
-    public Cumulative(long balance, String name, String typeBillings, String typeCurrency, long goal, Date dateReceived) {
+    public Cumulative(double balance, String name, String typeBillings, String typeCurrency, double goal, Date dateReceived) {
         super(balance, 0, name, typeBillings, typeCurrency, dateReceived);
         this.goal = goal;
     }
 
-    public long getGoal() {
+    public double getGoal() {
         return goal;
     }
 
@@ -49,7 +49,7 @@ public class Cumulative extends Billings implements Serializable {
         return billingData;
     }
 
-    public void setGoal(long goal) {
+    public void setGoal(double goal) {
         this.goal = goal;
     }
 }

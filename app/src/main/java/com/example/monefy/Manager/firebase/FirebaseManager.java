@@ -305,4 +305,28 @@ public class FirebaseManager {
                     }
                 });
     }
+
+    public void addHistoryBilling(Map<String, Object> historyBillingData, final InConclusionCompleteListener listener){
+        init();
+        CollectionReference historyBilling = db
+                .collection("Users")
+                .document(userId)
+                .collection("historyBilling");
+
+        historyBilling.add(historyBillingData)
+                .addOnSuccessListener(documentReference -> {
+                   if(listener != null){
+                       listener.onSuccess();
+                   }
+                })
+                .addOnFailureListener(e->{
+                   if(listener != null){
+                       try {
+                           listener.onFailure(e);
+                       }catch (Exception ex){
+                           throw new RuntimeException(ex);
+                       }
+                   }
+                });
+    }
 }

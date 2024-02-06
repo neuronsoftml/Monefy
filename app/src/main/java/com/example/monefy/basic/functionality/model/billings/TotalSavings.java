@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TotalSavings {
-    private long amount;
+    private double amount;
     private final List<Billings> billings;
     private final List<CurrencyMonoBank> currencyMonoBankList;
 
-    public TotalSavings(long amount, List<Billings> billings, List<CurrencyMonoBank> currencyMonoBankList) {
+    public TotalSavings(double amount, List<Billings> billings, List<CurrencyMonoBank> currencyMonoBankList) {
         this.amount = amount;
         this.billings = billings;
         this.currencyMonoBankList = currencyMonoBankList;
@@ -34,15 +34,15 @@ public class TotalSavings {
         }
     }
 
-    public long getAmount() {
+    public double getAmount() {
         calculatingTotalSavings();
         return amount;
     }
 
-    private long getCourseByCurrency(String currency){
+    private double getCourseByCurrency(String currency){
         for(CurrencyMonoBank element : currencyMonoBankList){
             if(TypeCurrency.searchCurrencyCcy(element.getCurrencyCodeA()).equals(currency)){
-                return (long) element.getBuy();
+                return element.getBuy();
             }
         }
         return 0;

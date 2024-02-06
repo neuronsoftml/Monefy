@@ -6,7 +6,7 @@ import com.example.monefy.basic.functionality.model.currency.TypeCurrency;
 import java.util.List;
 
 public class TotalAmount {
-    private long amount;
+    private double amount;
     private final List<Billings> billings;
     private final List<CurrencyMonoBank> currencyMonoBankList;
 
@@ -35,15 +35,15 @@ public class TotalAmount {
         }
     }
 
-    public long getAmount() {
+    public double getAmount() {
         calculatingTotalAmount();
         return amount;
     }
 
-    private long getCourseByCurrency(String currency){
+    private double getCourseByCurrency(String currency){
         for(CurrencyMonoBank element : currencyMonoBankList){
             if(TypeCurrency.searchCurrencyCcy(element.getCurrencyCodeA()).equals(currency)){
-                return (long) element.getBuy();
+                return  element.getBuy();
             }
         }
         return 0;

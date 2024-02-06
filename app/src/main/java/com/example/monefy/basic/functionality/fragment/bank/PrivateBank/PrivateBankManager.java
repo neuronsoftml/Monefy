@@ -1,8 +1,11 @@
 package com.example.monefy.basic.functionality.fragment.bank.PrivateBank;
 
-import com.example.monefy.basic.functionality.fragment.bank.CallbackBank;
+import android.util.Log;
+
+
 import com.example.monefy.basic.functionality.model.currency.CurrencyPrivateBank;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -10,9 +13,23 @@ import retrofit2.Response;
 
 public class PrivateBankManager {
 
-    private static List<CurrencyPrivateBank> currencyPrivateBankRates;
+    private static PrivateBankManager privateBankManager;
 
-    public static void currencyParse(CallbackBank callback){
+    /** Цей метод створює Singleton для PrivateBankManager
+     * @return повертає силку на обєкт
+     */
+    public static PrivateBankManager getPrivateBankManager(){
+        if(privateBankManager == null){
+            privateBankManager = new PrivateBankManager();
+        }
+        return privateBankManager;
+    }
+
+    /** Список валют з курсом.*/
+    private static List<CurrencyPrivateBank> currencyPrivateBankRates = new ArrayList<>();
+
+    /** Цей метод здійснює парсинг Json файла курса валют. */
+    private static void currencyParse(CallbackPrivateBank callbackPrivateBank){
         PrivateBankApiClient privateBankApiClient = new PrivateBankApiClient();
         Call<List<CurrencyPrivateBank>> call = privateBankApiClient.getCurrency();
         call.enqueue(new retrofit2.Callback<List<CurrencyPrivateBank>>() {
@@ -21,31 +38,26 @@ public class PrivateBankManager {
                 if (response.isSuccessful()) {
                     currencyPrivateBankRates = response.body();
                 }
-                callback.onResponse();
+                callbackPrivateBank.onResponse(currencyPrivateBankRates);
             }
 
             @Override
             public void onFailure(Call<List<CurrencyPrivateBank>> call, Throwable t) {
-               callback.onFailure();
+               callbackPrivateBank.onFailure();
+                Log.e("PrivetBank","ПОМИЛКА ЗЄДНАННЯ PrivateBank");
             }
         });
     }
 
-    public static List<CurrencyPrivateBank> getCurrencyRates() {
-        return currencyPrivateBankRates;
+    /** Цей метод повертає список курса валют, при тому загрузку з серверів здійснює один раз за сесію додатка.
+     * * @param callbackPrivateBank
+     */
+    public void getCurrencyRates(CallbackPrivateBank callbackPrivateBank) {
+        if(currencyPrivateBankRates.isEmpty()){
+            currencyParse(callbackPrivateBank);
+        }else {
+            callbackPrivateBank.onResponse(currencyPrivateBankRates);
+        }
     }
 
-    /*
-    public static double currencyConversionAtTheExchangeRate(double sum, String typeCurrency){
-        for(CurrencyNbu currency : currencyNbuRates){
-            if(typeCurrency.equals(currency.getCc())){
-                return currency.getRate() * sum;
-            }
-            else if (typeCurrency.equals(TypeCurrency.UAH.getTitle())){
-                return sum / currency.getRate();
-            }
-        }
-        return 0;
-    }
-     */
 }

@@ -11,7 +11,7 @@ public class Ordinary extends Billings implements Serializable {
     public Ordinary() {
     }
 
-    public Ordinary(long balance, long creditLimit, String name, String typeBillings, String typeCurrency, Date dateReceived) {
+    public Ordinary(double balance, double creditLimit, String name, String typeBillings, String typeCurrency, Date dateReceived) {
         super(balance, creditLimit, name, typeBillings, typeCurrency,dateReceived);
     }
 

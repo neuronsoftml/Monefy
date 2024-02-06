@@ -11,8 +11,8 @@ import java.util.Locale;
 import java.util.Map;
 
 public abstract class Billings {
-    private long balance; //Баланс рахунка
-    private long creditLimit; //Кредитний ліміт
+    private double balance; //Баланс рахунка
+    private double creditLimit; //Кредитний ліміт
     private String name; //Назва рахунка
     private String typeBillings; //Тип рахунка
     private String typeCurrency; //Тип Валюти
@@ -23,7 +23,7 @@ public abstract class Billings {
 
     }
 
-    public Billings(long balance, long creditLimit, String name,String typeBillings, String typeCurrency, Date dateReceived){
+    public Billings(double balance, double creditLimit, String name,String typeBillings, String typeCurrency, Date dateReceived){
         this.balance = balance;
         this.creditLimit = creditLimit;
         this.name = name;
@@ -32,7 +32,7 @@ public abstract class Billings {
         this.dateReceived = dateReceived;
     }
 
-    public long getBalance() {
+    public double getBalance() {
         return balance;
     }
 
@@ -44,7 +44,7 @@ public abstract class Billings {
         return typeCurrency;
     }
 
-    public long getCreditLimit() {
+    public double getCreditLimit() {
         return creditLimit;
     }
 
@@ -78,7 +78,7 @@ public abstract class Billings {
         }
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

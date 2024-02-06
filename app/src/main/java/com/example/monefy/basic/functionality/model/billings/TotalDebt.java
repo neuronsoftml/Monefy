@@ -25,7 +25,7 @@ public class TotalDebt {
         for (Billings billing : billings) {
             if (billing instanceof Debt && ((Debt) billing).getDebtor().equals(debtor)) {
                 String currency = billing.getTypeCurrency();
-                long debtBalance = billing.getBalance();
+                double debtBalance = billing.getBalance();
 
                 if (currency.equals(UAH)) {
                     totalDebtAmountInUAH += debtBalance;
@@ -42,7 +42,7 @@ public class TotalDebt {
         return totalDebtAmountInUAH;
     }
 
-    private long convertToUAH(long amount, String fromCurrency) {
+    private double convertToUAH(double amount, String fromCurrency) {
         if (USD.equals(fromCurrency)) {
             return amount * getCourseByCurrency(USD);
         } else if (EUR.equals(fromCurrency)) {
@@ -53,10 +53,10 @@ public class TotalDebt {
     }
 
 
-    private long getCourseByCurrency(String currency){
+    private double getCourseByCurrency(String currency){
         for(CurrencyMonoBank element :  currencyMonoBankList){
             if(TypeCurrency.searchCurrencyCcy(element.getCurrencyCodeA()).equals(currency)){
-                return (long) element.getBuy();
+                return  element.getBuy();
             }
         }
         return 0;
