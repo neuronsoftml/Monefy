@@ -11,13 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.controller.billings.BillingsController;
 import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
 import com.example.monefy.basic.functionality.Interface.navigation.ClickListener;
 import com.example.monefy.basic.functionality.fragment.navigation.ConfirmationFragment;
 import com.example.monefy.basic.functionality.model.billings.Billings;
-import com.example.monefy.basic.functionality.controller.firebase.FirebaseController;
 import com.example.monefy.basic.functionality.Interface.firebase.InConclusionCompleteListener;
 import com.example.monefy.basic.functionality.controller.message.ToastController;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class EditBillingsFragment extends Fragment {
 
@@ -84,7 +86,7 @@ public class EditBillingsFragment extends Fragment {
             }
 
             @Override
-            public void clickBtnSetUp() {
+            public void clickBtnSetUp() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
                 handlerClickImgBtnSetUp();
             }
         });
@@ -106,33 +108,22 @@ public class EditBillingsFragment extends Fragment {
     }
 
 
-    private void handlerClickImgBtnSetUp() {
-        Billings billingNew = billingDetailsFragment.getBillingObject();
-        if(billingNew != null){
-            billingNew.setId(billing.getId());
-            if(!billingNew.equals(billing)){
-                FirebaseController firebaseController = FirebaseController.getFirebaseManager();
-                firebaseController.updatedBillings(
-                        billing.getId(),
-                        billingDetailsFragment.getBillingMapData(),
-                        new InConclusionCompleteListener() {
-                            @Override
-                            public void onSuccess() {
-                                ToastController.showToastOnSuccessful(getContext(),R.string.textSuccessfulEditBillings);
-                                if(getActivity() != null){
-                                    FragmentNavigation.goToReplaceBillingsFragment(getActivity().getSupportFragmentManager());
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Exception exception) throws Exception {
-                                ToastController.showToastOnFailure(getContext(),R.string.textFailureEditBillings);
-                                throw new Exception("Помилка зміни рахунка " + exception);
-                            }
-                        }
-
-                );
+    private void handlerClickImgBtnSetUp() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        Billings billingEdit = billingDetailsFragment.getBillingObject();
+        BillingsController.editBilling(billing, billingEdit, new InConclusionCompleteListener() {
+            @Override
+            public void onSuccess() {
+                ToastController.showToastOnSuccessful(getContext(),R.string.textSuccessfulEditBillings);
+                if(getActivity() != null){
+                    FragmentNavigation.goToReplaceBillingsFragment(getActivity().getSupportFragmentManager());
+                }
             }
-        }
+
+            @Override
+            public void onFailure(Exception exception) throws Exception {
+                ToastController.showToastOnFailure(getContext(),R.string.textFailureEditBillings);
+                throw new Exception("Помилка зміни рахунка " + exception);
+            }
+        });
     }
 }

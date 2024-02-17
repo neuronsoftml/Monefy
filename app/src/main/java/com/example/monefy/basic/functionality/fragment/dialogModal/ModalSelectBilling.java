@@ -15,6 +15,7 @@ import com.example.monefy.R;
 import com.example.monefy.basic.functionality.Interface.dialogModal.BillingDialogCallback;
 import com.example.monefy.basic.functionality.Interface.dialogModal.DialogCallback;
 import com.example.monefy.basic.functionality.Interface.dialogModal.DialogFunctional;
+import com.example.monefy.basic.functionality.controller.billings.BillingsController;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.basic.functionality.controller.firebase.FirebaseController;
@@ -28,7 +29,7 @@ public class ModalSelectBilling implements DialogFunctional {
     private TextView tVNameBilling, tVABillingBalance, tVTypeCurrency, tVTypeBilling;
     private ImageButton imageBtnDelete, imageBtnEdit, imageBtnReplenishment;
 
-    public ModalSelectBilling(Context context, Billings billing, DialogCallback dialogCallback){
+    public ModalSelectBilling(Context context, Billings billing, final DialogCallback dialogCallback){
         this.context = context;
         this.billing = billing;
         this.callback = dialogCallback;
@@ -86,29 +87,21 @@ public class ModalSelectBilling implements DialogFunctional {
 
     private void handlerButtonDelete(){
             imageBtnDelete.setOnClickListener(v->{
-                FirebaseController firebaseController = FirebaseController.getFirebaseManager();
-                firebaseController.deleteBillings(
-                    billing.getId(),
-                    new InConclusionCompleteListener() {
-                        @Override
-                        public void onSuccess() {
-                            if(callback != null){
-                                dialogModal.cancel();
-                                if(callback instanceof BillingDialogCallback){
-                                    BillingDialogCallback billingDialogCallback = (BillingDialogCallback) callback;
-                                    billingDialogCallback.onSuccessDelete(billing);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Exception exception) throws Exception {
-                            if(callback != null){
-                                callback.onFailure(exception);
-                            }
+                BillingsController.deleteBilling(billing, new InConclusionCompleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        dialogModal.cancel();
+                        if(callback instanceof BillingDialogCallback){
+                            BillingDialogCallback billingDialogCallback = (BillingDialogCallback) callback;
+                            billingDialogCallback.onSuccessDelete(billing);
                         }
                     }
-            );
+
+                    @Override
+                    public void onFailure(Exception exception) throws Exception {
+                        callback.onFailure(exception);
+                    }
+                });
         });
     }
 

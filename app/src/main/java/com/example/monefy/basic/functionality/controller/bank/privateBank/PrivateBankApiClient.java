@@ -14,6 +14,7 @@ public class PrivateBankApiClient {
     private Retrofit retrofit;
     private PrivateBankApiService apiService;
 
+    /** Цей метод створює зєднання по силці до API lick курса валют privatBank.*/
     public PrivateBankApiClient() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -23,6 +24,9 @@ public class PrivateBankApiClient {
         apiService = retrofit.create(PrivateBankApiService.class);
     }
 
+    /** Цей метод повертає колекцію списків курса валют.
+     * @return
+     */
     public Call<List<CurrencyPrivateBank>> getCurrency() {
         return apiService.getCurrencyRates();
     }

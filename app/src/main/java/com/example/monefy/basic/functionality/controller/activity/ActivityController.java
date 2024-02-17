@@ -5,7 +5,9 @@ import android.content.Intent;
 
 public class ActivityController {
 
-    //Перезапускає активність
+    /** Цей метод дозволяє перезапустити передану активність.
+     * @param currentActivity
+     */
     public static void resetActivity(Activity currentActivity){
         if (currentActivity != null) {
             Intent intent = new Intent(currentActivity, currentActivity.getClass());

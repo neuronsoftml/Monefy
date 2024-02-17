@@ -1,13 +1,10 @@
 package com.example.monefy.basic.functionality.controller.billings;
 
-import android.util.Log;
-
-import com.example.monefy.basic.functionality.controller.date.DateController;
 import com.example.monefy.basic.functionality.controller.firebase.FirebaseController;
 import com.example.monefy.basic.functionality.Interface.firebase.InConclusionCompleteListener;
+import com.example.monefy.basic.functionality.controller.history.HistoryBillingsController;
 import com.example.monefy.basic.functionality.fragment.dialogModal.ModalTransferFragment;
 import com.example.monefy.basic.functionality.model.billings.Billings;
-import com.example.monefy.basic.functionality.model.billings.HistoryBilling;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -50,8 +47,8 @@ public class TransactionController {
         updateTheBillToWhichWeTransfer(theBillToWhichWeTransfer);
 
         // Створюємо запис історії рахунків
-        createHistoryTheBillFromWhichWeDebit(theBillFromWhichWeDebit, theBillToWhichWeTransfer,writeOffAmount);
-        createHistoryTheBillToWhichWeTransfer(theBillToWhichWeTransfer, theBillFromWhichWeDebit, setUpAmount);
+        HistoryBillingsController.createHistoryTheBilling(theBillFromWhichWeDebit, theBillToWhichWeTransfer,"-",writeOffAmount);
+        HistoryBillingsController.createHistoryTheBilling(theBillToWhichWeTransfer,theBillFromWhichWeDebit, "+", setUpAmount);
 
     }
 
@@ -102,60 +99,5 @@ public class TransactionController {
 
                     }
                 });
-    }
-
-    /** Цей метод створює запис в історію рахуку, що з нього списали кошки.
-     * @param theBillFromWhichWeDebit - Рахунок з якого списуєм.
-     * @param theBillToWhichWeTransfer - Рахунок на який переводим.
-     * @param writeOffAmount - сума яку списуєм.
-     */
-    private void createHistoryTheBillFromWhichWeDebit(Billings theBillFromWhichWeDebit, Billings theBillToWhichWeTransfer, double writeOffAmount){
-        HistoryBilling historyBilling = new HistoryBilling(
-                theBillFromWhichWeDebit.getId(),
-                theBillToWhichWeTransfer.getId(),
-                DateController.getCurrentDateFormatFirebase(),
-                theBillFromWhichWeDebit.getTypeCurrency(),
-                "-",
-                writeOffAmount
-        );
-        firebaseController.addHistoryBilling(historyBilling.getCreateMap(), new InConclusionCompleteListener() {
-            @Override
-            public void onSuccess() {
-                Log.d("Запис історії рахунку", "успішно створений");
-            }
-
-            @Override
-            public void onFailure(Exception exception) throws Exception {
-                Log.d("Запис історії рахунку", "не вдалося створити");
-            }
-        });
-    }
-
-    /** Цей метод здійсннює запис в історію рахуку, що до нього переводили кошти.
-     * @param theBillToWhichWeTransfer - Рахунок на який переводим.
-     * @param theBillFromWhichWeDebit - Рахунок з якого списуєм.
-     * @param setUpAmount - сума яку перевели.
-     */
-    private void createHistoryTheBillToWhichWeTransfer(Billings theBillToWhichWeTransfer, Billings theBillFromWhichWeDebit, double setUpAmount){
-        HistoryBilling historyBilling = new HistoryBilling(
-                theBillToWhichWeTransfer.getId(),
-                theBillFromWhichWeDebit.getId(),
-                DateController.getCurrentDateFormatFirebase(),
-                theBillToWhichWeTransfer.getTypeCurrency(),
-                "+",
-                setUpAmount
-        );
-
-        firebaseController.addHistoryBilling(historyBilling.getCreateMap(), new InConclusionCompleteListener() {
-            @Override
-            public void onSuccess() {
-                Log.d("Запис історії рахунку", "успішно створений");
-            }
-
-            @Override
-            public void onFailure(Exception exception) throws Exception {
-                Log.d("Запис історії рахунку", "не вдалося створити");
-            }
-        });
     }
 }

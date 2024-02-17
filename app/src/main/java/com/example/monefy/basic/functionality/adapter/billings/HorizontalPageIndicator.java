@@ -76,7 +76,6 @@ public class HorizontalPageIndicator extends LinearLayout {
 
     private void updateIndicators() {
         for (int i = 0; i < pageCount; i++) {
-            Log.e("Індикс який вибраний ", String.valueOf(currentPage));
             indicators.get(i).setImageResource(i == currentPage ? R.drawable.icon_selected_indicator : R.drawable.icon_unselected_indicator);
         }
     }

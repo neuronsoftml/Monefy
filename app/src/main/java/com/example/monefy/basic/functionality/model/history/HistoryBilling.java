@@ -1,4 +1,4 @@
-package com.example.monefy.basic.functionality.model.billings;
+package com.example.monefy.basic.functionality.model.history;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -12,6 +12,9 @@ public class HistoryBilling{
     private String typeCurrency; //Тип Валюти.
     private String typeTransfer; // Тип переводу.
     private double suma; // Cума переводу.
+
+    public HistoryBilling() {
+    }
 
     public HistoryBilling(String UIDBilling, String UIDObjectTransfer, Date dateReceived, String typeCurrency, String typeTransfer, double suma) {
         this.UIDBilling = UIDBilling;

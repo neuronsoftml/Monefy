@@ -1,14 +1,18 @@
 package com.example.monefy.basic.functionality.controller.firebase;
 
 import android.app.Activity;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.monefy.basic.functionality.Interface.billings.OnBillingCallback;
 import com.example.monefy.basic.functionality.Interface.billings.OnLoadBillingsCallback;
 import com.example.monefy.basic.functionality.Interface.firebase.InConclusionCompleteListener;
+import com.example.monefy.basic.functionality.Interface.history.OnLoadHistoryBillingsCallback;
 import com.example.monefy.basic.functionality.Interface.incomes.OnIncomesCallback;
 import com.example.monefy.basic.functionality.Interface.message.OnMessageCallback;
 import com.example.monefy.basic.functionality.Interface.user.OnUserDataCallback;
+import com.example.monefy.basic.functionality.model.history.HistoryBilling;
 import com.example.monefy.basic.functionality.model.user.User;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.income.Income;
@@ -116,7 +120,7 @@ public class FirebaseController {
     }
 
     //Дістає усі рахунки
-    public void getBillingsData(final OnLoadBillingsCallback callback) {
+    public void getBillingsAll(final OnLoadBillingsCallback callback) {
         // Виконуємо запит до Firestore для отримання даних користувача за ідентифікатором userId
         init();
         db.collection("Users")
@@ -147,6 +151,32 @@ public class FirebaseController {
                         // Обробка помилки
                         callback.onDataError(e);
                     }
+                });
+    }
+
+    public void getBillingsByUID(String UIDBillings, final OnBillingCallback onBillingCallback) {
+        init();
+        db.collection("Users")
+                .document(userId)
+                .collection("billings")
+                .document(UIDBillings)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        // Отримуємо дані з документа і передаємо їх через callback
+                        Billings billings = Billings.fromDocumentSnapshot(documentSnapshot);
+                        if (billings != null) {
+                            billings.setId(documentSnapshot.getId());
+                            onBillingCallback.onBillingsDataReceived(billings);
+                        }
+                    } else {
+                        // Документ з вказаним ID не існує
+                        onBillingCallback.onDataNotFound();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Обробка помилки
+                    Log.e("FirebaseController","getBillingsByUID addOnFailureListener " + e);
                 });
     }
 
@@ -285,7 +315,7 @@ public class FirebaseController {
     }
 
 
-    public  void getMessageData(final OnMessageCallback onMessageCallback){
+    public void getMessageData(final OnMessageCallback onMessageCallback){
         init();
         db.collection("Users")
                 .document(userId)
@@ -327,6 +357,28 @@ public class FirebaseController {
                            throw new RuntimeException(ex);
                        }
                    }
+                });
+    }
+
+    public void getHistoryBillingsByUID(String UIDBilling, final OnLoadHistoryBillingsCallback historyBillingsCallback){
+        init();
+        db.collection("Users")
+                .document(userId)
+                .collection("historyBilling")
+                .whereEqualTo("UIDBilling", UIDBilling)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        List<HistoryBilling> historyBillingsList = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            HistoryBilling historyBilling = document.toObject(HistoryBilling.class);
+                            historyBilling.setId(document.getId());
+                            historyBillingsList.add(historyBilling);
+                        }
+                        historyBillingsCallback.onHistoryBillingsReceived(historyBillingsList);
+                    } else {
+                        historyBillingsCallback.onDataNotFound();
+                    }
                 });
     }
 }

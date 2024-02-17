@@ -2,9 +2,12 @@ package com.example.monefy.basic.functionality.controller.billings;
 
 import android.util.Log;
 
+import com.example.monefy.basic.functionality.Interface.billings.OnBillingCallback;
 import com.example.monefy.basic.functionality.Interface.billings.OnBillingsCallback;
 import com.example.monefy.basic.functionality.Interface.billings.OnLoadBillingsCallback;
 import com.example.monefy.basic.functionality.Interface.billings.OnSizeBillingsCallback;
+import com.example.monefy.basic.functionality.Interface.dialogModal.BillingDialogCallback;
+import com.example.monefy.basic.functionality.Interface.firebase.InConclusionCompleteListener;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 import com.example.monefy.basic.functionality.controller.firebase.FirebaseController;
@@ -15,51 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/** Цей класс дає можливість здійснювати комунікацію та управління обєктами рахунків.*/
 public class BillingsController {
 
-    /**
-     * @return Повертає весь список рахунків які є в Firebase.
-     */
-    public static void getBillingsList(OnBillingsCallback onBillingsCallback) {
-        loadBillings(new OnBillingsCallback() {
-            @Override
-            public void onBillingsDataReceived(List<Billings> billingsList) {
-                onBillingsCallback.onBillingsDataReceived(billingsList);
-            }
-
-            @Override
-            public void onDataNotFound() {
-                onBillingsCallback.onDataNotFound();
-            }
-        });
-    }
+    /** Link на firebaseController що дозволяє використовувати різноманітні методи взаємодії з базу данних FireBase */
+    private static FirebaseController firebaseController = FirebaseController.getFirebaseManager();
 
     /**
-     * Дістає усі рахунки окрім одного
-     * @param bill передаємо параметр рахунок який необхідно видалити з списку.
-     * @return повертає спицільальний список рахунків.
+     * loadBillings - Здійснює загрузку рахунків з бази Firebase.
      */
-    public static void getBillingsAllExceptOne(Billings bill, OnBillingsCallback onBillingsCallback){
-         getBillingsList(new OnBillingsCallback() {
-             @Override
-             public void onBillingsDataReceived(List<Billings> billingsList) {
-                 billingsList.remove(bill);
-                 onBillingsCallback.onBillingsDataReceived(billingsList);
-             }
-
-             @Override
-             public void onDataNotFound() {
-                onBillingsCallback.onDataNotFound();
-             }
-         });
-    }
-
-    /**
-     * loadBillings - Здійснює загрузку рахунків.
-     */
-    private static void loadBillings(OnBillingsCallback onBillingsCallback){
-        FirebaseController firebaseController = FirebaseController.getFirebaseManager();
-        firebaseController.getBillingsData(new OnLoadBillingsCallback() {
+    private static void loadBillings(final OnBillingsCallback onBillingsCallback){
+        firebaseController.getBillingsAll(new OnLoadBillingsCallback() {
 
             @Override
             public void onBillingsDataReceived(List<Billings> billings) {
@@ -80,10 +49,65 @@ public class BillingsController {
     }
 
     /**
+     * @return Повертає весь список рахунків які є в бази Firebase.
+     */
+    public static void getAllBillings(final OnBillingsCallback onBillingsCallback) {
+        loadBillings(new OnBillingsCallback() {
+            @Override
+            public void onBillingsDataReceived(List<Billings> billingsList) {
+                onBillingsCallback.onBillingsDataReceived(billingsList);
+            }
+
+            @Override
+            public void onDataNotFound() {
+                onBillingsCallback.onDataNotFound();
+            }
+        });
+    }
+
+    /**
+     * Дістає усі рахунки окрім одного
+     * @param bill передаємо параметр рахунок який необхідно видалити з списку.
+     * @return повертає спицільальний список рахунків.
+     */
+    public static void getBillingsAllExceptOne(Billings bill, final OnBillingsCallback onBillingsCallback){
+         getAllBillings(new OnBillingsCallback() {
+             @Override
+             public void onBillingsDataReceived(List<Billings> billingsList) {
+                 billingsList.remove(bill);
+                 onBillingsCallback.onBillingsDataReceived(billingsList);
+             }
+
+             @Override
+             public void onDataNotFound() {
+                onBillingsCallback.onDataNotFound();
+             }
+         });
+    }
+
+    /** Цей метод дістає з бази даних один рахунок за параметром його UID
+     * @param BillingUID id - рахунка
+     * @param onBillingCallback - інтерфейс через якого повернемо рахунок який дістали.
+     */
+    public static void getBillingExceptOne(String BillingUID, final OnBillingCallback onBillingCallback){
+        firebaseController.getBillingsByUID(BillingUID, new OnBillingCallback() {
+            @Override
+            public void onBillingsDataReceived(Billings billing) {
+                onBillingCallback.onBillingsDataReceived(billing);
+            }
+
+            @Override
+            public void onDataNotFound() {
+                onBillingCallback.onDataNotFound();
+            }
+        });
+    }
+
+    /**
      * sortingBillings - сортирує рахунки, повертає список рахунків  необхідного типу.
      * @param billingList - Список рахунків.
      * @param typeBillings - Список типів рахунки.
-     * @return повертає список рахунків Billings
+     * @return повертає сортирований список рахунків "Billings".
      */
     public static List<Billings> sortingBillings(List<Billings> billingList, List<TypeBillings> typeBillings){
         List<Billings> billings = new ArrayList<>();
@@ -99,23 +123,7 @@ public class BillingsController {
     }
 
     /**
-     * sortingBillings - сортирує рахунки, повертає список рахунків  необхідного типу.
-     * @param billingList - Список рахунків.
-     * @param typeBillings - Тип рахунку.
-     * @return повертає список вісортированих рахунків Billings по типу
-     */
-    public static List<Billings> sortingBillings(List<Billings> billingList, TypeBillings typeBillings){
-        List<Billings> billings = new ArrayList<>();
-        for(Billings bill : billingList){
-            if(bill.getTypeBillings().equals(typeBillings.getTitle())){
-                billings.add(bill);
-            }
-        }
-        return billings;
-    }
-
-    /**
-     * Цей метод отримує дані з Billingsоб’єкта та повертає їх як Map<String, Object>.
+     * Цей метод отримує дані з Billings об’єкта та повертає їх як Map<String, Object>.
      * Він робить це шляхом динамічного виклику getCreateMap()методу відповідного підкласу Billings.
      * @param billing об’єкт, з якого потрібно отримати дані.
      * @return Map<String, Object>що містить отримані дані.
@@ -136,8 +144,11 @@ public class BillingsController {
         return (Map<String, Object>) result;
     }
 
-    public static void getBillingsSize(OnSizeBillingsCallback onSizeBillingsCallback){
-        getBillingsList(new OnBillingsCallback() {
+    /** Цей метод дістає кількість рахунків
+     * @param onSizeBillingsCallback повертає кількість рахунків через інтерфейс.
+     */
+    public static void getBillingsSize(final OnSizeBillingsCallback onSizeBillingsCallback){
+        getAllBillings(new OnBillingsCallback() {
             @Override
             public void onBillingsDataReceived(List<Billings> billingsList) {
                 onSizeBillingsCallback.OnSize(billingsList.size());
@@ -150,4 +161,55 @@ public class BillingsController {
         });
     }
 
+    /** Цей метод вносить зміни у вибраний рахунок.
+     * @param billing - Рахунок який потрібно внести зміни.
+     * @param editBilling - Рахунок з внесенеми змінами.
+     * @param callback - повертає відповідь про виконання
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws NoSuchMethodException
+     */
+    public static void editBilling(Billings billing, Billings editBilling, final InConclusionCompleteListener callback) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        if(editBilling!= null){
+            editBilling.setId(billing.getId());
+            if(!editBilling.equals(billing)){
+                firebaseController.updatedBillings(
+                        billing.getId(),
+                        getBillingMapData(editBilling),
+                        new InConclusionCompleteListener() {
+                            @Override
+                            public void onSuccess() {
+                                callback.onSuccess();
+                            }
+
+                            @Override
+                            public void onFailure(Exception exception) throws Exception {
+                                callback.onFailure(exception);
+                            }
+                        }
+
+                );
+            }
+        }
+    }
+
+    /** Цей метод видаляє з бази даних переданий рахунок.
+     * @param billing - Рахунок який потрібно видали.
+     * @param callback - Повертає відповідь про виконання
+     */
+    public static void deleteBilling(Billings billing, final InConclusionCompleteListener callback){
+        firebaseController.deleteBillings(
+                billing.getId(),
+                new InConclusionCompleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        callback.onSuccess();
+                    }
+
+                    @Override
+                    public void onFailure(Exception exception) throws Exception {
+                        callback.onFailure(exception);
+                    }
+                });
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.monefy.basic.functionality.fragment.income;
+package com.example.monefy.basic.functionality.fragment.accounting.revenue;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,11 +19,9 @@ import com.example.monefy.basic.functionality.model.income.Income;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IncomeListFragment extends Fragment {
+public class RevenueListFragment extends Fragment {
 
     private ListView listItemIncome;
-    private TextView tvMessage;
-    private Context context;
     private final IncomeController incomeController = IncomeController.getIncomeManager();
     private List<Income> incomeList = new ArrayList<>();
     @Override
@@ -34,7 +32,7 @@ public class IncomeListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_income_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_revenue_list, container, false);
 
         setupUIElement(view);
 
@@ -50,13 +48,12 @@ public class IncomeListFragment extends Fragment {
             }
         });
 
-        context =  getContext();
 
         return view;
     }
 
     private void setupUIElement(View view){
-        this.listItemIncome = view.findViewById(R.id.list_item_incomes);
+        this.listItemIncome = view.findViewById(R.id.listItem);
     }
 
     private void showIncomeList() {

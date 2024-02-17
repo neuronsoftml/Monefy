@@ -2,28 +2,18 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:context=".basic.functionality.fragment.billings.BillingsListFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".basic.functionality.fragment.accounting.revenue.RevenueListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <com.example.monefy.basic.functionality.adapter.billings.HorizontalPageIndicator
-            android:id="@+id/horizontalIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listItemBillings" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listItemBillings"
+            android:id="@+id/listItem"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="0dp"
             android:clipToPadding="false"
             android:orientation="horizontal"
@@ -35,17 +25,14 @@
             app:reverseLayout="false"
             app:stackFromEnd="false" />
 
-        <TextView
-            android:id="@+id/tVMessage"
+        <com.example.monefy.basic.functionality.adapter.billings.HorizontalPageIndicator
+            android:id="@+id/horizontalIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/textNotBillings"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/listItem" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </FrameLayout>

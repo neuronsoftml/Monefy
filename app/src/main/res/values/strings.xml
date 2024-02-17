@@ -16,6 +16,8 @@
     <string name="textBilling">Рахунок</string>
     <string name="textIncomes">Активи</string>
     <string name="textIncome">Актив</string>
+    <string name="textRevenues">Доходи</string>
+    <string name="textExpenses">Витрати</string>
     <string name="textBalance">Баланс</string>
     <string name="textSavings">Заощадження</string>
     <string name="textDebtys">Борги</string>
@@ -105,6 +107,8 @@
     <string name="textHistoryBilling">Історія рахунку</string>
     <string name="textViewAll">Переглянути усі</string>
     <string name="textDateCreate">Дата створення:</string>
+    <string name="textDataNotFound">Записи відсутні</string>
+    <string name="textTheAccountIsNoLongerInExistence">Рахунка більше не їснує</string>
 
 
     <string name="descriptionSignUp">виберіть один із варіантів створення користувача</string>

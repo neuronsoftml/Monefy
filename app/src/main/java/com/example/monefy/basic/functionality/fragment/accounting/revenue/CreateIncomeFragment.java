@@ -1,4 +1,4 @@
-package com.example.monefy.basic.functionality.fragment.income;
+package com.example.monefy.basic.functionality.fragment.accounting.revenue;
 
 import android.os.Bundle;
 

@@ -27,9 +27,8 @@ public class BillingsFragment extends Fragment {
     private FragmentContainerView fragBillings;
     private FragmentContainerView fragInformationBoard;
     private FragmentContainerView fragHistoryBill;
-    private Button btnBack;
+    private TextView btnBack;
     private TextView counterBillings, counterMessage;
-
     private final InfoBoardBillingsFragment infoBoardBillingsFragment = new InfoBoardBillingsFragment();
     private final HistoryBillingsFragment historyBillingsFragment = new HistoryBillingsFragment();
     private final BillingsListFragment billingsListFragment =  new BillingsListFragment();
@@ -71,7 +70,6 @@ public class BillingsFragment extends Fragment {
      * 3) Загальна сума коштів на рахунках типу "звичайний"
      * */
     private void showFragInformationBord() {
-        infoBoardBillingsFragment.setBillingsListFragment(billingsListFragment);
         FragmentNavigation.addFragmentInTheMiddleOfAnother(
                 getChildFragmentManager(),
                 infoBoardBillingsFragment,

@@ -14,6 +14,7 @@ public class MonoBankApiClient {
     private Retrofit retrofit;
     private final MonoBankApiService apiService;
 
+    /** Цей метод створює зєднання по силці до API lick курса валют monoBank.*/
     public MonoBankApiClient() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -23,6 +24,9 @@ public class MonoBankApiClient {
         apiService = retrofit.create(MonoBankApiService.class);
     }
 
+    /** Цей метод повертає колекцію списків курса валют.
+     * @return
+     */
     public Call<List<CurrencyMonoBank>> getCurrency(){
         return apiService.getCurrencyRates();
     }

@@ -1,4 +1,4 @@
-package com.example.monefy.basic.functionality.fragment.income;
+package com.example.monefy.basic.functionality.fragment.accounting.revenue;
 
 import android.os.Bundle;
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class InfoBoardIncomeFragment extends Fragment implements DataLoadListener {
 
-    private IncomeListFragment incomeListFragment;
+    private RevenueListFragment revenueListFragment;
     private CurrencyBankFragment currencyBankFragment;
     private FragmentContainerView fragCurrencyNbu;
     private TextView  tvTotalTurnover, tvTotalReceipts;
@@ -48,8 +48,8 @@ public class InfoBoardIncomeFragment extends Fragment implements DataLoadListene
 
     @Override
     public void onDataLoaded() {
-        if(incomeListFragment.getIncomeList() != null){
-            updateInfoBoard(incomeListFragment.getIncomeList());
+        if(revenueListFragment.getIncomeList() != null){
+            updateInfoBoard(revenueListFragment.getIncomeList());
         }
     }
 
@@ -81,7 +81,7 @@ public class InfoBoardIncomeFragment extends Fragment implements DataLoadListene
         setValueTotalReceipts(incomes);
     }
 
-    public void setIncomeListFragment(IncomeListFragment incomeListFragment) {
-        this.incomeListFragment = incomeListFragment;
+    public void setIncomeListFragment(RevenueListFragment revenueListFragment) {
+        this.revenueListFragment = revenueListFragment;
     }
 }

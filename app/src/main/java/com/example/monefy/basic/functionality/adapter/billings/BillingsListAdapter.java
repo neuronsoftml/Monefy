@@ -1,7 +1,5 @@
 package com.example.monefy.basic.functionality.adapter.billings;
 
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.adapter.OnItemClickListener;
+import com.example.monefy.basic.functionality.Interface.adapter.OnItemClickListener;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.Cumulative;
 import com.example.monefy.basic.functionality.model.billings.Debt;
 import com.example.monefy.basic.functionality.model.billings.Ordinary;
-import com.example.monefy.basic.functionality.model.billings.TypeBillings;
 
 import java.text.ParseException;
 import java.util.List;
@@ -125,7 +122,8 @@ public class BillingsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return billingsList.get(position);
     }
 
-    public void removeBillings(Billings billing){
-        billingsList.remove(billing);
+    public void updateBillingsList(List<Billings> billingsList){
+        this.billingsList.clear();
+        this.billingsList.addAll(billingsList);
     }
 }

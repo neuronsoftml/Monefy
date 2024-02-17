@@ -19,18 +19,55 @@ import com.example.monefy.basic.functionality.controller.incomes.IncomeControlle
 import com.example.monefy.basic.functionality.controller.message.MessageController;
 import com.example.monefy.basic.functionality.controller.user.UserController;
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.fragment.accounting.AccountingFragment;
 import com.example.monefy.basic.functionality.fragment.bank.CurrencyBankFragment;
 import com.example.monefy.basic.functionality.fragment.navigation.FragmentNavigation;
 
 
 public class LobbyFragment extends Fragment {
+    /**
+     * Об'єкт текстового поля для відображення імені користувача.
+     */
     private TextView textNameUser;
+
+    /**
+     * Об'єкт текстового поля для відображення повідомлення.
+     */
     private TextView textMessage;
+
+    /**
+     * Об'єкт текстового поля для відображення кількості повідомлень.
+     */
     private TextView textCollMessage;
+
+    /**
+     * Об'єкт кнопки для перегляду рахунків користувача.
+     */
     private Button btnCollBills;
+
+    /**
+     * Об'єкт кнопки для перегляду доходів користувача.
+     */
     private Button btnCollIncomes;
+
+    /**
+     * Об'єкт кнопки для перегляду всіх повідомлень.
+     */
     private ImageButton imgBtnAllMessage;
-    private ConstraintLayout cardBillings, cardIncomes;
+
+    /**
+     * Об'єкт контейнера для карточки з інформацією про рахунки.
+     */
+    private ConstraintLayout cardBillings;
+
+    /**
+     * Об'єкт контейнера для карточки з інформацією про облік.
+     */
+    private ConstraintLayout cardAccounting;
+
+    /**
+     * Об'єкт контейнера фрагмента для відображення валюти та банківських даних.
+     */
     private FragmentContainerView fragContCurrencyBank;
 
     @Override
@@ -59,12 +96,18 @@ public class LobbyFragment extends Fragment {
         this.btnCollBills = view.findViewById(R.id.btnCollBills);
         this.btnCollIncomes = view.findViewById(R.id.btnCollIncomes);
         this.cardBillings = view.findViewById(R.id.cardBillings);
-        this.cardIncomes = view.findViewById(R.id.cardIncomes);
+        this.cardAccounting = view.findViewById(R.id.cardIncomes);
         this.imgBtnAllMessage = view.findViewById(R.id.imgBtnAllMessage);
         this.fragContCurrencyBank = view.findViewById(R.id.fragCurrencyBank);
     }
 
-    /** Цей метод встановлює значення UI елементів.*/
+    /**
+     * Цей метод встановлює значення для UI елементів.
+     * Встановлює текст кнопки "Рахунки" на основі кількості рахунків, завантажує доходи
+     * та встановлює текст кнопки "Доходи" на основі їх кількості, завантажує дані користувача
+     * та встановлює ім'я користувача, завантажує повідомлення та встановлює текст
+     * останнього повідомлення та загальну кількість повідомлень.
+     */
     private void setValueUIElement(){
         BillingsController.getBillingsSize(size -> btnCollBills.setText(String.valueOf(size)));
 
@@ -82,35 +125,57 @@ public class LobbyFragment extends Fragment {
         });
     }
 
-    /** Цей метод обробляє усі кліки по елементах.*/
+    /**
+     * Цей метод обробляє всі кліки по елементах.
+     * Обробляє кліки по карточці "Рахунки", карточці "Облік" та кнопці "Всі повідомлення".
+     */
     private void handlerClickEvent(){
         handlerClickBillingsCard();
-        handlerClickIncomesCard();
+        handlerClickAccountingCard();
         handlerClickMessageCard();
     }
 
-    /** Цей метод обробляє клік по cardBillings ConstraintLayout.*/
+    /**
+     * Цей метод обробляє клік по карточці "Рахунки" ConstraintLayout.
+     */
     private void handlerClickBillingsCard(){
         cardBillings.setOnClickListener(v->{
             FragmentNavigation.goToReplaceBillingsFragment(getSupportFragmentManager());
         });
     }
 
-    /** Цей метод обробляє клік по cardIncomes ConstraintLayout*/
-    private void handlerClickIncomesCard(){
-        cardIncomes.setOnClickListener(v->{
-            FragmentNavigation.gotToReplaceIncomesFragment(getSupportFragmentManager());
+    /**
+     * Цей метод обробляє клік по карточці "Облік" ConstraintLayout.
+     */
+    private void handlerClickAccountingCard(){
+        Bundle bundle = new Bundle();
+        bundle.putString("typeAccounting","REVENUES");
+
+        AccountingFragment accountingFragment = new AccountingFragment();
+        accountingFragment.setArguments(bundle);
+
+        cardAccounting.setOnClickListener(v->{
+            FragmentNavigation.replaceFragment(
+                    getSupportFragmentManager(),
+                    accountingFragment,
+                    FragmentNavigation.getContainerHome(),
+                    "AccountingFragment"
+            );
         });
     }
 
-    /** Цей метод оброляє клікл imgBtnAllMessage */
+    /**
+     * Цей метод обробляє клік по кнопці "Всі повідомлення".
+     */
     private void handlerClickMessageCard(){
         imgBtnAllMessage.setOnClickListener(v->{
             FragmentNavigation.gotToReplaceMessageFragment(getSupportFragmentManager());
         });
     }
 
-    /** Цей метод загружає та відображає Fragment курса валют */
+    /**
+     * Цей метод завантажує та відображає Fragment курсу валют.
+     */
     private void showFragmentCurrencyBank(){
         FragmentNavigation.addFragmentInTheMiddleOfAnother(
                 getChildFragmentManager(),
@@ -120,6 +185,10 @@ public class LobbyFragment extends Fragment {
         );
     }
 
+    /**
+     * Отримати FragmentManager для керування фрагментами.
+     * @return Об'єкт FragmentManager для керування фрагментами.
+     */
     private FragmentManager getSupportFragmentManager(){
         if(getActivity() != null){
             return getActivity().getSupportFragmentManager();

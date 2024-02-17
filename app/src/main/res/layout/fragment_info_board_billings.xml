@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".basic.functionality.fragment.billings.InfoBoardBillingsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <HorizontalScrollView
             android:id="@+id/HorizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:fillViewport="true"
             android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,10 +30,21 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
                     android:layout_width="120dp"
-                    android:layout_height="80dp"
+                    android:layout_height="match_parent"
                     android:background="@drawable/cart_lite"
                     android:elevation="4dp">
 
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/textBalance"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout24" />
 
                     <ImageView
                         android:id="@+id/imageBalance"
@@ -46,8 +57,10 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
+                        android:id="@+id/linearLayout24"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:maxWidth="150dp"
                         android:orientation="horizontal"
@@ -80,7 +93,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout2"
                     android:layout_width="120dp"
-                    android:layout_height="80dp"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:background="@drawable/cart_lite"
                     android:elevation="4dp">
@@ -100,6 +113,7 @@
                         android:id="@+id/linearLayout6"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:maxWidth="150dp"
                         android:orientation="horizontal"
@@ -127,17 +141,28 @@
                             android:textSize="16sp" />
                     </LinearLayout>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/textSavings"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="120dp"
-                    android:layout_height="80dp"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:background="@drawable/cart_lite"
                     android:elevation="4dp">
 
                     <ImageView
-                        android:id="@+id/imageView5"
+                        android:id="@+id/imageIconDebt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -150,12 +175,13 @@
                         android:id="@+id/linearLayout9"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:maxWidth="150dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+                        app:layout_constraintTop_toBottomOf="@+id/imageIconDebt">
 
                         <TextView
                             android:id="@+id/tVTotalDebtOweMe"
@@ -185,13 +211,12 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/linearLayout25"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
                         android:gravity="center"
                         android:maxWidth="150dp"
                         android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
@@ -222,6 +247,17 @@
                             android:layout_marginRight="5dp"
                             android:src="@drawable/baseline_vertical_align_bottom_16" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/textDebtys"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout25" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.monefy.basic.functionality.adapter;
+package com.example.monefy.basic.functionality.Interface.adapter;
 
 
 public interface OnItemClickListener {

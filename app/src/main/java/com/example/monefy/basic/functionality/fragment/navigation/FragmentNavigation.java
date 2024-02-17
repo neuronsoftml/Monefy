@@ -7,9 +7,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.monefy.R;
+import com.example.monefy.basic.functionality.fragment.accounting.AccountingFragment;
 import com.example.monefy.basic.functionality.fragment.billings.BillingsFragment;
 import com.example.monefy.basic.functionality.fragment.billings.EditBillingsFragment;
-import com.example.monefy.basic.functionality.fragment.income.IncomeFragment;
+import com.example.monefy.basic.functionality.fragment.accounting.revenue.IncomeFragment;
 import com.example.monefy.basic.functionality.fragment.message.MessageFragment;
 
 public class FragmentNavigation {
@@ -57,11 +58,11 @@ public class FragmentNavigation {
         replaceFragment(fragmentManager, editBillingsFragment, containerHome, "EditBillingsFragment");
     }
 
-    /** Цей метод здійснює перехід до IncomeFragment
+    /** Цей метод здійснює перехід до AccountingFragment
      * @param fragmentManager
      */
-    public static void gotToReplaceIncomesFragment(FragmentManager fragmentManager){
-        replaceFragment(fragmentManager,new IncomeFragment(), containerHome, "IncomeFragment");
+    public static void gotToReplaceAccountingFragment(FragmentManager fragmentManager){
+        replaceFragment(fragmentManager,new AccountingFragment(), containerHome, "AccountingFragment");
     }
 
     /** Цей метод здійснює перехід до messageFragment*/

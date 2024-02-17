@@ -29,7 +29,6 @@ import com.example.monefy.basic.functionality.controller.billings.BillingsContro
 import com.example.monefy.basic.functionality.controller.message.ToastController;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BillingsListFragment extends Fragment {
@@ -43,10 +42,13 @@ public class BillingsListFragment extends Fragment {
 
     private HistoryBillingsFragment historyBillingsFragment;
 
+    /** Цей метод здійснює ініціалізацію UI елементів які знаходять в фрагменті
+     * @param view віджети
+     */
     private void setupUIElements(View view){
         this.tvMessage = view.findViewById(R.id.tVMessage);
         this.recyclerView = view.findViewById(R.id.listItemBillings);
-        this.horizontalBillingsIndicator = view.findViewById(R.id.horizontalBillingsIndicator);
+        this.horizontalBillingsIndicator = view.findViewById(R.id.horizontalIndicator);
     }
 
     @Override
@@ -67,19 +69,21 @@ public class BillingsListFragment extends Fragment {
        return view;
     }
 
-    private List<Billings> billingsList = new ArrayList<>();
+    /**Адаптер для рахуків*/
     private BillingsListAdapter billingsListAdapter;
 
-    private void showBillingsListAdapter(){
+    /** Цей метод відображає адаптер рахунків*/
+    private void showBillingsListAdapter(List<Billings> billingsList){
         if(billingsListAdapter == null){
             billingsListAdapter = new BillingsListAdapter(billingsList);
             recyclerView.setAdapter(billingsListAdapter);
         }else{
+            billingsListAdapter.updateBillingsList(billingsList);
             billingsListAdapter.notifyDataSetChanged();
         }
     }
 
-
+    /** Цей метод виконує обробку події кліку по вибраному рахунку*/
     private void handlerClickItemListBillings() {
         handlerBillingDialogCallback();
 
@@ -94,11 +98,13 @@ public class BillingsListFragment extends Fragment {
     }
 
     private BillingDialogCallback billingDialogCallback;
+
+    /** Цей метод виконує обробку події кліку вибраної обпциї*/
     private void handlerBillingDialogCallback(){
         billingDialogCallback = new BillingDialogCallback() {
             @Override
             public void onSuccessDelete(Billings billing) {
-                handlerDelete(billing);
+                handlerDelete();
             }
 
             @Override
@@ -138,12 +144,14 @@ public class BillingsListFragment extends Fragment {
         };
     }
 
-    private void handlerDelete(Billings billings){
-        billingsListAdapter.removeBillings(billings);
+    /** Цей метод виконує оброку видалити рахунок*/
+    private void handlerDelete(){
+        infoBoardBillingsFragment.mustBeUpdatedBillings();
         loadListBillings();
         ToastController.showToastOnSuccessful(getContext(),R.string.textSuccessfulDeleteBillings);
     }
 
+    /** Цей метод виконує обробку редагування рахунку*/
     private void handlerEdit(Billings billings){
         Bundle bundle = new Bundle();
         bundle.putSerializable("billing", (Serializable) billings);
@@ -153,6 +161,7 @@ public class BillingsListFragment extends Fragment {
         }
     }
 
+    /** Цей метод виконує обробку вибору рахунку транзакції*/
     private void handlerSelectReplenishment(Billings bill){
         ModalSelectReplenishment modalSelectReplenishment = new ModalSelectReplenishment(
                 getContext(),
@@ -169,6 +178,7 @@ public class BillingsListFragment extends Fragment {
         modalSelectReplenishment.modalStart();
     }
 
+    /** Цей метод виконує обробку транзакції рахунку*/
     private void handlerReplenishment(ModalTransferFragment modalTransferFragment){
         modalTransferFragment.show(getChildFragmentManager(),"Modal");
         modalTransferFragment.startDialogModal(new DialogCallback() {
@@ -185,18 +195,18 @@ public class BillingsListFragment extends Fragment {
         });
     }
 
+    /** Цей метод виконує загрузку рахунків з Controllera*/
     private void loadListBillings(){
-        BillingsController.getBillingsList(new OnBillingsCallback() {
+        BillingsController.getAllBillings(new OnBillingsCallback() {
             @Override
             public void onBillingsDataReceived(List<Billings> billingsList) {
-                BillingsListFragment.this.billingsList.clear();
-                BillingsListFragment.this.billingsList.addAll(billingsList);
-                infoBoardBillingsFragment.onDataLoaded();
-                billingsFragment.setDataCounterBillings(BillingsListFragment.this.billingsList.size());
-                showBillingsListAdapter();
+                int sizeBillings =  billingsList.size();
+                infoBoardBillingsFragment.onBillingsDataReceived(billingsList);
+                billingsFragment.setDataCounterBillings(sizeBillings);
+                showBillingsListAdapter(billingsList);
                 handlerClickItemListBillings();
-                showHorizontalBillingsIndicator();
-                recyclerViewScrollListener();
+                showHorizontalBillingsIndicator(sizeBillings);
+                recyclerViewScrollListener(billingsList);
             }
 
             @Override
@@ -206,11 +216,13 @@ public class BillingsListFragment extends Fragment {
         });
     }
 
-    private void showHorizontalBillingsIndicator(){
-        horizontalBillingsIndicator.setPageCount(billingsList.size());
+    /** Цей метод виконує відображення нижнього індекатора кількості рахунків*/
+    private void showHorizontalBillingsIndicator(int size){
+        horizontalBillingsIndicator.setPageCount(size);
     }
 
-    private void recyclerViewScrollListener(){
+    /** Цей метод моніторить скролінк  списка рахунків */
+    private void recyclerViewScrollListener(List<Billings> billingsList){
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -225,7 +237,7 @@ public class BillingsListFragment extends Fragment {
                 // Оновлення індикатора
                 horizontalBillingsIndicator.setCurrentPage(centerIndex);
                 if(centerIndex != -1){
-                    historyBillingsFragment.updateDataHistory(billingsList.get(centerIndex));
+                    historyBillingsFragment.updateDataHistoryBillings(billingsList.get(centerIndex));
                 }
             }
         });
@@ -243,7 +255,4 @@ public class BillingsListFragment extends Fragment {
         this.infoBoardBillingsFragment = infoBoardBillingsFragment;
     }
 
-    public List<Billings> getBillingsList() {
-        return billingsList;
-    }
 }

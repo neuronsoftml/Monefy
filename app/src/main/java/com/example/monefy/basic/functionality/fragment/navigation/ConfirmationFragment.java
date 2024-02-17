@@ -12,6 +12,8 @@ import android.widget.ImageButton;
 import com.example.monefy.R;
 import com.example.monefy.basic.functionality.Interface.navigation.ClickListener;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class ConfirmationFragment extends Fragment {
     private ImageButton imgBtnClose, imgBtnSetUp;
 
@@ -41,7 +43,11 @@ public class ConfirmationFragment extends Fragment {
         });
 
         imgBtnSetUp.setOnClickListener(v->{
-            clickListener.clickBtnSetUp();
+            try {
+                clickListener.clickBtnSetUp();
+            } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 

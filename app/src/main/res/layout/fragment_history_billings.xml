@@ -4,13 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".basic.functionality.fragment.history.HistoryBillingsFragment"
-    android:background="@drawable/bg_lite_white_round_top_left_right">
+    android:background="@drawable/bg_lite_white_round_top_left_right"
+    tools:context=".basic.functionality.fragment.history.HistoryBillingsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textMessagePage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:visibility="gone"
+            android:text="@string/textDataNotFound"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textTitlePanel"
@@ -31,24 +42,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:text="@string/textViewAll"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:drawableEnd="@drawable/icon_view_24"
             android:background="@drawable/button_lite_black"
+            android:drawableEnd="@drawable/icon_view_24"
             android:drawablePadding="5dp"
+            android:text="@string/textViewAll"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textBilling"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="28sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <ListView
+            android:id="@+id/listViewHistoryBillings"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/button" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

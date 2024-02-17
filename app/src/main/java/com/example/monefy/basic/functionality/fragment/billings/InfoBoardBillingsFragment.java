@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.example.monefy.R;
 
 import com.example.monefy.basic.functionality.Interface.bank.monoBank.CallbackMonoBank;
+import com.example.monefy.basic.functionality.Interface.billings.OnBillingsCallback;
 import com.example.monefy.basic.functionality.controller.bank.monoBank.MonoBankController;
-import com.example.monefy.basic.functionality.Interface.DataLoadListener;
 import com.example.monefy.basic.functionality.model.billings.Billings;
 import com.example.monefy.basic.functionality.model.billings.Obligation;
 import com.example.monefy.basic.functionality.model.billings.TotalAmount;
@@ -24,10 +24,8 @@ import com.example.monefy.basic.functionality.model.currency.CurrencyMonoBank;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoBoardBillingsFragment extends Fragment implements DataLoadListener {
-    private BillingsListFragment billingsListFragment;
+public class InfoBoardBillingsFragment extends Fragment implements OnBillingsCallback {
     private TextView tvTotalSavings, tvTotalAmount, tVTotalDebtOweMe,tVTotalDebtImGuilty;
-    private final List<CurrencyMonoBank> currencyMonoBankList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,37 +48,16 @@ public class InfoBoardBillingsFragment extends Fragment implements DataLoadListe
         this.tVTotalDebtImGuilty =  view.findViewById(R.id.tVTotalDebtImGuilty);
     }
 
-    public void setBillingsListFragment(BillingsListFragment billingsListFragment) {
-        this.billingsListFragment = billingsListFragment;
-    }
+    private final List<Billings> billingsList = new ArrayList<>();
+    private boolean isLoadBilling = false;
 
-    @Override
-    public void onDataLoaded() {
-        if((billingsListFragment.getBillingsList() != null)){
-            updateInfoBord(billingsListFragment.getBillingsList());
+    private final List<CurrencyMonoBank> currencyMonoBankList = new ArrayList<>();
+    private boolean isLoadCurrencyBank = false;
+
+    private void checkDataReadiness(){
+        if(isLoadBilling && isLoadCurrencyBank){
+            updateInfoBord(billingsList, currencyMonoBankList);
         }
-    }
-
-    private void setValueTotalAmount(List<Billings> billings) {
-        TotalAmount totalAmount = new TotalAmount(0, billings, currencyMonoBankList);
-        tvTotalAmount.setText(String.valueOf(totalAmount.getAmount()));
-    }
-
-    private void setValueTotalSaving(List<Billings> billings) {
-       TotalSavings totalSavings = new TotalSavings(0, billings, currencyMonoBankList);
-       tvTotalSavings.setText(String.valueOf(totalSavings.getAmount()));
-    }
-
-    private void setValueTotalDEBT(List<Billings> billings){
-      TotalDebt totalDebt = new TotalDebt(billings,currencyMonoBankList);
-      tVTotalDebtOweMe.setText(String.valueOf(totalDebt.calculateTotalDebtAmountInUAHByDebtor(Obligation.DEBT_TO_ME.getTitle())));
-      tVTotalDebtImGuilty.setText(String.valueOf(totalDebt.calculateTotalDebtAmountInUAHByDebtor(Obligation.DEBT_TO_ANOTHER.getTitle())));
-    }
-
-    public void updateInfoBord(List<Billings> billings){
-        setValueTotalAmount(billings);
-        setValueTotalSaving(billings);
-        setValueTotalDEBT(billings);
     }
 
     private void loadCurrencyMonoBank(){
@@ -88,8 +65,9 @@ public class InfoBoardBillingsFragment extends Fragment implements DataLoadListe
         monoBankController.getCurrencyMonoBanksRates(new CallbackMonoBank() {
             @Override
             public void onResponse(List<CurrencyMonoBank> currencyMonoBankListCallBack) {
+                isLoadCurrencyBank = true;
                 currencyMonoBankList.addAll(currencyMonoBankListCallBack);
-                updateInfoBord(billingsListFragment.getBillingsList());
+                checkDataReadiness();
             }
 
             @Override
@@ -99,4 +77,44 @@ public class InfoBoardBillingsFragment extends Fragment implements DataLoadListe
         });
     }
 
+    @Override
+    public void onBillingsDataReceived(List<Billings> billingsListCallBack) {
+        if(billingsListCallBack != null){
+            isLoadBilling = true;
+            billingsList.addAll(billingsListCallBack);
+            checkDataReadiness();
+        }
+    }
+
+    @Override
+    public void onDataNotFound() {
+
+    }
+
+    private void updateInfoBord(List<Billings> billings, List<CurrencyMonoBank> currencyMonoBankList){
+        setValueTotalAmount(billings,currencyMonoBankList);
+        setValueTotalSaving(billings, currencyMonoBankList);
+        setValueTotalDEBT(billings, currencyMonoBankList);
+    }
+
+    private void setValueTotalAmount(List<Billings> billings , List<CurrencyMonoBank> currencyMonoBankList) {
+        TotalAmount totalAmount = new TotalAmount(0, billings, currencyMonoBankList);
+        tvTotalAmount.setText(String.valueOf(totalAmount.getAmount()));
+    }
+
+    private void setValueTotalSaving(List<Billings> billings, List<CurrencyMonoBank> currencyMonoBankList) {
+        TotalSavings totalSavings = new TotalSavings(0, billings, currencyMonoBankList);
+        tvTotalSavings.setText(String.valueOf(totalSavings.getAmount()));
+    }
+
+    private void setValueTotalDEBT(List<Billings> billings, List<CurrencyMonoBank> currencyMonoBankList){
+        TotalDebt totalDebt = new TotalDebt(billings,currencyMonoBankList);
+        tVTotalDebtOweMe.setText(String.valueOf(totalDebt.calculateTotalDebtAmountInUAHByDebtor(Obligation.DEBT_TO_ME.getTitle())));
+        tVTotalDebtImGuilty.setText(String.valueOf(totalDebt.calculateTotalDebtAmountInUAHByDebtor(Obligation.DEBT_TO_ANOTHER.getTitle())));
+    }
+
+    public void mustBeUpdatedBillings(){
+        isLoadBilling = false;
+        billingsList.clear();
+    }
 }

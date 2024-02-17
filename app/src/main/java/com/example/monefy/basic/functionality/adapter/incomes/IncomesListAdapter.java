@@ -1,7 +1,6 @@
 package com.example.monefy.basic.functionality.adapter.incomes;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.monefy.R;
-import com.example.monefy.basic.functionality.adapter.OnItemClickListener;
+import com.example.monefy.basic.functionality.Interface.adapter.OnItemClickListener;
 import com.example.monefy.basic.functionality.model.income.Income;
 
 import java.util.List;
 
 public class IncomesListAdapter extends BaseAdapter {
-    private Context context;
+    private final Context context;
     private List<Income> arrayList;
     private OnItemClickListener onItemClickListener;
     private ImageView icon;
@@ -30,6 +29,9 @@ public class IncomesListAdapter extends BaseAdapter {
         this.arrayList = arrayList;
     }
 
+    /** Цей метод здійснює ініціалізацію UI елементів які знаходять в фрагменті
+     * @param convertView віджети
+     */
     private void setupUIElements(View convertView){
         icon = convertView.findViewById(R.id.imageIncomes_list_item);
         name = convertView.findViewById(R.id.name);

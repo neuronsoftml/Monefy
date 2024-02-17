@@ -1,4 +1,4 @@
-package com.example.monefy.basic.functionality.fragment.income;
+package com.example.monefy.basic.functionality.fragment.accounting.revenue;
 
 import android.os.Bundle;
 
@@ -15,7 +15,7 @@ public class IncomeFragment extends Fragment {
     private FragmentContainerView fragIncome;
     private FragmentContainerView fragInformationBoard;
     private final InfoBoardIncomeFragment infoBoardIncomeFragment = new InfoBoardIncomeFragment();
-    private final IncomeListFragment incomeListFragment = new IncomeListFragment();
+    private final RevenueListFragment revenueListFragment = new RevenueListFragment();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +49,7 @@ public class IncomeFragment extends Fragment {
     }
 
     private void showFragInformationBoard(){
-        infoBoardIncomeFragment.setIncomeListFragment(incomeListFragment);
+        infoBoardIncomeFragment.setIncomeListFragment(revenueListFragment);
 
         /*
         FragmentSwitcher.addTransactionFragment(
